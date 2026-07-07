@@ -1,0 +1,6 @@
+method,max_value,local_peaks_30pct
+Nearest (raw),1771.7,66072
+Point Gaussian,2508.7,99
+KNN-IDW k=6,1764.0,53
+Weighted Plane k=8,1754.1,2054
+Wendland R=60mm,1514.7,4
