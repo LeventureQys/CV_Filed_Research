@@ -1,26 +1,30 @@
 {
-  "model_evidence": {
-    "step_file": "半圆柱压头φ12_.stp",
-    "surface": "cylindrical",
-    "radius_mm": 6.0,
-    "diameter_mm": 12.0,
-    "axis_center_y_mm": 40.0,
-    "axial_min_mm": -8.0,
-    "axial_max_mm": 8.0,
-    "step_entity_evidence": [
-      "#1483",
-      "#1487",
-      "#587",
-      "#625"
+  "model": "半圆柱压头φ12_.stl",
+  "mesh_vertices": 814,
+  "mesh_triangles": 1656,
+  "mesh_watertight": true,
+  "connected_components": 1,
+  "bounds_mm": [
+    [
+      -35.0,
+      0.0,
+      -35.0
+    ],
+    [
+      35.0,
+      45.84956741333008,
+      35.0
     ]
-  },
-  "sensor_count": 12,
-  "support_radius_mm": 8.0,
-  "interpolated_min_on_covered": 0.18044075512743785,
-  "interpolated_max_on_covered": 0.9547066682949343,
-  "coverage_min": 0.4063558927540323,
+  ],
+  "cell_count": 31,
+  "support_radius_mm": 30.0,
+  "max_attachment_error_mm": 4.039291437971743e-05,
+  "covered_vertex_count": 814,
+  "interpolated_min_on_covered": 0.14728483602103531,
+  "interpolated_max_on_covered": 0.6419524703739982,
+  "coverage_min": 0.005583562644447142,
   "coverage_max": 1.0,
-  "effective_min": 0.07332316413902173,
-  "effective_max": 0.9547066682949343,
+  "effective_min": 0.0020036188493476005,
+  "effective_max": 0.6348770576788973,
   "all_values_finite": true
 }

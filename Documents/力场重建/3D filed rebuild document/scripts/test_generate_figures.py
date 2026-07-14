@@ -11,62 +11,52 @@ MODULE = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(MODULE)
 
 
-class SurfaceFieldFigureTests(unittest.TestCase):
-    def test_step_geometry_evidence(self):
-        evidence = MODULE.verify_step_geometry()
-        self.assertEqual(evidence["radius_mm"], 6.0)
-        self.assertEqual(evidence["axial_min_mm"], -8.0)
-        self.assertEqual(evidence["axial_max_mm"], 8.0)
+class FullModelSurfaceFieldTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.project, cls.mesh, cls.centers, cls.normals, cls.values = MODULE.load_project()
+        cls.result = MODULE.reconstruct(cls.mesh, cls.centers, cls.values)
+
+    def test_full_model_and_real_cells_loaded(self):
+        self.assertEqual(len(self.mesh.vertices), 814)
+        self.assertEqual(len(self.mesh.faces), 1656)
+        self.assertTrue(self.mesh.is_watertight)
+        self.assertEqual(len(self.centers), 31)
 
     def test_wendland_boundary_and_range(self):
-        distances = np.array([0.0, 2.0, 4.0, 6.0, 8.0, 10.0])
-        weights = MODULE.wendland_c2(distances, support=8.0)
+        distances = np.array([0.0, 7.5, 15.0, 22.5, 30.0, 35.0])
+        weights = MODULE.wendland_c2(distances, support=30.0)
         self.assertAlmostEqual(weights[0], 1.0)
         self.assertAlmostEqual(weights[-2], 0.0)
         self.assertAlmostEqual(weights[-1], 0.0)
-        self.assertTrue(np.all(weights >= 0.0))
-        self.assertTrue(np.all(weights <= 1.0))
+        self.assertTrue(np.all((weights >= 0.0) & (weights <= 1.0)))
         self.assertTrue(np.all(np.diff(weights) <= 1e-12))
 
-    def test_selected_points_lie_on_cylinder(self):
-        x, y, z = MODULE.sensor_xyz(offset_mm=0.0)
-        radius_squared = x**2 + (y - MODULE.AXIS_CENTER_Y_MM) ** 2
-        self.assertTrue(np.allclose(radius_squared, MODULE.RADIUS_MM**2))
-        self.assertTrue(np.all(z >= -MODULE.LENGTH_MM / 2.0))
-        self.assertTrue(np.all(z <= MODULE.LENGTH_MM / 2.0))
+    def test_cells_attach_to_complete_surface(self):
+        self.assertLess(self.result["attachment_error"].max(), 1e-3)
+        self.assertEqual(len(self.result["seeds"]), len(self.centers))
 
-    def test_constant_samples_reconstruct_constant_interpolation(self):
-        sensors = MODULE.SENSORS.copy()
-        sensors[:, 2] = 0.63
-        _, _, interpolated, coverage, effective, weight_sum = MODULE.reconstruct(
-            np.linspace(-8.0, 8.0, 80),
-            np.linspace(-90.0, 90.0, 100),
-            sensors=sensors,
-        )
-        covered = weight_sum > 1e-12
-        self.assertTrue(np.allclose(interpolated[covered], 0.63))
-        self.assertTrue(np.all((coverage >= 0.0) & (coverage <= 1.0)))
-        self.assertTrue(np.all(effective <= interpolated + 1e-12))
+    def test_constant_samples_preserve_constant_interpolation(self):
+        constant = np.full(len(self.centers), 0.63)
+        result = MODULE.reconstruct(self.mesh, self.centers, constant)
+        covered = result["weight_sum"] > 1e-12
+        self.assertTrue(np.allclose(result["interpolated"][covered], 0.63))
+        self.assertTrue(np.all((result["coverage"] >= 0.0) & (result["coverage"] <= 1.0)))
 
     def test_interpolation_stays_in_sample_range(self):
-        _, _, interpolated, coverage, effective, weight_sum = MODULE.reconstruct(
-            np.linspace(-8.0, 8.0, 80), np.linspace(-90.0, 90.0, 100)
-        )
-        covered = weight_sum > 1e-12
-        self.assertGreaterEqual(
-            interpolated[covered].min(), MODULE.SENSORS[:, 2].min() - 1e-12
-        )
-        self.assertLessEqual(
-            interpolated[covered].max(), MODULE.SENSORS[:, 2].max() + 1e-12
-        )
-        self.assertTrue(np.isfinite(coverage).all())
-        self.assertTrue(np.isfinite(effective).all())
+        covered = self.result["weight_sum"] > 1e-12
+        interpolated = self.result["interpolated"][covered]
+        self.assertGreaterEqual(interpolated.min(), self.values.min() - 1e-12)
+        self.assertLessEqual(interpolated.max(), self.values.max() + 1e-12)
+        self.assertTrue(np.isfinite(self.result["effective"]).all())
 
-    def test_surface_distance_not_shorter_than_chord(self):
-        angle = np.deg2rad(np.linspace(0.0, 180.0, 1000))
-        surface_distance = MODULE.RADIUS_MM * angle
-        chord = 2.0 * MODULE.RADIUS_MM * np.sin(angle / 2.0)
-        self.assertTrue(np.all(surface_distance + 1e-12 >= chord))
+    def test_surface_path_not_shorter_than_euclidean(self):
+        vertices = np.asarray(self.mesh.vertices)
+        for sample_index, source in enumerate(self.result["seeds"]):
+            distances = self.result["distances"][sample_index]
+            finite = np.isfinite(distances)
+            chord = np.linalg.norm(vertices - vertices[source], axis=1)
+            self.assertTrue(np.all(distances[finite] + 1e-9 >= chord[finite]))
 
 
 if __name__ == "__main__":
