@@ -334,7 +334,219 @@ def draw_product_architecture():
     plt.close(fig)
 
 
+def draw_host_algorithm_pipeline():
+    fig, ax = plt.subplots(figsize=(18, 12), dpi=160)
+    fig.patch.set_facecolor("#F7F9FC")
+    ax.set_facecolor("#F7F9FC")
+    ax.set_xlim(0, 1)
+    ax.set_ylim(0, 1)
+    ax.axis("off")
+
+    ax.text(
+        0.5,
+        0.94,
+        "上位机核心算法管线",
+        ha="center",
+        va="center",
+        fontsize=24,
+        fontweight="bold",
+        color="#172033",
+    )
+    ax.text(
+        0.5,
+        0.895,
+        "从可信原始帧到测量结果，再分支到显示处理",
+        ha="center",
+        va="center",
+        fontsize=12,
+        color="#657188",
+    )
+
+    stages = [
+        ("01", "原始帧校验", "帧序号 · 时间戳\n完整性与采样率", "#E8F1FF", "#3978C5"),
+        ("02", "设备 / 模式识别", "传感器类型 · signed\npositive_bias · rectified", "#E8F1FF", "#3978C5"),
+        ("03", "基线与共模校正", "空载基线 · 慢漂移\n帧级共模", "#EAF7F2", "#27896A"),
+        ("04", "坏点处理", "断路 · 短路 · 卡死\n饱和与质量标志", "#EAF7F2", "#27896A"),
+        ("05", "空间响应校正", "仅对已有模型的设备\n补偿串扰与扩散", "#FFF6DF", "#C58A18"),
+        ("06", "ADC → 力 / 压力", "Cell 非线性标定\n迟滞与状态补偿", "#FFF6DF", "#C58A18"),
+        ("07", "特征与总力计算", "压力图 · 接触区域\n质心 · 面积 · 总力", "#F4ECFA", "#8756B3"),
+        ("08", "因果时间稳定化", "EMA / IIR 可配置\n保持实时性与峰值", "#F4ECFA", "#8756B3"),
+        ("09", "显示专用处理", "死区 · 迟滞 · 连通域\n热图插值与视觉平滑", "#E6F5F5", "#23888B"),
+    ]
+
+    positions = [
+        (0.06, 0.64),
+        (0.37, 0.64),
+        (0.68, 0.64),
+        (0.68, 0.35),
+        (0.37, 0.35),
+        (0.06, 0.35),
+        (0.06, 0.06),
+        (0.37, 0.06),
+        (0.68, 0.06),
+    ]
+    box_width = 0.25
+    box_height = 0.19
+
+    for (number, title, subtitle, facecolor, edgecolor), (x, y) in zip(stages, positions):
+        add_box(
+            ax,
+            x,
+            y,
+            box_width,
+            box_height,
+            title,
+            subtitle,
+            facecolor,
+            edgecolor,
+            title_size=14,
+            subtitle_size=9.6,
+        )
+        ax.text(
+            x + 0.018,
+            y + box_height - 0.025,
+            number,
+            ha="left",
+            va="top",
+            fontsize=11,
+            fontweight="bold",
+            color=edgecolor,
+            zorder=4,
+        )
+
+    horizontal_arrows = [
+        ((0.31, 0.735), (0.37, 0.735)),
+        ((0.62, 0.735), (0.68, 0.735)),
+        ((0.68, 0.445), (0.62, 0.445)),
+        ((0.37, 0.445), (0.31, 0.445)),
+        ((0.31, 0.155), (0.37, 0.155)),
+        ((0.62, 0.155), (0.68, 0.155)),
+    ]
+    vertical_arrows = [
+        ((0.805, 0.64), (0.805, 0.54)),
+        ((0.185, 0.35), (0.185, 0.25)),
+    ]
+    for start, end in horizontal_arrows + vertical_arrows:
+        add_arrow(ax, start, end, width=2.3)
+
+    fig.savefig(
+        ASSET_DIR / "上位机核心算法.png",
+        bbox_inches="tight",
+        facecolor=fig.get_facecolor(),
+    )
+    plt.close(fig)
+
+
+def draw_baseline_state_machine():
+    fig, ax = plt.subplots(figsize=(16, 10), dpi=160)
+    fig.patch.set_facecolor("#F7F9FC")
+    ax.set_facecolor("#F7F9FC")
+    ax.set_xlim(0, 1)
+    ax.set_ylim(0, 1)
+    ax.axis("off")
+
+    ax.text(
+        0.5,
+        0.93,
+        "基线与慢漂移状态机",
+        ha="center",
+        va="center",
+        fontsize=24,
+        fontweight="bold",
+        color="#172033",
+    )
+    ax.text(
+        0.5,
+        0.875,
+        "只在确定空载时学习基线，持续受压期间必须冻结",
+        ha="center",
+        va="center",
+        fontsize=12,
+        color="#657188",
+    )
+
+    states = [
+        (
+            0.07,
+            0.43,
+            "空载跟踪",
+            "确认无接触\n慢速更新 baseline\n鲁棒 EMA / 分位数估计",
+            "#EAF7F2",
+            "#27896A",
+        ),
+        (
+            0.39,
+            0.43,
+            "接触冻结",
+            "检测到有效接触\n冻结受力 Cell 的 baseline\n继续保留原始响应",
+            "#FFF6DF",
+            "#C58A18",
+        ),
+        (
+            0.71,
+            0.43,
+            "释放确认",
+            "检测释放并等待稳定\n检查残余响应与坏点\n满足延迟后恢复更新",
+            "#F4ECFA",
+            "#8756B3",
+        ),
+    ]
+
+    for x, y, title, subtitle, facecolor, edgecolor in states:
+        add_box(
+            ax,
+            x,
+            y,
+            0.22,
+            0.25,
+            title,
+            subtitle,
+            facecolor,
+            edgecolor,
+            title_size=15,
+            subtitle_size=10,
+        )
+
+    add_arrow(ax, (0.29, 0.555), (0.39, 0.555), color="#C58A18", width=2.5)
+    add_arrow(ax, (0.61, 0.555), (0.71, 0.555), color="#8756B3", width=2.5)
+    add_arrow(ax, (0.82, 0.43), (0.18, 0.43), color="#27896A", width=2.5)
+
+    ax.text(0.34, 0.59, "检测到接触", ha="center", fontsize=10.5, color="#526078")
+    ax.text(0.66, 0.59, "检测到释放", ha="center", fontsize=10.5, color="#526078")
+    ax.text(0.50, 0.37, "稳定时间满足 → 延迟恢复基线更新", ha="center", fontsize=10.5, color="#526078")
+
+    warning = FancyBboxPatch(
+        (0.14, 0.12),
+        0.72,
+        0.11,
+        boxstyle="round,pad=0.012,rounding_size=0.02",
+        linewidth=1.5,
+        edgecolor="#C44D61",
+        facecolor="#FCEAEC",
+    )
+    ax.add_patch(warning)
+    ax.text(
+        0.5,
+        0.175,
+        "禁止：持续受压时无条件更新基线，否则真实压力会被逐步学进 baseline",
+        ha="center",
+        va="center",
+        fontsize=11.5,
+        fontweight="bold",
+        color="#9B3E50",
+    )
+
+    fig.savefig(
+        ASSET_DIR / "基线与慢漂移状态机.png",
+        bbox_inches="tight",
+        facecolor=fig.get_facecolor(),
+    )
+    plt.close(fig)
+
+
 if __name__ == "__main__":
     draw_layered_model()
     draw_product_architecture()
+    draw_host_algorithm_pipeline()
+    draw_baseline_state_machine()
     print(f"Generated diagrams in: {ASSET_DIR}")

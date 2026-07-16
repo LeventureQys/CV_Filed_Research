@@ -1,0 +1,744 @@
+{
+    "app_version": "2.0.0",
+    "calibration": {
+        "display_mode": "adc",
+        "force_conversion_active": false,
+        "params": {
+        }
+    },
+    "completed_at": "2026-07-13T16:06:24",
+    "created_at": "2026-07-13T16:02:23",
+    "devices": [
+        {
+            "active_data_points": 96,
+            "active_from": -1,
+            "active_to": -1,
+            "alias": "",
+            "cols": 8,
+            "columns": [
+                {
+                    "channel_id": -1,
+                    "data_index": -1,
+                    "name": "timestamp",
+                    "role": "timestamp",
+                    "unit": "s"
+                },
+                {
+                    "channel_id": -1,
+                    "data_index": -1,
+                    "name": "elapsed",
+                    "role": "elapsed",
+                    "unit": "s"
+                },
+                {
+                    "channel_id": -1,
+                    "data_index": -1,
+                    "name": "frame_index",
+                    "role": "frame_index",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 0,
+                    "data_index": 0,
+                    "name": "ch0",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 1,
+                    "data_index": 1,
+                    "name": "ch1",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 2,
+                    "data_index": 2,
+                    "name": "ch2",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 3,
+                    "data_index": 3,
+                    "name": "ch3",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 4,
+                    "data_index": 4,
+                    "name": "ch4",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 5,
+                    "data_index": 5,
+                    "name": "ch5",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 6,
+                    "data_index": 6,
+                    "name": "ch6",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 7,
+                    "data_index": 7,
+                    "name": "ch7",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 8,
+                    "data_index": 8,
+                    "name": "ch8",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 9,
+                    "data_index": 9,
+                    "name": "ch9",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 10,
+                    "data_index": 10,
+                    "name": "ch10",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 11,
+                    "data_index": 11,
+                    "name": "ch11",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 12,
+                    "data_index": 12,
+                    "name": "ch12",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 13,
+                    "data_index": 13,
+                    "name": "ch13",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 14,
+                    "data_index": 14,
+                    "name": "ch14",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 15,
+                    "data_index": 15,
+                    "name": "ch15",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 16,
+                    "data_index": 16,
+                    "name": "ch16",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 17,
+                    "data_index": 17,
+                    "name": "ch17",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 18,
+                    "data_index": 18,
+                    "name": "ch18",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 19,
+                    "data_index": 19,
+                    "name": "ch19",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 20,
+                    "data_index": 20,
+                    "name": "ch20",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 21,
+                    "data_index": 21,
+                    "name": "ch21",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 22,
+                    "data_index": 22,
+                    "name": "ch22",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 23,
+                    "data_index": 23,
+                    "name": "ch23",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 24,
+                    "data_index": 24,
+                    "name": "ch24",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 25,
+                    "data_index": 25,
+                    "name": "ch25",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 26,
+                    "data_index": 26,
+                    "name": "ch26",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 27,
+                    "data_index": 27,
+                    "name": "ch27",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 28,
+                    "data_index": 28,
+                    "name": "ch28",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 29,
+                    "data_index": 29,
+                    "name": "ch29",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 30,
+                    "data_index": 30,
+                    "name": "ch30",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 31,
+                    "data_index": 31,
+                    "name": "ch31",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 32,
+                    "data_index": 32,
+                    "name": "ch32",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 33,
+                    "data_index": 33,
+                    "name": "ch33",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 34,
+                    "data_index": 34,
+                    "name": "ch34",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 35,
+                    "data_index": 35,
+                    "name": "ch35",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 36,
+                    "data_index": 36,
+                    "name": "ch36",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 37,
+                    "data_index": 37,
+                    "name": "ch37",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 38,
+                    "data_index": 38,
+                    "name": "ch38",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 39,
+                    "data_index": 39,
+                    "name": "ch39",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 40,
+                    "data_index": 40,
+                    "name": "ch40",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 41,
+                    "data_index": 41,
+                    "name": "ch41",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 42,
+                    "data_index": 42,
+                    "name": "ch42",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 43,
+                    "data_index": 43,
+                    "name": "ch43",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 44,
+                    "data_index": 44,
+                    "name": "ch44",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 45,
+                    "data_index": 45,
+                    "name": "ch45",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 46,
+                    "data_index": 46,
+                    "name": "ch46",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 47,
+                    "data_index": 47,
+                    "name": "ch47",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 48,
+                    "data_index": 48,
+                    "name": "ch48",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 49,
+                    "data_index": 49,
+                    "name": "ch49",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 50,
+                    "data_index": 50,
+                    "name": "ch50",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 51,
+                    "data_index": 51,
+                    "name": "ch51",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 52,
+                    "data_index": 52,
+                    "name": "ch52",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 53,
+                    "data_index": 53,
+                    "name": "ch53",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 54,
+                    "data_index": 54,
+                    "name": "ch54",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 55,
+                    "data_index": 55,
+                    "name": "ch55",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 56,
+                    "data_index": 56,
+                    "name": "ch56",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 57,
+                    "data_index": 57,
+                    "name": "ch57",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 58,
+                    "data_index": 58,
+                    "name": "ch58",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 59,
+                    "data_index": 59,
+                    "name": "ch59",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 60,
+                    "data_index": 60,
+                    "name": "ch60",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 61,
+                    "data_index": 61,
+                    "name": "ch61",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 62,
+                    "data_index": 62,
+                    "name": "ch62",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 63,
+                    "data_index": 63,
+                    "name": "ch63",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 64,
+                    "data_index": 64,
+                    "name": "ch64",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 65,
+                    "data_index": 65,
+                    "name": "ch65",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 66,
+                    "data_index": 66,
+                    "name": "ch66",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 67,
+                    "data_index": 67,
+                    "name": "ch67",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 68,
+                    "data_index": 68,
+                    "name": "ch68",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 69,
+                    "data_index": 69,
+                    "name": "ch69",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 70,
+                    "data_index": 70,
+                    "name": "ch70",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 71,
+                    "data_index": 71,
+                    "name": "ch71",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 72,
+                    "data_index": 72,
+                    "name": "ch72",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 73,
+                    "data_index": 73,
+                    "name": "ch73",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 74,
+                    "data_index": 74,
+                    "name": "ch74",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 75,
+                    "data_index": 75,
+                    "name": "ch75",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 76,
+                    "data_index": 76,
+                    "name": "ch76",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 77,
+                    "data_index": 77,
+                    "name": "ch77",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 78,
+                    "data_index": 78,
+                    "name": "ch78",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 79,
+                    "data_index": 79,
+                    "name": "ch79",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 80,
+                    "data_index": 80,
+                    "name": "ch80",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 81,
+                    "data_index": 81,
+                    "name": "ch81",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 82,
+                    "data_index": 82,
+                    "name": "ch82",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 83,
+                    "data_index": 83,
+                    "name": "ch83",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 84,
+                    "data_index": 84,
+                    "name": "ch84",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 85,
+                    "data_index": 85,
+                    "name": "ch85",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 86,
+                    "data_index": 86,
+                    "name": "ch86",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 87,
+                    "data_index": 87,
+                    "name": "ch87",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 88,
+                    "data_index": 88,
+                    "name": "ch88",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 89,
+                    "data_index": 89,
+                    "name": "ch89",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 90,
+                    "data_index": 90,
+                    "name": "ch90",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 91,
+                    "data_index": 91,
+                    "name": "ch91",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 92,
+                    "data_index": 92,
+                    "name": "ch92",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 93,
+                    "data_index": 93,
+                    "name": "ch93",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 94,
+                    "data_index": 94,
+                    "name": "ch94",
+                    "role": "channel",
+                    "unit": ""
+                },
+                {
+                    "channel_id": 95,
+                    "data_index": 95,
+                    "name": "ch95",
+                    "role": "channel",
+                    "unit": ""
+                }
+            ],
+            "data_file": "device_001.csv",
+            "data_points": 96,
+            "device_id": "device_001",
+            "first_timestamp": 630294.2263789,
+            "frame_count": 12049,
+            "last_timestamp": 630534.9458314,
+            "layout_mask": "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+            "layout_profile": {
+            },
+            "mirror": "none",
+            "observed_fps": 50.05411849713432,
+            "port_name": "",
+            "raw_columns": [
+            ],
+            "raw_data_file": "",
+            "rotation": 0,
+            "rows": 12,
+            "serial_number": ""
+        }
+    ],
+    "last_error": "",
+    "root_dir": "D:/workshop/Processing/multi-device-cascade-host-cpp/Document/Update/v1.0.10 - research/DataSet/织物垫/空载30s-500g-空载30s",
+    "schema_name": "tactile_recording_session",
+    "schema_version": 1,
+    "session_id": "20260713_160223_single_device_2f5f7f",
+    "session_type": "single_device",
+    "status": "completed",
+    "timebase": {
+        "default_playback_fps": 30,
+        "time_unit": "elapsed_seconds"
+    }
+}

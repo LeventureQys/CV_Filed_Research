@@ -1,0 +1,15 @@
+﻿scenario,parameter,retention
+short_contact,1,0.0
+short_contact,2,0.0
+short_contact,3,0.3333333333333333
+short_contact,5,0.6
+short_contact,10,0.8
+low_amplitude_contact,5,0.0
+low_amplitude_contact,8,0.0
+low_amplitude_contact,10,0.8
+low_amplitude_contact,12,0.8
+low_amplitude_contact,20,0.8
+low_amplitude_contact,100,0.8
+new_position_external_mask,44,0.0
+new_position_own_mask,44,0.8
+moving_contact,10,0.0
