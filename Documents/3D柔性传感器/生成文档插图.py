@@ -1,12 +1,15 @@
+import csv
 from pathlib import Path
 
 import matplotlib.pyplot as plt
+import numpy as np
 from matplotlib.patches import FancyArrowPatch, FancyBboxPatch
 
 
 ROOT = Path(__file__).resolve().parent
 ASSET_DIR = ROOT / "assets"
 ASSET_DIR.mkdir(exist_ok=True)
+RESEARCH_DIR = ROOT / "research"
 
 plt.rcParams["font.family"] = "Microsoft YaHei"
 plt.rcParams["axes.unicode_minus"] = False
@@ -98,6 +101,47 @@ def add_arrow_label(ax, x, y, title, subtitle):
         color="#657188",
         zorder=3,
     )
+
+
+def load_session_csv(path):
+    with path.open("r", encoding="utf-8-sig", newline="") as file:
+        rows = list(csv.reader(file))
+
+    header_index = next(index for index, row in enumerate(rows) if row and row[0] == "timestamp")
+    header = rows[header_index]
+    elapsed_index = header.index("elapsed")
+    channel_indices = [index for index, name in enumerate(header) if name.startswith("ch")]
+    elapsed = []
+    values = []
+    for row in rows[header_index + 1 :]:
+        if len(row) < len(header):
+            continue
+        elapsed.append(float(row[elapsed_index]))
+        values.append([float(row[index]) for index in channel_indices])
+    return np.asarray(elapsed), np.asarray(values)
+
+
+def load_legacy_csv(path, sample_rate_hz=10.0):
+    with path.open("r", encoding="utf-8-sig", newline="") as file:
+        rows = list(csv.reader(file))
+
+    header_index = next(index for index, row in enumerate(rows) if row and row[0] == "时间戳")
+    header = rows[header_index]
+    total_index = header.index("总值")
+    totals = []
+    for row in rows[header_index + 1 :]:
+        if len(row) <= total_index:
+            continue
+        totals.append(float(row[total_index]))
+    elapsed = np.arange(len(totals), dtype=float) / sample_rate_hz
+    return elapsed, np.asarray(totals)
+
+
+def moving_average(values, window):
+    if window <= 1:
+        return values.copy()
+    kernel = np.ones(window) / window
+    return np.convolve(values, kernel, mode="same")
 
 
 def draw_layered_model():
@@ -544,9 +588,194 @@ def draw_baseline_state_machine():
     plt.close(fig)
 
 
+def draw_drift_problem():
+    data_path = (
+        RESEARCH_DIR
+        / "DataSet"
+        / "织物垫"
+        / "空载1min-1kg 20min-空载1min"
+        / "20260713_162110_single_device_c56f37"
+        / "device_001.csv"
+    )
+    elapsed, channels = load_session_csv(data_path)
+    total_adc = channels.sum(axis=1)
+    smooth = moving_average(total_adc, 625)
+
+    loaded = total_adc > np.percentile(total_adc, 60)
+    loaded_indices = np.flatnonzero(loaded)
+    start_index = loaded_indices[0]
+    end_index = loaded_indices[-1]
+    hold_time = elapsed[start_index : end_index + 1] - elapsed[start_index]
+    hold_total = total_adc[start_index : end_index + 1]
+    hold_smooth = smooth[start_index : end_index + 1]
+
+    one_minute = 60.0
+    first_mask = (hold_time >= 10) & (hold_time < 10 + one_minute)
+    last_mask = (hold_time > hold_time[-1] - one_minute - 10) & (hold_time <= hold_time[-1] - 10)
+    first_median = float(np.median(hold_total[first_mask]))
+    last_median = float(np.median(hold_total[last_mask]))
+    drift_percent = (last_median - first_median) / first_median * 100
+
+    fig, axes = plt.subplots(1, 2, figsize=(18, 7.5), dpi=160, gridspec_kw={"width_ratios": [2.2, 1]})
+    fig.patch.set_facecolor("#F7F9FC")
+    fig.suptitle("困境一：固定载荷下仍存在长时变化", fontsize=23, fontweight="bold", color="#172033", y=0.97)
+
+    ax = axes[0]
+    ax.set_facecolor("#FFFFFF")
+    ax.plot(hold_time / 60, hold_total, color="#AFC2D8", linewidth=0.45, alpha=0.55, label="逐帧总 ADC")
+    ax.plot(hold_time / 60, hold_smooth, color="#C44D61", linewidth=2.2, label="10 s 平滑趋势")
+    ax.axvspan(10 / 60, (10 + one_minute) / 60, color="#3978C5", alpha=0.12)
+    ax.axvspan((hold_time[-1] - one_minute - 10) / 60, (hold_time[-1] - 10) / 60, color="#C58A18", alpha=0.15)
+    ax.set_title("1 kg 长时保持：逐帧波动之上仍有慢趋势", fontsize=14, fontweight="bold")
+    ax.set_xlabel("保持时间 / min")
+    ax.set_ylabel("96 Cell 总 ADC")
+    ax.grid(alpha=0.18)
+    ax.legend(frameon=False, loc="best")
+
+    ax = axes[1]
+    ax.set_facecolor("#FFFFFF")
+    bars = ax.bar(
+        ["保持初段\n1 min", "保持末段\n1 min"],
+        [first_median, last_median],
+        color=["#3978C5", "#C58A18"],
+        width=0.58,
+    )
+    ax.set_title("首尾稳态中位数对比", fontsize=14, fontweight="bold")
+    ax.set_ylabel("总 ADC 中位数")
+    ax.grid(axis="y", alpha=0.18)
+    for bar, value in zip(bars, [first_median, last_median]):
+        ax.text(bar.get_x() + bar.get_width() / 2, value, f"{value:,.0f}", ha="center", va="bottom", fontsize=11)
+    ax.text(
+        0.5,
+        0.05,
+        f"首尾变化：{drift_percent:+.2f}%\n需进一步区分材料蠕变、界面变化与温漂",
+        transform=ax.transAxes,
+        ha="center",
+        va="bottom",
+        fontsize=11,
+        color="#9B3E50",
+        bbox={"boxstyle": "round,pad=0.5", "facecolor": "#FCEAEC", "edgecolor": "#C44D61"},
+    )
+
+    fig.text(
+        0.5,
+        0.025,
+        "结论：低通可以压低逐帧波动，但不能自动消除保持段均值随时间变化。数据为采集器 processed_display 输出。",
+        ha="center",
+        fontsize=11,
+        color="#526078",
+    )
+    fig.tight_layout(rect=(0.02, 0.07, 0.98, 0.92))
+    fig.savefig(ASSET_DIR / "困境-数据时漂.png", bbox_inches="tight", facecolor=fig.get_facecolor())
+    plt.close(fig)
+
+
+def draw_noise_problem():
+    data_path = (
+        RESEARCH_DIR
+        / "DataSet"
+        / "织物垫"
+        / "1kg砝码压力"
+        / "录制数据_20260710143635_part0.csv"
+    )
+    elapsed, total_adc = load_legacy_csv(data_path)
+    sample_interval = np.median(np.diff(elapsed))
+    if sample_interval > 1:
+        elapsed = elapsed / 1000
+    window_mask = (elapsed >= 12) & (elapsed <= 20)
+    window_time = elapsed[window_mask]
+    window_total = total_adc[window_mask]
+    alpha = 1 - np.exp(-np.median(np.diff(window_time)) / 0.8)
+    ema = np.empty_like(window_total)
+    ema[0] = window_total[0]
+    for index in range(1, len(window_total)):
+        ema[index] = ema[index - 1] + alpha * (window_total[index] - ema[index - 1])
+    raw_roughness = float(np.std(np.diff(window_total)))
+    ema_roughness = float(np.std(np.diff(ema)))
+
+    fig, axes = plt.subplots(1, 2, figsize=(18, 7.5), dpi=160, gridspec_kw={"width_ratios": [2.2, 1]})
+    fig.patch.set_facecolor("#F7F9FC")
+    fig.suptitle("困境二：固定载荷稳态段仍有明显帧间震荡", fontsize=23, fontweight="bold", color="#172033", y=0.97)
+
+    ax = axes[0]
+    ax.set_facecolor("#FFFFFF")
+    ax.plot(window_time, window_total, color="#8AA9C7", linewidth=1.2, label="原始总 ADC")
+    ax.plot(window_time, ema, color="#C44D61", linewidth=2.4, label="EMA 0.8 s")
+    ax.set_title("稳态局部窗口：噪声与真实均值是不同问题", fontsize=14, fontweight="bold")
+    ax.set_xlabel("时间 / s")
+    ax.set_ylabel("96 Cell 总 ADC")
+    ax.grid(alpha=0.18)
+    ax.legend(frameon=False)
+
+    ax = axes[1]
+    ax.set_facecolor("#FFFFFF")
+    bars = ax.bar(["原始", "EMA 0.8 s"], [raw_roughness, ema_roughness], color=["#3978C5", "#27896A"], width=0.58)
+    ax.set_title("帧间 roughness", fontsize=14, fontweight="bold")
+    ax.set_ylabel("相邻帧差值标准差")
+    ax.grid(axis="y", alpha=0.18)
+    for bar, value in zip(bars, [raw_roughness, ema_roughness]):
+        ax.text(bar.get_x() + bar.get_width() / 2, value, f"{value:.1f}", ha="center", va="bottom", fontsize=11)
+    reduction = (1 - ema_roughness / raw_roughness) * 100
+    ax.text(
+        0.5,
+        0.05,
+        f"帧间震荡降低约 {reduction:.0f}%\n但这不证明力值准确度同步提高",
+        transform=ax.transAxes,
+        ha="center",
+        va="bottom",
+        fontsize=11,
+        color="#246F59",
+        bbox={"boxstyle": "round,pad=0.5", "facecolor": "#EAF7F2", "edgecolor": "#27896A"},
+    )
+
+    fig.text(0.5, 0.025, "结论：时间滤波适合改善显示稳定性；跨次均值差异、迟滞和漂移必须另行建模。", ha="center", fontsize=11, color="#526078")
+    fig.tight_layout(rect=(0.02, 0.07, 0.98, 0.92))
+    fig.savefig(ASSET_DIR / "困境-数据噪声.png", bbox_inches="tight", facecolor=fig.get_facecolor())
+    plt.close(fig)
+
+
+def draw_crosstalk_problem():
+    size = 64
+    axis = np.arange(size)
+    grid_x, grid_y = np.meshgrid(axis, axis)
+    truth = np.exp(-((grid_x - 31.5) ** 2 + (grid_y - 31.5) ** 2) / (2 * 3.4**2))
+    truth = truth / truth.max()
+    observed = 0.84 * truth.copy()
+    for shift_x, shift_y in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
+        observed += 0.04 * np.roll(np.roll(truth, shift_y, axis=0), shift_x, axis=1)
+    residual = np.clip(observed - truth, 0, None)
+
+    fig, axes = plt.subplots(1, 3, figsize=(18, 7), dpi=160)
+    fig.patch.set_facecolor("#F7F9FC")
+    fig.suptitle("困境三：空间耦合会把真实接触扩散成外围伪影", fontsize=23, fontweight="bold", color="#172033", y=0.97)
+    images = [truth, observed, residual]
+    titles = ["理想局部压力", "含 16% 邻域泄漏的观测", "非接触区候选伪影"]
+    color_maps = ["viridis", "viridis", "magma"]
+    for ax, image, title, color_map in zip(axes, images, titles, color_maps):
+        rendered = ax.imshow(image, cmap=color_map, origin="lower", vmin=0)
+        ax.set_title(title, fontsize=14, fontweight="bold")
+        ax.set_xlabel("列")
+        ax.set_ylabel("行")
+        fig.colorbar(rendered, ax=ax, fraction=0.046, pad=0.04)
+    fig.text(
+        0.5,
+        0.025,
+        "说明：本图是串扰机理示意，不是对当前膜片的定量结论；真实设备必须通过单点扫描和双点叠加辨识空间模型。",
+        ha="center",
+        fontsize=11,
+        color="#9B3E50",
+    )
+    fig.tight_layout(rect=(0.02, 0.07, 0.98, 0.91))
+    fig.savefig(ASSET_DIR / "困境-串扰伪影.png", bbox_inches="tight", facecolor=fig.get_facecolor())
+    plt.close(fig)
+
+
 if __name__ == "__main__":
     draw_layered_model()
     draw_product_architecture()
     draw_host_algorithm_pipeline()
     draw_baseline_state_machine()
+    draw_drift_problem()
+    draw_noise_problem()
+    draw_crosstalk_problem()
     print(f"Generated diagrams in: {ASSET_DIR}")
