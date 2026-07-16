@@ -11,10 +11,10 @@
 
 ## 目录
 
-- `figures/`：文章使用的 7 张原创图片
+- `figures/`：文章使用的 8 张可复现原创图片
 - `data/sensor_data.csv`：12 个采样点的坐标、法线和演示压力
 - `data/verification_metrics.json`：生成后的数值核验结果
-- `scripts/generate_figures.py`：可复现制图脚本
+- `scripts/generate_figures.py`：从真实模型和 Cell 数据生成局部 Overlay、重建结果及 8 张配图
 - `scripts/test_generate_figures.py`：数值单元测试
 
 ## 快速复现

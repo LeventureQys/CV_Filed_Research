@@ -1,0 +1,395 @@
+{
+  "environment": {
+    "python": "3.14.4",
+    "processor": "Intel64 Family 6 Model 151 Stepping 2, GenuineIntel",
+    "benchmark_note": "Python/NumPy CPU reference; excludes OpenGL/Direct3D driver upload and draw time"
+  },
+  "uv_atlas_preprocess": {
+    "原始网格": {
+      "median_ms": 32.9998,
+      "p95_ms": 33.13579,
+      "min_ms": 32.1904,
+      "vertices": 814,
+      "triangles": 1656,
+      "uv_vertices": 1634,
+      "uv_bytes": 39480
+    },
+    "细分1级": {
+      "median_ms": 59.3064,
+      "p95_ms": 65.22786,
+      "min_ms": 57.7738,
+      "vertices": 3298,
+      "triangles": 6624,
+      "uv_vertices": 4818,
+      "uv_bytes": 137304
+    },
+    "细分2级": {
+      "median_ms": 167.6792,
+      "p95_ms": 182.27828,
+      "min_ms": 165.2041,
+      "vertices": 13234,
+      "triangles": 26496,
+      "uv_vertices": 16320,
+      "uv_bytes": 513792
+    },
+    "细分3级": {
+      "median_ms": 913.2943,
+      "p95_ms": 931.20934,
+      "min_ms": 880.2266,
+      "vertices": 52978,
+      "triangles": 105984,
+      "uv_vertices": 59522,
+      "uv_bytes": 1986072
+    }
+  },
+  "geodesic_cache_preprocess": [
+    {
+      "mesh": "细分1级",
+      "median_ms": 2.4099500000000003,
+      "p95_ms": 2.4821750000000002,
+      "min_ms": 2.3297,
+      "vertices": 3298,
+      "triangles": 6624,
+      "cells": 3
+    },
+    {
+      "mesh": "细分1级",
+      "median_ms": 12.11375,
+      "p95_ms": 12.249245,
+      "min_ms": 11.9632,
+      "vertices": 3298,
+      "triangles": 6624,
+      "cells": 16
+    },
+    {
+      "mesh": "细分1级",
+      "median_ms": 64.09535,
+      "p95_ms": 64.564025,
+      "min_ms": 63.5746,
+      "vertices": 3298,
+      "triangles": 6624,
+      "cells": 64
+    },
+    {
+      "mesh": "细分2级",
+      "median_ms": 10.5579,
+      "p95_ms": 10.84203,
+      "min_ms": 10.2422,
+      "vertices": 13234,
+      "triangles": 26496,
+      "cells": 3
+    },
+    {
+      "mesh": "细分2级",
+      "median_ms": 45.873450000000005,
+      "p95_ms": 46.522305,
+      "min_ms": 45.1525,
+      "vertices": 13234,
+      "triangles": 26496,
+      "cells": 16
+    },
+    {
+      "mesh": "细分2级",
+      "median_ms": 272.9089,
+      "p95_ms": 284.10265000000004,
+      "min_ms": 260.4714,
+      "vertices": 13234,
+      "triangles": 26496,
+      "cells": 64
+    },
+    {
+      "mesh": "细分3级",
+      "median_ms": 35.673649999999995,
+      "p95_ms": 35.941894999999995,
+      "min_ms": 35.3756,
+      "vertices": 52978,
+      "triangles": 105984,
+      "cells": 3
+    },
+    {
+      "mesh": "细分3级",
+      "median_ms": 344.56505000000004,
+      "p95_ms": 374.133065,
+      "min_ms": 311.7117,
+      "vertices": 52978,
+      "triangles": 105984,
+      "cells": 16
+    },
+    {
+      "mesh": "细分3级",
+      "median_ms": 1727.1033,
+      "p95_ms": 1865.36571,
+      "min_ms": 1573.4784,
+      "vertices": 52978,
+      "triangles": 105984,
+      "cells": 64
+    }
+  ],
+  "overlay_frame_update": [
+    {
+      "median_ms": 0.0764,
+      "p95_ms": 0.10069999999999994,
+      "min_ms": 0.0512,
+      "items": 3298,
+      "cells": 3,
+      "influences_per_item": 3,
+      "cache_bytes": 92344,
+      "output_bytes_R32F": 13192,
+      "estimated_output_bytes_R16F": 6596
+    },
+    {
+      "median_ms": 0.1366,
+      "p95_ms": 0.17366499999999999,
+      "min_ms": 0.0898,
+      "items": 3298,
+      "cells": 16,
+      "influences_per_item": 8,
+      "cache_bytes": 224264,
+      "output_bytes_R32F": 13192,
+      "estimated_output_bytes_R16F": 6596
+    },
+    {
+      "median_ms": 0.14815,
+      "p95_ms": 0.17564499999999986,
+      "min_ms": 0.0971,
+      "items": 3298,
+      "cells": 64,
+      "influences_per_item": 8,
+      "cache_bytes": 224264,
+      "output_bytes_R32F": 13192,
+      "estimated_output_bytes_R16F": 6596
+    },
+    {
+      "median_ms": 0.31484999999999996,
+      "p95_ms": 0.37475999999999987,
+      "min_ms": 0.2169,
+      "items": 13234,
+      "cells": 3,
+      "influences_per_item": 3,
+      "cache_bytes": 370552,
+      "output_bytes_R32F": 52936,
+      "estimated_output_bytes_R16F": 26468
+    },
+    {
+      "median_ms": 0.53195,
+      "p95_ms": 0.6388599999999998,
+      "min_ms": 0.3432,
+      "items": 13234,
+      "cells": 16,
+      "influences_per_item": 8,
+      "cache_bytes": 899912,
+      "output_bytes_R32F": 52936,
+      "estimated_output_bytes_R16F": 26468
+    },
+    {
+      "median_ms": 0.5709,
+      "p95_ms": 0.71488,
+      "min_ms": 0.3576,
+      "items": 13234,
+      "cells": 64,
+      "influences_per_item": 8,
+      "cache_bytes": 899912,
+      "output_bytes_R32F": 52936,
+      "estimated_output_bytes_R16F": 26468
+    },
+    {
+      "median_ms": 1.2681,
+      "p95_ms": 1.7518099999999996,
+      "min_ms": 0.8321,
+      "items": 52978,
+      "cells": 3,
+      "influences_per_item": 3,
+      "cache_bytes": 1483384,
+      "output_bytes_R32F": 211912,
+      "estimated_output_bytes_R16F": 105956
+    },
+    {
+      "median_ms": 2.9311,
+      "p95_ms": 3.8921349999999997,
+      "min_ms": 1.918,
+      "items": 52978,
+      "cells": 16,
+      "influences_per_item": 8,
+      "cache_bytes": 3602504,
+      "output_bytes_R32F": 211912,
+      "estimated_output_bytes_R16F": 105956
+    },
+    {
+      "median_ms": 2.9547499999999998,
+      "p95_ms": 3.733099999999999,
+      "min_ms": 1.8445,
+      "items": 52978,
+      "cells": 64,
+      "influences_per_item": 8,
+      "cache_bytes": 3602504,
+      "output_bytes_R32F": 211912,
+      "estimated_output_bytes_R16F": 105956
+    }
+  ],
+  "texture_frame_update": [
+    {
+      "median_ms": 1.54295,
+      "p95_ms": 1.9791899999999998,
+      "min_ms": 1.0249,
+      "items": 65536,
+      "cells": 3,
+      "influences_per_item": 3,
+      "cache_bytes": 1835008,
+      "output_bytes_R32F": 262144,
+      "estimated_output_bytes_R16F": 131072,
+      "resolution": 256
+    },
+    {
+      "median_ms": 4.0165,
+      "p95_ms": 5.154945,
+      "min_ms": 2.4171,
+      "items": 65536,
+      "cells": 16,
+      "influences_per_item": 8,
+      "cache_bytes": 4456448,
+      "output_bytes_R32F": 262144,
+      "estimated_output_bytes_R16F": 131072,
+      "resolution": 256
+    },
+    {
+      "median_ms": 4.1292,
+      "p95_ms": 4.946465,
+      "min_ms": 3.2307,
+      "items": 65536,
+      "cells": 64,
+      "influences_per_item": 8,
+      "cache_bytes": 4456448,
+      "output_bytes_R32F": 262144,
+      "estimated_output_bytes_R16F": 131072,
+      "resolution": 256
+    },
+    {
+      "median_ms": 8.9018,
+      "p95_ms": 9.97184,
+      "min_ms": 5.9497,
+      "items": 262144,
+      "cells": 3,
+      "influences_per_item": 3,
+      "cache_bytes": 7340032,
+      "output_bytes_R32F": 1048576,
+      "estimated_output_bytes_R16F": 524288,
+      "resolution": 512
+    },
+    {
+      "median_ms": 17.1,
+      "p95_ms": 19.040155,
+      "min_ms": 11.6743,
+      "items": 262144,
+      "cells": 16,
+      "influences_per_item": 8,
+      "cache_bytes": 17825792,
+      "output_bytes_R32F": 1048576,
+      "estimated_output_bytes_R16F": 524288,
+      "resolution": 512
+    },
+    {
+      "median_ms": 14.1588,
+      "p95_ms": 15.938894999999999,
+      "min_ms": 9.6326,
+      "items": 262144,
+      "cells": 64,
+      "influences_per_item": 8,
+      "cache_bytes": 17825792,
+      "output_bytes_R32F": 1048576,
+      "estimated_output_bytes_R16F": 524288,
+      "resolution": 512
+    },
+    {
+      "median_ms": 33.0493,
+      "p95_ms": 35.49707,
+      "min_ms": 21.0316,
+      "items": 1048576,
+      "cells": 3,
+      "influences_per_item": 3,
+      "cache_bytes": 29360128,
+      "output_bytes_R32F": 4194304,
+      "estimated_output_bytes_R16F": 2097152,
+      "resolution": 1024
+    },
+    {
+      "median_ms": 42.23155,
+      "p95_ms": 46.425909999999995,
+      "min_ms": 39.1901,
+      "items": 1048576,
+      "cells": 16,
+      "influences_per_item": 8,
+      "cache_bytes": 71303168,
+      "output_bytes_R32F": 4194304,
+      "estimated_output_bytes_R16F": 2097152,
+      "resolution": 1024
+    },
+    {
+      "median_ms": 44.02775,
+      "p95_ms": 51.2645,
+      "min_ms": 39.3938,
+      "items": 1048576,
+      "cells": 64,
+      "influences_per_item": 8,
+      "cache_bytes": 71303168,
+      "output_bytes_R32F": 4194304,
+      "estimated_output_bytes_R16F": 2097152,
+      "resolution": 1024
+    }
+  ],
+  "memory_copy_lower_bound": [
+    {
+      "label": "Overlay 13k",
+      "median_ms": 0.0009,
+      "p95_ms": 0.001,
+      "min_ms": 0.0008,
+      "items": 13234,
+      "dtype": "float16",
+      "bytes": 26468
+    },
+    {
+      "label": "Overlay 13k",
+      "median_ms": 0.0013,
+      "p95_ms": 0.0013,
+      "min_ms": 0.0012,
+      "items": 13234,
+      "dtype": "float32",
+      "bytes": 52936
+    },
+    {
+      "label": "Texture 512²",
+      "median_ms": 0.0091,
+      "p95_ms": 0.019239999999999986,
+      "min_ms": 0.0089,
+      "items": 262144,
+      "dtype": "float16",
+      "bytes": 524288
+    },
+    {
+      "label": "Texture 512²",
+      "median_ms": 0.0376,
+      "p95_ms": 0.045,
+      "min_ms": 0.037,
+      "items": 262144,
+      "dtype": "float32",
+      "bytes": 1048576
+    },
+    {
+      "label": "Texture 1024²",
+      "median_ms": 0.0627,
+      "p95_ms": 0.08582,
+      "min_ms": 0.0578,
+      "items": 1048576,
+      "dtype": "float16",
+      "bytes": 2097152
+    },
+    {
+      "label": "Texture 1024²",
+      "median_ms": 0.1177,
+      "p95_ms": 0.48860499999999996,
+      "min_ms": 0.1068,
+      "items": 1048576,
+      "dtype": "float32",
+      "bytes": 4194304
+    }
+  ]
+}

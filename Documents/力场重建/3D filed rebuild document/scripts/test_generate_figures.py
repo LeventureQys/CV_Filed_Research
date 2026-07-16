@@ -58,6 +58,35 @@ class FullModelSurfaceFieldTests(unittest.TestCase):
             chord = np.linalg.norm(vertices - vertices[source], axis=1)
             self.assertTrue(np.all(distances[finite] + 1e-9 >= chord[finite]))
 
+    def test_overlay_is_independent_and_denser_than_roi(self):
+        active = MODULE.ACTIVE_CELL_INDICES
+        roi_mesh, overlay, _, roi_faces = MODULE.build_overlay(
+            self.mesh,
+            self.result["closest"][active],
+            self.result["face_ids"][active],
+        )
+        self.assertGreater(roi_faces.sum(), 0)
+        self.assertLess(roi_faces.sum(), len(self.mesh.faces))
+        self.assertGreater(len(overlay.faces), len(roi_mesh.faces))
+        self.assertGreater(len(overlay.vertices), len(roi_mesh.vertices))
+
+    def test_overlay_reconstruction_and_top_k(self):
+        active = MODULE.ACTIVE_CELL_INDICES
+        roi_mesh, overlay, _, _ = MODULE.build_overlay(
+            self.mesh,
+            self.result["closest"][active],
+            self.result["face_ids"][active],
+        )
+        overlay_result = MODULE.reconstruct_overlay(
+            overlay,
+            self.result["closest"][active],
+            self.values[active],
+            top_k=2,
+        )
+        self.assertTrue(np.all(overlay_result["retained_counts"] <= 2))
+        self.assertTrue(np.all((overlay_result["coverage"] >= 0.0) & (overlay_result["coverage"] <= 1.0)))
+        self.assertTrue(np.isfinite(overlay_result["effective"]).all())
+
 
 if __name__ == "__main__":
     unittest.main()

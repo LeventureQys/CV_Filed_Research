@@ -22,9 +22,11 @@ BASE_DIR = Path(__file__).resolve().parents[1]
 FIGURE_DIR = BASE_DIR / "figures"
 DATA_DIR = BASE_DIR / "data"
 SUPPORT_MM = 30.0
+ROI_MARGIN_MM = 8.0
 FOLD_LAMBDA = 2.0
 MIN_VALUE = 0.0
 MAX_VALUE = 1.0
+ACTIVE_CELL_INDICES = np.array([0, 1, 7, 8], dtype=int)
 
 
 def find_project_path():
@@ -147,6 +149,51 @@ def dijkstra(adjacency, source, cutoff=None, return_predecessor=False):
     return (distances, predecessors) if return_predecessor else distances
 
 
+def dijkstra_from_attachment(adjacency, vertices, face, point, cutoff=None):
+    distances = np.full(len(adjacency), np.inf)
+    queue = []
+    for vertex in face:
+        initial = float(np.linalg.norm(vertices[vertex] - point))
+        if cutoff is None or initial <= cutoff:
+            distances[vertex] = min(distances[vertex], initial)
+            heapq.heappush(queue, (initial, int(vertex)))
+    while queue:
+        distance, vertex = heapq.heappop(queue)
+        if distance != distances[vertex]:
+            continue
+        if cutoff is not None and distance >= cutoff:
+            continue
+        for neighbor, cost in adjacency[vertex]:
+            candidate = distance + cost
+            if candidate < distances[neighbor] and (cutoff is None or candidate < cutoff):
+                distances[neighbor] = candidate
+                heapq.heappush(queue, (candidate, neighbor))
+    return distances
+
+
+def build_overlay(mesh, closest, face_ids, support=SUPPORT_MM, margin=ROI_MARGIN_MM, subdivisions=2):
+    vertices = np.asarray(mesh.vertices)
+    adjacency = build_surface_graph(mesh)
+    radius = support + margin
+    multi_source_distance = np.full(len(vertices), np.inf)
+    for point, face_id in zip(closest, face_ids):
+        distances = dijkstra_from_attachment(
+            adjacency,
+            vertices,
+            mesh.faces[face_id],
+            point,
+            cutoff=radius,
+        )
+        multi_source_distance = np.minimum(multi_source_distance, distances)
+    roi_faces = np.any(multi_source_distance[mesh.faces] <= radius, axis=1)
+    roi_mesh = mesh.submesh([np.flatnonzero(roi_faces)], append=True, repair=False)
+    overlay = roi_mesh.copy()
+    for _ in range(subdivisions):
+        overlay = overlay.subdivide()
+    overlay.remove_unreferenced_vertices()
+    return roi_mesh, overlay, multi_source_distance, roi_faces
+
+
 def reconstruct(mesh, centers, values, support=SUPPORT_MM):
     adjacency = build_surface_graph(mesh)
     closest, attachment_error, face_ids, seeds = attach_cells(mesh, centers)
@@ -170,6 +217,49 @@ def reconstruct(mesh, centers, values, support=SUPPORT_MM):
         "distances": distances,
         "weights": weights,
         "weight_sum": weight_sum,
+        "interpolated": interpolated,
+        "coverage": coverage,
+        "effective": effective,
+    }
+
+
+def reconstruct_overlay(overlay, sample_points, values, support=SUPPORT_MM, top_k=8):
+    adjacency = build_surface_graph(overlay)
+    vertices = np.asarray(overlay.vertices)
+    closest, attachment_error, face_ids, _ = attach_cells(overlay, sample_points)
+    distances = np.vstack(
+        [
+            dijkstra_from_attachment(adjacency, vertices, overlay.faces[face_id], point, cutoff=support)
+            for point, face_id in zip(closest, face_ids)
+        ]
+    )
+    weights = wendland_c2(distances, support=support)
+    weight_sum_all = weights.sum(axis=0)
+    coverage = np.minimum(1.0, weight_sum_all)
+    normalized = np.zeros_like(weights)
+    retained_counts = np.zeros(len(vertices), dtype=int)
+    for vertex in range(len(vertices)):
+        nonzero = np.flatnonzero(weights[:, vertex] > 0.0)
+        if nonzero.size == 0:
+            continue
+        if nonzero.size > top_k:
+            order = np.argsort(weights[nonzero, vertex])[-top_k:]
+            nonzero = nonzero[order]
+        retained = weights[nonzero, vertex]
+        normalized[nonzero, vertex] = retained / retained.sum()
+        retained_counts[vertex] = len(nonzero)
+    interpolated = values @ normalized
+    effective = interpolated * coverage
+    return {
+        "adjacency": adjacency,
+        "closest": closest,
+        "attachment_error": attachment_error,
+        "face_ids": face_ids,
+        "distances": distances,
+        "weights": weights,
+        "weight_sum": weight_sum_all,
+        "normalized_weights": normalized,
+        "retained_counts": retained_counts,
         "interpolated": interpolated,
         "coverage": coverage,
         "effective": effective,
@@ -211,6 +301,13 @@ def draw_mesh(axis, mesh, vertex_values=None, cmap=None, alpha=1.0, edge=False):
     return collection
 
 
+def set_mesh_bounds(axis, mesh):
+    bounds = mesh.bounds
+    axis.set_xlim(bounds[:, 0])
+    axis.set_ylim(bounds[:, 2])
+    axis.set_zlim(bounds[:, 1])
+
+
 def draw_cells(axis, closest, values, cmap, size=34, annotate=False):
     points = closest[:, [0, 2, 1]]
     axis.scatter(
@@ -236,16 +333,46 @@ def save_model_definition(mesh):
     plt.close(figure)
 
 
-def save_sensor_layout(mesh, closest, values, cmap):
+def save_sensor_layout(mesh, closest, values, cmap, active_indices=ACTIVE_CELL_INDICES):
     figure = plt.figure(figsize=(11.2, 6.4), constrained_layout=True)
     axis = figure.add_subplot(111, projection="3d")
     draw_mesh(axis, mesh, alpha=0.94)
-    draw_cells(axis, closest, values, cmap, size=52, annotate=True)
+    all_points = closest[:, [0, 2, 1]]
+    axis.scatter(all_points[:, 0], all_points[:, 1], all_points[:, 2], color="#b9bec8", s=18, depthshade=False)
+    draw_cells(axis, closest[active_indices], values[active_indices], cmap, size=64, annotate=False)
+    for cell_index in active_indices:
+        point = closest[cell_index][[0, 2, 1]]
+        axis.text(*point, f"C{cell_index}", fontsize=7, color="#202124")
     style_3d(axis, mesh)
-    axis.set_title("完整模型上的 31 个真实 Cell 位置（颜色为演示标量）", pad=12)
+    axis.set_title("31 个 Cell 的完整布局；彩色标记为本次 4 个活动 Cell", pad=12)
     colorbar = figure.colorbar(plt.cm.ScalarMappable(norm=Normalize(0, 1), cmap=cmap), ax=axis, shrink=0.72, pad=0.07)
     colorbar.set_label("演示用归一化标量")
     figure.savefig(FIGURE_DIR / "02_sensor_layout.png", dpi=220, bbox_inches="tight")
+    plt.close(figure)
+
+
+def save_overlay_construction(mesh, roi_mesh, overlay, closest, values, cmap):
+    figure = plt.figure(figsize=(15.8, 5.4), constrained_layout=True)
+    panels = [
+        ("原始 Render Mesh", mesh, False),
+        ("沿 Cell 曲面扩展得到 ROI", roi_mesh, True),
+        ("ROI 细分后的独立 Overlay", overlay, True),
+    ]
+    for index, (title, panel_mesh, show_cells) in enumerate(panels, start=1):
+        axis = figure.add_subplot(1, 3, index, projection="3d")
+        if index > 1:
+            draw_mesh(axis, mesh, alpha=0.13)
+        draw_mesh(axis, panel_mesh, alpha=0.92, edge=index == 3)
+        if show_cells:
+            draw_cells(axis, closest, values, cmap, size=20)
+        set_mesh_bounds(axis, mesh)
+        style_3d(axis, mesh)
+        axis.set_title(title)
+    figure.suptitle(
+        f"Overlay 构建：原模型 {len(mesh.faces)} 面 → ROI {len(roi_mesh.faces)} 面 → Overlay {len(overlay.faces)} 面",
+        fontsize=14,
+    )
+    figure.savefig(FIGURE_DIR / "03_overlay_mesh_construction.png", dpi=220, bbox_inches="tight")
     plt.close(figure)
 
 
@@ -263,7 +390,7 @@ def save_kernel_curve():
     axis.set(xlim=(0, 1.2), ylim=(-0.03, 1.05), xlabel="归一化曲面路径 r=d_surface/R", ylabel="权重 φ(r)")
     axis.set_title("Wendland C2 紧支撑核：支撑边界处平滑降为 0")
     axis.grid(alpha=0.24)
-    figure.savefig(FIGURE_DIR / "03_wendland_kernel.png", dpi=220, bbox_inches="tight")
+    figure.savefig(FIGURE_DIR / "05_wendland_kernel.png", dpi=220, bbox_inches="tight")
     plt.close(figure)
 
 
@@ -329,7 +456,7 @@ def save_distance_comparison(mesh, result):
     plt.close(figure)
 
 
-def save_full_model_components(mesh, closest, values, result, cmap):
+def save_overlay_components(mesh, overlay, closest, values, result, cmap):
     panels = [
         (result["interpolated"], "归一化插值 P"),
         (result["coverage"], "覆盖置信度 C"),
@@ -338,45 +465,60 @@ def save_full_model_components(mesh, closest, values, result, cmap):
     figure = plt.figure(figsize=(16.0, 5.2), constrained_layout=True)
     for index, (field, title) in enumerate(panels, start=1):
         axis = figure.add_subplot(1, 3, index, projection="3d")
-        draw_mesh(axis, mesh, field, cmap)
+        draw_mesh(axis, mesh, alpha=0.12)
+        draw_mesh(axis, overlay, field, cmap)
         draw_cells(axis, closest, values, cmap, size=18)
         style_3d(axis, mesh)
         axis.set_title(title)
     figure.colorbar(plt.cm.ScalarMappable(norm=Normalize(0, 1), cmap=cmap), ax=figure.axes, shrink=0.76, label="归一化值")
-    figure.suptitle("完整模型表面的插值、coverage 与最终显示标量", fontsize=14)
-    figure.savefig(FIGURE_DIR / "05_unwrapped_components.png", dpi=220, bbox_inches="tight")
+    figure.suptitle("独立 Overlay 上的归一化插值、coverage 与最终显示标量", fontsize=14)
+    figure.savefig(FIGURE_DIR / "06_overlay_components.png", dpi=220, bbox_inches="tight")
     plt.close(figure)
 
 
-def save_surface_reconstruction(mesh, closest, values, result, cmap):
+def save_surface_reconstruction(mesh, overlay, closest, values, result, cmap):
     figure = plt.figure(figsize=(13.6, 6.0), constrained_layout=True)
     for index, (elev, azim, title) in enumerate([(24, -52, "主视角"), (20, 132, "背侧视角")], start=1):
         axis = figure.add_subplot(1, 2, index, projection="3d")
-        draw_mesh(axis, mesh, result["effective"], cmap)
+        draw_mesh(axis, mesh, alpha=1.0)
+        draw_mesh(axis, overlay, result["effective"], cmap)
         draw_cells(axis, closest, values, cmap, size=25)
         style_3d(axis, mesh, elev=elev, azim=azim)
         axis.set_title(title)
     figure.colorbar(plt.cm.ScalarMappable(norm=Normalize(0, 1), cmap=cmap), ax=figure.axes, shrink=0.76, label="effective scalar")
-    figure.suptitle(f"完整模型曲面路径 Wendland C2 重建（R={SUPPORT_MM:g} mm）", fontsize=14)
-    figure.savefig(FIGURE_DIR / "06_surface_reconstruction.png", dpi=220, bbox_inches="tight")
+    figure.suptitle(f"独立 Overlay 曲面力场重建（R={SUPPORT_MM:g} mm，Top-K=8）", fontsize=14)
+    figure.savefig(FIGURE_DIR / "07_overlay_surface_reconstruction.png", dpi=220, bbox_inches="tight")
     plt.close(figure)
 
 
 def save_workflow():
-    labels = ["完整模型三角化", "Cell 附着到表面", "全模型截断最短路", "Wendland C2 权重", "插值 P 与 coverage C", "全模型统一着色"]
-    figure, axis = plt.subplots(figsize=(14.2, 2.8), constrained_layout=True)
-    axis.set_xlim(0, len(labels) * 2.2)
-    axis.set_ylim(0, 2.2)
+    build_labels = ["Render Mesh\n焊接拓扑 + BVH", "Cell 曲面附着", "曲面扩展 ROI", "生成独立 Overlay", "截断 Dijkstra", "Top-K Influence Cache"]
+    frame_labels = ["读取 Sample value", "稀疏加权得到 E", "上传单通道 Scalar", "Shader 插值 + LUT"]
+    figure, axis = plt.subplots(figsize=(14.6, 5.0), constrained_layout=True)
+    axis.set_xlim(0, 14.6)
+    axis.set_ylim(0, 5.0)
     axis.axis("off")
-    for index, label in enumerate(labels):
-        x = index * 2.2 + 0.15
-        box = FancyBboxPatch((x, 0.7), 1.75, 0.78, boxstyle="round,pad=0.08,rounding_size=0.08", linewidth=1.4, edgecolor="#3b4a6b", facecolor="#eef3fb" if index < 4 else "#fff0df")
+    axis.text(0.2, 4.55, "低频构建阶段：几何或配置变化时执行", fontsize=12.5, weight="bold", color="#2f4b7c")
+    axis.text(0.2, 2.15, "高频实时阶段：采样值变化时循环执行", fontsize=12.5, weight="bold", color="#9c4f12")
+    for index, label in enumerate(build_labels):
+        x = index * 2.35 + 0.2
+        box = FancyBboxPatch((x, 3.25), 1.95, 0.88, boxstyle="round,pad=0.08,rounding_size=0.08", linewidth=1.4, edgecolor="#3b4a6b", facecolor="#eef3fb")
         axis.add_patch(box)
-        axis.text(x + 0.875, 1.09, label, ha="center", va="center", fontsize=9.5)
-        if index < len(labels) - 1:
-            axis.add_patch(FancyArrowPatch((x + 1.78, 1.09), (x + 2.13, 1.09), arrowstyle="-|>", mutation_scale=13, linewidth=1.3, color="#677083"))
-    axis.set_title("完整模型 3D 曲面场重建流程", fontsize=14, pad=10)
-    figure.savefig(FIGURE_DIR / "07_algorithm_workflow.png", dpi=220, bbox_inches="tight")
+        axis.text(x + 0.975, 3.69, label, ha="center", va="center", fontsize=9.2)
+        if index < len(build_labels) - 1:
+            axis.add_patch(FancyArrowPatch((x + 1.97, 3.69), (x + 2.28, 3.69), arrowstyle="-|>", mutation_scale=13, linewidth=1.3, color="#677083"))
+    for index, label in enumerate(frame_labels):
+        x = index * 3.25 + 0.7
+        box = FancyBboxPatch((x, 0.78), 2.45, 0.82, boxstyle="round,pad=0.08,rounding_size=0.08", linewidth=1.4, edgecolor="#a45a18", facecolor="#fff0df")
+        axis.add_patch(box)
+        axis.text(x + 1.225, 1.19, label, ha="center", va="center", fontsize=9.6)
+        if index < len(frame_labels) - 1:
+            axis.add_patch(FancyArrowPatch((x + 2.48, 1.19), (x + 3.18, 1.19), arrowstyle="-|>", mutation_scale=13, linewidth=1.3, color="#a06a3c"))
+    axis.add_patch(FancyArrowPatch((13.55, 0.77), (0.7, 0.77), connectionstyle="arc3,rad=-0.16", arrowstyle="-|>", mutation_scale=13, linewidth=1.2, color="#a06a3c"))
+    axis.add_patch(FancyArrowPatch((13.0, 3.2), (13.0, 1.66), arrowstyle="-|>", mutation_scale=13, linewidth=1.3, color="#677083"))
+    axis.text(13.15, 2.43, "缓存就绪", fontsize=9, color="#4f596b", va="center")
+    axis.set_title("独立 Overlay 曲面力场重建：构建阶段与实时阶段分离", fontsize=14, pad=8)
+    figure.savefig(FIGURE_DIR / "08_overlay_algorithm_workflow.png", dpi=220, bbox_inches="tight")
     plt.close(figure)
 
 
@@ -389,7 +531,7 @@ def write_sensor_data(centers, normals, values, closest, attachment_error):
             writer.writerow([f"C{index}", *centers[index], *normals[index], *closest[index], attachment_error[index], values[index]])
 
 
-def write_verification_data(project, mesh, centers, result):
+def write_verification_data(project, mesh, centers, result, roi_mesh, overlay):
     covered = result["weight_sum"] > 1e-12
     metrics = {
         "model": project["model_file"],
@@ -400,6 +542,10 @@ def write_verification_data(project, mesh, centers, result):
         "bounds_mm": mesh.bounds.tolist(),
         "cell_count": int(len(centers)),
         "support_radius_mm": SUPPORT_MM,
+        "roi_margin_mm": ROI_MARGIN_MM,
+        "roi_triangles": int(len(roi_mesh.faces)),
+        "overlay_vertices": int(len(overlay.vertices)),
+        "overlay_triangles": int(len(overlay.faces)),
         "max_attachment_error_mm": float(result["attachment_error"].max()),
         "covered_vertex_count": int(covered.sum()),
         "interpolated_min_on_covered": float(result["interpolated"][covered].min()),
@@ -418,17 +564,27 @@ def main():
     FIGURE_DIR.mkdir(parents=True, exist_ok=True)
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     project, mesh, centers, normals, values = load_project()
-    result = reconstruct(mesh, centers, values)
+    base_result = reconstruct(mesh, centers, values)
+    active_points = base_result["closest"][ACTIVE_CELL_INDICES]
+    active_values = values[ACTIVE_CELL_INDICES]
+    active_face_ids = base_result["face_ids"][ACTIVE_CELL_INDICES]
+    roi_mesh, overlay, _, _ = build_overlay(
+        mesh,
+        active_points,
+        active_face_ids,
+    )
+    result = reconstruct_overlay(overlay, active_points, active_values)
     cmap = field_colormap()
     save_model_definition(mesh)
-    save_sensor_layout(mesh, result["closest"], values, cmap)
+    save_sensor_layout(mesh, base_result["closest"], values, cmap)
+    save_overlay_construction(mesh, roi_mesh, overlay, active_points, active_values, cmap)
+    save_distance_comparison(mesh, base_result)
     save_kernel_curve()
-    save_distance_comparison(mesh, result)
-    save_full_model_components(mesh, result["closest"], values, result, cmap)
-    save_surface_reconstruction(mesh, result["closest"], values, result, cmap)
+    save_overlay_components(mesh, overlay, result["closest"], active_values, result, cmap)
+    save_surface_reconstruction(mesh, overlay, result["closest"], active_values, result, cmap)
     save_workflow()
-    write_sensor_data(centers, normals, values, result["closest"], result["attachment_error"])
-    write_verification_data(project, mesh, centers, result)
+    write_sensor_data(centers, normals, values, base_result["closest"], base_result["attachment_error"])
+    write_verification_data(project, mesh, centers, result, roi_mesh, overlay)
 
 
 if __name__ == "__main__":
