@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>受力平衡分析 · 直观 UI 设计草案 v2（三种候选模式）</title>
+<style>
+  :root {
+    --orange: #ef6c00; --purple: #8e24aa; --green: #2e7d32;
+    --red: #c62828; --bg: #f5f6f8; --card: #fff; --ink: #263238;
+    --sub: #546e7a; --line: #cfd8dc;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+    background: var(--bg); color: var(--ink);
+    padding: 26px 34px 46px; max-width: 1200px; margin: 0 auto;
+  }
+  h1 { font-size: 21px; margin-bottom: 4px; }
+  .subtitle { color: var(--sub); font-size: 13px; margin-bottom: 16px; line-height: 1.6; }
+  .subtitle b { color: var(--ink); }
+
+  .tabs { display: flex; gap: 8px; margin: 0 0 8px; flex-wrap: wrap; align-items: center; }
+  .tab {
+    padding: 6px 16px; border-radius: 16px; border: 1.5px solid var(--line);
+    background: #fff; font-size: 13px; cursor: pointer; color: var(--sub);
+  }
+  .tab.active { border-color: var(--orange); color: var(--orange); font-weight: bold; }
+  .tab-label { font-size: 12px; color: var(--sub); margin-right: 4px; }
+  .tabs.mode .tab.active { border-color: var(--purple); color: var(--purple); }
+
+  .stage { display: grid; grid-template-columns: 1fr 340px; gap: 16px; margin-top: 10px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; }
+  .card h2 { font-size: 13px; color: var(--sub); font-weight: bold; margin-bottom: 8px; }
+
+  .duo { display: flex; gap: 14px; justify-content: center; align-items: flex-start; flex-wrap: wrap; }
+  .panel { text-align: center; }
+  .panel .cap { font-size: 12px; color: var(--sub); margin-top: 4px; }
+
+  .verdict {
+    background: #fbe9e7; border: 1px solid #ffab91; border-radius: 10px;
+    padding: 12px 14px; margin-bottom: 10px;
+  }
+  .verdict .big { font-size: 17px; font-weight: bold; color: var(--red); line-height: 1.4; }
+  .verdict .big.ok { color: var(--green); background: none; }
+
+  .step {
+    display: flex; gap: 10px; align-items: flex-start;
+    border: 1px solid var(--line); border-radius: 10px;
+    padding: 10px 12px; margin-bottom: 8px; background: #fbfcfd;
+  }
+  .step .n {
+    flex: none; width: 22px; height: 22px; border-radius: 50%; color: #fff;
+    font-size: 12px; font-weight: bold; display: flex; align-items: center;
+    justify-content: center; margin-top: 1px;
+  }
+  .step .t { font-size: 13px; line-height: 1.55; }
+  .step .t b { font-size: 13.5px; }
+  .step.dim { opacity: 0.45; }
+
+  table.cmp { border-collapse: collapse; width: 100%; font-size: 12.5px; margin-top: 6px; }
+  table.cmp th, table.cmp td { border: 1px solid var(--line); padding: 6px 10px; text-align: left; }
+  table.cmp th { background: #eceff1; }
+  table.cmp td b.good { color: var(--green); }
+  table.cmp td b.bad { color: var(--red); }
+
+  .note { margin-top: 14px; font-size: 12px; color: var(--sub); line-height: 1.7;
+          background: #fff8e1; border: 1px solid #ffe082; border-radius: 8px; padding: 9px 13px; }
+</style>
+</head>
+<body>
+
+<h1>受力平衡分析 · 直观 UI 设计草案 v2 —— 四种模式对比（含当前方案）</h1>
+<p class="subtitle">
+  共同原则：<b>不给用户任何需要“翻译”的抽象几何</b>（双向轴、张量、点+十字全部退场），
+  只留两样东西——<b>“哪一片压太重”的空间锚点</b> + <b>说人话的修正指令</b>。
+  页面内 JS 与 C++ 算法同源实算（重心、Winsorize、λ、主轴、两侧均值）。切换场景与模式对比后，选一种你觉得最懂的。
+</p>
+
+<div class="tabs">
+  <span class="tab-label">场景：</span>
+  <button class="tab active" data-scene="tilt">对角倾斜</button>
+  <button class="tab" data-scene="shift">整体偏移</button>
+  <button class="tab" data-scene="pure">纯对角加压</button>
+  <button class="tab" data-scene="uniform">均匀受压</button>
+</div>
+<div class="tabs mode">
+  <span class="tab-label">模式：</span>
+  <button class="tab" data-mode="hybrid">E · λ判定+Δ显示（采用方案）</button>
+  <button class="tab" data-mode="circle">A · 圈出偏重区</button>
+  <button class="tab" data-mode="diff">B · 对称差对比图</button>
+  <button class="tab" data-mode="legs">C · 四角桌腿</button>
+  <button class="tab" data-mode="current">D · 当前方案（现状复刻）</button>
+</div>
+
+<div class="stage">
+  <div class="card">
+    <h2 id="mainTitle"></h2>
+    <div id="mainArea"></div>
+  </div>
+
+  <div class="card">
+    <h2>结论与操作</h2>
+    <div class="verdict" id="verdict"></div>
+    <div id="steps"></div>
+  </div>
+</div>
+
+<div class="card" style="margin-top:16px">
+  <h2 id="guideTitle">怎么读 · 偏重怎么看</h2>
+  <div id="guideArea"></div>
+</div>
+
+<div class="card" style="margin-top:16px">
+  <h2>四种模式对比（供决策）</h2>
+  <table class="cmp">
+    <tr><th></th><th>E · λ判定+Δ显示（采用）</th><th>A · 圈出偏重区</th><th>B · 对称差对比图</th><th>C · 四角桌腿</th><th>D · 当前方案（现状）</th></tr>
+    <tr>
+      <td><b>一句话</b></td>
+      <td>λ 管要不要报、报哪个方向；Δ 图管让用户看懂哪边重</td>
+      <td>像老师圈错题：红笔把压太重的区域圈起来</td>
+      <td>红=比斜对面重、蓝=比斜对面轻，一眼看出不对称</td>
+      <td>把受力归纳成四个角的承重，像晃动的桌子</td>
+      <td>现状：红框+红蓝格+十字/圆点+双向紫轴+铺色</td>
+    </tr>
+    <tr>
+      <td><b>直觉性</b></td>
+      <td><b class="good">好</b>：判定概念不上画面，画面只有红/蓝/灰</td>
+      <td><b class="good">零学习成本</b>，锚定真实 Cell</td>
+      <td>需要一句图例（红=比对面重），但之后自解释</td>
+      <td>桌腿隐喻易懂，但四角归纳与主轴口径略有出入</td>
+      <td><b class="bad">最弱</b>：三套几何标记叠图，双向轴需查图例才能懂</td>
+    </tr>
+    <tr>
+      <td><b>严谨性</b></td>
+      <td><b class="good">最完整</b>：偶极（Δ）+四极（λ）互补，Δ 盲区有 λ 兜底</td>
+      <td>圈注范围 = 算法两侧判定的偏重侧，口径一致</td>
+      <td>Δ 正是偶极分量本体，但对四极（对角脊）恒为零</td>
+      <td>象限均值是另一套汇总，对角集中型会显示“两角都重”</td>
+      <td><b class="good">算法严谨</b>，但表达层把研发概念（张量轴）直接示人</td>
+    </tr>
+    <tr>
+      <td><b>风险</b></td>
+      <td>非中心对称斑块（L形）的形状差会混入 Δ，铺色需按 mask 同差过滤</td>
+      <td>圈只是提示，用户可能当成“坏点区域”<b class="bad">需配文案</b></td>
+      <td>多一个小图，画面元素+1</td>
+      <td>5×5 小网格象限划分粒度粗</td>
+      <td>红框现为外接矩形而非真实边界；紫轴易被读成“往哪推”</td>
+    </tr>
+  </table>
+</div>
+
+<div class="note">
+  共同约束（与算法文档一致）：倾斜通道<b>永不画箭头</b>（箭头只属于位置动作）；
+  两侧相当（重压压在轴线上）时 A/B 显示“沿此方向集中”、C 显示“对角两角同时偏重”；
+  面积 &lt; 9 Cell 或方向退化时显示“方向不确定”；先查贴平、后挪位置，两步不并存推荐。
+</div>
+
+<script>
+// ── 与 force_balance_analyzer.cpp 同源的实算（与 v1 草案一致） ────────
+function analyze(V) {
+  let r = [], c = [], v = [];
+  for (let i = 0; i < V.length; i++)
+    for (let j = 0; j < V[0].length; j++)
+      if (V[i][j] > 1.5) { r.push(i); c.push(j); v.push(V[i][j]); }
+  const wsum = v.reduce((a, b) => a + b, 0);
+  let muR = 0, muC = 0;
+  for (let k = 0; k < v.length; k++) { muR += v[k] * r[k]; muC += v[k] * c[k]; }
+  muR /= wsum; muC /= wsum;
+  const geoR = r.reduce((a, b) => a + b) / r.length;
+  const geoC = c.reduce((a, b) => a + b) / c.length;
+  const sorted = [...v].sort((a, b) => a - b);
+  const cap = sorted[Math.ceil(0.95 * v.length) - 1];
+  const w = v.map(x => Math.min(x, cap));
+  let mRR = 0, mCC = 0, mRC = 0;
+  for (let k = 0; k < v.length; k++) {
+    const dr = r[k] - muR, dc = c[k] - muC;
+    mRR += w[k] * dr * dr; mCC += w[k] * dc * dc; mRC += w[k] * dr * dc;
+  }
+  const WS = w.reduce((a, b) => a + b, 0);
+  mRR /= WS; mCC /= WS; mRC /= WS;
+  let gRR = 0, gCC = 0, gRC = 0;
+  for (let k = 0; k < r.length; k++) {
+    const dr = r[k] - geoR, dc = c[k] - geoC;
+    gRR += dr * dr; gCC += dc * dc; gRC += dr * dc;
+  }
+  gRR /= r.length; gCC /= r.length; gRC /= r.length;
+  const tr0 = gRR + gCC;
+  const dRR = (mRR - gRR) / tr0, dCC = (mCC - gCC) / tr0, dRC = (mRC - gRC) / tr0;
+  const iso = 0.5 * (dRR + dCC);
+  const a = 0.5 * (dRR - dCC), b = dRC;
+  const lam = Math.sqrt(a * a + b * b);
+  let axR = 0, axC = 0;
+  if (lam > 1e-12) {
+    const vr = a + lam, vc = b, nm = Math.hypot(vr, vc);
+    axR = vr / nm; axC = vc / nm;
+  }
+  let posS = 0, posN = 0, negS = 0, negN = 0;
+  for (let k = 0; k < r.length; k++) {
+    const t = (r[k] - geoR) * axR + (c[k] - geoC) * axC;
+    if (t > 1e-9) { posS += v[k]; posN++; }
+    else if (t < -1e-9) { negS += v[k]; negN++; }
+  }
+  const posMean = posN ? posS / posN : -1;
+  const negMean = negN ? negS / negN : -1;
+  let heavySign = 0;
+  if (posMean > 0 || negMean > 0) heavySign = posMean >= negMean ? 1 : -1;
+  // 偏重侧 Cell 列表（供圈注/铺色用）
+  const heavyCells = [];
+  for (let k = 0; k < r.length; k++) {
+    const t = (r[k] - geoR) * heavySign * axR + (c[k] - geoC) * heavySign * axC;
+    if (t > 1e-9) heavyCells.push([r[k], c[k]]);
+  }
+  return { muR, muC, geoR, geoC, iso, lam, axR, axC,
+           heavyR: heavySign * axR, heavyC: heavySign * axC,
+           posMean, negMean, heavyCells,
+           off: Math.hypot(muR - geoR, muC - geoC) };
+}
+
+const SCENES = {
+  tilt:    { V: [[9,6,4,2,2],[6,9,5,2,2],[4,5,5,2,2],[2,2,2,5,3],[2,2,2,3,3]] },
+  shift:   { V: [[3,4,5,6,7],[3,4,5,6,7],[3,4,5,6,7],[3,4,5,6,7],[3,4,5,6,7]] },
+  // 180°旋转对称: Δ≡0 而 λ=0.136 —— 演示"Δ盲区由λ兜底"的关键场景
+  pure:    { V: [[9,6,5,3,4],[6,8,5,4,3],[5,5,6,5,5],[3,4,5,8,6],[4,3,5,6,9]] },
+  uniform: { V: [[5,5,5,5,5],[5,5,5,5,5],[5,5,5,5,5],[5,5,5,5,5],[5,5,5,5,5]] },
+};
+const THRESH = 0.05, OK_RADIUS = 0.4;
+const DIR = (dr, dc) => {
+  const s = ((Math.round(Math.atan2(-dr, dc) * 180 / Math.PI / 45) % 8) + 8) % 8;
+  return ["右","右上","上","左上","左","左下","下","右下"][s];
+};
+const axisEnds = (axR, axC) => {
+  const sec = (dr, dc) => ((Math.round(Math.atan2(-dr, dc) * 180 / Math.PI / 45) % 8) + 8) % 8;
+  const s1 = sec(-axR, -axC), s2 = sec(axR, axC);
+  const NAMES = ["右","右上","上","左上","左","左下","下","右下"];
+  const leftish = s => [3, 4, 5, 6].includes(s);
+  const first = (leftish(s1) && !leftish(s2)) ? s1 : (leftish(s2) && !leftish(s1)) ? s2 : Math.min(s1, s2);
+  const other = first === s1 ? s2 : s1;
+  return `${NAMES[first]}—${NAMES[other]}`;
+};
+
+// ── 基础热力图 SVG（含可选的位置箭头） ────────────────────────────────
+function heatSVG(V, res, opts = {}) {
+  const N = V.length, CELL = 54, X0 = 18, Y0 = 18;
+  const px = c => X0 + c * CELL + CELL / 2 - 1;
+  const py = r => Y0 + r * CELL + CELL / 2 - 1;
+  let s = `<svg width="${X0 * 2 + N * CELL}" height="${Y0 * 2 + N * CELL}"
+           viewBox="0 0 ${X0 * 2 + N * CELL} ${Y0 * 2 + N * CELL}">`;
+  const heat = v => {
+    const t = (v - 1) / 8;
+    return `rgb(255,${Math.round(255 - 180 * t)},${Math.round(235 - 220 * t)})`;
+  };
+  for (let i = 0; i < N; i++)
+    for (let j = 0; j < N; j++) {
+      s += `<rect x="${X0 + j * CELL}" y="${Y0 + i * CELL}" width="${CELL - 2}"
+            height="${CELL - 2}" rx="4" fill="${heat(V[i][j])}"/>`;
+      if (opts.nums)
+        s += `<text x="${px(j)}" y="${py(i) + 5}" text-anchor="middle" font-size="14"
+              fill="#37474f" font-family="Consolas,monospace">${V[i][j]}</text>`;
+    }
+  if (opts.target) {
+    s += `<g stroke="#fff" stroke-width="2.5">
+      <line x1="${px(res.geoC) - 9}" y1="${py(res.geoR)}" x2="${px(res.geoC) + 9}" y2="${py(res.geoR)}"/>
+      <line x1="${px(res.geoC)}" y1="${py(res.geoR) - 9}" x2="${px(res.geoC)}" y2="${py(res.geoR) + 9}"/>
+      </g>`;
+  }
+  if (opts.arrow && res.off > OK_RADIUS) {
+    const x1 = px(res.muC), y1 = py(res.muR), x2 = px(res.geoC), y2 = py(res.geoR);
+    const dx = x2 - x1, dy = y2 - y1, L = Math.hypot(dx, dy);
+    const ux = dx / L, uy = dy / L, hx = x2 - ux * 14, hy = y2 - uy * 14;
+    s += `<circle cx="${x1}" cy="${y1}" r="6.5" fill="#ef6c00" stroke="#fff" stroke-width="2"/>`;
+    s += `<line x1="${x1 + ux * 8}" y1="${y1 + uy * 8}" x2="${hx}" y2="${hy}"
+          stroke="#ef6c00" stroke-width="3.5" stroke-linecap="round"/>`;
+    s += `<polygon points="${x2},${y2} ${hx - uy * 6},${hy + ux * 6} ${hx + uy * 6},${hy - ux * 6}"
+          fill="#ef6c00"/>`;
+  }
+  return { svg: s, px, py, CELL, N, X0, Y0 };
+}
+
+// ── 模式 A：圈出偏重区 ────────────────────────────────────────────────
+function modeCircle(V, res) {
+  const tilt = res.lam >= THRESH && (res.heavyR !== 0 || res.heavyC !== 0);
+  const { svg, px, py, CELL, N, X0, Y0 } = heatSVG(V, res, { arrow: true, target: true, nums: true });
+  let s = svg;
+  if (tilt) {
+    // 偏重 Cell 的包围盒 -> 红笔圈（椭圆）
+    let r0 = 1e9, r1 = -1e9, c0 = 1e9, c1 = -1e9;
+    for (const [r, c] of res.heavyCells) {
+      r0 = Math.min(r0, r); r1 = Math.max(r1, r);
+      c0 = Math.min(c0, c); c1 = Math.max(c1, c);
+    }
+    const cx = (px(c0) + px(c1)) / 2, cy = (py(r0) + py(r1)) / 2;
+    const rx = (c1 - c0) * CELL / 2 + CELL * 0.72;
+    const ry = (r1 - r0) * CELL / 2 + CELL * 0.72;
+    const ang = Math.atan2(res.heavyR, res.heavyC) * 180 / Math.PI;
+    // 手绘感双圈
+    s += `<g transform="rotate(${ang} ${cx} ${cy})" fill="none">
+      <ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" stroke="#e53935"
+               stroke-width="3.5" stroke-dasharray="150 7" stroke-linecap="round"/>
+      </g>`;
+    // 按压图钉：钉在偏重区重心
+    const hR = res.heavyCells.reduce((a, x) => a + x[0], 0) / res.heavyCells.length;
+    const hC = res.heavyCells.reduce((a, x) => a + x[1], 0) / res.heavyCells.length;
+    s += `<circle cx="${px(hC)}" cy="${py(hR)}" r="15" fill="#c62828" stroke="#fff" stroke-width="2.5"/>
+          <text x="${px(hC)}" y="${py(hR) + 5}" text-anchor="middle" font-size="13"
+          fill="#fff" font-weight="bold">重</text>`;
+    s += `</svg>`;
+    return {
+      svg: s,
+      caption: `红圈里的区域压得太重（这侧每格平均 ${Math.max(res.posMean, res.negMean).toFixed(1)}，` +
+               `对面只有 ${Math.min(res.posMean, res.negMean).toFixed(1)}）——` +
+               `先松一点${DIR(res.heavyR, res.heavyC)}侧，或把压头重新贴平。`
+    };
+  }
+  s += `</svg>`;
+  return { svg: s, caption: res.lam >= THRESH
+    ? "压力分布失衡但方向不确定——检查压头贴合。"
+    : "压力分布对称，没有压得太重的一侧。" };
+}
+
+// ── 模式 B：对称差对比图 Δ = V − rot180(V) ───────────────────────────
+function modeDiff(V, res) {
+  const N = V.length, CELL = 46, X0 = 14, Y0 = 14;
+  const left = heatSVG(V, res, { arrow: true, target: true, nums: false });
+  let d = `<svg width="${X0 * 2 + N * CELL}" height="${Y0 * 2 + N * CELL}">`;
+  let maxAbs = 0;
+  for (let i = 0; i < N; i++)
+    for (let j = 0; j < N; j++) {
+      const dv = V[i][j] - V[N - 1 - i][N - 1 - j];
+      maxAbs = Math.max(maxAbs, Math.abs(dv));
+    }
+  for (let i = 0; i < N; i++)
+    for (let j = 0; j < N; j++) {
+      const dv = V[i][j] - V[N - 1 - i][N - 1 - j];
+      const t = Math.abs(dv) / (maxAbs || 1);
+      const fill = dv > 0.01 ? `rgba(229,57,53,${0.15 + 0.8 * t})`
+                  : dv < -0.01 ? `rgba(30,136,229,${0.15 + 0.8 * t})`
+                  : "#eceff1";
+      d += `<rect x="${X0 + j * CELL}" y="${Y0 + i * CELL}" width="${CELL - 2}"
+            height="${CELL - 2}" rx="3" fill="${fill}"/>`;
+    }
+  // 找最大正差格子并圈出
+  let bi = 0, bj = 0, bv = -1e9;
+  for (let i = 0; i < N; i++)
+    for (let j = 0; j < N; j++) {
+      const dv = V[i][j] - V[N - 1 - i][N - 1 - j];
+      if (dv > bv) { bv = dv; bi = i; bj = j; }
+    }
+  if (res.lam >= THRESH && bv > 0.01) {
+    const cx = X0 + bj * CELL + CELL / 2 - 1, cy = Y0 + bi * CELL + CELL / 2 - 1;
+    d += `<circle cx="${cx}" cy="${cy}" r="17" fill="none" stroke="#c62828"
+          stroke-width="3"/><text x="${cx}" y="${cy - 21}" text-anchor="middle"
+          font-size="12" fill="#c62828" font-weight="bold">重</text>`;
+  }
+  d += `</svg>`;
+  return {
+    left: left.svg, right: d,
+    caption: "右图把每个格子与它斜对面的格子作差：<b style='color:#c62828'>红 = 比对面压得重</b>，" +
+             "蓝 = 比对面轻，灰 = 一样。红在哪里，哪边就偏重——不需要理解任何轴或中心。"
+  };
+}
+
+// ── 模式 C：四角桌腿 ─────────────────────────────────────────────────
+function modeLegs(V, res) {
+  const N = V.length, CELL = 46, X0 = 14, Y0 = 14;
+  const left = heatSVG(V, res, { arrow: true, target: true, nums: false });
+  // 象限均值（5x5: 中心行列不参与）
+  const quad = [[0, 0, 0, 0], [0, 0, 0, 0]];
+  const q = { TL: [], TR: [], BL: [], BR: [] };
+  for (let i = 0; i < N; i++)
+    for (let j = 0; j < N; j++) {
+      if (i === 2 || j === 2) continue;
+      if (i < 2 && j < 2) q.TL.push(V[i][j]);
+      else if (i < 2) q.TR.push(V[i][j]);
+      else if (j < 2) q.BL.push(V[i][j]);
+      else q.BR.push(V[i][j]);
+    }
+  const mean = a => a.reduce((x, y) => x + y) / a.length;
+  const vals = { TL: mean(q.TL), TR: mean(q.TR), BL: mean(q.BL), BR: mean(q.BR) };
+  const mx = Math.max(vals.TL, vals.TR, vals.BL, vals.BR);
+  const S = 210, P = 34;
+  let d = `<svg width="${S}" height="${S}" viewBox="0 0 ${S} ${S}">`;
+  d += `<rect x="16" y="16" width="${S - 32}" height="${S - 32}" rx="10"
+        fill="#fafafa" stroke="#b0bec5" stroke-width="2"/>`;
+  const put = (x, y, name, val, isMax) => {
+    const r = 10 + 16 * (val / (mx || 1));
+    d += `<circle cx="${x}" cy="${y}" r="${r}"
+          fill="${isMax ? "#e53935" : "#b0bec5"}" opacity="${isMax ? 1 : 0.65}"
+          stroke="${isMax ? "#b71c1c" : "#90a4ae"}" stroke-width="2"/>`;
+    d += `<text x="${x}" y="${y + 4}" text-anchor="middle" font-size="11.5" fill="#fff"
+          font-weight="bold">${val.toFixed(1)}</text>`;
+    d += `<text x="${x}" y="${y - r - 6}" text-anchor="middle" font-size="11"
+          fill="${isMax ? "#c62828" : "#78909c"}" font-weight="${isMax ? "bold" : "normal"}">
+          ${name}${isMax ? "（最重）" : ""}</text>`;
+  };
+  const maxName = Object.keys(vals).find(k => vals[k] === mx);
+  put(P, P, "左上", vals.TL, maxName === "TL");
+  put(S - P, P, "右上", vals.TR, maxName === "TR");
+  put(P, S - P, "左下", vals.BL, maxName === "BL");
+  put(S - P, S - P, "右下", vals.BR, maxName === "BR");
+  d += `</svg>`;
+  return {
+    left: left.svg, right: d,
+    caption: "把受力归纳成四个角（像桌子的四条腿）：圆越大承重越大。" +
+             (res.lam >= THRESH
+               ? `${maxName.replace("T", "上").replace("B", "下").replace("L", "左").replace("R", "右")}角吃力最大——检查那边的贴合。`
+               : "四角均衡，没有倾斜迹象。")
+  };
+}
+
+// ── 结论与操作卡 ──────────────────────────────────────────────────────
+function verdict(scene, res) {
+  const tilt = res.lam >= THRESH;
+  const balanced = res.off <= OK_RADIUS;
+  const v = document.getElementById("verdict");
+  const st = document.getElementById("steps");
+  const heavyDir = tilt ? DIR(res.heavyR, res.heavyC) : "";
+  const axis = tilt ? axisEnds(res.axR, res.axC) : "";
+
+  v.innerHTML = tilt
+    ? (res.heavyR === 0 && res.heavyC === 0
+        ? `<div class="big">压力分布失衡（方向不确定）</div>先停止挪动，检查压头贴合`
+        : `<div class="big">${heavyDir}侧压力偏大</div>` +
+          `沿${axis}方向失衡：这侧每格平均 ${Math.max(res.posMean, res.negMean).toFixed(1)}，` +
+          `对面 ${Math.min(res.posMean, res.negMean).toFixed(1)}`)
+    : (balanced
+        ? `<div class="big ok">受力均衡</div>位置已对齐、分布对称，可以开始测试`
+        : `<div class="big" style="color:var(--orange)">受力中心偏${DIR(res.muR - res.geoR, res.muC - res.geoC)}</div>` +
+          `分布对称，只是整体位置偏了 ${res.off.toFixed(1)} cell`);
+
+  let steps = "";
+  if (tilt) {
+    steps += `<div class="step"><div class="n" style="background:var(--purple)">1</div>
+      <div class="t"><b>先查压头平不平</b><br>松一点${heavyDir}侧的压力，或把压头抬起重新贴合。
+      倾斜不是挪动能修好的。</div></div>`;
+    steps += `<div class="step dim"><div class="n" style="background:var(--orange)">2</div>
+      <div class="t"><b>贴平后再看位置</b><br>${balanced ? "目前位置已对齐，无需挪动。" :
+      `然后向${DIR(res.geoR - res.muR, res.geoC - res.muC)}微调（偏差 ${res.off.toFixed(1)} cell）。`}</div></div>`;
+  } else {
+    steps += `<div class="step"><div class="n" style="background:var(--green)">1</div>
+      <div class="t"><b>压头是平的</b><br>分布对称，无需处理倾斜。</div></div>`;
+    steps += balanced
+      ? `<div class="step"><div class="n" style="background:var(--green)">2</div>
+         <div class="t"><b>位置已对齐</b><br>保持当前状态即可。</div></div>`
+      : `<div class="step"><div class="n" style="background:var(--orange)">2</div>
+         <div class="t"><b>向${DIR(res.geoR - res.muR, res.geoC - res.muC)}微调压头</b><br>
+         照橙色箭头方向小幅移动（偏差 ${res.off.toFixed(1)} cell）。</div></div>`;
+  }
+  st.innerHTML = steps;
+}
+
+// ── 模式 E（采用方案）：λ 判定 + Δ 显示 ─────────────────────────────
+// 判定层保持二阶张量: λ>=阈值才触发倾斜提示, 轴向命名来自主特征向量。
+// 显示层用对称差 Δ = V − rot180(V): 红=比斜对面重; 偏重侧方向 = Δ 的一阶矩。
+// Δ 对四极模式(纯对角加压)恒为零 —— 此时降级为"沿该方向集中"文案, 由 λ 兜底触发。
+function modeHybrid(V, res) {
+  const N = V.length;
+  const D = V.map((row, i) => row.map((x, j) => x - V[N - 1 - i][N - 1 - j]));
+  let maxD = 0;
+  for (let i = 0; i < N; i++)
+    for (let j = 0; j < N; j++) maxD = Math.max(maxD, Math.abs(D[i][j]));
+  const tilt = res.lam >= THRESH;
+  const sidesSplittable = tilt && maxD >= 1.0; // Δ 有可见信号才分偏重侧
+
+  // Δ 一阶矩 -> 偏重方向; 正差格子的 Δ 加权重心 -> 图钉位置
+  let dipR = 0, dipC = 0, pinR = 0, pinC = 0, pinW = 0;
+  for (let i = 0; i < N; i++)
+    for (let j = 0; j < N; j++) {
+      const dv = D[i][j];
+      dipR += dv * i; dipC += dv * j;
+      if (dv > 0.01) { pinR += dv * i; pinC += dv * j; pinW += dv; }
+    }
+
+  // 左: 原始热力图 + 偏重侧铺色(Δ>0) + 重图钉 + 位置箭头
+  const left = heatSVG(V, res, { arrow: true, target: true, nums: true });
+  let s = left.svg;
+  if (sidesSplittable) {
+    for (let i = 0; i < N; i++)
+      for (let j = 0; j < N; j++)
+        if (D[i][j] > 0.3)
+          s += `<rect x="${left.X0 + j * left.CELL}" y="${left.Y0 + i * left.CELL}"
+                width="${left.CELL - 2}" height="${left.CELL - 2}" rx="4"
+                fill="rgba(142,36,170,0.30)"/>`;
+    const hx = left.X0 + (pinC / pinW) * left.CELL + left.CELL / 2 - 1;
+    const hy = left.Y0 + (pinR / pinW) * left.CELL + left.CELL / 2 - 1;
+    s += `<circle cx="${hx}" cy="${hy}" r="15" fill="#c62828" stroke="#fff" stroke-width="2.5"/>
+          <text x="${hx}" y="${hy + 5}" text-anchor="middle" font-size="13"
+          fill="#fff" font-weight="bold">重</text>`;
+  }
+  s += `</svg>`;
+
+  // 右: Δ 面板
+  const CELL2 = 46, X2 = 14, Y2 = 14;
+  let d = `<svg width="${X2 * 2 + N * CELL2}" height="${Y2 * 2 + N * CELL2}">`;
+  for (let i = 0; i < N; i++)
+    for (let j = 0; j < N; j++) {
+      const dv = D[i][j], t = Math.abs(dv) / (maxD || 1);
+      const fill = dv > 0.01 ? `rgba(229,57,53,${0.15 + 0.8 * t})`
+                  : dv < -0.01 ? `rgba(30,136,229,${0.15 + 0.8 * t})` : "#eceff1";
+      d += `<rect x="${X2 + j * CELL2}" y="${Y2 + i * CELL2}" width="${CELL2 - 2}"
+            height="${CELL2 - 2}" rx="3" fill="${fill}"/>`;
+    }
+  d += `</svg>`;
+
+  const axis = axisEnds(res.axR, res.axC);
+  let caption;
+  if (!tilt) {
+    caption = `分布对称（λ=${res.lam.toFixed(3)} < 0.05），不触发倾斜提示；` +
+              (res.off > OK_RADIUS ? "只有位置偏移，照橙色箭头微调即可。" : "位置也已对齐。");
+  } else if (sidesSplittable) {
+    const heavyDir = DIR(dipR, dipC);
+    caption = `<b>判定</b>（λ=${res.lam.toFixed(3)} ≥ 0.05）：沿${axis}方向失衡，触发倾斜提示。` +
+              `<b>显示</b>（Δ）：红色团块在${heavyDir} → ${heavyDir}侧偏重，先松${heavyDir}侧或重新贴平。`;
+  } else {
+    caption = `<b>判定</b>（λ=${res.lam.toFixed(3)} ≥ 0.05）：沿${axis}方向失衡。` +
+              `<b>显示</b>（Δ 全灰）：两侧相当——重压集中在${axis}轴线上（对角加压的典型形态），` +
+              `只提示检查压头贴平，不指认偏重侧。这正是 Δ 的盲区，由 λ 兜底。`;
+  }
+  return { left: s, right: d, caption };
+}
+
+// ── 模式 D：当前方案（DrawBalanceOverlay 现状复刻） ──────────────────
+function theoCenter(V) { // 峰值核心参照中心（C++ peak_reference_fraction=0.5）
+  let peak = 0, cells = [];
+  for (let i = 0; i < V.length; i++)
+    for (let j = 0; j < V[0].length; j++)
+      if (V[i][j] > 1.5) { cells.push([i, j, V[i][j]]); peak = Math.max(peak, V[i][j]); }
+  const core = cells.filter(x => x[2] >= 0.5 * peak);
+  return {
+    r: core.reduce((a, x) => a + x[0], 0) / core.length,
+    c: core.reduce((a, x) => a + x[1], 0) / core.length,
+  };
+}
+
+function modeCurrent(V, res) {
+  const N = V.length, CELL = 54, X0 = 18, Y0 = 18;
+  const px = c => X0 + c * CELL + CELL / 2 - 1;
+  const py = r => Y0 + r * CELL + CELL / 2 - 1;
+  const heat = v => {
+    const t = (v - 1) / 8;
+    return `rgb(255,${Math.round(255 - 180 * t)},${Math.round(235 - 220 * t)})`;
+  };
+  let s = `<svg width="${X0 * 2 + N * CELL}" height="${Y0 * 2 + N * CELL + 46}">`;
+  for (let i = 0; i < N; i++)
+    for (let j = 0; j < N; j++) {
+      s += `<rect x="${X0 + j * CELL}" y="${Y0 + i * CELL}" width="${CELL - 2}"
+            height="${CELL - 2}" fill="${heat(V[i][j])}"/>`;
+    }
+  // 红/蓝格子: 相对斑块均值 ±0.7σ
+  let sum = 0, cnt = 0;
+  for (let i = 0; i < N; i++)
+    for (let j = 0; j < N; j++)
+      if (V[i][j] > 1.5) { sum += V[i][j]; cnt++; }
+  const mean = sum / cnt;
+  let vr = 0;
+  for (let i = 0; i < N; i++)
+    for (let j = 0; j < N; j++)
+      if (V[i][j] > 1.5) vr += (V[i][j] - mean) ** 2;
+  const sigma = Math.sqrt(vr / cnt);
+  if (sigma > 1e-9)
+    for (let i = 0; i < N; i++)
+      for (let j = 0; j < N; j++) {
+        if (V[i][j] <= 1.5) continue;
+        const d = V[i][j] - mean;
+        if (Math.abs(d) < 0.7 * sigma) continue;
+        const fill = d > 0 ? "rgba(255,50,50,0.5)" : "rgba(50,120,255,0.5)";
+        s += `<rect x="${X0 + j * CELL}" y="${Y0 + i * CELL}" width="${CELL - 2}"
+              height="${CELL - 2}" fill="${fill}"/>`;
+      }
+  // 外接红框（现状）
+  s += `<rect x="${X0}" y="${Y0}" width="${N * CELL - 2}" height="${N * CELL - 2}"
+        fill="none" stroke="rgba(255,0,0,0.85)" stroke-width="2"/>`;
+  // 十字目标(峰值核心) + 当前点 + 箭头
+  const tc = theoCenter(V);
+  const tx = px(tc.c), ty = py(tc.r), ax = px(res.muC), ay = py(res.muR);
+  s += `<g stroke="#fff" stroke-width="2.5">
+    <line x1="${tx - 6}" y1="${ty}" x2="${tx + 6}" y2="${ty}"/>
+    <line x1="${tx}" y1="${ty - 6}" x2="${tx}" y2="${ty + 6}"/></g>
+    <circle cx="${ax}" cy="${ay}" r="5" fill="#ef6c00" stroke="#fff" stroke-width="1.5"/>
+    <line x1="${ax}" y1="${ay}" x2="${tx}" y2="${ty}" stroke="#ef6c00" stroke-width="2.5"/>`;
+  // 双向紫色虚线轴 + 偏重侧铺色（倾斜时）
+  if (res.lam >= THRESH && (res.axR || res.axC)) {
+    const gR = res.geoR, gC = res.geoC;
+    for (let i = 0; i < N; i++)
+      for (let j = 0; j < N; j++) {
+        if (V[i][j] <= 1.5) continue;
+        const t = (i - gR) * res.heavyR + (j - gC) * res.heavyC;
+        if (t > 1e-9)
+          s += `<rect x="${X0 + j * CELL}" y="${Y0 + i * CELL}" width="${CELL - 2}"
+                height="${CELL - 2}" fill="rgba(160,40,220,0.22)"/>`;
+      }
+    const L = 1.9;
+    s += `<line x1="${px(gC - res.axC * L)}" y1="${py(gR - res.axR * L)}"
+          x2="${px(gC + res.axC * L)}" y2="${py(gR + res.axR * L)}"
+          stroke="#c838ff" stroke-width="1.5" stroke-dasharray="6 4"/>`;
+    const heavyDir = DIR(res.heavyR, res.heavyC);
+    s += `<text x="${X0 + 4}" y="${Y0 * 2 + N * CELL + 34}" font-size="12.5"
+          fill="#4a148c">${heavyDir}侧压力偏大，压头可能倾斜</text>`;
+  } else {
+    s += `<text x="${X0 + 4}" y="${Y0 * 2 + N * CELL + 34}" font-size="12.5"
+          fill="#33691e">分布对称（未触发倾斜提示）</text>`;
+  }
+  s += `</svg>`;
+  return { svg: s };
+}
+
+// ── 每种模式的"怎么读偏重"指引 ──────────────────────────────────────
+const GUIDES = {
+  hybrid: {
+    title: "怎么读 · 模式 E（λ 判定 + Δ 显示，采用方案）",
+    steps: [
+      "<b>先看会不会触发</b>：λ ≥ 0.05 才有倾斜提示。λ 是判定层，画面上不直接出现——用户只看到它的后果（提示出现/不出现）。",
+      "<b>右图（对称差）= 每个格子与斜对面格子的差</b>：红 = 比对面压得重，蓝 = 比对面轻，灰 = 一样。颜色越深差得越多。",
+      "<b>红色团块在哪，哪边偏重</b>：左图铺色 + “重”字图钉也标在偏重一侧。先松那一侧的力，或把压头抬起重新贴平。",
+      "<b>右图全灰却仍有提示 = 重压压在轴线上</b>（对角加压的典型形态）：两侧相当，只说“沿某方向集中”，不指认偏重侧——这种情况对称差看不见，是 λ 兜底触发的。",
+      "<b>橙箭头只管位置</b>：没有倾斜提示时才照它微调压头；有倾斜提示时先解决贴平，再挪位置。",
+    ],
+  },
+  circle: {
+    title: "怎么读 · 模式 A（圈出偏重区）",
+    steps: [
+      "<b>红圈 = 压太重的区域</b>：圈住的是算法判定为偏重的那一侧 Cell。注意：红圈是“这一片整体压太重”，不是某个坏点，也不是报警等级。",
+      "<b>“重”字图钉指出偏重方向</b>：图钉落在偏重区的重心上。图钉在左上，就是左上侧压太重。",
+      "<b>怎么改</b>：先松一点偏重一侧的力，或把压头抬起重新贴平；偏重问题解决前，不要按箭头挪位置。",
+      "<b>橙箭头只管位置</b>：它表示“受力中心偏了，往箭头方向挪”。没有倾斜提示时才优先照它做。",
+    ],
+  },
+  diff: {
+    title: "怎么读 · 模式 B（对称差对比图）",
+    steps: [
+      "<b>右图的每个格子 = 原图格子与它斜对面格子的差</b>：拿它和旋转 180° 的自己对比，把“对称的部分”抵消掉，剩下的就是失衡。",
+      "<b>红 = 比斜对面重，蓝 = 比斜对面轻，灰 = 一样</b>。颜色越深差得越多。",
+      "<b>找最红的团块</b>：红团块在哪，哪边就偏重——红团块在左上，就是左上压得比右下重。带“重”字圆圈的就是差得最多的格子。",
+      "<b>全灰 = 分布对称</b>，没有倾斜迹象；红蓝同时出现说明两侧互有轻重，看红团块更集中的一侧。",
+    ],
+  },
+  legs: {
+    title: "怎么读 · 模式 C（四角桌腿）",
+    steps: [
+      "<b>四个圆 = 四个角的平均承重</b>：把受力区按四个象限归纳（中间行列不参与），像桌子的四条腿。",
+      "<b>圆越大 = 那一角压得越重</b>；标红加“（最重）”的是吃力最大的一角。",
+      "<b>怎么改</b>：检查最重那一角的压头贴合，或松一点那边的力。",
+      "<b>对角两个圆同时偏大</b>：说明重压集中在对角线上（“沿该方向集中”），不是某一侧偏重——此时只提示检查压头，不指认某侧。",
+    ],
+  },
+  current: {
+    title: "怎么读 · 模式 D（当前方案，现状）",
+    steps: [
+      "<b>红框</b> = 一个独立受力区域的外接框（注意：是外接框，不是真实边界；空白和空洞也被圈在里面）。",
+      "<b>白十字 = 目标参考中心</b>（高压力核心的几何中心），<b>橙点 = 当前受力中心</b>（数值加权），橙线箭头 = 建议平移方向：照箭头小幅挪压头。",
+      "<b>红格子 / 蓝格子</b> = 区域内相对偏重 / 偏轻的 Cell（相对本区域平均值的偏离，不是绝对值；蓝格不等于没受力）。",
+      "<b>紫色虚线 = 失衡方向轴</b>：压力沿这根线的方向分布异常。注意它是<b>双向的线，不是“往哪推”的箭头</b>——看到它应该停下来检查压头是否贴平，而不是挪动。",
+      "<b>紫色铺色一侧 = 偏重侧</b>：铺色在左上，就是左上侧压得重。配合底部文字“X侧压力偏大，压头可能倾斜”一起读。",
+      "<b>阅读顺序</b>：先看有没有紫轴（有 → 先查贴平），再看橙箭头（没有紫轴才照它挪），最后看红蓝格理解哪里轻哪里重。",
+    ],
+  },
+};
+
+function renderGuide() {
+  const g = GUIDES[curMode];
+  document.getElementById("guideTitle").textContent = g.title;
+  document.getElementById("guideArea").innerHTML = g.steps
+    .map((t, i) => `<div class="step"><div class="n" style="background:var(--purple)">${i + 1}</div>
+      <div class="t">${t}</div></div>`)
+    .join("");
+}
+
+// ── 渲染调度 ─────────────────────────────────────────────────────────
+let curScene = "tilt", curMode = "hybrid";
+
+function refresh() {
+  const V = SCENES[curScene].V;
+  const res = analyze(V);
+  const area = document.getElementById("mainArea");
+  const title = document.getElementById("mainTitle");
+
+  if (curMode === "hybrid") {
+    const m = modeHybrid(V, res);
+    title.textContent = "λ 判定 + Δ 显示 · 原始分布（左） 对称差（右）";
+    area.innerHTML = `<div class="duo">
+      <div class="panel">${m.left}<div class="cap">原始压力分布（铺色=偏重侧）</div></div>
+      <div class="panel">${m.right}<div class="cap">对称差：红=比斜对面重</div></div>
+      </div>
+      <p class="cap" style="text-align:center;font-size:12.5px;color:var(--sub);
+        margin-top:6px;line-height:1.6">${m.caption}</p>`;
+  } else if (curMode === "circle") {
+    const m = modeCircle(V, res);
+    title.textContent = "俯视图 · 红圈 = 压太重的区域";
+    area.innerHTML = `<div class="panel">${m.svg}</div>
+      <p class="cap" style="text-align:center;font-size:12.5px;color:var(--sub);
+        margin-top:6px;line-height:1.6">${m.caption}</p>`;
+  } else if (curMode === "diff") {
+    const m = modeDiff(V, res);
+    title.textContent = "原始分布（左） · 对称差对比（右）";
+    area.innerHTML = `<div class="duo">
+      <div class="panel">${m.left}<div class="cap">原始压力分布</div></div>
+      <div class="panel">${m.right}<div class="cap">对称差：红=比对面重</div></div>
+      </div>
+      <p class="cap" style="text-align:center;font-size:12.5px;color:var(--sub);
+        margin-top:6px;line-height:1.6">${m.caption}</p>`;
+  } else if (curMode === "legs") {
+    const m = modeLegs(V, res);
+    title.textContent = "原始分布（左） · 四角承重（右）";
+    area.innerHTML = `<div class="duo">
+      <div class="panel">${m.left}<div class="cap">原始压力分布</div></div>
+      <div class="panel">${m.right}<div class="cap">四角承重归纳</div></div>
+      </div>
+      <p class="cap" style="text-align:center;font-size:12.5px;color:var(--sub);
+        margin-top:6px;line-height:1.6">${m.caption}</p>`;
+  } else { // current
+    const m = modeCurrent(V, res);
+    title.textContent = "当前方案 · DrawBalanceOverlay 现状复刻";
+    area.innerHTML = `<div class="panel">${m.svg}</div>
+      <p class="cap" style="text-align:center;font-size:12.5px;color:var(--sub);
+        margin-top:6px;line-height:1.6">与 C++ 现实现同口径：外接红框、±0.7σ 红/蓝格、
+        峰值核心十字、加权中心橙点与箭头、双向紫色虚线轴（λ≥0.05 时）与偏重侧铺色。</p>`;
+  }
+  verdict(curScene, res);
+  renderGuide();
+}
+
+document.querySelectorAll(".tab").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const group = btn.parentElement;
+    group.querySelectorAll(".tab").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    if (btn.dataset.scene) curScene = btn.dataset.scene;
+    if (btn.dataset.mode) curMode = btn.dataset.mode;
+    refresh();
+  });
+});
+refresh();
+</script>
+</body>
+</html>
