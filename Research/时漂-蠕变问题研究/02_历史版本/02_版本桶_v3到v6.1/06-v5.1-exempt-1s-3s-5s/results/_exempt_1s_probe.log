@@ -1,0 +1,76 @@
+[切换负载-快相无责] 255.7s / 25691 帧
+首个负载沿 @10.85s（平滑总量 71 → 2312）
+
+===== 免责 1s（FAST_S=1.00 AWIN=0.333 ARM=1.00）=====
+   t=+ -1.00s  in_load=0 pending=0 hold=0  epoch起点@+-10.85s  A_max=     34  g=+0.0069  扣除=      0
+   t=+ -0.01s  in_load=0 pending=1 hold=0  epoch起点@+-10.85s  A_max=     34  g=+0.0069  扣除=      0
+   t=+  2.50s  in_load=1 pending=0 hold=0  epoch起点@+  2.50s  A_max=     34  g=+0.0000  扣除=      0
+   t=+  3.50s  in_load=1 pending=1 hold=1  epoch起点@+  2.50s  A_max=    716  g=+0.0000  扣除=      0
+   t=+  8.50s  in_load=1 pending=0 hold=0  epoch起点@+  8.50s  A_max=    774  g=+0.0000  扣除=      0
+   t=+ 17.65s  in_load=1 pending=1 hold=1  epoch起点@+  8.50s  A_max=    816  g=+0.0166  扣除=     77
+   t=+ 20.15s  in_load=1 pending=0 hold=0  epoch起点@+ 20.15s  A_max=   1543  g=+0.0000  扣除=     79
+   采样（+2s 间隔）: t / pending / hold / A_max / g / 扣除
+     +  0.00s  P=1 H=0  A=     34  g=+0.0069  ded=      0
+     +  2.00s  P=1 H=0  A=     34  g=+0.0069  ded=      0
+     +  4.00s  P=1 H=1  A=    716  g=+0.0000  ded=      0
+     +  6.00s  P=1 H=1  A=    716  g=+0.0000  ded=      0
+     +  8.00s  P=1 H=1  A=    716  g=+0.0000  ded=      0
+     + 10.00s  P=0 H=0  A=    816  g=+0.0001  ded=      0
+     + 12.00s  P=0 H=0  A=    816  g=-0.0008  ded=     -4
+     + 14.00s  P=0 H=0  A=    816  g=+0.0011  ded=      5
+     + 16.00s  P=0 H=0  A=    816  g=+0.0041  ded=     19
+     + 18.00s  P=1 H=1  A=    816  g=+0.0166  ded=     77
+     + 20.01s  P=1 H=1  A=    816  g=+0.0166  ded=     77
+     + 38.00s  P=0 H=0  A=   1572  g=+0.0491  ded=    651
+     + 40.00s  P=0 H=0  A=   1572  g=+0.0557  ded=    726
+     + 42.00s  P=0 H=0  A=   1572  g=+0.0622  ded=    784
+     + 44.00s  P=0 H=0  A=   1572  g=+0.0674  ded=    816
+   [+0~40s] pending 占比  25.0%   hold 占比  18.8%   该窗内 epoch 重启 3 次   扣除峰值 726
+
+===== 免责 3s（FAST_S=3.00 AWIN=1.000 ARM=3.00）=====
+   t=+ -1.00s  in_load=0 pending=0 hold=0  epoch起点@+-10.85s  A_max=      0  g=+0.0000  扣除=      0
+   t=+ -0.01s  in_load=0 pending=1 hold=0  epoch起点@+-10.85s  A_max=      0  g=+0.0000  扣除=      0
+   t=+  2.50s  in_load=1 pending=0 hold=0  epoch起点@+  2.50s  A_max=      0  g=+0.0000  扣除=      0
+   t=+ 17.65s  in_load=1 pending=1 hold=1  epoch起点@+  2.50s  A_max=    753  g=+0.0934  扣除=    550
+   t=+ 20.15s  in_load=1 pending=0 hold=0  epoch起点@+ 20.15s  A_max=   1415  g=+0.0000  扣除=    567
+   采样（+2s 间隔）: t / pending / hold / A_max / g / 扣除
+     +  0.00s  P=1 H=0  A=      0  g=+0.0000  ded=      0
+     +  2.00s  P=1 H=0  A=      0  g=+0.0000  ded=      0
+     +  4.00s  P=0 H=0  A=      0  g=+0.0000  ded=      0
+     +  6.00s  P=0 H=0  A=    753  g=+0.0030  ded=     12
+     +  8.00s  P=0 H=0  A=    753  g=+0.0257  ded=    206
+     + 10.00s  P=0 H=0  A=    753  g=+0.0464  ded=    342
+     + 12.00s  P=0 H=0  A=    753  g=+0.0588  ded=    377
+     + 14.00s  P=0 H=0  A=    753  g=+0.0673  ded=    401
+     + 16.00s  P=0 H=0  A=    753  g=+0.0732  ded=    417
+     + 18.00s  P=1 H=1  A=    753  g=+0.0934  ded=    550
+     + 20.01s  P=1 H=1  A=    753  g=+0.0934  ded=    550
+     + 38.00s  P=0 H=0  A=   1474  g=+0.0749  ded=   1082
+     + 40.00s  P=0 H=0  A=   1474  g=+0.0783  ded=   1123
+     + 42.00s  P=0 H=0  A=   1474  g=+0.0853  ded=   1211
+     + 44.00s  P=0 H=0  A=   1474  g=+0.0898  ded=   1259
+   [+0~40s] pending 占比  12.5%   hold 占比   6.3%   该窗内 epoch 重启 2 次   扣除峰值 1123
+
+===== 免责 5s（FAST_S=5.00 AWIN=1.667 ARM=5.00）=====
+   t=+ -1.00s  in_load=0 pending=0 hold=0  epoch起点@+-10.85s  A_max=      0  g=+0.0000  扣除=      0
+   t=+ -0.01s  in_load=0 pending=1 hold=0  epoch起点@+-10.85s  A_max=      0  g=+0.0000  扣除=      0
+   t=+  2.50s  in_load=1 pending=0 hold=0  epoch起点@+  2.50s  A_max=      0  g=+0.0000  扣除=      0
+   t=+ 17.65s  in_load=1 pending=1 hold=1  epoch起点@+  2.50s  A_max=    792  g=+0.0444  扣除=    323
+   t=+ 20.15s  in_load=1 pending=0 hold=0  epoch起点@+ 20.15s  A_max=   1486  g=+0.0000  扣除=    328
+   采样（+2s 间隔）: t / pending / hold / A_max / g / 扣除
+     +  0.00s  P=1 H=0  A=      0  g=+0.0000  ded=      0
+     +  2.00s  P=1 H=0  A=      0  g=+0.0000  ded=      0
+     +  4.00s  P=0 H=0  A=      0  g=+0.0000  ded=      0
+     +  6.00s  P=0 H=0  A=      0  g=+0.0000  ded=      0
+     +  8.00s  P=0 H=0  A=    792  g=+0.0014  ded=      6
+     + 10.00s  P=0 H=0  A=    792  g=+0.0106  ded=     47
+     + 12.00s  P=0 H=0  A=    792  g=+0.0177  ded=     79
+     + 14.00s  P=0 H=0  A=    792  g=+0.0237  ded=    148
+     + 16.00s  P=0 H=0  A=    792  g=+0.0281  ded=    169
+     + 18.00s  P=1 H=1  A=    792  g=+0.0444  ded=    323
+     + 20.01s  P=1 H=1  A=    792  g=+0.0444  ded=    323
+     + 38.00s  P=0 H=0  A=   1529  g=+0.0472  ded=    763
+     + 40.00s  P=0 H=0  A=   1529  g=+0.0490  ded=    779
+     + 42.00s  P=0 H=0  A=   1529  g=+0.0517  ded=    812
+     + 44.00s  P=0 H=0  A=   1529  g=+0.0533  ded=    820
+   [+0~40s] pending 占比  12.5%   hold 占比   6.3%   该窗内 epoch 重启 2 次   扣除峰值 779

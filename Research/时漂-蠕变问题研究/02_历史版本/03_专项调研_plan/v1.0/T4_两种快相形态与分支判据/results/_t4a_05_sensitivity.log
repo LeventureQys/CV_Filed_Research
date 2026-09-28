@@ -1,0 +1,68 @@
+# cmd      : python scripts/t4a_05_sensitivity.py
+# cwd      : D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T4_两种快相形态与分支判据
+# argv     : scripts\t4a_05_sensitivity.py
+# when     : 2026-09-18T23:36:11
+# env      : python 3.14.4 | numpy 2.4.6 | pandas 3.0.3
+# 口径     : timestamp 列 / 100 Hz 网格 / Z=Σch / 无 τ=2 s 平滑 / 中位滤波 0.5 s
+
+== armed 门限敏感性（clean 子集）==
+     variant          feature  n_onset  n_restep  med_onset  med_restep    auc  band_overlap                       note
+armed_thr_10              t90       16         9     0.6200      1.1000 0.2674        0.6352       与 armed_20 标签不一致 2 个
+armed_thr_10          z_at_02       16         9     0.8276      0.4648 0.9028        0.0000       与 armed_20 标签不一致 2 个
+armed_thr_10          z_at_10       16         9     0.9176      0.8558 0.7569        0.6826       与 armed_20 标签不一致 2 个
+armed_thr_10           T_ramp       16         9     0.0100      0.5500 0.1250        0.6308       与 armed_20 标签不一致 2 个
+armed_thr_20              t90       18         7     0.6200      1.4000 0.1944        0.5309       与 armed_20 标签不一致 0 个
+armed_thr_20          z_at_02       18         7     0.8276      0.4648 0.9603        0.0000       与 armed_20 标签不一致 0 个
+armed_thr_20          z_at_10       18         7     0.9176      0.8558 0.7698        0.6532       与 armed_20 标签不一致 0 个
+armed_thr_20           T_ramp       18         7     0.0100      0.5500 0.0635        0.1829       与 armed_20 标签不一致 0 个
+armed_thr_30              t90       19         6     0.6700      1.5750 0.2105        0.5418       与 armed_20 标签不一致 1 个
+armed_thr_30          z_at_02       19         6     0.8239      0.5292 0.9123        0.1449       与 armed_20 标签不一致 1 个
+armed_thr_30          z_at_10       19         6     0.9159      0.8275 0.7368        0.7476       与 armed_20 标签不一致 1 个
+armed_thr_30           T_ramp       19         6     0.0100      0.4750 0.1140        0.5602       与 armed_20 标签不一致 1 个
+armed_thr_10 label_flip_count       19        21        NaN         NaN    NaN           NaN 全部加载类事件中与 armed_20 不一致 3 个
+armed_thr_30 label_flip_count       23        17        NaN         NaN    NaN           NaN 全部加载类事件中与 armed_20 不一致 1 个
+
+== ±1 包敏感性（clean 子集；delta 行为逐事件位移量）==
+         variant           feature  n_onset  n_restep  med_onset  med_restep    auc  band_overlap                                  note
+       pkt_plus1               t50       18         7     0.0100      0.2300 0.0437           NaN        包周期：指尖 0.0167 s / 变载实录 0.040 s
+       pkt_plus1               t80       18         7     0.1600      0.6800 0.0238           NaN        包周期：指尖 0.0167 s / 变载实录 0.040 s
+       pkt_plus1               t90       18         7     0.6100      1.3900 0.1984           NaN        包周期：指尖 0.0167 s / 变载实录 0.040 s
+       pkt_plus1          z_at_005       18         7     0.7337      0.2201 0.9365           NaN        包周期：指尖 0.0167 s / 变载实录 0.040 s
+       pkt_plus1           z_at_01       18         7     0.7548      0.2965 0.9762           NaN        包周期：指尖 0.0167 s / 变载实录 0.040 s
+       pkt_plus1           z_at_02       18         7     0.8297      0.4708 0.9683           NaN        包周期：指尖 0.0167 s / 变载实录 0.040 s
+       pkt_plus1           z_at_10       18         7     0.9183      0.8556 0.7778           NaN        包周期：指尖 0.0167 s / 变载实录 0.040 s
+       pkt_plus1     n_frames_rise       18         7     1.0000     13.0000 0.0437           NaN        包周期：指尖 0.0167 s / 变载实录 0.040 s
+       pkt_plus1 rise_frames_10_90       18         7    61.0000    133.0000 0.2063           NaN        包周期：指尖 0.0167 s / 变载实录 0.040 s
+       pkt_plus1   step_frame_frac       18         7     0.3873      0.4954 0.3889           NaN        包周期：指尖 0.0167 s / 变载实录 0.040 s
+      pkt_minus1               t50       18         7     0.0300      0.2500 0.0476           NaN        包周期：指尖 0.0167 s / 变载实录 0.040 s
+      pkt_minus1               t80       18         7     0.1800      0.7000 0.0238           NaN        包周期：指尖 0.0167 s / 变载实录 0.040 s
+      pkt_minus1               t90       18         7     0.6300      1.4000 0.1905           NaN        包周期：指尖 0.0167 s / 变载实录 0.040 s
+      pkt_minus1          z_at_005       18         7     0.7034      0.2306 0.9524           NaN        包周期：指尖 0.0167 s / 变载实录 0.040 s
+      pkt_minus1           z_at_01       18         7     0.7464      0.2653 0.9683           NaN        包周期：指尖 0.0167 s / 变载实录 0.040 s
+      pkt_minus1           z_at_02       18         7     0.8240      0.4610 0.9444           NaN        包周期：指尖 0.0167 s / 变载实录 0.040 s
+      pkt_minus1           z_at_10       18         7     0.9172      0.8562 0.8016           NaN        包周期：指尖 0.0167 s / 变载实录 0.040 s
+      pkt_minus1     n_frames_rise       18         7     3.0000     14.0000 0.0437           NaN        包周期：指尖 0.0167 s / 变载实录 0.040 s
+      pkt_minus1 rise_frames_10_90       18         7    61.5000    132.0000 0.2063           NaN        包周期：指尖 0.0167 s / 变载实录 0.040 s
+      pkt_minus1   step_frame_frac       18         7     0.3873      0.4861 0.3968           NaN        包周期：指尖 0.0167 s / 变载实录 0.040 s
+ pkt_plus1_delta               t50       59         0     0.0100         NaN    NaN           NaN 逐事件 |Δ| 中位（相对 base；±1 包 = 16.7/40 ms）
+ pkt_plus1_delta               t80       59         0     0.0100         NaN    NaN           NaN 逐事件 |Δ| 中位（相对 base；±1 包 = 16.7/40 ms）
+ pkt_plus1_delta               t90       59         0     0.0100         NaN    NaN           NaN 逐事件 |Δ| 中位（相对 base；±1 包 = 16.7/40 ms）
+ pkt_plus1_delta          z_at_005       59         0     0.0100         NaN    NaN           NaN 逐事件 |Δ| 中位（相对 base；±1 包 = 16.7/40 ms）
+ pkt_plus1_delta           z_at_01       59         0     0.0016         NaN    NaN           NaN 逐事件 |Δ| 中位（相对 base；±1 包 = 16.7/40 ms）
+ pkt_plus1_delta           z_at_02       59         0     0.0015         NaN    NaN           NaN 逐事件 |Δ| 中位（相对 base；±1 包 = 16.7/40 ms）
+ pkt_plus1_delta           z_at_10       59         0     0.0003         NaN    NaN           NaN 逐事件 |Δ| 中位（相对 base；±1 包 = 16.7/40 ms）
+ pkt_plus1_delta     n_frames_rise       59         0     1.0000         NaN    NaN           NaN 逐事件 |Δ| 中位（相对 base；±1 包 = 16.7/40 ms）
+ pkt_plus1_delta rise_frames_10_90       59         0     1.0000         NaN    NaN           NaN 逐事件 |Δ| 中位（相对 base；±1 包 = 16.7/40 ms）
+ pkt_plus1_delta   step_frame_frac       59         0     0.0000         NaN    NaN           NaN 逐事件 |Δ| 中位（相对 base；±1 包 = 16.7/40 ms）
+pkt_minus1_delta               t50       59         0     0.0100         NaN    NaN           NaN 逐事件 |Δ| 中位（相对 base；±1 包 = 16.7/40 ms）
+pkt_minus1_delta               t80       59         0     0.0100         NaN    NaN           NaN 逐事件 |Δ| 中位（相对 base；±1 包 = 16.7/40 ms）
+pkt_minus1_delta               t90       59         0     0.0100         NaN    NaN           NaN 逐事件 |Δ| 中位（相对 base；±1 包 = 16.7/40 ms）
+pkt_minus1_delta          z_at_005       59         0     0.0100         NaN    NaN           NaN 逐事件 |Δ| 中位（相对 base；±1 包 = 16.7/40 ms）
+pkt_minus1_delta           z_at_01       59         0     0.0030         NaN    NaN           NaN 逐事件 |Δ| 中位（相对 base；±1 包 = 16.7/40 ms）
+pkt_minus1_delta           z_at_02       59         0     0.0011         NaN    NaN           NaN 逐事件 |Δ| 中位（相对 base；±1 包 = 16.7/40 ms）
+pkt_minus1_delta           z_at_10       59         0     0.0002         NaN    NaN           NaN 逐事件 |Δ| 中位（相对 base；±1 包 = 16.7/40 ms）
+pkt_minus1_delta     n_frames_rise       59         0     0.0000         NaN    NaN           NaN 逐事件 |Δ| 中位（相对 base；±1 包 = 16.7/40 ms）
+pkt_minus1_delta rise_frames_10_90       59         0     0.0000         NaN    NaN           NaN 逐事件 |Δ| 中位（相对 base；±1 包 = 16.7/40 ms）
+pkt_minus1_delta   step_frame_frac       59         0     0.0000         NaN    NaN           NaN 逐事件 |Δ| 中位（相对 base；±1 包 = 16.7/40 ms）
+
+done

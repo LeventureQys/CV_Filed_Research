@@ -1,0 +1,27 @@
+T6-01 probe log
+ROOT=D:\workshop\Processing\multi-device-cascade-host-cpp
+
+                     右拇指指尖/数据1 [恒载] n= 16355 ch=31 span= 162.69s pkt= 9571 pkt_dt=16.66ms frames/pkt=1.71 dup=0.415 dom=force t_edge=8.23s
+                     右拇指指尖/数据2 [恒载] n= 23536 ch=31 span= 234.14s pkt=13777 pkt_dt=16.67ms frames/pkt=1.71 dup=0.415 dom=force t_edge=12.32s
+                     右拇指指尖/数据3 [恒载] n= 19137 ch=31 span= 190.38s pkt=11171 pkt_dt=16.67ms frames/pkt=1.71 dup=0.416 dom=force t_edge=10.60s
+                     左拇指指尖/数据1 [恒载] n= 19739 ch=31 span= 196.20s pkt=11481 pkt_dt=16.69ms frames/pkt=1.72 dup=0.418 dom=force t_edge=11.70s
+                     左拇指指尖/数据2 [恒载] n= 19974 ch=31 span= 198.51s pkt=11561 pkt_dt=16.74ms frames/pkt=1.73 dup=0.421 dom=force t_edge=14.90s
+                     左拇指指尖/数据3 [恒载] n= 19401 ch=31 span= 192.82s pkt=11263 pkt_dt=16.73ms frames/pkt=1.72 dup=0.419 dom=force t_edge=10.87s
+                      四指指尖/数据1 [恒载] n= 19139 ch=21 span= 190.79s pkt=11133 pkt_dt=16.71ms frames/pkt=1.72 dup=0.418 dom=force t_edge=10.94s
+                      四指指尖/数据2 [恒载] n= 19113 ch=21 span= 190.55s pkt=11139 pkt_dt=16.72ms frames/pkt=1.72 dup=0.417 dom=force t_edge=11.03s
+                      四指指尖/数据3 [恒载] n= 20032 ch=21 span= 199.68s pkt=11675 pkt_dt=16.70ms frames/pkt=1.72 dup=0.417 dom=force t_edge=10.99s
+                     切换负载-快相无责 [实采] n= 25692 ch=21 span= 255.70s pkt= 6416 pkt_dt=39.97ms frames/pkt=4.00 dup=0.750 dom=adc t_edge=76.02s
+            零负载-切换负载-零负载-再切换负载 [实采] n=  7128 ch=21 span=  70.89s pkt= 1782 pkt_dt=39.99ms frames/pkt=4.00 dup=0.750 dom=adc t_edge=11.76s
+                   中途切换-1d9493 [实采] n=  6420 ch=21 span=  63.85s pkt= 1601 pkt_dt=39.99ms frames/pkt=4.01 dup=0.751 dom=adc t_edge=10.77s
+              中途切换-最终目标-13ffca [实采] n= 12120 ch=21 span= 120.57s pkt= 3030 pkt_dt=39.95ms frames/pkt=4.00 dup=0.750 dom=adc t_edge=18.65s
+
+=== 计时（抖动实验的场景候选，逐段）===
+             中途切换-1d9493 n= 6386  v5.1   0.41s
+             中途切换-1d9493 n= 6386    v6   0.98s
+             中途切换-1d9493 n= 6386  v6.1   2.58s
+                四指指尖/数据1 n= 7000  v5.1   1.56s
+                四指指尖/数据1 n= 7000    v6   2.84s
+                四指指尖/数据1 n= 7000  v6.1   3.34s
+               切换负载-快相无责 n= 6997  v5.1   1.64s
+               切换负载-快相无责 n= 6997    v6   3.10s
+               切换负载-快相无责 n= 6997  v6.1   3.36s

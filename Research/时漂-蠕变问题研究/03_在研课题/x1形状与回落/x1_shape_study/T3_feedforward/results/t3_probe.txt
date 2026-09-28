@@ -1,0 +1,49 @@
+== 1) 基线自检（本模块 vs v34_observer_core3.observe3）
+   working/零基线-剧烈变化负载情况/20260919_192655_single_device_d675cf    max|Δ| = 0.00e+00 OK
+   _single_device_795e5e/20260919_192141_single_device_73032d   max|Δ| = 0.00e+00 OK
+   working/零基线-反复增减同一负载/20260919_193935_single_device_9c3ca5    max|Δ| = 0.00e+00 OK
+   working/零基线-同一荷载测试/20260919_193320_single_device_3f32c5      max|Δ| = 0.00e+00 OK
+   开始 - 恒定负载 - 反复加减同一个负载/20260919_100351_single_device_f9740b   max|Δ| = 0.00e+00 OK
+   archived/各种奇怪工况/20260919_134056_single_device_f40a1b         max|Δ| = 0.00e+00 OK
+
+== 2) 数据集清单
+   共 13 个会话（working 4 / archived 9）
+   working/零基线-剧烈变化负载情况/20260919_192655_single_device_d675cf                  80s   8000帧 输入总量    2260~  28603
+   919_191748_single_device_795e5e/20260919_192141_single_device_73032d      221s  22240帧 输入总量    1955~  15885
+   working/零基线-反复增减同一负载/20260919_193935_single_device_9c3ca5                 176s  17632帧 输入总量    2382~  17677
+   working/零基线-同一荷载测试/20260919_193320_single_device_3f32c5                   356s  35748帧 输入总量    2096~  14601
+   hived/从零基线开始 - 恒定负载 - 反复加减同一个负载/20260919_100351_single_device_f9740b      338s  33908帧 输入总量    1537~  17978
+   archived/各种奇怪工况/20260919_134056_single_device_f40a1b                      131s  13160帧 输入总量    1878~  24399
+   archived/恒定负载下反复加减同一个负载/20260919_092417_single_device_602c03               63s   6296帧 输入总量   11288~  15940
+   archived/持续恒定负载                                                           698s  70156帧 输入总量    2556~  14574
+   archived/零基线-剧烈变化负载情况/20260919_161435_single_device_6b2e70                 68s   6836帧 输入总量    1823~  28620
+   archived/零基线-反复增减同一负载/20260919_152749_single_device_0cb8b6                343s  34460帧 输入总量    1957~  18642
+   archived/零基线-反复增减同一负载/20260919_160854_single_device_7b3977                312s  31306帧 输入总量    1545~  18362
+   archived/零基线-同一荷载测试/20260919_182059_single_device_71208f                  346s  34782帧 输入总量    2132~  13378
+   archived/零负载-随机切换工况/20260919_134726_single_device_31b7f9                   80s   8080帧 输入总量    1786~  16618
+
+== 3) slope 统计（逐通道，(v−v_lp)/3 ADC/s）
+   会话                                 空载 p50/p99 | 保压 p50/p99 | 沿期 p50/p99/max
+   况/20260919_192655_single_device_d675cf      0.0/    8.8 |    0.0/  320.5 |     0.0/   257.4 (max    779.0)
+   e/20260919_192141_single_device_73032d      0.0/    3.8 |    0.1/  116.4 |     0.1/   111.3 (max    501.0)
+   载/20260919_193935_single_device_9c3ca5      0.0/   25.3 |    0.1/  105.4 |     0.1/    93.0 (max    467.0)
+   试/20260919_193320_single_device_3f32c5      0.0/    4.6 |    0.0/   41.8 |     0.0/    16.1 (max    413.0)
+   载/20260919_100351_single_device_f9740b    -25.4/    8.8 |    0.7/  218.7 |     0.3/   184.0 (max    674.1)
+   况/20260919_134056_single_device_f40a1b     -1.1/    8.9 |    0.6/  190.8 |     0.1/   166.5 (max    540.6)
+   载/20260919_092417_single_device_602c03      0.0/    0.0 |    0.0/   69.1 |     0.0/    65.9 (max    156.6)
+   archived/持续恒定负载                             0.0/    2.9 |    0.0/    7.9 |     0.0/     6.9 (max    463.8)
+   况/20260919_161435_single_device_6b2e70     -3.3/    4.4 |    0.3/  370.3 |     0.0/   379.0 (max    654.7)
+   载/20260919_152749_single_device_0cb8b6     -4.7/    5.4 |    0.1/  165.9 |     0.0/   163.4 (max    459.2)
+   载/20260919_160854_single_device_7b3977    -12.7/    7.1 |    0.1/  175.0 |     0.0/   163.8 (max    579.7)
+   试/20260919_182059_single_device_71208f      0.0/    1.4 |    0.0/   34.2 |     0.0/    14.3 (max    417.3)
+   况/20260919_134726_single_device_31b7f9     -0.3/    6.5 |    1.2/  186.7 |     0.9/   193.0 (max    502.9)
+
+== 4) 输入台阶分布（评估侧沿切分，min_step = 100 ADC 总量）
+Traceback (most recent call last):
+  File "D:\workshop\Processing\multi-device-cascade-host-cpp\Document\Update\Dev-Version\v2.7 - 抗蠕变补偿算法\v4.1flash\progress\currentworking\x1_shape_study\T3_feedforward\scripts\t3_probe.py", line 118, in <module>
+    edge_inventory()
+    ~~~~~~~~~~~~~~^^
+  File "D:\workshop\Processing\multi-device-cascade-host-cpp\Document\Update\Dev-Version\v2.7 - 抗蠕变补偿算法\v4.1flash\progress\currentworking\x1_shape_study\T3_feedforward\scripts\t3_probe.py", line 102, in edge_inventory
+    steps = [e["step"] for e in ed]
+             ~^^^^^^^^
+TypeError: list indices must be integers or slices, not str

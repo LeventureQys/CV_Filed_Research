@@ -1,0 +1,20 @@
+[含平台≈12048 ADC（最接近用户所说 1w ADC）；真值沿 3 个] 帧=6599 电平=12101 干净 epoch=3 真值=3
+  [none lcf=1.0] 干净 side-effect=0.0000 拍击 dA_end_med=2713 抖动 excess_p90=0.853 低置信帧占比=0.989 (35s)
+  [hold lcf=0.5] 干净 side-effect=0.0000 拍击 dA_end_med=116 抖动 excess_p90=0.800 低置信帧占比=0.990 (30s)
+  [hold lcf=0.75] 干净 side-effect=0.0000 拍击 dA_end_med=2713 抖动 excess_p90=0.800 低置信帧占比=0.990 (30s)
+  [hold lcf=1.0] 干净 side-effect=0.0000 拍击 dA_end_med=2713 抖动 excess_p90=0.800 低置信帧占比=0.989 (32s)
+  [hold lcf=1.5] 干净 side-effect=0.0000 拍击 dA_end_med=2713 抖动 excess_p90=0.800 低置信帧占比=0.989 (30s)
+  [raw lcf=1.0] 干净 side-effect=0.0000 拍击 dA_end_med=2713 抖动 excess_p90=0.800 低置信帧占比=0.989 (26s)
+  [v5 lcf=1.0] 干净 side-effect=0.0000 拍击 dA_end_med=2713 抖动 excess_p90=0.800 低置信帧占比=0.989 (35s)
+  [freeze lcf=1.0] 干净 side-effect=0.0000 拍击 dA_end_med=2713 抖动 excess_p90=0.978 低置信帧占比=0.989 (21s)
+
+总耗时 242s
+   policy  lowconf_thr  clean_sideeffect_rel  tap_dA_end_med  tap_dA_end_rel_med  tap_excess_p90  tap_survived_handoff_med  tap_hold_mean  noise_lowconf_frac_med  noise_excess_p90  noise_excess_med  noise_dA_end_med  step_excess_rel  fallback_frames_med  fb_extra_dev_rel_med  recal_flagged_frac   n
+0  freeze         1.00                   0.0          2713.3              0.2242          0.3461                       1.0           0.00                   0.989            0.9776            0.8212            5153.2           0.1494               6529.5              1.182807               1.000  23
+1    hold         0.50                   0.0           115.8              0.0096          0.3461                       1.0           0.43                   0.990            0.8001            0.4892            5153.2           0.4365                  0.0              0.000000               0.667  23
+2    hold         0.75                   0.0          2713.3              0.2242          0.3461                       1.0           0.00                   0.990            0.8001            0.4892            5153.2           0.1494                  0.0              0.000000               0.667  23
+3    hold         1.00                   0.0          2713.3              0.2242          0.3461                       1.0           0.00                   0.989            0.8001            0.4892            5153.2           0.1494                  0.0              0.000000               0.667  23
+4    hold         1.50                   0.0          2713.3              0.2242          0.3461                       1.0           0.00                   0.989            0.8001            0.4892            5153.2           0.1494                  0.0              0.000000               0.667  23
+5    none         1.00                   0.0          2713.3              0.2242          0.3461                       1.0           0.00                   0.989            0.8526            0.4979            8502.8           0.1494                  0.0              0.000000               0.000  23
+6     raw         1.00                   0.0          2713.3              0.2242          0.3461                       1.0           0.00                   0.989            0.8001            0.4089            8502.8           0.1494               6529.5              0.052805               0.000  23
+7      v5         1.00                   0.0          2713.3              0.2242          0.3461                       1.0           0.00                   0.989            0.8001            0.4089            8502.8           0.1494               6529.5              0.059090               0.000  23

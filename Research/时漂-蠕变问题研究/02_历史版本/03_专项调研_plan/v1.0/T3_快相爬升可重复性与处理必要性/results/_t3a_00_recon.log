@@ -1,0 +1,43 @@
+# cmd      : python scripts/t3a_00_recon.py
+# cwd      : D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T3_快相爬升可重复性与处理必要性
+# argv     : scripts\t3a_00_recon.py
+# when     : 2026-09-19T00:59:58
+# env      : python 3.14.4 | numpy 2.4.6 | pandas 3.0.3
+# 口径     : timestamp 列 / 100 Hz 网格 / Z=Σch / 无 τ=2 s 平滑 / 中位滤波 0.5 s /
+#            f(τ) 基准 = T4-A 的 pre 窗中位 / 主 τ 网格 = T4-A 的 z_at_* 采样点
+
+T4-A 冻结事件表：60 行 × 54 列，来源 D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T4_两种快相形态与分支判据\results\t4a_morphology.csv
+kind 分布：{'onset': 22, 'restep': 19, 'unload': 14, 'partial_unload': 5}
+装载类(jump>0) n=41，其中 clean=25；onset=22 restep=19
+
+── ① 网格重建与帧数核对 ──
+  RT1  右拇指指尖/数据1        n_raw=16355  (清单 16356  Δ=-1 OK)  n_grid=16270   dur=162.7s  ch=31  pkt=0.0176s
+  RT2  右拇指指尖/数据2        n_raw=23536  (清单 23537  Δ=-1 OK)  n_grid=23414   dur=234.1s  ch=31  pkt=0.0177s
+  RT3  右拇指指尖/数据3        n_raw=19137  (清单 19138  Δ=-1 OK)  n_grid=19039   dur=190.4s  ch=31  pkt=0.0177s
+  LT1  左拇指指尖/数据1        n_raw=19739  (清单 19740  Δ=-1 OK)  n_grid=19621   dur=196.2s  ch=31  pkt=0.0178s
+  LT2  左拇指指尖/数据2        n_raw=19974  (清单 19975  Δ=-1 OK)  n_grid=19851   dur=198.5s  ch=31  pkt=0.0179s
+  LT3  左拇指指尖/数据3        n_raw=19401  (清单 19402  Δ=-1 OK)  n_grid=19282   dur=192.8s  ch=31  pkt=0.0180s
+  F41  四指指尖/数据1         n_raw=19139  (清单 19140  Δ=-1 OK)  n_grid=19079   dur=190.8s  ch=21  pkt=0.0181s
+  F42  四指指尖/数据2         n_raw=19113  (清单 19114  Δ=-1 OK)  n_grid=19055   dur=190.5s  ch=21  pkt=0.0181s
+  F43  四指指尖/数据3         n_raw=20032  (清单 20033  Δ=-1 OK)  n_grid=19969   dur=199.7s  ch=21  pkt=0.0180s
+  SW1  切换负载-快相无责        n_raw=25692  (清单 25693  Δ=-1 OK)  n_grid=25571   dur=255.7s  ch=21  pkt=0.0402s
+  SW2  再切换负载            n_raw=7128   (清单 7129   Δ=-1 OK)  n_grid=7089    dur=70.9s  ch=21  pkt=0.0401s
+  SW3  中途切换-1d9493      n_raw=6420   (清单 6421   Δ=-1 OK)  n_grid=6386    dur=63.9s  ch=21  pkt=0.0401s
+  SW4  中途切换-13ffca      n_raw=12120  (清单 12121  Δ=-1 OK)  n_grid=12058   dur=120.6s  ch=21  pkt=0.0402s
+  -> results/t3a_recon.csv（13/13 帧数一致：实测恒为「清单 − 1」，见 §2 口径说明）
+
+── ② f(τ) 独立重算 vs T4-A 冻结列 ──
+  逐点比对 472 对（60 事件 × 8 τ 网格点）；|Δ| 中位 2.472e-07  最大 1.757e-06  超 1e-6 的对数 3
+  （T4-A 的 z_at_* 用 Zs 单点取值 + pre 基准，本任务同法复算 ⇒ 应完全一致）
+  -> results/t3a_shape_grid.csv（30480 行）、t3a_recon_crosscheck.csv
+
+── ③ 与第一轮 13-v6-assessment 产物对表 ──
+  (a) shape_stats.csv（第一轮 n=19 全 onset，主通道）已并入 t3a_vs_round1.csv
+  (b) α 中位 0.500（第一轮 n=19）
+  (c) LOO bias 中位 -0.12%（第一轮 n=19）
+  -> results/t3a_vs_round1.csv（15 行）
+
+── ④ 事件集清单 -> results/t3a_event_roster.csv ──
+  装载类 n=41（onset 22 / restep 19）；unload 14 / partial_unload 5；trunc 行数 1
+
+完成。下一步：python scripts/t3a_01_shape.py

@@ -1,0 +1,11 @@
+==== T1-A 06_figures ==== 2026-09-19 01:05:01
+cmd : C:\Python314\python.exe scripts/t1a_06_figures.py
+ROOT: D:\workshop\Processing\multi-device-cascade-host-cpp
+脚本目录: D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T1_稳定时间定义与鲁棒性口径\scripts
+图 1: 冻结口径 ECDF / 箱线 / 实录修订口径 / 删失计数
+-> D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T1_稳定时间定义与鲁棒性口径\figures\T1A_01_settle_ecdf.png
+图 2: 口径对照 / 第一轮裁决 / D1 vs D2
+-> D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T1_稳定时间定义与鲁棒性口径\figures\T1A_02_caliber_compare.png
+图 3: 输入下界
+-> D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T1_稳定时间定义与鲁棒性口径\figures\T1A_03_lowerbound.png
+done

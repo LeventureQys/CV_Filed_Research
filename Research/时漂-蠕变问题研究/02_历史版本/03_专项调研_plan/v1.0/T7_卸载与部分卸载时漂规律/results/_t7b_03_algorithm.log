@@ -1,0 +1,64 @@
+CMD: python scripts/t7b_03_algorithm.py
+==============================================================================
+[A] v6   SW3  n=6386   max|Δ|=0.000e+00  identical=True
+[A] v6   SW4  n=12058  max|Δ|=0.000e+00  identical=True
+[A] v6   RT1  n=16270  max|Δ|=0.000e+00  identical=True
+[A] v6   F41  n=19079  max|Δ|=0.000e+00  identical=True
+[A] v51  SW3  n=6386   max|Δ|=0.000e+00  identical=True
+[A] v51  SW4  n=12058  max|Δ|=0.000e+00  identical=True
+[A] v51  RT1  n=16270  max|Δ|=0.000e+00  identical=True
+[A] v51  F41  n=19079  max|Δ|=0.000e+00  identical=True
+[A] v2 原型类部分拷贝一致性：True
+==============================================================================
+[事件集] 减重事件 n=19（实测分档：{'unload': 16, 'decrement_small': 2, 'partial_unload': 1}；T4-A 原标注：{'unload': 14, 'partial_unload': 5}）
+
+[B] 部分/全卸载后基线偏差（显示 post − 原始 post；%% 按**自适应** |J| 归一；中位）
+                      n  bias_ADC_med  bias_pct_J_med  max_under_pct_J_med  dur_under_5pct_med  induced_ADC_max  induced_pct_J_med  induced_pct_J_max
+kind            arm                                                                                                                                  
+decrement_small raw   2         0.000           0.000                0.000               0.000            0.000              0.000              0.000
+                v51   2      -998.552         -26.927               31.528               8.000           87.919              2.141              2.245
+                v6    2     -1418.486         -38.434               40.546               8.000           69.000              1.452              1.901
+partial_unload  raw   1         0.000           0.000                0.000               0.000            0.000              0.000              0.000
+                v51   1      -370.994          -2.253                3.661               0.000          181.087              1.100              1.100
+                v6    1      -378.155          -2.296               14.859               1.940         1896.612            -11.516             11.516
+unload          raw  16         0.000           0.000                0.000               0.000            0.000              0.000              0.000
+                v51  16         0.000           0.000               10.212               0.015         1824.378              6.022             17.365
+                v6   16         0.000           0.000               10.709               0.010         5324.152              7.380             20.535
+
+[C] 反向事件误判率（v6；±1 s 与 ±2 s 两窗口）
+bin_pm2           n  decrease  reverse_misjudge  other  reverse_rate_pct_pm2  reverse_rate_pct_pm1  no_event_rate_pct_pm1
+kind                                                                                                                     
+decrement_small   2         2                 0      0                   0.0                   0.0                    0.0
+partial_unload    1         1                 0      0                   0.0                   0.0                    0.0
+unload           16        16                 0      0                   0.0                   0.0                    0.0
+  v6 在减重沿邻近建出的内部事件种类（±1 s，全事件合计）：{'decrease': 19, 'restep': 1}
+
+[D] 7561 ADC 单帧跳变案例复核
+  SW1  CompV1  最大算法单帧跳变   +7842.7 ADC @ t=129.65 s（同帧 显示+7839 / 原始-4）
+  SW1  CompV2  最大算法单帧跳变   +5857.6 ADC @ t=31.15 s（同帧 显示+5877 / 原始+19）
+  SW2  CompV1  最大算法单帧跳变    +870.3 ADC @ t=50.62 s（同帧 显示-2031 / 原始-2901）
+  SW2  CompV2  最大算法单帧跳变   -1846.2 ADC @ t=31.91 s（同帧 显示-1845 / 原始+1）
+  SW3  CompV1  最大算法单帧跳变   +2766.8 ADC @ t=20.84 s（同帧 显示+3246 / 原始+479）
+  SW3  CompV2  最大算法单帧跳变   +7561.2 ADC @ t=23.83 s（同帧 显示+7563 / 原始+2）
+  SW4  CompV1  最大算法单帧跳变   +3267.3 ADC @ t=114.08 s（同帧 显示+3261 / 原始-6）
+  SW4  CompV2  最大算法单帧跳变   +6862.0 ADC @ t=21.72 s（同帧 显示+6862 / 原始+0）
+  SW1  v51_100Hz 最大算法单帧跳变   +1229.4 ADC @ t=249.64 s
+  SW1  v6_100Hz  最大算法单帧跳变   +2676.7 ADC @ t=240.93 s
+  SW2  v51_100Hz 最大算法单帧跳变   +1217.1 ADC @ t=31.23 s
+  SW2  v6_100Hz  最大算法单帧跳变    -586.4 ADC @ t=51.36 s
+  SW3  v51_100Hz 最大算法单帧跳变   +1824.4 ADC @ t=30.69 s
+  SW3  v6_100Hz  最大算法单帧跳变   +5324.2 ADC @ t=30.69 s
+  SW4  v51_100Hz 最大算法单帧跳变   +1579.6 ADC @ t=68.94 s
+  SW4  v6_100Hz  最大算法单帧跳变   +2682.3 ADC @ t=68.94 s
+
+[B2] 注入部分卸载（线性叠加，标注 inject_linear）
+                   n  bias_pct_J_med  absJ_med  induced_pct_J_max
+src           arm                                                
+inject_linear raw  9           0.000 12908.954              0.000
+              v51  9         -11.744 12908.954              4.248
+              v6   9         -22.914 12908.954             34.288
+t4a_frozen    raw  3           0.000 25812.984              0.000
+              v51  3           0.000 25812.984              7.037
+              v6   3           0.000 25812.984             20.535
+
+WROTE results/t7b_patch_ab_zero.csv, t7b_baseline_bias.csv, t7b_reverse_misjudge.csv, t7b_jump7561_check.csv, t7b_inject_partial_bias.csv

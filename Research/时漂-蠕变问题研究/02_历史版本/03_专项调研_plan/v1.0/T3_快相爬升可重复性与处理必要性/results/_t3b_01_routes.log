@@ -1,0 +1,157 @@
+==== T3-B 01_routes ==== 2026-09-19 01:03:40
+cmd : C:\Python314\python.exe D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T3_快相爬升可重复性与处理必要性\scripts\t3b_01_routes.py --force
+cwd : D:\workshop\Processing\multi-device-cascade-host-cpp
+[cache] 命中 npz 网格 + t3b_events.csv（40 事件）
+口径（C-1 处置）：T_stable 一律用 T1-A 冻结口径的代码实现（t3b_settle.py 逐行复制自
+  t1a_common.py）：D1 = 完整 30 s 窗、不因后续事件截断、漂移 ≤5%·|J_ref|；
+  D1-ev = 同 D1 但窗在下一真实事件处截断（可用窗 ≥5 s）⇒ 实录类唯一可测口径。
+  指标序列 = 总量/主通道的 0.5 s 中值（指标字典 Z̄），J_ref 取 [t_on+4, t_on+6] − 前 2 s 中位。
+  本任务不与 T1 做绝对横比：T1-A 的 t1a_settle_metrics.csv 截稿时未产出（见报告 §5）。
+
+事件集：13 份录制、40 个事件（onset 23 / restep 12 / decrement 3 / partial_unload 2），
+  其中 T4-A clean=True 的加载事件：onset 19 / restep 6
+
+== arm raw (group=routes) ==
+  raw            右拇指指尖/数据1            n_ev= 4 epoch=  0 inv=   0 cap=   0 (nan)  163s
+  raw            右拇指指尖/数据2            n_ev= 3 epoch=  0 inv=   0 cap=   0 (nan)  234s
+  raw            右拇指指尖/数据3            n_ev= 2 epoch=  0 inv=   0 cap=   0 (nan)  190s
+  raw            左拇指指尖/数据1            n_ev= 1 epoch=  0 inv=   0 cap=   0 (nan)  196s
+  raw            左拇指指尖/数据2            n_ev= 1 epoch=  0 inv=   0 cap=   0 (nan)  198s
+  raw            左拇指指尖/数据3            n_ev= 1 epoch=  0 inv=   0 cap=   0 (nan)  193s
+  raw            四指指尖/数据1             n_ev= 1 epoch=  0 inv=   0 cap=   0 (nan)  191s
+  raw            四指指尖/数据2             n_ev= 1 epoch=  0 inv=   0 cap=   0 (nan)  191s
+  raw            四指指尖/数据3             n_ev= 1 epoch=  0 inv=   0 cap=   0 (nan)  200s
+  raw            切换负载-快相无责            n_ev=11 epoch=  0 inv=   0 cap=   0 (nan)  256s
+  raw            再切换负载                n_ev= 4 epoch=  0 inv=   0 cap=   0 (nan)  71s
+  raw            中途切换-1d9493          n_ev= 3 epoch=  0 inv=   0 cap=   0 (nan)  64s
+  raw            中途切换-13ffca          n_ev= 7 epoch=  0 inv=   0 cap=   0 (nan)  121s
+   -> 40 行事件指标（累计表 D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T3_快相爬升可重复性与处理必要性\results\t3b_arm_metrics.csv）
+== arm v51_f1 (group=routes) ==
+  v51_f1         右拇指指尖/数据1            n_ev= 4 epoch=  2 inv=   0 cap=   0 (nan)  163s
+  v51_f1         右拇指指尖/数据2            n_ev= 3 epoch=  3 inv=   0 cap=   0 (nan)  234s
+  v51_f1         右拇指指尖/数据3            n_ev= 2 epoch=  2 inv=   0 cap=   0 (nan)  190s
+  v51_f1         左拇指指尖/数据1            n_ev= 1 epoch=  1 inv=   0 cap=   0 (nan)  196s
+  v51_f1         左拇指指尖/数据2            n_ev= 1 epoch=  1 inv=   0 cap=   0 (nan)  198s
+  v51_f1         左拇指指尖/数据3            n_ev= 1 epoch=  1 inv=   0 cap=   0 (nan)  193s
+  v51_f1         四指指尖/数据1             n_ev= 1 epoch=  2 inv=   0 cap=   0 (nan)  191s
+  v51_f1         四指指尖/数据2             n_ev= 1 epoch=  2 inv=   0 cap=   0 (nan)  191s
+  v51_f1         四指指尖/数据3             n_ev= 1 epoch=  2 inv=   0 cap=   0 (nan)  200s
+  v51_f1         切换负载-快相无责            n_ev=11 epoch= 15 inv=   0 cap=   0 (nan)  256s
+  v51_f1         再切换负载                n_ev= 4 epoch=  4 inv=   0 cap=   0 (nan)  71s
+  v51_f1         中途切换-1d9493          n_ev= 3 epoch=  4 inv=   0 cap=   0 (nan)  64s
+  v51_f1         中途切换-13ffca          n_ev= 7 epoch=  8 inv=   0 cap=   0 (nan)  121s
+   -> 40 行事件指标（累计表 D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T3_快相爬升可重复性与处理必要性\results\t3b_arm_metrics.csv）
+== arm v51_f3 (group=routes) ==
+  v51_f3         右拇指指尖/数据1            n_ev= 4 epoch=  2 inv=   0 cap=   0 (nan)  163s
+  v51_f3         右拇指指尖/数据2            n_ev= 3 epoch=  3 inv=   0 cap=   0 (nan)  234s
+  v51_f3         右拇指指尖/数据3            n_ev= 2 epoch=  2 inv=   0 cap=   0 (nan)  190s
+  v51_f3         左拇指指尖/数据1            n_ev= 1 epoch=  1 inv=   0 cap=   0 (nan)  196s
+  v51_f3         左拇指指尖/数据2            n_ev= 1 epoch=  1 inv=   0 cap=   0 (nan)  198s
+  v51_f3         左拇指指尖/数据3            n_ev= 1 epoch=  1 inv=   0 cap=   0 (nan)  193s
+  v51_f3         四指指尖/数据1             n_ev= 1 epoch=  2 inv=   0 cap=   0 (nan)  191s
+  v51_f3         四指指尖/数据2             n_ev= 1 epoch=  2 inv=   0 cap=   0 (nan)  191s
+  v51_f3         四指指尖/数据3             n_ev= 1 epoch=  2 inv=   0 cap=   0 (nan)  200s
+  v51_f3         切换负载-快相无责            n_ev=11 epoch= 13 inv=   0 cap=   0 (nan)  256s
+  v51_f3         再切换负载                n_ev= 4 epoch=  4 inv=   0 cap=   0 (nan)  71s
+  v51_f3         中途切换-1d9493          n_ev= 3 epoch=  4 inv=   0 cap=   0 (nan)  64s
+  v51_f3         中途切换-13ffca          n_ev= 7 epoch=  8 inv=   0 cap=   0 (nan)  121s
+   -> 40 行事件指标（累计表 D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T3_快相爬升可重复性与处理必要性\results\t3b_arm_metrics.csv）
+== arm v51_f5 (group=routes) ==
+  v51_f5         右拇指指尖/数据1            n_ev= 4 epoch=  2 inv=   0 cap=   0 (nan)  163s
+  v51_f5         右拇指指尖/数据2            n_ev= 3 epoch=  3 inv=   0 cap=   0 (nan)  234s
+  v51_f5         右拇指指尖/数据3            n_ev= 2 epoch=  2 inv=   0 cap=   0 (nan)  190s
+  v51_f5         左拇指指尖/数据1            n_ev= 1 epoch=  1 inv=   0 cap=   0 (nan)  196s
+  v51_f5         左拇指指尖/数据2            n_ev= 1 epoch=  1 inv=   0 cap=   0 (nan)  198s
+  v51_f5         左拇指指尖/数据3            n_ev= 1 epoch=  1 inv=   0 cap=   0 (nan)  193s
+  v51_f5         四指指尖/数据1             n_ev= 1 epoch=  2 inv=   0 cap=   0 (nan)  191s
+  v51_f5         四指指尖/数据2             n_ev= 1 epoch=  2 inv=   0 cap=   0 (nan)  191s
+  v51_f5         四指指尖/数据3             n_ev= 1 epoch=  2 inv=   0 cap=   0 (nan)  200s
+  v51_f5         切换负载-快相无责            n_ev=11 epoch= 13 inv=   0 cap=   0 (nan)  256s
+  v51_f5         再切换负载                n_ev= 4 epoch=  4 inv=   0 cap=   0 (nan)  71s
+  v51_f5         中途切换-1d9493          n_ev= 3 epoch=  4 inv=   0 cap=   0 (nan)  64s
+  v51_f5         中途切换-13ffca          n_ev= 7 epoch=  8 inv=   0 cap=   0 (nan)  121s
+   -> 40 行事件指标（累计表 D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T3_快相爬升可重复性与处理必要性\results\t3b_arm_metrics.csv）
+== arm v6 (group=routes) ==
+  v6             右拇指指尖/数据1            n_ev= 4 epoch=  2 inv= 476 cap=   0 (0.00)  163s
+  v6             右拇指指尖/数据2            n_ev= 3 epoch=  4 inv= 476 cap=   5 (0.01)  234s
+  v6             右拇指指尖/数据3            n_ev= 2 epoch=  5 inv= 482 cap=   4 (0.01)  190s
+  v6             左拇指指尖/数据1            n_ev= 1 epoch=  3 inv= 477 cap=   0 (0.00)  196s
+  v6             左拇指指尖/数据2            n_ev= 1 epoch=  2 inv= 476 cap=   0 (0.00)  198s
+  v6             左拇指指尖/数据3            n_ev= 1 epoch=  2 inv= 476 cap=   0 (0.00)  193s
+  v6             四指指尖/数据1             n_ev= 1 epoch=  4 inv= 477 cap=   0 (0.00)  191s
+  v6             四指指尖/数据2             n_ev= 1 epoch=  2 inv= 477 cap=   0 (0.00)  191s
+  v6             四指指尖/数据3             n_ev= 1 epoch=  2 inv= 476 cap=   0 (0.00)  200s
+  v6             切换负载-快相无责            n_ev=11 epoch= 24 inv=4987 cap= 103 (0.02)  256s
+  v6             再切换负载                n_ev= 4 epoch=  6 inv=1431 cap=   0 (0.00)  71s
+  v6             中途切换-1d9493          n_ev= 3 epoch=  6 inv=1437 cap=  22 (0.02)  64s
+  v6             中途切换-13ffca          n_ev= 7 epoch= 11 inv=2817 cap= 483 (0.17)  121s
+   -> 40 行事件指标（累计表 D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T3_快相爬升可重复性与处理必要性\results\t3b_arm_metrics.csv）
+== arm v61_rs106 (group=routes) ==
+  v61_rs106      右拇指指尖/数据1            n_ev= 4 epoch=  2 inv= 476 cap=   0 (0.00)  163s
+  v61_rs106      右拇指指尖/数据2            n_ev= 3 epoch=  4 inv= 476 cap=   5 (0.01)  234s
+  v61_rs106      右拇指指尖/数据3            n_ev= 2 epoch=  5 inv= 482 cap=   3 (0.01)  190s
+  v61_rs106      左拇指指尖/数据1            n_ev= 1 epoch=  3 inv= 477 cap=   0 (0.00)  196s
+  v61_rs106      左拇指指尖/数据2            n_ev= 1 epoch=  2 inv= 476 cap=   0 (0.00)  198s
+  v61_rs106      左拇指指尖/数据3            n_ev= 1 epoch=  2 inv= 476 cap=   0 (0.00)  193s
+  v61_rs106      四指指尖/数据1             n_ev= 1 epoch=  4 inv= 477 cap=   0 (0.00)  191s
+  v61_rs106      四指指尖/数据2             n_ev= 1 epoch=  2 inv= 477 cap=   0 (0.00)  191s
+  v61_rs106      四指指尖/数据3             n_ev= 1 epoch=  2 inv= 476 cap=   0 (0.00)  200s
+  v61_rs106      切换负载-快相无责            n_ev=11 epoch= 24 inv=4987 cap=  38 (0.01)  256s
+  v61_rs106      再切换负载                n_ev= 4 epoch=  6 inv=1431 cap=   0 (0.00)  71s
+  v61_rs106      中途切换-1d9493          n_ev= 3 epoch=  6 inv=1437 cap=  15 (0.01)  64s
+  v61_rs106      中途切换-13ffca          n_ev= 7 epoch= 11 inv=2817 cap=  13 (0.00)  121s
+   -> 40 行事件指标（累计表 D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T3_快相爬升可重复性与处理必要性\results\t3b_arm_metrics.csv）
+-> results/t3b_route_roi.csv（6 臂）
+-> results/t3b_route_q6q7.csv（18 行）
+-> results/t3b_arm_kind.csv（24 行）
+
+==============================================================================================================
+== Q6/Q7：两条路线在 13 份录制上的 T_stable 分布（口径见列名；n=录制数=13）==
+==============================================================================================================
+  raw          总通道·D1-ev（窗在下一事件处截断）               n=12 中位  15.49 s  p10~p90   7.48~ 28.01 s  ≤2 s 的录制比 0%
+  raw          主通道·D1-ev                          n=11 中位   7.64 s  p10~p90   2.34~ 14.65 s  ≤2 s 的录制比 9%
+  raw          总通道·D1（完整 30 s 窗、不截断）              n=10 中位  17.44 s  p10~p90  10.92~ 36.52 s  ≤2 s 的录制比 0%
+  v51_f1       总通道·D1-ev（窗在下一事件处截断）               n=13 中位   2.90 s  p10~p90   1.67~  7.39 s  ≤2 s 的录制比 23%
+  v51_f1       主通道·D1-ev                          n=13 中位   2.38 s  p10~p90   0.47~  6.93 s  ≤2 s 的录制比 46%
+  v51_f1       总通道·D1（完整 30 s 窗、不截断）              n=10 中位   2.52 s  p10~p90   1.72~  4.21 s  ≤2 s 的录制比 30%
+  v51_f3       总通道·D1-ev（窗在下一事件处截断）               n=13 中位   3.81 s  p10~p90   2.58~  7.88 s  ≤2 s 的录制比 8%
+  v51_f3       主通道·D1-ev                          n=12 中位   2.36 s  p10~p90   0.63~  7.31 s  ≤2 s 的录制比 50%
+  v51_f3       总通道·D1（完整 30 s 窗、不截断）              n=10 中位   3.27 s  p10~p90   2.48~  4.85 s  ≤2 s 的录制比 0%
+  v51_f5       总通道·D1-ev（窗在下一事件处截断）               n=12 中位   4.19 s  p10~p90   3.53~  9.10 s  ≤2 s 的录制比 0%
+  v51_f5       主通道·D1-ev                          n=12 中位   2.84 s  p10~p90   0.90~  7.37 s  ≤2 s 的录制比 42%
+  v51_f5       总通道·D1（完整 30 s 窗、不截断）              n=10 中位   3.82 s  p10~p90   2.74~  5.16 s  ≤2 s 的录制比 0%
+  v6           总通道·D1-ev（窗在下一事件处截断）               n=13 中位   0.54 s  p10~p90   0.37~  6.97 s  ≤2 s 的录制比 77%
+  v6           主通道·D1-ev                          n=13 中位   0.77 s  p10~p90   0.44~  6.80 s  ≤2 s 的录制比 62%
+  v6           总通道·D1（完整 30 s 窗、不截断）              n=10 中位   0.54 s  p10~p90   0.35~  4.42 s  ≤2 s 的录制比 80%
+  v61_rs106    总通道·D1-ev（窗在下一事件处截断）               n=13 中位   0.51 s  p10~p90   0.37~  7.10 s  ≤2 s 的录制比 69%
+  v61_rs106    主通道·D1-ev                          n=13 中位   0.39 s  p10~p90   0.36~  6.64 s  ≤2 s 的录制比 69%
+  v61_rs106    总通道·D1（完整 30 s 窗、不截断）              n=10 中位   0.48 s  p10~p90   0.39~  4.38 s  ≤2 s 的录制比 70%
+
+-- 与 1~2 s 上限的距离（主口径 = 总通道 D1-ev）--
+  raw          中位  15.49 s  ⇒ 距 2 s +13.49 s；距 1 s +14.49 s；配对数（相对 v6）见下
+  v51_f1       中位   2.90 s  ⇒ 距 2 s  +0.90 s；距 1 s  +1.90 s；配对数（相对 v6）见下
+  v51_f3       中位   3.81 s  ⇒ 距 2 s  +1.81 s；距 1 s  +2.81 s；配对数（相对 v6）见下
+  v51_f5       中位   4.19 s  ⇒ 距 2 s  +2.19 s；距 1 s  +3.19 s；配对数（相对 v6）见下
+  v6           中位   0.54 s  ⇒ 距 2 s  -1.46 s；距 1 s  -0.46 s；配对数（相对 v6）见下
+  v61_rs106    中位   0.51 s  ⇒ 距 2 s  -1.49 s；距 1 s  -0.49 s；配对数（相对 v6）见下
+
+-- 代价-收益对表（四联指标：T_stable / OS% / 1 s 误差 / MD）--
+      arm  group  Tstab_tot_ev_n  Tstab_tot_ev_med  Tstab_tot_ev_p10  Tstab_tot_ev_p90  Tstab_ch_ev_med  Tstab_ch_ev_p90  Tstab_tot_D1_med  cens_tot_D1_frac  OS_ch_med  OS_ch_p90  OS_tot_med  err1_ch_med  err1_tot_med  MD_tot_med  MD_tot_max  G_n  G_med  G_min  epoch_per100s  trigger_rate
+      raw routes              22            13.310             0.233            54.099            8.920           16.740            15.495             0.650     11.489    205.553      13.882       -6.870        -7.848       0.000       0.000    7  1.000  1.000          0.000           NaN
+   v51_f1 routes              24             2.965             0.852            13.355            2.555           11.930             2.900             0.575      0.387    145.594       6.557      -10.500        -7.819     682.046    4752.162    7  0.934  0.810          1.051           NaN
+   v51_f3 routes              24             3.645             0.912            13.352            3.275           12.401             3.480             0.575      2.809    154.967       7.352      -10.500        -7.181     382.989    2683.797    7  0.956  0.882          1.051           NaN
+   v51_f5 routes              23             3.870             0.840            24.244            3.320           12.401             3.860             0.575      4.419    157.745       8.600       -9.786        -7.848     197.905    2065.349    7  0.986  0.916          1.051           NaN
+       v6 routes              23             0.540             0.220            10.120            1.120           11.818             0.540             0.575      8.999    175.790      13.401       -3.703        -0.000    1440.286    5445.821    7  1.033  0.774          1.708         0.041
+v61_rs106 routes              22             0.520             0.292            10.105            0.420           12.044             0.500             0.575      3.016    134.917      13.704       -9.154        -0.016    1215.476    5638.125    7  0.982  0.774          1.708         0.005
+
+-- onset / restep 分开（总通道 D1-ev 中位）--
+      arm  n_onset  Tstab_tot_ev_med_onset  n_restep  Tstab_tot_ev_med_restep  OS_ch_med_onset  OS_ch_med_restep  err1_ch_med_onset  err1_ch_med_restep
+      raw       15                  14.800         4                    44.55           10.233            14.551             -6.879             -11.396
+   v51_f1       18                   2.965         3                    10.31            0.435           -26.062             -6.916             -74.863
+   v51_f3       18                   3.645         3                    10.30            2.858           -10.586             -7.832             -30.388
+   v51_f5       16                   3.865         4                    44.58            3.871             9.700             -7.832             -15.782
+       v6       18                   0.545         2                     9.63            9.040            -8.412              0.618             -50.943
+v61_rs106       17                   0.530         2                     9.56            3.146           -19.609             -5.077             -68.867
+
+总耗时 537.6 s
+-> results/t3b_arm_metrics.csv / t3b_route_recording.csv / t3b_route_roi.csv / t3b_route_q6q7.csv

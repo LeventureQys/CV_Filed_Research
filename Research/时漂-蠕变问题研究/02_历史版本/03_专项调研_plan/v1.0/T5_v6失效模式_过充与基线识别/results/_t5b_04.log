@@ -1,0 +1,49 @@
+  [W1_1w] white amp=500.0 累计候选=27
+  [W1_1w] white amp=1000.0 累计候选=58
+  [W1_1w] white amp=2000.0 累计候选=91
+  [W1_1w] common amp=1000.0 累计候选=114
+  [W1_1w] common amp=2000.0 累计候选=139
+  [W1_1w] band5 amp=1000.0 累计候选=156
+  [W1_1w] band5 amp=2000.0 累计候选=162
+  [W1_1w] tap amp=20 累计候选=202
+  [W1_1w] tap amp=50 累计候选=245
+  [W1_1w] tap amp=100 累计候选=287
+  [W1_1w] tap amp=50 累计候选=322
+  [W1_1w] tap amp=50 累计候选=364
+  [W1_1w] tap amp=50 累计候选=406
+
+候选总数=406 正例=265 负例=141
+
+=== 单维判据 ===
+    criterion      feature   causality     auc  tpr@fpr<=0.01  param@fpr<=0.01  prec@fpr<=0.01  tpr@fpr<=0.05  param@fpr<=0.05  prec@fpr<=0.05  tpr@fpr<=0.1  param@fpr<=0.1  prec@fpr<=0.1  tpr@fpr<=0.2  param@fpr<=0.2  prec@fpr<=0.2
+0     K0_gate        ratio      causal  0.4023            NaN              NaN             NaN            NaN              NaN             NaN           NaN             NaN            NaN         0.000             3.0          0.000
+1    K1_dwell      dwell_s      causal  0.8412          0.691              0.5           1.000          0.691              0.5           1.000         0.751             0.4          0.934         0.751             0.4          0.934
+2     K2_mono       f_mono      causal  0.6328            NaN              NaN             NaN            NaN              NaN             NaN           NaN             NaN            NaN         0.475             0.8          0.818
+3     K3_hold       f_hold  非因果(+0.5s)  0.9504          1.000              0.4           1.000          1.000              0.4           1.000         1.000             0.4          1.000         1.000             0.4          1.000
+4  K5_actfrac  active_frac      causal  0.0390            NaN              NaN             NaN            NaN              NaN             NaN           NaN             NaN            NaN           NaN             NaN            NaN
+5     K6_coup         coup      causal  0.8594          0.087              6.0           0.958          0.555              5.0           0.955         0.555             5.0          0.955         0.555             5.0          0.955
+
+=== 组合判据（按 FPR 升序前 20）===
+                criterion   tau  mono  active_frac_max   tp  fp       tpr       fpr  precision   causality  f_hold_min
+40    K9_dwell_hold_norev  0.10   NaN              NaN  159   0  0.600000  0.000000   1.000000  非因果(+0.6s)         0.4
+41    K9_dwell_hold_norev  0.10   NaN              NaN  159   0  0.600000  0.000000   1.000000  非因果(+0.6s)         0.7
+43    K9_dwell_hold_norev  0.20   NaN              NaN  156   0  0.588679  0.000000   1.000000  非因果(+0.6s)         0.4
+44    K9_dwell_hold_norev  0.20   NaN              NaN  156   0  0.588679  0.000000   1.000000  非因果(+0.6s)         0.7
+37    K9_dwell_hold_norev  0.03   NaN              NaN  163   0  0.615094  0.000000   1.000000  非因果(+0.6s)         0.4
+38    K9_dwell_hold_norev  0.03   NaN              NaN  163   0  0.615094  0.000000   1.000000  非因果(+0.6s)         0.7
+26  K7_dwell_mono_spatial  0.10  0.95             0.40    0  12  0.000000  0.085106   0.000000      causal         NaN
+23  K7_dwell_mono_spatial  0.10  0.80             0.40    2  12  0.007547  0.085106   0.142857      causal         NaN
+35  K7_dwell_mono_spatial  0.15  0.95             0.40    0  12  0.000000  0.085106   0.000000      causal         NaN
+32  K7_dwell_mono_spatial  0.15  0.80             0.40    2  12  0.007547  0.085106   0.142857      causal         NaN
+14  K7_dwell_mono_spatial  0.05  0.80             0.40    2  16  0.007547  0.113475   0.111111      causal         NaN
+24  K7_dwell_mono_spatial  0.10  0.95             1.01   63  16  0.237736  0.113475   0.797468      causal         NaN
+17  K7_dwell_mono_spatial  0.05  0.95             0.40    0  16  0.000000  0.113475   0.000000      causal         NaN
+21  K7_dwell_mono_spatial  0.10  0.80             1.01   80  16  0.301887  0.113475   0.833333      causal         NaN
+25  K7_dwell_mono_spatial  0.10  0.95             0.60   63  16  0.237736  0.113475   0.797468      causal         NaN
+31  K7_dwell_mono_spatial  0.15  0.80             0.60   80  16  0.301887  0.113475   0.833333      causal         NaN
+22  K7_dwell_mono_spatial  0.10  0.80             0.60   80  16  0.301887  0.113475   0.833333      causal         NaN
+30  K7_dwell_mono_spatial  0.15  0.80             1.01   80  16  0.301887  0.113475   0.833333      causal         NaN
+34  K7_dwell_mono_spatial  0.15  0.95             0.60   63  16  0.237736  0.113475   0.797468      causal         NaN
+33  K7_dwell_mono_spatial  0.15  0.95             1.01   63  16  0.237736  0.113475   0.797468      causal         NaN
+
+已把 46 行 family=criteria 追加进 t5b_detector_roc.csv

@@ -1,0 +1,1 @@
+t sum_in sum_out state ev_valid ev_kind g A_sum n_loaded gam_med gam_min gam_max r_med r_wmean aggA_loaded num_loaded ded_unclamped ded_clamped ded_capped ideal_ded comp_total level_ref ts_smooth min_ts max_ts max_tot idle_now valley_now valley_run tau tau_g0 tglide A_hat inc_max c_applied stalled clamp_hits shape_hits trim_sum

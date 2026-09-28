@@ -1,0 +1,47 @@
+# cmd      : python scripts/t3a_05_h1.py
+# cwd      : D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T3_快相爬升可重复性与处理必要性
+# argv     : scripts\t3a_05_h1.py
+# when     : 2026-09-19T01:00:51
+# env      : python 3.14.4 | numpy 2.4.6 | pandas 3.0.3
+# 口径     : timestamp 列 / 100 Hz 网格 / Z=Σch / 无 τ=2 s 平滑 / 中位滤波 0.5 s /
+#            f(τ) 基准 = T4-A 的 pre 窗中位 / 主 τ 网格 = T4-A 的 z_at_* 采样点
+
+分族/分幅度形状散布 -> results/t3a_shape_spread_fam.csv（192 行）
+  usable/onset/0s(fam): 右拇指 n=2 中位0.829 p10~p90 0.802~0.856 CQV=n/a | 四指 n=2 中位0.832 p10~p90 0.809~0.855 CQV=n/a | 实录 n=11 中位0.843 p10~p90 0.794~0.927 CQV=0.042 | 左拇指 n=3 中位0.864 p10~p90 0.851~0.868 CQV=n/a
+  usable/onset/0s(magbin): 5~15% n=1 中位0.823 p10~p90 0.823~0.823 CQV=n/a | 15~40% n=1 中位0.868 p10~p90 0.868~0.868 CQV=n/a | >=40% n=16 中位0.854 p10~p90 0.795~0.910 CQV=0.039
+  usable/restep/0s(fam): 右拇指 n=1 中位0.606 p10~p90 0.606~0.606 CQV=n/a | 实录 n=5 中位0.636 p10~p90 0.371~0.745 CQV=0.147
+  usable/restep/0s(magbin): 5~15% n=2 中位0.621 p10~p90 0.609~0.633 CQV=n/a | 15~40% n=4 中位0.599 p10~p90 0.348~0.754 CQV=0.222
+  all/onset/0s(fam): 右拇指 n=3 中位0.795 p10~p90 0.794~0.850 CQV=n/a | 四指 n=3 中位0.814 p10~p90 0.805~0.851 CQV=n/a | 实录 n=13 中位0.843 p10~p90 0.556~0.920 CQV=0.044 | 左拇指 n=3 中位0.864 p10~p90 0.851~0.868 CQV=n/a
+  all/onset/0s(magbin): 5~15% n=1 中位0.823 p10~p90 0.823~0.823 CQV=n/a | 15~40% n=1 中位0.868 p10~p90 0.868~0.868 CQV=n/a | >=40% n=20 中位0.845 p10~p90 0.764~0.896 CQV=0.042
+  all/restep/0s(fam): 右拇指 n=2 中位0.264 p10~p90 -0.009~0.538 CQV=n/a | 四指 n=1 中位0.556 p10~p90 0.556~0.556 CQV=n/a | 实录 n=16 中位0.636 p10~p90 -2.523~1.008 CQV=-4.427
+  all/restep/0s(magbin): J/peak<5% n=2 中位-2.333 p10~p90 -2.885~-1.781 CQV=n/a | 5~15% n=9 中位0.636 p10~p90 -3.798~1.103 CQV=1.190 | 15~40% n=7 中位0.556 p10~p90 -0.189~0.764 CQV=0.291
+
+══ H1 三态裁决 ══
+  [C1 同类内可重复性] onset
+     value  : CQV<=0.034、spread<=0.109（τ=0.3/0.5/1.0 s 取最差）；f(0.3 s) 中位 0.854、f(1.0 s) 中位 0.918；n=18
+     state  : 支持
+     note   : 阈值：支持 CQV<=0.15 且 spread<=0.20；反驳 CQV>0.40 或 spread>0.35
+  [C1 同类内可重复性] restep
+     value  : CQV<=0.122、spread<=0.361（τ=0.3/0.5/1.0 s 取最差）；f(0.3 s) 中位 0.621、f(1.0 s) 中位 0.873；n=6
+     state  : 反驳
+     note   : 阈值：支持 CQV<=0.15 且 spread<=0.20；反驳 CQV>0.40 或 spread>0.35
+  [C2 跨形态可移植性（硬门）] onset<->restep
+     value  : onset 库→restep：τ_d=0.2 s 中位|误差| 36.1%；restep 库→onset：56.4%；门限 20%
+     state  : 不通过
+     note   : 跨形态 = 用另一类事件的形状库反演本事件的最终电平（usable 样本）
+  [C3 同类内泛化（留一事件）] onset / restep
+     value  : τ_d=0.5 s 中位|误差| onset 4.70%、restep 17.93%；τ_d=0.2 s：5.52% / 52.07%
+     state  : 有条件支持
+     note   : 软门 5%（τ_d=0.5 s）；onset 单独看通过
+  [C4 稳定 vs 正确（不参与裁决）] —
+     value  : 本任务形状库由本批事件自身构造，不含 08-v6.1 的 ROM 偏慢项；故只能标注「稳定≠正确」，方向性结论引用 08-v6.1（onset 中位 +3.2%）
+     state  : 不适用
+     note   : 需求文档 §5-3 要求分开报
+  [H1 整体裁决] H1「快相形状总是差不多稳定」
+     value  : worst(C1)=反驳；C2 硬门=不通过；C3 onset=通过
+     state  : 反驳
+     note   : ①同类内 restep 自身不稳定（C1 反驳）；②跨形态不可移植（C2：onset→restep τ_d=0.2 s 中位|误差| 36.1%）⇒ 作为普遍假设被反驳，仅在 onset+硬阶跃+τ>=0.3 s 的子域内成立
+
+-> results/t3a_h1_verdict.csv（6 行）
+
+-> results/t3a_h1_summary.json

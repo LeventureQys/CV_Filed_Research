@@ -1,0 +1,107 @@
+==== T1-A 02_run ==== 2026-09-19 00:36:48
+cmd : C:\Python314\python.exe scripts/t1a_02_run.py
+ROOT: D:\workshop\Processing\multi-device-cascade-host-cpp
+脚本目录: D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T1_稳定时间定义与鲁棒性口径\scripts
+待跑录制 13 份：右拇指指尖/数据1, 右拇指指尖/数据2, 右拇指指尖/数据3, 左拇指指尖/数据1, 左拇指指尖/数据2, 左拇指指尖/数据3, 四指指尖/数据1, 四指指尖/数据2, 四指指尖/数据3, 切换负载-快相无责, 再切换负载, 中途切换-1d9493, 中途切换-13ffca
+
+[右拇指指尖/数据1] n=16270  域=显示域  指定主通道=17  最大台阶通道=17(@t=8.27 s)
+   raw     0.0 s  epoch= 0 revoke= 0 handoff= 0 unload= 0  ch[末]=0.130 tot[末]=0.8
+   v5.1    1.6 s  epoch= 2 revoke= 0 handoff= 0 unload= 0  ch[末]=0.130 tot[末]=0.8
+   v6      5.5 s  epoch= 2 revoke= 0 handoff= 1 unload= 1  ch[末]=0.130 tot[末]=0.8
+   v6.1    6.4 s  epoch= 2 revoke= 0 handoff= 1 unload= 1  ch[末]=0.130 tot[末]=0.8
+   -> t1a_右拇指指尖_数据1.npz（本份 13.6 s）
+
+[右拇指指尖/数据2] n=23414  域=显示域  指定主通道=17  最大台阶通道=17(@t=12.32 s)
+   raw     0.0 s  epoch= 0 revoke= 0 handoff= 0 unload= 0  ch[末]=0.000 tot[末]=0.4
+   v5.1    4.9 s  epoch= 3 revoke= 0 handoff= 0 unload= 0  ch[末]=0.000 tot[末]=0.4
+   v6      8.7 s  epoch= 4 revoke= 0 handoff= 1 unload= 2  ch[末]=0.000 tot[末]=0.4
+   v6.1    8.6 s  epoch= 4 revoke= 0 handoff= 1 unload= 2  ch[末]=0.000 tot[末]=0.4
+   -> t1a_右拇指指尖_数据2.npz（本份 22.5 s）
+
+[右拇指指尖/数据3] n=19039  域=显示域  指定主通道=17  最大台阶通道=17(@t=10.59 s)
+   raw     0.0 s  epoch= 0 revoke= 0 handoff= 0 unload= 0  ch[末]=0.000 tot[末]=0.4
+   v5.1    3.9 s  epoch= 2 revoke= 0 handoff= 0 unload= 0  ch[末]=0.000 tot[末]=0.4
+   v6      6.8 s  epoch= 5 revoke= 1 handoff= 1 unload= 3  ch[末]=0.000 tot[末]=0.4
+   v6.1    7.0 s  epoch= 5 revoke= 1 handoff= 1 unload= 3  ch[末]=0.000 tot[末]=0.4
+   -> t1a_右拇指指尖_数据3.npz（本份 18.0 s）
+
+[左拇指指尖/数据1] n=19621  域=显示域  指定主通道=18  最大台阶通道=18(@t=11.69 s)
+   raw     0.0 s  epoch= 0 revoke= 0 handoff= 0 unload= 0  ch[末]=0.000 tot[末]=0.0
+   v5.1    4.2 s  epoch= 1 revoke= 0 handoff= 0 unload= 0  ch[末]=0.000 tot[末]=0.0
+   v6      7.0 s  epoch= 3 revoke= 1 handoff= 1 unload= 1  ch[末]=0.000 tot[末]=0.0
+   v6.1    7.2 s  epoch= 3 revoke= 1 handoff= 1 unload= 1  ch[末]=0.000 tot[末]=0.0
+   -> t1a_左拇指指尖_数据1.npz（本份 18.5 s）
+
+[左拇指指尖/数据2] n=19851  域=显示域  指定主通道=18  最大台阶通道=18(@t=14.92 s)
+   raw     0.0 s  epoch= 0 revoke= 0 handoff= 0 unload= 0  ch[末]=0.000 tot[末]=0.0
+   v5.1    4.0 s  epoch= 1 revoke= 0 handoff= 0 unload= 0  ch[末]=0.000 tot[末]=0.0
+   v6      7.2 s  epoch= 2 revoke= 0 handoff= 1 unload= 1  ch[末]=0.000 tot[末]=0.0
+   v6.1    7.7 s  epoch= 2 revoke= 0 handoff= 1 unload= 1  ch[末]=0.000 tot[末]=0.0
+   -> t1a_左拇指指尖_数据2.npz（本份 19.1 s）
+
+[左拇指指尖/数据3] n=19282  域=显示域  指定主通道=18  最大台阶通道=18(@t=10.87 s)
+   raw     0.0 s  epoch= 0 revoke= 0 handoff= 0 unload= 0  ch[末]=0.000 tot[末]=0.0
+   v5.1    4.0 s  epoch= 1 revoke= 0 handoff= 0 unload= 0  ch[末]=0.000 tot[末]=0.0
+   v6      6.8 s  epoch= 2 revoke= 0 handoff= 1 unload= 1  ch[末]=0.000 tot[末]=0.0
+   v6.1    7.0 s  epoch= 2 revoke= 0 handoff= 1 unload= 1  ch[末]=0.000 tot[末]=0.0
+   -> t1a_左拇指指尖_数据3.npz（本份 18.0 s）
+
+[四指指尖/数据1] n=19079  域=显示域  指定主通道=11  最大台阶通道=11(@t=10.94 s)
+   raw     0.0 s  epoch= 0 revoke= 0 handoff= 0 unload= 0  ch[末]=0.025 tot[末]=0.1
+   v5.1    3.4 s  epoch= 2 revoke= 0 handoff= 0 unload= 0  ch[末]=0.025 tot[末]=0.1
+   v6      6.4 s  epoch= 4 revoke= 0 handoff= 1 unload= 3  ch[末]=0.025 tot[末]=0.1
+   v6.1    6.2 s  epoch= 4 revoke= 0 handoff= 1 unload= 3  ch[末]=0.025 tot[末]=0.1
+   -> t1a_四指指尖_数据1.npz（本份 16.1 s）
+
+[四指指尖/数据2] n=19055  域=显示域  指定主通道=11  最大台阶通道=11(@t=11.03 s)
+   raw     0.0 s  epoch= 0 revoke= 0 handoff= 0 unload= 0  ch[末]=0.027 tot[末]=0.1
+   v5.1    3.2 s  epoch= 2 revoke= 0 handoff= 0 unload= 0  ch[末]=0.027 tot[末]=0.1
+   v6      6.1 s  epoch= 2 revoke= 0 handoff= 1 unload= 1  ch[末]=0.027 tot[末]=0.1
+   v6.1    6.4 s  epoch= 2 revoke= 0 handoff= 1 unload= 1  ch[末]=0.027 tot[末]=0.1
+   -> t1a_四指指尖_数据2.npz（本份 15.9 s）
+
+[四指指尖/数据3] n=19969  域=显示域  指定主通道=11  最大台阶通道=11(@t=11.00 s)
+   raw     0.0 s  epoch= 0 revoke= 0 handoff= 0 unload= 0  ch[末]=0.019 tot[末]=0.1
+   v5.1    3.4 s  epoch= 2 revoke= 0 handoff= 0 unload= 0  ch[末]=0.019 tot[末]=0.1
+   v6      6.6 s  epoch= 2 revoke= 0 handoff= 1 unload= 1  ch[末]=0.019 tot[末]=0.1
+   v6.1    6.5 s  epoch= 2 revoke= 0 handoff= 1 unload= 1  ch[末]=0.019 tot[末]=0.1
+   -> t1a_四指指尖_数据3.npz（本份 16.7 s）
+
+[切换负载-快相无责] n=25571  域=ADC域  指定主通道=4  最大台阶通道=6(@t=133.83 s)  **不一致**
+   raw     0.0 s  epoch= 0 revoke= 0 handoff= 0 unload= 0  ch[末]=0.000 tot[末]=55.0
+   v5.1    4.3 s  epoch=13 revoke= 0 handoff= 0 unload= 0  ch[末]=0.000 tot[末]=55.0
+   v6      9.1 s  epoch=24 revoke= 2 handoff= 9 unload= 3  ch[末]=0.000 tot[末]=55.0
+   v6.1    9.1 s  epoch=24 revoke= 2 handoff= 9 unload= 3  ch[末]=0.000 tot[末]=55.0
+   -> t1a_切换负载-快相无责.npz（本份 22.7 s）
+
+[再切换负载] n=7089  域=ADC域  指定主通道=15  最大台阶通道=6(@t=57.30 s)  **不一致**
+   raw     0.0 s  epoch= 0 revoke= 0 handoff= 0 unload= 0  ch[末]=1898.706 tot[末]=25901.1
+   v5.1    0.9 s  epoch= 4 revoke= 0 handoff= 0 unload= 0  ch[末]=1870.250 tot[末]=25521.7
+   v6      2.2 s  epoch= 6 revoke= 0 handoff= 3 unload= 3  ch[末]=1994.964 tot[末]=27308.0
+   v6.1    2.3 s  epoch= 6 revoke= 0 handoff= 3 unload= 3  ch[末]=1880.913 tot[末]=25730.4
+   -> t1a_再切换负载.npz（本份 5.5 s）
+
+[中途切换-1d9493] n=6386  域=ADC域  指定主通道=6  最大台阶通道=6(@t=39.08 s)
+   raw     0.0 s  epoch= 0 revoke= 0 handoff= 0 unload= 0  ch[末]=0.000 tot[末]=53.0
+   v5.1    0.7 s  epoch= 4 revoke= 0 handoff= 0 unload= 0  ch[末]=0.000 tot[末]=53.0
+   v6      1.9 s  epoch= 6 revoke= 0 handoff= 3 unload= 2  ch[末]=0.000 tot[末]=53.0
+   v6.1    2.0 s  epoch= 6 revoke= 0 handoff= 3 unload= 2  ch[末]=0.000 tot[末]=53.0
+   -> t1a_中途切换-1d9493.npz（本份 4.7 s）
+
+[中途切换-13ffca] n=12058  域=ADC域  指定主通道=11  最大台阶通道=6(@t=88.00 s)  **不一致**
+   raw     0.0 s  epoch= 0 revoke= 0 handoff= 0 unload= 0  ch[末]=45.000 tot[末]=85.0
+   v5.1    1.5 s  epoch= 8 revoke= 0 handoff= 0 unload= 0  ch[末]=45.000 tot[末]=85.0
+   v6      3.9 s  epoch=11 revoke= 0 handoff= 6 unload= 2  ch[末]=45.000 tot[末]=85.0
+   v6.1    4.1 s  epoch=11 revoke= 0 handoff= 6 unload= 2  ch[末]=45.000 tot[末]=85.0
+   -> t1a_中途切换-13ffca.npz（本份 9.6 s）
+
+== 状态机计数汇总（13 份 × 4 臂） ==
+     n_epoch     n_revoke     n_handoff     n_unload        sec     
+      median max   median max    median max   median max median  max
+arm                                                                 
+raw      0.0   0      0.0   0       0.0   0      0.0   0    0.0  0.0
+v5.1     2.0  13      0.0   0       0.0   0      0.0   0    3.4  4.9
+v6       4.0  24      0.0   2       1.0   9      2.0   3    6.6  9.1
+v6.1     4.0  24      0.0   2       1.0   9      2.0   3    6.5  9.1
+-> D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T1_稳定时间定义与鲁棒性口径\results\t1a_arm_epochs.csv
+done

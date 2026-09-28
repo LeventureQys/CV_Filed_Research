@@ -1,0 +1,43 @@
+{
+  "task": "T4", "seat": "T4-A", "date": "2026-09-18",
+  "headline": [
+    {"n": 1, "claim": "两种形态的差异只活在前 0.2 s，之后迅速收敛", "value": "干净事件 0.05/0.10/0.20 s 完成度 onset 72.3%/75.1%/82.8% vs restep 22.0%/28.6%/46.5%（AUC 0.952/0.976/0.960）；1 s 完成度只差 6.2 pt（91.8% vs 85.6%，AUC 0.770）、2 s 差 1.4 pt", "source": "results/t4a_separability.csv:med_onset,med_restep,auc"},
+    {"n": 2, "claim": "差异的驱动量是输入上升时间而不是预载", "value": "反卷积等效输入斜坡时长 T_ramp 中位 onset 0.010 s vs restep 0.550 s（AUC 0.063 ≈ 反向 0.94）；阶跃输入模型残差中位 12.8%·|J|、斜坡输入模型 5.0%·|J|（改善 2.3 倍）", "source": "results/t4a_input_recover.csv:T_ramp; results/t4a_mechanism.csv:rmse_step_pct,rmse_ramp_pct,gain_ramp"},
+    {"n": 3, "claim": "既有论断「差别在输入而不在传感器」被独立验证（支持）", "value": "同录制同带载状态的卸载 0.2 s 完成 100%：z_at_02 中位 1.003（n=13，全部 1.000~1.033，t50 中位 0.02 s）；而同档 pre/peak≥0.69 的 restep 只有 0.594（n=5，全局 n=7 为 0.465）", "source": "results/t4a_mechanism.csv:z_at_02(E2),t50(E2); results/t4a_unload_symmetry.csv:unload_z_at_02,restep_z_at_02_med"},
+    {"n": 4, "claim": "第二条独立证据是通道间同步性", "value": "事件内各通道自身 t50 的四分位距中位 onset 0.006 s vs restep 0.265 s（AUC 0.016）——零基线加载全阵同时起步，带载加压按通道分批起步", "source": "results/t4a_channel_consistency.csv:t50_ch_iqr"},
+    {"n": 5, "claim": "两形态是同一连续谱的两个端点，不是两个离散类", "value": "T_ramp 连续覆盖 0.00~1.15 s；onset 组 5/22 个 ≥0.15 s、restep 组 7/18 个 ≤0.09 s；8/40 落于 [0.05,0.30] s 重叠区（2 onset+6 restep）；GMM 双峰在输入轴（ΔBIC=−64.0，clean n=25）而非工况标签", "source": "results/t4a_intermediate.csv:categories,T_ramp; results/t4a_continuum.csv:dBIC,gmm2_mu1,gmm2_mu2"},
+    {"n": 6, "claim": "预载只是代理变量", "value": "pre/peak 同处 0.17~0.21 的三个事件 T_ramp=0.00/0.60/0.80 s、z_at_02=0.854/0.399/0.132；OLS 中 log10 T_ramp 对 z_at_02 的 R²=0.615 高于 armed 的 0.538，两者同时入模后 armed 的 t 值降到 −2.04；10%/30% 门限间 4 个事件改标签而主结论 AUC 仅 0.903~0.960", "source": "results/t4a_continuum.csv:r2,beta,t; results/t4a_sensitivity.csv:auc"},
+    {"n": 7, "claim": "负面结论：候选的「上升沿单帧跃变占比」在总量 Z 上不可用", "value": "step_frame_frac AUC=0.397、frames_to_50 AUC=0.483（比随机还差）；可用替代量是 z_at_01（AUC 0.976）与 n_frames_rise（onset 中位 2 帧 vs restep 14 帧，AUC 0.044）", "source": "results/t4a_separability.csv:auc"}
+  ],
+  "verdicts": [
+    {"question": "T4-Q1", "answer": "两形态特征表已产出并固定为交接接口：results/t4a_morphology.csv（60 行 × 51 列），每事件一行含 t10/t50/t80/t90/t95、z_at_005~z_at_50（含 z_at_02/z_at_10）、台阶幅度 pre/post/jump/ratio、上升沿帧数 rise_frames_10_90/n_frames_rise/frames_to_50/frames_to_90、单帧跃变占比 step_frame_frac/top3_frame_frac、指数与幂律拟合参数 exp_tau/exp_beta/exp_rms/pow_p/pow_tau/pow_rms，以及 armed_10/20/30 三个门限标志与 clean 标志；干净样本 n_onset=18、n_restep=7", "three_state": "不适用"},
+    {"question": "T4-Q2", "answer": "差异是效应量级而非仅显著性：z_at_01 AUC 0.976、z_at_02 0.960、z_at_005 0.952（区间重叠均为 0，但仍有 1/18 个 onset 落入 restep 带内）；t80 AUC 0.024（反向 0.976）；t90 只有 AUC 0.194、区间重叠 0.53；1 s 完成度 AUC 0.770、2 s 0.690。所有样本换成含脏事件的 40 个加载事件后 z_at_* 的 AUC 降到 0.808~0.826", "three_state": "不适用"},
+    {"question": "T4-Q3", "answer": "既有论断「差别在输入而不在传感器」成立，由 4 条互相独立的证据支持：E1 逐帧微分（0.05 s 完成度 3.28 倍差、承载 50% 的帧数 2 vs 14）、E2 卸载对称性（同一带载状态卸载 z_at_02=1.003 vs 同档 restep 0.594）、E3 通道间起步同步性（t50 的 IQR 0.006 s vs 0.265 s）、E4 反卷积定量反演输入上升时间（T_ramp 0.010 s vs 0.550 s；斜坡模型对 restep 的残差 5.0% 优于阶跃模型 12.8%）。E1/E2/E3 不使用任何形状核；E4 的核由最快 onset 构造，存在结构性循环，已声明并有 3 条前提假设（阶跃响应与预载无关、正负方向响应对称、线性叠加）", "three_state": "支持"},
+    {"question": "T4-Q4", "answer": "存在中间态，而且它不是少数例外，而是两端的连续过渡带：40 个加载类事件中 26 个带中间态标签（A 零基线慢压起 5、B 带载硬压 8、C 低预载 4、D 标签随门限翻转 4、E 复合/基线在动 15、F 卸载后加压 4、G 连续两次加载 11），其中 8/40 落在 T_ramp∈[0.05,0.30] s 的重叠区；分布虽在输入轴上呈双峰，但决定形态的物理量（输入上升时间）连续覆盖 0.00~1.15 s，且预载只解释其方差的 47%（R²=0.467）⇒ 「两形态」应理解为同一连续谱的两个端点，预载是代理变量；H 类「拍击后加压」在本批数据中无样本（缺数据）", "three_state": "支持"}
+  ],
+  "corrections": [
+    {"against": "13-v6-assessment", "was": "restep 的 0.2 s 完成度 = 62.6~72.2%", "now": "clean restep（总量 Z）= 46.5%；对同一批 15 个 restep 事件，三种口径分别给出 62.6%（第一轮，主通道）/ 46.5%（本任务 Z）/ 35.0%（本任务主通道），最大差 28 pt ⇒ 该数字不稳健，引用必须带口径与样本清单", "verdict": "修正"},
+    {"against": "13-v6-assessment", "was": "onset 的 0.2 s 完成度 = 83.8%", "now": "clean onset（总量 Z）= 82.8%；对同一批 19 个 onset 事件三口径为 83.8%/82.4%/84.9%，互差 ≤1.5 pt ⇒ 稳健", "verdict": "相同"},
+    {"against": "07-v6", "was": "onset t90=0.48 s vs restep t90=2.87 s，差 6.0 倍", "now": "clean 复算 onset 0.62 s vs restep 1.40 s（2.3 倍）；全样本 0.67 s vs 1.99 s；方向一致但倍数修正（样本与 t_on 口径差异：第一轮 restep n=15 含恒载组 10 次 3~10% 小增量，其 t90 在 2.4~4.9 s；本任务 clean restep 仅 7 个）", "verdict": "修正"},
+    {"against": "13-v6-assessment", "was": "「1 s 时两者已追平」", "now": "clean 的 1 s 完成度 onset 0.918 vs restep 0.856，差 6.2 pt（AUC 0.770），2 s 差 1.4 pt ⇒ 基本追平，但仍残留弱可分性", "verdict": "相同"},
+    {"against": "07-v6", "was": "机制论断「差别在输入而不在传感器」（未独立验证，基于逐帧核对）", "now": "4 条独立证据支持并定量化：T_ramp 0.010 s vs 0.550 s、卸载 z_at_02 1.003 vs 同档 restep 0.594、通道 t50 的 IQR 0.006 s vs 0.265 s、0.05 s 完成度 3.28 倍差；同时声明 3 条未验证前提", "verdict": "相同"},
+    {"against": "07-v6", "was": "「restep 的输入本身就是 0.3~1.2 s 的斜坡」（举证为单个事件 0.75 s 走完 91%）", "now": "逐事件反演：T_ramp（restep）中位 0.550 s，15/18 个事件 >0.09 s，其中 11 个 >0.2 s；另有 2 个 <0.15 s 的「带载硬压」反例 ⇒ 区间吻合但非全称", "verdict": "相同"},
+    {"against": "13-v6-assessment", "was": "建议「至少两套形状/两套 κ（onset 一套、restep 一套）」", "now": "早期形状差异真实（1.8~3.3 倍），但分界变量是输入上升时间而不是工况标签：用 armed 选库会与 20%（8/40）的事件不一致，门限 10%/30% 之间还有 4 个事件改标签；该差异是连续变量上的两端", "verdict": "修正"},
+    {"against": "13-v6-assessment", "was": "卸载在 0.2 s 完成 100.9%（n=21）", "now": "总量 Z 口径：卸载 z_at_02 中位 1.003（n=13，1.000~1.033），t50 中位 0.02 s；并由「卸载 vs 同档 restep」对照升级为传感器在带载状态不慢的机制证据", "verdict": "相同"},
+    {"against": "13-v6-assessment", "was": "onset 形状在 0.2 s 处中位 0.838、p10~p90=0.724~0.935（n=19，主通道）", "now": "clean onset（Z，n=18）中位 0.828（差 0.010，相同）但 p10~p90=0.721~0.870（上界更低，与第一轮样本含更高完成度事件及信号口径不同有关）⇒ 混合判定", "verdict": "修正"},
+    {"against": "13-v6-assessment", "was": "形状与幅度基本无关（corr ≈ −0.01~−0.23）", "now": "corr(z_at_02,|J|) = −0.108（onset）/ +0.229（restep）；另外输入速率与台阶幅度只有弱相关 corr(log10 T_ramp,|J|) = +0.404 / +0.295 ⇒ 输入速率不由台阶大小决定", "verdict": "相同"},
+    {"against": "T4-B", "was": "需求书候选判据④「上升沿形状（单帧跃变 vs 多帧斜坡）」——按“单帧跃变占比”实现", "now": "该实现在总量 Z 上不可分：step_frame_frac AUC=0.397、frames_to_50 AUC=0.483；可用的早期量是 z_at_005/z_at_01/z_at_02（AUC 0.952/0.976/0.960，仅需 50~200 ms 数据）与 n_frames_rise（AUC 0.044）", "verdict": "修正"}
+  ],
+  "gaps": [
+    "G1 无跨载荷量级标称（5/10/20 N）：无法判定输入斜坡时长/形态是否随载荷量级变化；只能以 |J| 与记录峰值作相对幅度，且与 log10 T_ramp 仅弱相关（r=+0.08~+0.40）。补采：同一装置 5/10/20 N × 硬阶跃/0.5 s 斜坡 × 各 5 次，带力值标定",
+    "G2 无「拍击后加压」样本（T4-Q4 的 H 类 n=0）：该中间态无法表征（拍击不满足本任务 2%·记录极差的电平门限）。补采：拍击后 0.2~2 s 再加压的录制 ≥5 次",
+    "G3 无受控速率实验：T_ramp 与操作方式的对应关系只能由观测推断，无法标定「手速↔T_ramp」。补采：力/位移控装置做 0.05/0.2/0.5/1.0/2.0 s 上升时间 × 各 5 次",
+    "G4 无同步力/位移真值：无法把 T_ramp 从读数反演升级为实测输入，也无法独立验证反卷积的绝对精度。补采：加载装置带力传感器同步采集（对齐 ≤5 ms）",
+    "G5 检测门限 max(8σ_d, 2%·记录极差) 以下的慢小增量未表征：restep 样本因此偏向大台阶。若要覆盖需先提高信噪比",
+    "G6 显示域量化（0.001 刻度）限制恒载组的逐帧微分类指标（step_frame_frac、n_frames_rise 受量化影响）。建议用 ADC 原始域重录恒载组",
+    "G7 单次录制内缺乏「同载荷重复加载」：clean restep 仅 n=7，分组中位数不确定度较大。建议每个工况重复 ≥5 次同型事件"
+  ],
+  "blockers": [
+    "T4-A 交付本身无阻塞；仅「传感器阶跃响应与预载无关」这一机制前提无法用现有 13 份录制闭合（E4 的核由最快 onset 构造，存在结构性循环），需按 G3/G4 补采受控实验才能彻底验证"
+  ]
+}

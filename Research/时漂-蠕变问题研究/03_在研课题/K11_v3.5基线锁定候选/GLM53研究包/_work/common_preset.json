@@ -1,0 +1,49 @@
+{
+  "params": {
+    "r_fast": 0.05,
+    "tau_c_fast_s": 8.0,
+    "r_slow_max": 30.0,
+    "slope_cap_frac": 0.15,
+    "slope_gate_frac": 1.0,
+    "slow_confirm_s": 0.5,
+    "soft_unfreeze_s": 0.5,
+    "edge_slope_thres": 30.0,
+    "tau_slope_s": 2.5,
+    "tau_r_slow_idle_s": 8.0,
+    "tau_r_fast_s": 1.5,
+    "hold_eps": 2.0,
+    "idle_frac": 0.05,
+    "ramp_slope_min": 0.0,
+    "tau_c_fast_boost_s": 1.0
+  },
+  "metrics": {
+    "右拇指指腹": {
+      "resid_pct": 10.270804275182234,
+      "tail_pct": 4.899583841360886,
+      "over_adc": 84.0,
+      "ded_pct": 89.72919572481777,
+      "score": 15.170388116543121
+    },
+    "左拇指指腹": {
+      "resid_pct": 18.543847186094332,
+      "tail_pct": 0.5612046250040132,
+      "over_adc": 89.0,
+      "ded_pct": 81.45615281390567,
+      "score": 23.605051811098345
+    },
+    "右手掌": {
+      "resid_pct": 4.479499950353697,
+      "tail_pct": 3.5483977369085062,
+      "over_adc": 143.20143297549504,
+      "ded_pct": 95.5205000496463,
+      "score": 65.38647975575472
+    },
+    "左手掌": {
+      "resid_pct": -3.392790190973087,
+      "tail_pct": -1.5348563908185968,
+      "over_adc": 128.100025671533,
+      "ded_pct": 103.39279019097307,
+      "score": 27.839275661206884
+    }
+  }
+}

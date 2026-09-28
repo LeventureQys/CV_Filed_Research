@@ -1,0 +1,89 @@
+ԭ�ͼ��������: DET_FAST=0.2, DET_GAP=0.15, DET_LAG=0.3, DET_K=5.0, DET_REL=0.05, DET_ABS_FRAC=0.01, DET_IDLE_FRAC=0.1, DET_PERSIST=3
+            const  cpp  proto   same
+0       kDetFastS  NaN   0.20  False
+1        kDetGapS  NaN   0.15  False
+2        kDetLagS  NaN   0.30  False
+3           kDetK  NaN   5.00  False
+4         kDetRel  NaN   0.05  False
+5     kDetAbsFrac  NaN   0.01  False
+6    kDetIdleFrac  NaN   0.10  False
+7     kDetPersist  NaN   3.00  False
+8    kIdleSettleS  NaN   0.50  False
+9        kRevokeS  NaN   0.40  False
+10     kTailGateS  NaN   3.00  False
+11  kTailGateFrac  NaN   0.10  False
+12     kBackdateS  NaN   0.60  False
+C++ Push ����һ֡ 3 ֡��ֵ�����ԭ���ͺ� 1 ֡ ��10 ms��: True
+[�л�����-��������] n=25692 span=255.7s fs=100.5Hz totmax=29531 v6_epoch=24 v51_epoch=0 revoke=2 down=1 unload=3
+    v6 epoch t0=10.810 kind=onset          t_det=10.840 base=72.8 v0=79 y0=78
+    v6 epoch t0=13.710 kind=restep_reload  t_det=14.220 base=3584.9 v0=3595 y0=3598
+    v6 epoch t0=13.870 kind=restep_reload  t_det=14.370 base=3594.9 v0=3630 y0=3631
+    v6 epoch t0=28.440 kind=restep         t_det=28.500 base=4845.0 v0=4826 y0=4365
+    v6 epoch t0=71.570 kind=decrease       t_det=71.760 base=13416.0 v0=12396 y0=11158
+    v6 epoch t0=75.040 kind=restep         t_det=75.630 base=5507.0 v0=5451 y0=4394
+    v6 epoch t0=75.590 kind=restep_reload  t_det=75.870 base=5594.2 v0=5599 y0=4544
+    v6 epoch t0=110.420 kind=restep         t_det=110.730 base=19416.7 v0=19405 y0=15015
+    v6 epoch t0=110.420 kind=restep_reload  t_det=110.820 base=19416.7 v0=19405 y0=15015
+    v6 epoch t0=129.380 kind=decrease       t_det=129.450 base=26750.9 v0=26382 y0=20953
+    v6 epoch t0=133.840 kind=onset          t_det=133.890 base=70.0 v0=66 y0=65
+    v6 epoch t0=181.950 kind=decrease       t_det=182.070 base=29070.0 v0=28123 y0=28774
+    v6 epoch t0=185.980 kind=onset          t_det=186.020 base=64.6 v0=55 y0=54
+    v6 epoch t0=202.620 kind=decrease       t_det=202.710 base=26544.2 v0=26147 y0=25708
+    v6 epoch t0=212.400 kind=decrease       t_det=212.470 base=22498.5 v0=22196 y0=21412
+    v6 epoch t0=213.130 kind=restep         t_det=213.720 base=4868.6 v0=5060 y0=4605
+    v6 epoch t0=217.510 kind=restep_reload  t_det=217.810 base=5763.6 v0=5764 y0=5303
+    v6 epoch t0=217.730 kind=restep_reload  t_det=217.910 base=5774.1 v0=5770 y0=5302
+    v6 epoch t0=217.950 kind=restep         t_det=218.460 base=7809.0 v0=6460 y0=5912
+    v6 epoch t0=230.060 kind=decrease       t_det=230.650 base=12144.6 v0=12166 y0=9806
+    v6 epoch t0=232.970 kind=decrease       t_det=233.050 base=5127.1 v0=5147 y0=3112
+    v6 epoch t0=233.280 kind=restep         t_det=233.590 base=4116.9 v0=3715 y0=1916
+    v6 epoch t0=240.730 kind=restep         t_det=240.930 base=20523.6 v0=20520 y0=18007
+    v6 epoch t0=249.610 kind=decrease       t_det=249.670 base=25865.0 v0=25969 y0=23359
+[�㸺��-�л�����-�㸺��-���л�����] n=7128 span=70.9s fs=100.6Hz totmax=25926 v6_epoch=6 v51_epoch=0 revoke=0 down=0 unload=3
+    v6 epoch t0=3.340 kind=onset          t_det=3.930 base=66.0 v0=65 y0=65
+    v6 epoch t0=11.760 kind=onset          t_det=11.810 base=60.8 v0=63 y0=64
+    v6 epoch t0=31.200 kind=decrease       t_det=31.260 base=16058.9 v0=16097 y0=15826
+    v6 epoch t0=35.930 kind=onset          t_det=36.000 base=52.4 v0=38 y0=38
+    v6 epoch t0=50.580 kind=decrease       t_det=50.640 base=22861.7 v0=22793 y0=23603
+    v6 epoch t0=57.280 kind=onset          t_det=57.340 base=37.5 v0=38 y0=38
+[�㸺��-��;�л�����-�㸺��-�л�����] n=6420 span=63.9s fs=100.5Hz totmax=27912 v6_epoch=6 v51_epoch=0 revoke=0 down=0 unload=2
+    v6 epoch t0=10.650 kind=onset          t_det=10.680 base=67.3 v0=69 y0=69
+    v6 epoch t0=20.370 kind=restep         t_det=20.850 base=18642.8 v0=18624 y0=15582
+    v6 epoch t0=20.690 kind=restep_reload  t_det=20.940 base=18703.8 v0=18678 y0=15579
+    v6 epoch t0=30.690 kind=decrease       t_det=30.730 base=26351.5 v0=26219 y0=20891
+    v6 epoch t0=39.060 kind=onset          t_det=39.140 base=53.0 v0=54 y0=55
+    v6 epoch t0=60.790 kind=decrease       t_det=60.820 base=27848.4 v0=27680 y0=28173
+[��;�л�-���ղ���Ŀ��] n=12120 span=120.6s fs=100.5Hz totmax=32707 v6_epoch=11 v51_epoch=0 revoke=0 down=0 unload=2
+    v6 epoch t0=8.310 kind=onset          t_det=8.340 base=75.7 v0=82 y0=82
+    v6 epoch t0=18.690 kind=restep         t_det=18.810 base=16209.0 v0=16190 y0=14997
+    v6 epoch t0=26.330 kind=decrease       t_det=26.620 base=22585.6 v0=22635 y0=20765
+    v6 epoch t0=27.610 kind=restep         t_det=27.770 base=19464.0 v0=19436 y0=17854
+    v6 epoch t0=45.270 kind=decrease       t_det=45.450 base=24697.0 v0=24658 y0=22513
+    v6 epoch t0=61.010 kind=restep         t_det=61.330 base=21004.5 v0=20995 y0=18704
+    v6 epoch t0=61.010 kind=restep_reload  t_det=61.470 base=21004.5 v0=20995 y0=18704
+    v6 epoch t0=68.900 kind=decrease       t_det=68.980 base=24258.4 v0=24277 y0=21418
+    v6 epoch t0=87.810 kind=onset          t_det=87.920 base=85.6 v0=77 y0=76
+    v6 epoch t0=98.880 kind=restep         t_det=99.470 base=28290.8 v0=28361 y0=29738
+    v6 epoch t0=113.810 kind=decrease       t_det=113.850 base=32339.7 v0=32442 y0=33455
+                   rec      n  span_s  fs_real  tot_max  tot_idle_med  idle_ratio  sig_frame_idle  sig_frame_all  v6_epoch  v51_epoch  v6_revoke  v6_down  v6_unload  v6_handoff  v51_s
+0            �л�����-��������  25692  255.70   100.48  29530.6          62.0       0.098            0.00           5.12        24          0          2        1          3           9    4.3
+1   �㸺��-�л�����-�㸺��-���л�����   7128   70.89   100.56  25926.2          60.0       0.327            0.03           3.70         6          0          0        0          3           3    0.9
+2  �㸺��-��;�л�����-�㸺��-�л�����   6420   63.85   100.55  27912.5          57.0       0.349            0.00           2.89         6          0          0        0          2           3    0.8
+3          ��;�л�-���ղ���Ŀ��  12120  120.57   100.52  32707.0          80.4       0.281            0.00           4.43        11          0          0        0          2           6    1.5
+  [�㸺��-�л�����-�㸺��-���л�����] �Ļ�1000: ��ֵ����=992 �ص���2%��ʱ=0.18s ��̬�в�=-2.8 ȫ��ĩƫ��=-0 ����A=0 ����=0 ���Ӧ�=0
+  [�㸺��-�л�����-�㸺��-���л�����] �Ļ�2000: ��ֵ����=1984 �ص���2%��ʱ=0.24s ��̬�в�=139.8 ȫ��ĩƫ��=-137 ����A=0 ����=1 ���Ӧ�=0
+  [�㸺��-�л�����-�㸺��-���л�����] �Ļ�4000: ��ֵ����=3968 �ص���2%��ʱ=0.24s ��̬�в�=127.8 ȫ��ĩƫ��=-137 ����A=0 ����=1 ���Ӧ�=0
+  [�㸺��-�л�����-�㸺��-���л�����] �Ļ�6000: ��ֵ����=5952 �ص���2%��ʱ=0.24s ��̬�в�=108.1 ȫ��ĩƫ��=-137 ����A=0 ����=1 ���Ӧ�=0
+  [��;�л�-���ղ���Ŀ��] �Ļ�1000: ��ֵ����=988 �ص���2%��ʱ=0.18s ��̬�в�=-3.1 ȫ��ĩƫ��=0 ����A=0 ����=0 ���Ӧ�=0
+  [��;�л�-���ղ���Ŀ��] �Ļ�2000: ��ֵ����=4242 �ص���2%��ʱ=15.84s ��̬�в�=None ȫ��ĩƫ��=0 ����A=0 ����=1 ���Ӧ�=0
+  [��;�л�-���ղ���Ŀ��] �Ļ�4000: ��ֵ����=6242 �ص���2%��ʱ=15.84s ��̬�в�=None ȫ��ĩƫ��=0 ����A=0 ����=1 ���Ӧ�=0
+  [��;�л�-���ղ���Ŀ��] �Ļ�6000: ��ֵ����=8242 �ص���2%��ʱ=15.84s ��̬�в�=None ȫ��ĩƫ��=0 ����A=0 ����=1 ���Ӧ�=0
+                  rec   amp      lvl  peak_over  peak_under  rec_s  settle_dev  end_dev   dA  revoke  ho
+0  �㸺��-�л�����-�㸺��-���л�����  1000  15607.8      992.0       -46.7   0.18        -2.8     -0.4  0.0       0   0
+1  �㸺��-�л�����-�㸺��-���л�����  2000  15607.8     1984.0      -393.9   0.24       139.8   -136.6  0.0       1   0
+2  �㸺��-�л�����-�㸺��-���л�����  4000  15607.8     3967.9      -393.9   0.24       127.8   -136.6  0.0       1   0
+3  �㸺��-�л�����-�㸺��-���л�����  6000  15607.8     5951.9      -393.9   0.24       108.1   -136.6  0.0       1   0
+4         ��;�л�-���ղ���Ŀ��  1000  18809.4      988.2       -68.9   0.18        -3.1      0.0  0.0       0   0
+5         ��;�л�-���ղ���Ŀ��  2000  18809.4     4241.7      -536.0  15.84         NaN      0.0  0.0       1   0
+6         ��;�л�-���ղ���Ŀ��  4000  18809.4     6241.8      -568.8  15.84         NaN      0.0  0.0       1   0
+7         ��;�л�-���ղ���Ŀ��  6000  18809.4     8242.3      -588.5  15.84         NaN      0.0  0.0       1   0

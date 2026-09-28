@@ -1,0 +1,30 @@
+== W1_1w lvl 12101 clean epochs [(2.44, 'onset'), (45.57, 'decrease'), (49.59, 'onset')]
+GT: [(28.63, 'onset', 6784), (71.67, 'restep', 3902), (75.89, 'onset', 12646)]
+  amp=0.0 fail=0 flags={'M1_miss': 0, 'M2_wrong_anchor': 0, 'M3_false_capture': 0, 'M4_disp': 0, 'M1_miss_abs': 0, 'M2_measured': 3} n_ep=3 excess_rel=0.000 dA_end=0
+   epochs: [(2.44, 'onset'), (45.57, 'decrease'), (49.59, 'onset')]
+    {'kind_gt': 'onset', 't_on': 28.63, 't_on_w': 2.63, 'jump': 6784.4, 'lvl_pre': 4843.7, 'lvl_event': 11605.7, 'should_detect': 1, 'n_match': 1, 'n_match_clean': 1, 'match_kinds': 'onset', 'M1_miss': 0, 'M1_miss_abs': 0, 'ck_meas': 1, 'dA_ck': 0.0, 'dA_rel': 0.0, 'M2': 0}
+    {'kind_gt': 'restep', 't_on': 71.67, 't_on_w': 45.67, 'jump': 3901.9, 'lvl_pre': 12339.0, 'lvl_event': 16211.5, 'should_detect': 1, 'n_match': 1, 'n_match_clean': 1, 'match_kinds': 'decrease', 'M1_miss': 0, 'M1_miss_abs': 0, 'ck_meas': 1, 'dA_ck': 0.0, 'dA_rel': 0.0, 'M2': 0}
+    {'kind_gt': 'onset', 't_on': 75.89, 't_on_w': 49.89, 'jump': 12646.2, 'lvl_pre': 5611.7, 'lvl_event': 18091.7, 'should_detect': 1, 'n_match': 1, 'n_match_clean': 1, 'match_kinds': 'onset', 'M1_miss': 0, 'M1_miss_abs': 0, 'ck_meas': 1, 'dA_ck': 0.0, 'dA_rel': 0.0, 'M2': 0}
+  amp=200.0 fail=1 flags={'M1_miss': 1, 'M2_wrong_anchor': 3, 'M3_false_capture': 0, 'M4_disp': 0, 'M1_miss_abs': 1, 'M2_measured': 3} n_ep=2 excess_rel=0.064 dA_end=-5153
+   epochs: [(1.95, 'onset'), (49.59, 'onset')]
+    {'kind_gt': 'onset', 't_on': 28.63, 't_on_w': 2.63, 'jump': 6784.4, 'lvl_pre': 4908.0, 'lvl_event': 11632.0, 'should_detect': 1, 'n_match': 1, 'n_match_clean': 1, 'match_kinds': 'onset', 'M1_miss': 0, 'M1_miss_abs': 0, 'ck_meas': 1, 'dA_ck': -11576.4, 'dA_rel': 0.9952, 'M2': 1}
+    {'kind_gt': 'restep', 't_on': 71.67, 't_on_w': 45.67, 'jump': 3901.9, 'lvl_pre': 12420.2, 'lvl_event': 16107.7, 'should_detect': 1, 'n_match': 0, 'n_match_clean': 1, 'match_kinds': '', 'M1_miss': 1, 'M1_miss_abs': 1, 'ck_meas': 1, 'dA_ck': -5153.2, 'dA_rel': 0.3199, 'M2': 1}
+    {'kind_gt': 'onset', 't_on': 75.89, 't_on_w': 49.89, 'jump': 12646.2, 'lvl_pre': 5616.5, 'lvl_event': 18071.6, 'should_detect': 1, 'n_match': 1, 'n_match_clean': 1, 'match_kinds': 'onset', 'M1_miss': 0, 'M1_miss_abs': 0, 'ck_meas': 1, 'dA_ck': -5153.2, 'dA_rel': 0.2852, 'M2': 1}
+  amp=500.0 fail=1 flags={'M1_miss': 1, 'M2_wrong_anchor': 3, 'M3_false_capture': 0, 'M4_disp': 0, 'M1_miss_abs': 1, 'M2_measured': 3} n_ep=2 excess_rel=0.122 dA_end=-5153
+   epochs: [(1.97, 'onset'), (49.31, 'onset')]
+    {'kind_gt': 'onset', 't_on': 28.63, 't_on_w': 2.63, 'jump': 6784.4, 'lvl_pre': 5006.7, 'lvl_event': 11650.1, 'should_detect': 1, 'n_match': 1, 'n_match_clean': 1, 'match_kinds': 'onset', 'M1_miss': 0, 'M1_miss_abs': 0, 'ck_meas': 1, 'dA_ck': -11576.4, 'dA_rel': 0.9937, 'M2': 1}
+    {'kind_gt': 'restep', 't_on': 71.67, 't_on_w': 45.67, 'jump': 3901.9, 'lvl_pre': 12545.0, 'lvl_event': 16030.5, 'should_detect': 1, 'n_match': 0, 'n_match_clean': 1, 'match_kinds': '', 'M1_miss': 1, 'M1_miss_abs': 1, 'ck_meas': 1, 'dA_ck': -5153.2, 'dA_rel': 0.3215, 'M2': 1}
+    {'kind_gt': 'onset', 't_on': 75.89, 't_on_w': 49.89, 'jump': 12646.2, 'lvl_pre': 5727.0, 'lvl_event': 18044.3, 'should_detect': 1, 'n_match': 1, 'n_match_clean': 1, 'match_kinds': 'onset', 'M1_miss': 0, 'M1_miss_abs': 0, 'ck_meas': 1, 'dA_ck': -5153.2, 'dA_rel': 0.2856, 'M2': 1}
+== W3_1p5w lvl 15416 clean epochs [(6.76, 'onset'), (26.2, 'decrease'), (30.93, 'onset')]
+GT: [(11.79, 'onset', 14394), (13.7, 'restep', 1435), (14.86, 'restep', 481), (31.22, 'restep', 1341), (35.96, 'onset', 21603)]
+  amp=0.0 fail=0 flags={'M1_miss': 0, 'M2_wrong_anchor': 0, 'M3_false_capture': 0, 'M4_disp': 0, 'M1_miss_abs': 1, 'M2_measured': 5} n_ep=3 excess_rel=0.000 dA_end=0
+   epochs: [(6.76, 'onset'), (26.2, 'decrease'), (30.93, 'onset')]
+    {'kind_gt': 'onset', 't_on': 11.79, 't_on_w': 6.79, 'jump': 14393.6, 'lvl_pre': 65.6, 'lvl_event': 14811.3, 'should_detect': 1, 'n_match': 1, 'n_match_clean': 1, 'match_kinds': 'onset', 'M1_miss': 0, 'M1_miss_abs': 0, 'ck_meas': 1, 'dA_ck': 0.0, 'dA_rel': 0.0, 'M2': 0}
+    {'kind_gt': 'restep', 't_on': 13.7, 't_on_w': 8.7, 'jump': 1434.9, 'lvl_pre': 14014.0, 'lvl_event': 14853.0, 'should_detect': 1, 'n_match': 0, 'n_match_clean': 0, 'match_kinds': '', 'M1_miss': 0, 'M1_miss_abs': 1, 'ck_meas': 1, 'dA_ck': 0.0, 'dA_rel': 0.0, 'M2': 0}
+    {'kind_gt': 'restep', 't_on': 14.86, 't_on_w': 9.86, 'jump': 481.0, 'lvl_pre': 15472.1, 'lvl_event': 15406.6, 'should_detect': 0, 'n_match': 0, 'n_match_clean': 0, 'match_kinds': '', 'M1_miss': 0, 'M1_miss_abs': 0, 'ck_meas': 1, 'dA_ck': 0.0, 'dA_rel': 0.0, 'M2': 0}
+    {'kind_gt': 'restep', 't_on': 31.22, 't_on_w': 26.22, 'jump': 1341.4, 'lvl_pre': 16011.8, 'lvl_event': 17348.6, 'should_detect': 1, 'n_match': 1, 'n_match_clean': 1, 'match_kinds': 'decrease', 'M1_miss': 0, 'M1_miss_abs': 0, 'ck_meas': 1, 'dA_ck': 0.0, 'dA_rel': 0.0, 'M2': 0}
+    {'kind_gt': 'onset', 't_on': 35.96, 't_on_w': 30.96, 'jump': 21603.0, 'lvl_pre': 38.0, 'lvl_event': 21642.4, 'should_detect': 1, 'n_match': 1, 'n_match_clean': 1, 'match_kinds': 'onset', 'M1_miss': 0, 'M1_miss_abs': 0, 'ck_meas': 1, 'dA_ck': 0.0, 'dA_rel': 0.0, 'M2': 0}
+  amp=200.0 fail=0 flags={'M1_miss': 0, 'M2_wrong_anchor': 0, 'M3_false_capture': 0, 'M4_disp': 0, 'M1_miss_abs': 1, 'M2_measured': 5} n_ep=3 excess_rel=0.150 dA_end=-2160
+   epochs: [(6.76, 'restep'), (26.2, 'decrease'), (30.56, 'onset')]
+    {'kind_gt': 'onset', 't_on': 11.79, 't_on_w': 6.79, 'jump': 14393.6, 'lvl_pre': 24.0, 'lvl_event': 14858.9, 'should_detect': 1, 'n_match': 1, 'n_match_clean': 1, 'match_kinds': 'restep', 'M1_miss': 0, 'M1_miss_abs': 0, 'ck_meas': 1, 'dA_ck': 37.1, 'dA_rel': 0.0025, 'M2': 0}
+    {'kind_gt': 'restep', 't_on': 13.7, 't_on_w': 8.7, 'jump': 1434.9, 'lvl_pre': 14052.9, 'lvl_event': 14903.3, 'should_detect': 1, 'n_match': 0, 'n_match_clean': 0, 'match_kinds': '', 'M1_miss': 0, 'M1_miss_abs': 1, 'ck_meas': 1, 'dA_ck': 37.1, 'dA_rel': 0.0025, 'M2': 0}

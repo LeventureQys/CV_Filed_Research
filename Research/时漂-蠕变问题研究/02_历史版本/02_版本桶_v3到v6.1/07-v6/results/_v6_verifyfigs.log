@@ -1,0 +1,7 @@
+[figcheck] K1_v6_fix_verify.png canvas=1750x1050 axes=4
+  ax0 lines=4 texts=0 文本重叠=0
+  ax1 lines=4 texts=1 文本重叠=0
+  ax2 lines=4 texts=0 文本重叠=0
+  ax3 lines=4 texts=1 文本重叠=0
+  -> 文本重叠合计 0
+图已保存：D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\figures\K1_v6_fix_verify.png

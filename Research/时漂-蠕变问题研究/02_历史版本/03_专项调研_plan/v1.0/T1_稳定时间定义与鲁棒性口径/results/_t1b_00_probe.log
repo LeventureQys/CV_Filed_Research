@@ -1,0 +1,14 @@
+=== T1-B probe ===
+python 3.14.4 numpy 2.4.6 pandas 3.0.3
+  RT1: n=16355 ch=31 span=162.694 fs=100.526 uniq_ts=11512 dup=0.2961 dt_med=15.451ms pkt_frames(med/max)=1/6 tot(med/max)=16.51/20.62
+  RT2: n=23536 ch=31 span=234.137 fs=100.522 uniq_ts=16377 dup=0.3042 dt_med=15.383ms pkt_frames(med/max)=1/6 tot(med/max)=18.56/22.49
+  LT1: n=19739 ch=31 span=196.201 fs=100.606 uniq_ts=13690 dup=0.3064 dt_med=15.316ms pkt_frames(med/max)=1/6 tot(med/max)=17.33/18.32
+  F41: n=19139 ch=21 span=190.787 fs=100.316 uniq_ts=13333 dup=0.3034 dt_med=15.114ms pkt_frames(med/max)=1/6 tot(med/max)=15.24/16.57
+  SW1: n=25692 ch=21 span=255.702 fs=100.476 uniq_ts=7824 dup=0.6955 dt_med=0.007ms pkt_frames(med/max)=4/16 tot(med/max)=18823.5/29553.0
+  SW2: n=7128 ch=21 span=70.885 fs=100.557 uniq_ts=2127 dup=0.7016 dt_med=0.007ms pkt_frames(med/max)=4/4 tot(med/max)=15566.5/25929.0
+  SW3: n=6420 ch=21 span=63.852 fs=100.545 uniq_ts=1888 dup=0.7059 dt_med=0.007ms pkt_frames(med/max)=4/20 tot(med/max)=18644.0/27939.0
+  SW4: n=12120 ch=21 span=120.573 fs=100.52 uniq_ts=3605 dup=0.7026 dt_med=0.007ms pkt_frames(med/max)=4/4 tot(med/max)=21054.0/32714.0
+--- timing v6 (plain, 3000 frames) ---
+  RT1: 3000 frames in 0.48s -> 0.161 ms/frame, full_record_est=2.6s
+  SW2: 3000 frames in 0.37s -> 0.122 ms/frame, full_record_est=0.9s
+  SW4: 3000 frames in 0.38s -> 0.127 ms/frame, full_record_est=1.5s

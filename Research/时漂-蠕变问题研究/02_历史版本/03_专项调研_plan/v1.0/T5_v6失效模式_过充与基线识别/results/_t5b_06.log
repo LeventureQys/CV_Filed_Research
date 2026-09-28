@@ -1,0 +1,51 @@
+真实瞬态候选 n=3
+   {'rec': '切换负载-快相无责', 't': 212.97, 'peak': -211.1, 'back': 39.3, 'level': 5281.2, 'idx': 21297}
+   {'rec': '零负载-切换负载-零负载-再切换负载', 't': 14.29, 'peak': 431.6, 'back': 109.5, 'level': 14948.9, 'idx': 1429}
+   {'rec': '中途切换-最终测试目标', 't': 99.56, 'peak': 1895.6, 'back': 271.3, 'level': 29335.0, 'idx': 9956}
+
+=== 分组统计 ===
+                n_ch  n_active  active_frac   coup    hhi  participation
+group                                                                   
+inj_tap_all     21.0      12.0        0.571  7.536  0.095         10.554
+inj_tap_top1    21.0       1.0        0.048  1.000  1.000          1.000
+inj_tap_top3    21.0       3.0        0.143  2.769  0.335          2.989
+inj_tap_top5    21.0       5.0        0.238  4.265  0.203          4.935
+inj_tap_top8    21.0       8.0        0.381  6.098  0.130          7.722
+real_load_SW1   21.0      12.0        0.571  7.198  0.097         10.274
+real_load_SW2   21.0      12.0        0.571  7.032  0.098         10.154
+real_load_SW3   21.0      12.0        0.571  8.255  0.093         10.806
+real_load_SW4   21.0      12.0        0.571  7.429  0.095         10.544
+real_transient  21.0       9.0        0.429  4.671  0.123          8.148
+
+=== 空间判据 AUC ===
+         neg_group        feature  n_pos  n_neg     auc  best_tpr_at_fpr05  thr_at_fpr05
+0      inj_tap_all           coup     38     21  0.4549              0.421        7.6791
+1      inj_tap_all    active_frac     38     21  0.5000              0.263        0.5715
+2      inj_tap_all  participation     38     21  0.4211              0.368       10.6310
+3      inj_tap_all       n_active     38     21  0.5000              0.263       12.0833
+4      inj_tap_all            hhi     38     21  0.4286              0.342        0.0935
+5     inj_tap_top8           coup     38     21  0.7143              0.711        6.2804
+6     inj_tap_top8    active_frac     38     21  1.0000              1.000        0.3858
+7     inj_tap_top8  participation     38     21  0.9211              0.921        7.8094
+8     inj_tap_top8       n_active     38     21  1.0000              1.000        8.1000
+9     inj_tap_top8            hhi     38     21  0.9211              0.921        0.1190
+10    inj_tap_top5           coup     38     21  0.9474              0.921        4.3573
+11    inj_tap_top5    active_frac     38     21  1.0000              1.000        0.2452
+12    inj_tap_top5  participation     38     21  1.0000              1.000        5.0293
+13    inj_tap_top5       n_active     38     21  1.0000              1.000        5.1500
+14    inj_tap_top5            hhi     38     21  1.0000              1.000        0.1634
+15    inj_tap_top3           coup     38     21  1.0000              1.000        2.8147
+16    inj_tap_top3    active_frac     38     21  1.0000              1.000        0.1516
+17    inj_tap_top3  participation     38     21  1.0000              1.000        3.1144
+18    inj_tap_top3       n_active     38     21  1.0000              1.000        3.1833
+19    inj_tap_top3            hhi     38     21  1.0000              1.000        0.1636
+20    inj_tap_top1           coup     38     21  1.0000              1.000        1.1317
+21    inj_tap_top1    active_frac     38     21  1.0000              1.000        0.0579
+22    inj_tap_top1  participation     38     21  1.0000              1.000        1.1688
+23    inj_tap_top1       n_active     38     21  1.0000              1.000        1.2167
+24    inj_tap_top1            hhi     38     21  1.0000              1.000        0.1657
+25  real_transient           coup     38      3  0.8684              0.711        6.2317
+26  real_transient    active_frac     38      3  0.9342              0.737        0.5270
+27  real_transient  participation     38      3  0.8947              0.763        9.2363
+28  real_transient       n_active     38      3  0.9342              0.737       11.0667
+29  real_transient            hhi     38      3  0.8947              0.763        0.1056

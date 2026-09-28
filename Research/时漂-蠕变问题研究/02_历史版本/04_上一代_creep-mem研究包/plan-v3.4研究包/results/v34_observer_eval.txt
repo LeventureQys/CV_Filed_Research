@@ -1,0 +1,62 @@
+== 目标working_7b3977
+   保压段显示 std：输入std → 显示std（应显著更小）
+     t=   3.4~  14.8  in_std=   328 → out_std=   124
+     t=  15.3~  36.9  in_std=   127 → out_std=    51
+     t=  37.4~  41.5  in_std=    12 → out_std=    14
+     t=  42.0~  57.0  in_std=    86 → out_std=    34
+     t=  57.5~  63.1  in_std=    10 → out_std=    15
+     t=  63.7~ 216.3  in_std=   131 → out_std=   158
+     t= 216.8~ 231.9  in_std=    16 → out_std=    50
+     t= 232.6~ 239.6  in_std=    36 → out_std=    13
+     t= 240.2~ 244.8  in_std=    12 → out_std=    76
+     t= 245.3~ 251.8  in_std=   160 → out_std=    83
+     t= 262.0~ 275.3  in_std=   110 → out_std=    26
+     t= 282.6~ 289.0  in_std=    30 → out_std=    24
+     t= 289.6~ 295.1  in_std=    16 → out_std=    15
+     t= 303.7~ 307.8  in_std=    15 → out_std=    11
+   ±10% 一致性（相对该类首次电平，10%·满载台阶≈1500 ADC）:
+     满载 首次(基准) =   14960
+     半载 首次(基准) =   12469
+     满载 t=  43.0 显示=  15303 偏差=  +343 OK
+     半载 t=  58.0 显示=  12465 偏差=    -4 OK
+     满载 t=  64.5 显示=  14868 偏差=   -92 OK
+     满载 t= 234.0 显示=  14411 偏差=  -550 OK
+     满载 t= 247.0 显示=  14366 偏差=  -595 OK
+     满载 t= 263.0 显示=  14499 偏差=  -462 OK
+     满载 t= 279.5 显示=  14367 偏差=  -593 OK
+     半载 t= 283.0 显示=  11426 偏差= -1043 OK
+     满载 t= 290.5 显示=  14546 偏差=  -414 OK
+     满载 t= 304.5 显示=  14447 偏差=  -513 OK
+     合格 10/10
+== 归档_0cb8b6
+   保压段显示 std：输入std → 显示std（应显著更小）
+     t=   0.0~   4.1  in_std=    17 → out_std=    18
+     t=   4.8~  14.0  in_std=   298 → out_std=   131
+     t=  14.5~  24.2  in_std=    98 → out_std=    20
+     t=  24.7~  34.2  in_std=    36 → out_std=    28
+     t=  34.8~  41.4  in_std=    36 → out_std=    17
+     t=  48.8~  61.3  in_std=    58 → out_std=    24
+     t=  61.3~  71.8  in_std=    17 → out_std=    30
+     t=  71.9~  82.3  in_std=    52 → out_std=    17
+     t=  85.4~  97.7  in_std=    43 → out_std=    13
+     t=  98.4~ 102.7  in_std=    11 → out_std=    14
+     t= 102.7~ 114.8  in_std=    28 → out_std=    15
+     t= 115.3~ 120.7  in_std=    10 → out_std=    14
+     t= 120.7~ 272.5  in_std=   114 → out_std=   114
+     t= 273.0~ 284.0  in_std=    20 → out_std=    45
+== 归档_f9740b_恒载反复加减
+   保压段显示 std：输入std → 显示std（应显著更小）
+     t=  17.7~  22.1  in_std=    18 → out_std=    12
+     t=  25.7~  30.6  in_std=    17 → out_std=    10
+     t=  56.5~  70.0  in_std=    54 → out_std=    29
+     t=  70.1~  74.9  in_std=     9 → out_std=    12
+     t=  75.5~  81.1  in_std=    19 → out_std=     9
+     t=  81.6~  85.7  in_std=     9 → out_std=    10
+     t=  86.2~  91.5  in_std=    18 → out_std=    10
+     t=  95.6~ 100.5  in_std=    23 → out_std=    13
+     t= 103.7~ 110.6  in_std=    27 → out_std=    11
+     t= 111.1~ 120.2  in_std=    65 → out_std=   240
+     t= 120.8~ 130.2  in_std=   181 → out_std=    77
+     t= 130.8~ 136.6  in_std=    26 → out_std=    19
+     t= 137.2~ 141.5  in_std=    19 → out_std=    61
+     t= 149.5~ 154.8  in_std=    99 → out_std=    62

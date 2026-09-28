@@ -1,0 +1,18 @@
+D:\workshop\Processing\multi-device-cascade-host-cpp\toolbox\数据解析工具\dptool\figure_export.py:231: UserWarning: Glyph 8818 (\N{LESS-THAN OR EQUIVALENT TO}) missing from font(s) Microsoft YaHei.
+  fig.savefig(out_path, dpi=out_dpi, transparent=bool(getattr(snap, "transparent", False)))
+  H H_右拇指指腹_d1_K11锁定.png: OK
+  H H_右拇指指腹_d2_K11锁定.png: OK
+  I I_右拇指指腹_K11锁定overlay.png: OK
+  H H_左拇指指腹_d1_K11锁定.png: OK
+  H H_左拇指指腹_d2_K11锁定.png: OK
+  I I_左拇指指腹_K11锁定overlay.png: OK
+  H H_右手掌_d1_A_K11锁定.png: OK
+  H H_右手掌_d1_B_K11锁定.png: OK
+  H H_右手掌_d2_A_K11锁定.png: OK
+  H H_右手掌_d2_B_K11锁定.png: OK
+  I I_右手掌_K11锁定overlay.png: OK
+  H H_左手掌_d1_A_K11锁定.png: OK
+  H H_左手掌_d1_B_K11锁定.png: OK
+  H H_左手掌_d2_A_K11锁定.png: OK
+  H H_左手掌_d2_B_K11锁定.png: OK
+  I I_左手掌_K11锁定overlay.png: OK

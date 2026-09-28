@@ -1,0 +1,11 @@
+# cmd      : python scripts/t4a_06_figures.py
+# cwd      : D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T4_两种快相形态与分支判据
+# argv     : scripts\t4a_06_figures.py
+# when     : 2026-09-18T23:36:16
+# env      : python 3.14.4 | numpy 2.4.6 | pandas 3.0.3
+# 口径     : timestamp 列 / 100 Hz 网格 / Z=Σch / 无 τ=2 s 平滑 / 中位滤波 0.5 s
+
+  -> D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T4_两种快相形态与分支判据\figures\T4A_01_two_morphology.png
+  -> D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T4_两种快相形态与分支判据\figures\T4A_02_mechanism.png
+  -> D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T4_两种快相形态与分支判据\figures\T4A_03_continuum.png
+done

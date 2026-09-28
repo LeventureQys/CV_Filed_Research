@@ -1,1 +1,29 @@
 Books/数字图像处理 原理与算法 (孙燮华编著, 孙燮华编著, 孙燮华) (z-library.sk, 1lib.sk, z-lib.sk).pdf
+
+# ===== 研究数据产物：不入库（体积大、可复现）=====
+*.csv
+*.npz
+*.npy
+*.bin
+*.zip
+
+# Python 缓存
+__pycache__/
+*.pyc
+*.pyo
+
+# 编译产物
+*.obj
+*.exe
+*.ilk
+*.pdb
+*.lib
+*.dll
+*.exp
+*.o
+*.a
+
+# 生成/中间输出目录
+**/out/
+**/build/
+**/_paramsets/

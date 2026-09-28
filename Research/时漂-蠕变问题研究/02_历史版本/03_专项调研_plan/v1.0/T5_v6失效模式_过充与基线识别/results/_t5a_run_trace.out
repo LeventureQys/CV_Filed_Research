@@ -1,0 +1,22 @@
+[    3.1s]   trace RT1: 16270 帧, 状态事件 4
+[    7.2s]   trace RT2: 23414 帧, 状态事件 7
+[   10.6s]   trace RT3: 19039 帧, 状态事件 10
+[   13.9s]   trace LT1: 19621 帧, 状态事件 6
+[   17.2s]   trace LT2: 19851 帧, 状态事件 4
+[   20.2s]   trace LT3: 19282 帧, 状态事件 4
+[   23.1s]   trace F41: 19079 帧, 状态事件 8
+[   25.9s]   trace F42: 19055 帧, 状态事件 4
+[   29.0s]   trace F43: 19969 帧, 状态事件 4
+[   33.2s]   trace SW1: 25571 帧, 状态事件 39
+[   34.2s]   trace SW2: 7089 帧, 状态事件 12
+[   35.2s]   trace SW3: 6386 帧, 状态事件 11
+[   37.1s]   trace SW4: 12058 帧, 状态事件 19
+[   39.6s] 产出 D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T5_v6失效模式_过充与基线识别\results\t5a_internal_trace.csv（226684 行 × 26 列）
+[   39.7s] 产出 D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T5_v6失效模式_过充与基线识别\results\t5a_event_state_events.csv（132 行）
+[   40.1s] 产出 D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T5_v6失效模式_过充与基线识别\results\t5a_internal_snap.csv（330 行）、D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T5_v6失效模式_过充与基线识别\results\t5a_attribution.csv（60 行）
+[   40.2s] 
+===== T5A-Q2 归因汇总（按事件类别）=====
+onset           n=22  H1(A_hat/|J|−1)中位    3.04%  p10~p90   -3.93~   6.62  | H2 速率饱和帧中位    4  | H3 交接跳变比中位   2.34  | H4 g 斜率中位  0.00244  | 停滞事件 4/22
+restep          n=19  H1(A_hat/|J|−1)中位   -9.84%  p10~p90  -84.91~ 244.43  | H2 速率饱和帧中位   15  | H3 交接跳变比中位  22.69  | H4 g 斜率中位  0.00409  | 停滞事件 0/19
+unload          n=14  H1(A_hat/|J|−1)中位 -100.00%  p10~p90 -100.00~-100.00  | H2 速率饱和帧中位    0  | H3 交接跳变比中位  75.62  | H4 g 斜率中位  0.00134  | 停滞事件 0/14
+partial_unload  n= 5  H1(A_hat/|J|−1)中位  -95.87%  p10~p90 -100.00~1969.59  | H2 速率饱和帧中位    0  | H3 交接跳变比中位  16.94  | H4 g 斜率中位  0.00179  | 停滞事件 0/5

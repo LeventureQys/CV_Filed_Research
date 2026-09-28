@@ -1,0 +1,21 @@
+archived/从零基线开始 - 恒定负载 - 反复加减同一个负载/20260919_100351_single_device_f9740b [device_001_pre_seg0.csv] 平台数82  保压std: in=    26 → out=    45
+archived/各种奇怪工况/20260919_134056_single_device_f40a1b [device_001_pre_seg0.csv] 平台数38  保压std: in=    56 → out=    37
+archived/恒定负载下反复加减同一个负载/20260919_092417_single_device_602c03 [device_001_pre_seg0.csv] 平台数21  保压std: in=    40 → out=    28
+archived/持续恒定负载 [device_001_pre_seg0.csv]                  平台数 3  保压std: in=   219 → out=    69
+archived/零基线-剧烈变化负载情况/20260919_161435_single_device_6b2e70 [device_001_pre_seg0.csv] 平台数33  保压std: in=    28 → out=    69
+archived/零基线-反复增减同一负载/20260919_152749_single_device_0cb8b6 [device_001_pre_seg0.csv] 平台数41  保压std: in=    43 → out=    82
+archived/零基线-反复增减同一负载/20260919_160854_single_device_7b3977 [device_001_pre_seg0.csv] 平台数34  保压std: in=    33 → out=    81
+archived/零负载-随机切换工况/20260919_134726_single_device_31b7f9 [device_001_pre_seg0.csv] 平台数31  保压std: in=    47 → out=    29
+working/零基线-同一荷载测试/20260919_182059_single_device_71208f [device_001_pre_seg0.csv] 平台数 2  保压std: in=   180 → out=    57
+变化负载/切换负载-快相无责的测试/20260917_133923_single_device_ee20bc [device_001_seg000.csv] 平台数26  保压std: in=   152 → out=   185
+变化负载/零负载-中途切换负载-零负载-切换负载 [device_001_seg000.csv]           平台数 8  保压std: in=   298 → out=   274
+变化负载/零负载-切换负载-零负载-再切换负载 [device_001_seg000.csv]            平台数 9  保压std: in=   163 → out=   185
+右拇指指尖/数据1 [device_001_seg000.csv]                          平台数 5  保压std: in=     0 → out=     0
+右拇指指尖/数据2 [device_001_seg000.csv]                          平台数 5  保压std: in=     0 → out=     0
+右拇指指尖/数据3 [device_001_seg000.csv]                          平台数 4  保压std: in=     0 → out=     0
+四指指尖/数据1 [device_001_seg000.csv]                           平台数 3  保压std: in=     0 → out=     0
+四指指尖/数据2 [device_001_seg000.csv]                           平台数 4  保压std: in=     0 → out=     0
+四指指尖/数据3 [device_001_seg000.csv]                           平台数 4  保压std: in=     0 → out=     0
+左拇指指尖/数据1 [device_001_seg000.csv]                          平台数 5  保压std: in=     0 → out=     0
+左拇指指尖/数据2 [device_001_seg000.csv]                          平台数 3  保压std: in=     0 → out=     0
+左拇指指尖/数据3 [device_001_seg000.csv]                          平台数 5  保压std: in=     0 → out=     0

@@ -1,0 +1,4 @@
+seed=None     epochs=2   revoke=0 末态=idle   g=+0.0000 空载|off|中位=     0 最大=     0 末段off=     +0
+seed=13385.0  epochs=2   revoke=0 末态=idle   g=+0.0000 空载|off|中位=     0 最大=     0 末段off=     +0
+seed=1900.0   epochs=19  revoke=0 末态=slow   g=-0.0085 空载|off|中位=    70 最大=   468 末段off=   +109
+现场 main: 空载|off|中位=693 最大=1967 末段=+2940

@@ -1,0 +1,13 @@
+==========================================================================================
+### 数据1  (前空载 8.28s / 负载 107.13s / 后空载 47.30s)
+  乘性检验: 漂移 = α·响应 空间拟合  α=+0.3698(含截距 -29.647mN) R²=0.8371
+             过原点 α0=+0.3409 R²=0.8309  => 漂移/阶跃比 中位=0.312
+  结论: 时漂近似为乘性（与瞬时力成比例），比例系数 α≈0.341
+  速率幂律: dF/dt ∝ t^(p-1)  拟合指数 p-1=-0.469 => p=+0.531 (R²=0.0096)
+  漂移量幂律: ΔF ∝ t^p  p=+0.3661 (R²=0.4483)
+  零漂深挖:
+Traceback (most recent call last):
+  File "D:\workshop\Processing\multi-device-cascade-host-cpp\temp\右拇指指尖\DSv4.1flash\scripts\s5_mechanism.py", line 93, in <module>
+    P(f"    前空载: 均值={X[a:bb].mean(axis=0)[act].mean()*1000:+.3f}mN  斜率="
+                          ^
+NameError: name 'X' is not defined. Did you mean: 'Xn'?

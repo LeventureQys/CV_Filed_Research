@@ -1,0 +1,36 @@
+=== 现场 vs 原型 分窗口对照（总量 ADC）===
+0.0~2.2  (初始空载)                    n=  224 pre中位=   2646 main中位=   2646 proto中位=   2646 off_f=      0 off_p=      0 d(proto-main)=      0
+2.2~5.3  (首次加载+滑行)                 n=  308 pre中位=  12421 main中位=  12665 proto中位=  12668 off_f=    127 off_p=    130 d(proto-main)=      3
+5.3~40.0 (长保压前段)                   n= 3488 pre中位=  15904 main中位=  16285 proto中位=  16301 off_f=    525 off_p=    933 d(proto-main)=    436
+40.0~42.0(42 s 加载前)                n=  200 pre中位=  14808 main中位=  15618 proto中位=  16052 off_f=    809 off_p=   1244 d(proto-main)=    435
+42.0~43.8(加载沿后)                    n=  180 pre中位=  16997 main中位=  18053 proto中位=  18437 off_f=    994 off_p=   1391 d(proto-main)=    403
+43.8~45.4(卸载后/handoff 前)           n=  164 pre中位=  17110 main中位=  18060 proto中位=  18462 off_f=    945 off_p=   1347 d(proto-main)=    403
+45.4~46.4(handoff 后)               n=  100 pre中位=  15420 main中位=  16198 proto中位=  16539 off_f=    778 off_p=   1119 d(proto-main)=    332
+46.4~49.0(重锚后)                     n=  256 pre中位=  14934 main中位=  15800 proto中位=  16126 off_f=    867 off_p=   1195 d(proto-main)=    328
+49.0~55.0                          n=  608 pre中位=  16702 main中位=  17625 proto中位=  17969 off_f=   1032 off_p=   1308 d(proto-main)=    342
+55.0~111.0(长保压后段)                  n= 5624 pre中位=  17035 main中位=  18096 proto中位=  18532 off_f=   1110 off_p=   1478 d(proto-main)=    367
+111~120 (回到空载)                     n=  904 pre中位=   3047 main中位=   3057 proto中位=   3057 off_f=      0 off_p=      0 d(proto-main)=      0
+
+=== 关键瞬时值 ===
+  t=  41.54 pre=  14815 main=  15623 proto=  16059 off_f=   808 off_p=  1244 d=   436 A_sum=  16061 g= -0.07926 slow
+  t=  42.01 pre=  16563 main=  17318 proto=  17753 off_f=   755 off_p=  1190 d=   434 A_sum=  16061 g= -0.07580 slow
+  t=  43.53 pre=  17070 main=  18066 proto=  18468 off_f=   996 off_p=  1398 d=   403 A_sum=  16061 g= -0.07580 event
+  t=  44.01 pre=  17097 main=  18066 proto=  18468 off_f=   969 off_p=  1371 d=   403 A_sum=  16061 g= -0.07580 event
+  t=  45.33 pre=  17144 main=  18066 proto=  18468 off_f=   922 off_p=  1324 d=   403 A_sum=  16061 g= -0.07580 event
+  t=  45.45 pre=  17140 main=  17897 proto=  18226 off_f=   757 off_p=  1086 d=   329 A_sum=  18468 g= -0.06009 slow
+  t=  46.01 pre=  15039 main=  15875 proto=  16218 off_f=   836 off_p=  1179 d=   343 A_sum=  18468 g= -0.06523 slow
+  t=  46.51 pre=  14926 main=  15784 proto=  16109 off_f=   858 off_p=  1183 d=   324 A_sum=  16151 g= -0.07579 slow
+  t=  47.03 pre=  14935 main=  15799 proto=  16123 off_f=   864 off_p=  1188 d=   324 A_sum=  16151 g= -0.07614 slow
+  t=  48.03 pre=  14901 main=  15770 proto=  16098 off_f=   869 off_p=  1197 d=   328 A_sum=  16151 g= -0.07669 slow
+  t=  50.02 pre=  16747 main=  17834 proto=  18171 off_f=  1087 off_p=  1424 d=   337 A_sum=  16151 g= -0.07320 event
+  t=  55.04 pre=  14937 main=  15969 proto=  16411 off_f=  1032 off_p=  1474 d=   442 A_sum=  16387 g= -0.09229 slow
+  t=  60.01 pre=  16963 main=  18123 proto=  18549 off_f=  1160 off_p=  1586 d=   426 A_sum=  16387 g= -0.08866 event
+
+=== 该录制 κ 触发检查：重建 Â 的 κ 截断（解析）===
+  Â = min(max(a_ls, inc), κ·inc) ⇒ κ 越小 Â 越受抑；本录制事件 A_hat 最大值=14187 ADC
+
+=== 现场 main 流在事件期的最大偏移与结束时偏移 ===
+  42.0~45.4: off_f min=      0 max=   1074 末值=    754
+  46.4~49.0: off_f min=    858 max=    869 末值=    868
+  49.0~55.0: off_f min=      0 max=   1087 末值=   1032
+  55.0~111.0: off_f min=      0 max=   1479 末值=   1323

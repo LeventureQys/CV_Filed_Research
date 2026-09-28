@@ -1,0 +1,50 @@
+END: END 42407 3822 0 0 0 0 0 1 0.104525
+
+=== ���� 230.0 ~ 234.5 ===
+    230.01 in=  15201 out=  12785 Slow g=+0.179 A=  12682 nld=15 ded=   2328 pct=     89 idle=0 tau= -1.00 Ahat=      0 incm=      0 capp=      0
+    231.04 in=  15195 out=  12772 Slow g=+0.179 A=  12682 nld=15 ded=   2328 pct=     97 idle=0 tau= -1.00 Ahat=      0 incm=      0 capp=      0
+    232.07 in=  15092 out=  12661 Slow g=+0.179 A=  12682 nld=15 ded=   2331 pct=    100 idle=0 tau= -1.00 Ahat=      0 incm=      0 capp=      0
+  [  232.33] ״̬�仯 -> Event ev=1 kind=1
+  [  232.64] ״̬�仯 -> Event ev=1 kind=2
+    233.09 in=  17394 out=  15051 Event g=+0.183 A=  12682 nld=15 ded=   2382 pct=    115 idle=0 tau=  0.89 Ahat=   2592 incm=   2299 capp=  -2343
+    234.11 in=  17473 out=  15188 Event g=+0.183 A=  12682 nld=15 ded=   2382 pct=    115 idle=0 tau=  1.91 Ahat=   2594 incm=   2399 capp=  -2285
+
+=== ���� 238.0 ~ 242.0 ===
+    238.03 in=  17607 out=  15301 Slow g=+0.143 A=  15188 nld=15 ded=   2265 pct=     40 idle=0 tau= -1.00 Ahat=      0 incm=      0 capp=      0
+    239.05 in=  17610 out=  15264 Slow g=+0.145 A=  15188 nld=15 ded=   2295 pct=     50 idle=0 tau= -1.00 Ahat=      0 incm=      0 capp=      0
+  [  240.08] ״̬�仯 -> Event ev=1 kind=3
+    240.08 in=   1841 out=   1171 Event g=+0.128 A=  15188 nld=15 ded=   2030 pct=    -16 idle=0 tau=  0.08 Ahat=      0 incm=      0 capp=  -2352
+  [  240.42] ״̬�仯 -> Slow ev=0 kind=0
+  [  240.86] ״̬�仯 -> Idle ev=0 kind=0
+    241.09 in=   2626 out=   2626 Idle g=+0.000 A=   1605 nld= 0 ded=      0 pct=      0 idle=1 tau= -1.00 Ahat=      0 incm=      0 capp=      0
+
+=== ���� 243.0 ~ 248.0 ===
+    243.02 in=   2590 out=   2590 Idle g=+0.000 A=   1605 nld= 0 ded=      0 pct=      0 idle=1 tau= -1.00 Ahat=      0 incm=      0 capp=      0
+    244.04 in=   2578 out=   2578 Idle g=+0.000 A=   1605 nld= 0 ded=      0 pct=      0 idle=1 tau= -1.00 Ahat=      0 incm=      0 capp=      0
+    245.06 in=   2592 out=   2592 Idle g=+0.000 A=   1605 nld= 0 ded=      0 pct=      0 idle=1 tau= -1.00 Ahat=      0 incm=      0 capp=      0
+  [  245.31] ״̬�仯 -> Event ev=1 kind=0
+    246.10 in=  16230 out=  15074 Event g=+0.000 A=   1605 nld= 0 ded=      0 pct=      0 idle=0 tau=  0.86 Ahat=  14326 incm=  13613 capp=  -1156
+    247.13 in=  16722 out=  15209 Event g=+0.000 A=   1605 nld= 0 ded=      0 pct=      0 idle=0 tau=  1.89 Ahat=  14460 incm=  14137 capp=  -1513
+
+=== ���� 250.0 ~ 263.5 ===
+    250.03 in=  17268 out=  15278 Slow g=+0.125 A=  15234 nld=15 ded=   2009 pct=    -20 idle=0 tau= -1.00 Ahat=      0 incm=      0 capp=      0
+    251.03 in=  17315 out=  15329 Slow g=+0.125 A=  15234 nld=15 ded=   1998 pct=    -12 idle=0 tau= -1.00 Ahat=      0 incm=      0 capp=      0
+    252.06 in=  17375 out=  15372 Slow g=+0.125 A=  15234 nld=15 ded=   2003 pct=      0 idle=0 tau= -1.00 Ahat=      0 incm=      0 capp=      0
+  [  252.16] ״̬�仯 -> Event ev=1 kind=3
+  [  252.48] ״̬�仯 -> Slow ev=0 kind=0
+    253.09 in=  14801 out=  13034 Slow g=+0.135 A=  12867 nld=15 ded=   1775 pct=     -8 idle=0 tau= -1.00 Ahat=      0 incm=      0 capp=      0
+    254.12 in=  14800 out=  13030 Slow g=+0.134 A=  12867 nld=15 ded=   1761 pct=      8 idle=0 tau= -1.00 Ahat=      0 incm=      0 capp=      0
+    255.16 in=  14812 out=  13023 Slow g=+0.134 A=  12867 nld=15 ded=   1763 pct=     24 idle=0 tau= -1.00 Ahat=      0 incm=      0 capp=      0
+  [  255.80] ״̬�仯 -> Event ev=1 kind=3
+  [  256.12] ״̬�仯 -> Slow ev=0 kind=0
+    256.19 in=   2653 out=   2479 Slow g=+0.213 A=   1670 nld= 9 ded=    204 pct=    -49 idle=0 tau= -1.00 Ahat=      0 incm=      0 capp=      0
+  [  256.43] ״̬�仯 -> Idle ev=0 kind=0
+    257.23 in=   2522 out=   2522 Idle g=+0.000 A=   1670 nld= 0 ded=      0 pct=      0 idle=1 tau= -1.00 Ahat=      0 incm=      0 capp=      0
+    258.26 in=  13556 out=  13556 Idle g=+0.000 A=   1670 nld= 0 ded=      0 pct=      0 idle=0 tau= -1.00 Ahat=      0 incm=      0 capp=      0
+  [  258.30] ״̬�仯 -> Event ev=1 kind=0
+    259.30 in=  13345 out=  12475 Event g=+0.000 A=   1670 nld= 0 ded=      0 pct=      0 idle=0 tau=  1.04 Ahat=  11338 incm=  10776 capp=   -870
+    260.31 in=  13710 out=  12487 Event g=+0.000 A=   1670 nld= 0 ded=      0 pct=      0 idle=0 tau=  2.05 Ahat=  11338 incm=  11130 capp=  -1223
+    261.35 in=  13830 out=  12499 Event g=+0.000 A=   1670 nld= 0 ded=      0 pct=      0 idle=0 tau=  3.09 Ahat=  11338 incm=  11278 capp=  -1331
+  [  261.77] ״̬�仯 -> Event ev=1 kind=2
+    262.35 in=  17060 out=  15675 Event g=+0.000 A=   1670 nld= 0 ded=      0 pct=      0 idle=0 tau=  0.78 Ahat=   3570 incm=   3215 capp=  -1385
+    263.36 in=  17274 out=  15687 Event g=+0.000 A=   1670 nld= 0 ded=      0 pct=      0 idle=0 tau=  1.80 Ahat=   3575 incm=   3445 capp=  -1587

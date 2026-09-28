@@ -1,0 +1,50 @@
+T6-C attribution log
+  patch A/B zero:   D1_confirm250 max|Δ|=0.000e+00  identical=True
+  patch A/B zero:    D1_confirm50 max|Δ|=0.000e+00  identical=True
+  patch A/B zero:      D2_noshape max|Δ|=0.000e+00  identical=True
+  patch A/B zero:     D2_kappa110 max|Δ|=0.000e+00  identical=True
+  patch A/B zero:       D3_norate max|Δ|=0.000e+00  identical=True
+  patch A/B zero:       D3_rate04 max|Δ|=0.000e+00  identical=True
+  patch A/B zero:         D4_ho1s max|Δ|=0.000e+00  identical=True
+  patch A/B zero:        D4_ho10s max|Δ|=0.000e+00  identical=True
+  patch A/B zero:      D5_delay5s max|Δ|=0.000e+00  identical=True
+  patch A/B zero:       I1_ahgate max|Δ|=0.000e+00  identical=True
+  patch A/B zero:     I2_cooldown max|Δ|=0.000e+00  identical=True
+  patch A/B zero:     I3_tailgate max|Δ|=0.000e+00  identical=True
+  → 全部补丁在默认值下与原型逐帧完全一致（bit-identical）
+  deduct onset          右拇指指尖/数据1 v5.1=6.30s v6=0.30s → v6 提前 6.00s
+  deduct onset          右拇指指尖/数据2 v5.1=7.66s v6=0.30s → v6 提前 7.36s
+  deduct onset          右拇指指尖/数据3 v5.1=12.10s v6=0.29s → v6 提前 11.81s
+  deduct onset          左拇指指尖/数据1 v5.1=8.85s v6=0.31s → v6 提前 8.54s
+  deduct onset          左拇指指尖/数据2 v5.1=9.01s v6=0.29s → v6 提前 8.72s
+  deduct onset          左拇指指尖/数据3 v5.1=9.60s v6=0.31s → v6 提前 9.29s
+  deduct onset           四指指尖/数据1 v5.1=7.88s v6=0.30s → v6 提前 7.58s
+  deduct onset           四指指尖/数据2 v5.1=7.43s v6=0.29s → v6 提前 7.14s
+  deduct onset           四指指尖/数据3 v5.1=7.93s v6=0.31s → v6 提前 7.62s
+  起扣提前量（v6 相对 v5.1）：中位 7.62s (p10~p90 6.91~9.79, n=9)
+  ablation     v6_baseline done
+  ablation   D1_confirm250 done
+  ablation    D1_confirm50 done
+  ablation      D2_noshape done
+  ablation     D2_kappa110 done
+  ablation       D3_norate done
+  ablation       D3_rate04 done
+  ablation         D4_ho1s done
+  ablation        D4_ho10s done
+  ablation      D5_delay5s done
+
+========================================================================================================================
+表 T6-Q4  消融表（9 份恒载 × 截 80 s；L2 组内离散度，3 组取中位；Δ 相对 v6 基线；负 Δ = 重复性变好）
+========================================================================================================================
+           arm  std_R5_pp  d_std_R5_pp  std_Rstep_pp  d_std_Rstep_pp  std_Tstable_s  d_std_Tstable_s  std_epoch  d_std_epoch  bias_R5_pp  mean_epoch  mean_revoke  mean_handoff
+ D1_confirm250     3.8439      -1.2504        5.4324          1.9083         3.6154          -0.0064     0.0000      -1.1547     13.4798      0.0000       0.0000           0.0
+  D1_confirm50     3.4063      -1.6880        3.5545          0.0304         3.4817          -0.1401     0.0000      -1.1547      0.6300      1.0000       0.0000           1.0
+   D2_kappa110     3.8502      -1.2442        2.4639         -1.0602         3.5777          -0.0440     1.1547       0.0000      0.8820      1.6667       0.3333           1.0
+    D2_noshape     5.0436      -0.0508        3.8522          0.3281         2.8330          -0.7888     1.1547       0.0000     -7.4894      1.6667       0.3333           1.0
+     D3_norate     5.0944       0.0000        3.5241          0.0000         3.6218           0.0000     1.1547       0.0000      2.2247      1.6667       0.3333           1.0
+     D3_rate04     5.0944       0.0000        3.5241          0.0000         3.6163          -0.0055     1.1547       0.0000      2.2247      1.6667       0.3333           1.0
+      D4_ho10s     2.5674      -2.5269        2.1919         -1.3322         0.0361          -3.5857     1.1547       0.0000      0.8514      1.6667       0.3333           1.0
+       D4_ho1s     3.5374      -1.5569        3.6523          0.1282         4.5437           0.9220     1.1547       0.0000      3.9723      1.6667       0.3333           1.0
+    D5_delay5s     3.5357      -1.5587        3.0023         -0.5217         2.3682          -1.2536     1.1547       0.0000      2.1240      1.6667       0.0000           1.0
+v5.1_reference     3.0651      -2.0292        3.3917         -0.1324         1.7467          -1.8750     0.0000      -1.1547      1.9774      2.0000       0.0000           0.0
+   v6_baseline     5.0944       0.0000        3.5241          0.0000         3.6218           0.0000     1.1547       0.0000      2.2247      1.6667       0.3333           1.0

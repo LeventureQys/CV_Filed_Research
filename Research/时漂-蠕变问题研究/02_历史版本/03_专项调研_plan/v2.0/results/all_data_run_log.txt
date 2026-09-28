@@ -1,0 +1,19 @@
+共 15 条实机录制；runner = D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v2.0\scripts\build\batch_runner.exe
+  新录制·从零基线反复加减(ADC域/大偏置)             n_ch=21 帧= 33908 时长= 337.5s 补偿中位=    72.1 越限格=     0 (1e-6 容差下 43737 格 / 最大超出 0.005 ADC) clamp=277497 shape_hits=11235
+  T9·恒定负载反复加减(ADC域/装夹预载)             n_ch=21 帧=  6296 时长=  62.6s 补偿中位=     0.0 越限格=     0 (1e-6 容差下 0 格 / 最大超出 -0.030 ADC) clamp=     0 shape_hits=    1
+  右拇指指尖/数据1                          n_ch=31 帧= 16355 时长= 162.7s 补偿中位=     2.4 越限格=     0 (1e-6 容差下 77 格 / 最大超出 0.000 ADC) clamp=  5870 shape_hits=  328
+  右拇指指尖/数据2                          n_ch=31 帧= 23536 时长= 234.1s 补偿中位=     3.3 越限格=     0 (1e-6 容差下 56 格 / 最大超出 0.000 ADC) clamp=  3500 shape_hits=  330
+  右拇指指尖/数据3                          n_ch=31 帧= 19137 时长= 190.4s 补偿中位=     2.1 越限格=     0 (1e-6 容差下 154 格 / 最大超出 0.000 ADC) clamp=  5356 shape_hits=  335
+  左拇指指尖/数据1                          n_ch=31 帧= 19739 时长= 196.2s 补偿中位=     1.3 越限格=     0 (1e-6 容差下 77 格 / 最大超出 0.000 ADC) clamp=  4145 shape_hits=  329
+  左拇指指尖/数据2                          n_ch=31 帧= 19974 时长= 198.5s 补偿中位=     1.3 越限格=     0 (1e-6 容差下 40 格 / 最大超出 0.000 ADC) clamp=  1596 shape_hits=  329
+  左拇指指尖/数据3                          n_ch=31 帧= 19401 时长= 192.8s 补偿中位=     1.5 越限格=     0 (1e-6 容差下 77 格 / 最大超出 0.000 ADC) clamp=  3845 shape_hits=  331
+  四指指尖/数据1                           n_ch=21 帧= 19139 时长= 190.8s 补偿中位=     2.9 越限格=     0 (1e-6 容差下 208 格 / 最大超出 0.000 ADC) clamp=  1452 shape_hits=  329
+  四指指尖/数据2                           n_ch=21 帧= 19113 时长= 190.5s 补偿中位=     2.5 越限格=     0 (1e-6 容差下 316 格 / 最大超出 0.000 ADC) clamp=  2077 shape_hits=  330
+  四指指尖/数据3                           n_ch=21 帧= 20032 时长= 199.7s 补偿中位=     1.9 越限格=     0 (1e-6 容差下 439 格 / 最大超出 0.000 ADC) clamp=  3066 shape_hits=  328
+  变化负载/切换负载-快相无责的测试                  n_ch=21 帧= 25692 时长= 255.7s 补偿中位=   732.4 越限格=     0 (1e-6 容差下 4652 格 / 最大超出 0.005 ADC) clamp= 20624 shape_hits= 3480
+  变化负载/零负载-中途切换负载-零负载-切换负载           n_ch=21 帧=  6420 时长=  63.9s 补偿中位=   317.7 越限格=     0 (1e-6 容差下 613 格 / 最大超出 0.005 ADC) clamp=  3200 shape_hits=  981
+  变化负载/零负载-中途切换负载-零负载-切换负载           n_ch=21 帧= 12120 时长= 120.6s 补偿中位=   379.8 越限格=     0 (1e-6 容差下 2786 格 / 最大超出 0.005 ADC) clamp= 13817 shape_hits= 1918
+  变化负载/零负载-切换负载-零负载-再切换负载            n_ch=21 帧=  7128 时长=  70.9s 补偿中位=    94.7 越限格=     0 (1e-6 容差下 3226 格 / 最大超出 0.005 ADC) clamp= 20180 shape_hits=  980
+wrote results/all_data_summary.csv
+wrote D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v2.0\results\figures\fig_all_recordings.png
+wrote D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v2.0\results\figures\fig_offset_detail.png

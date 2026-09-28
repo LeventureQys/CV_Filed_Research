@@ -1,0 +1,13 @@
+# cmd      : python scripts/t3a_03_figures.py
+# cwd      : D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T3_快相爬升可重复性与处理必要性
+# argv     : scripts\t3a_03_figures.py
+# when     : 2026-09-19T01:01:14
+# env      : python 3.14.4 | numpy 2.4.6 | pandas 3.0.3
+# 口径     : timestamp 列 / 100 Hz 网格 / Z=Σch / 无 τ=2 s 平滑 / 中位滤波 0.5 s /
+#            f(τ) 基准 = T4-A 的 pre 窗中位 / 主 τ 网格 = T4-A 的 z_at_* 采样点
+
+  -> D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T3_快相爬升可重复性与处理必要性\figures\T3A_01_shape_spread.png
+  -> D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T3_快相爬升可重复性与处理必要性\figures\T3A_02_loo_error.png
+  -> D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T3_快相爬升可重复性与处理必要性\figures\T3A_03_strata.png
+  -> D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T3_快相爬升可重复性与处理必要性\figures\T3A_04_time_stability.png
+四张图已写入 D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T3_快相爬升可重复性与处理必要性\figures

@@ -1,0 +1,20 @@
+Running main() from D:\vcpkg\buildtrees\gtest\src\v1.17.0-0c449efaff.clean\googletest\src\gtest_main.cc
+Note: Google Test filter = *EventUnloadValleyExitFires*
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from DriftV6FixtureTest
+[ RUN      ] DriftV6FixtureTest.EventUnloadValleyExitFires
+D:\workshop\Processing\multi-device-cascade-host-cpp\tests\data\test_drift_v6_compensator.cpp(620): error: Expected: (max_diff) > (1e-9), actual: 0 vs 1e-09
+the legacy F2 path changed no output at all
+
+[  FAILED  ] DriftV6FixtureTest.EventUnloadValleyExitFires (501 ms)
+[----------] 1 test from DriftV6FixtureTest (501 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (501 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] DriftV6FixtureTest.EventUnloadValleyExitFires
+
+ 1 FAILED TEST
+

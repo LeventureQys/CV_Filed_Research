@@ -1,0 +1,7 @@
+cmake_minimum_required(VERSION 3.20)
+project(glm53_drift_harness CXX)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+add_executable(drift_harness main.cpp drift_compensator.cpp)
+target_include_directories(drift_harness PRIVATE "${CMAKE_CURRENT_LIST_DIR}/../../thirdparty/eigen-5.0.0" "${CMAKE_CURRENT_LIST_DIR}/../../src")
+target_compile_options(drift_harness PRIVATE /utf-8)

@@ -1,0 +1,5 @@
+live|
+k10|r_fast=0.02,track_base_frac=1.0,slope_cap_frac=0.15,slope_gate_frac=5.0,slow_confirm_s=0.0,soft_unfreeze_s=0.25,edge_slope_thres=10.0,tau_slope_s=1.0,tau_r_slow_idle_s=30.0,tau_r_fast_s=1.0,hold_eps=2.0,idle_frac=0.1,ramp_slope_min=0.0,r_slow_max=30.0,tau_r_slow_s=600.0
+k10_cap3|r_fast=0.02,track_base_frac=1.0,slope_cap_frac=0.3,slope_gate_frac=5.0,slow_confirm_s=0.0,soft_unfreeze_s=0.25,edge_slope_thres=10.0,tau_slope_s=1.0,tau_r_slow_idle_s=30.0,tau_r_fast_s=1.0,hold_eps=2.0,idle_frac=0.1,ramp_slope_min=0.0,r_slow_max=30.0,tau_r_slow_s=600.0
+k10_cap6|r_fast=0.02,track_base_frac=1.0,slope_cap_frac=0.6,slope_gate_frac=5.0,slow_confirm_s=0.0,soft_unfreeze_s=0.25,edge_slope_thres=10.0,tau_slope_s=1.0,tau_r_slow_idle_s=30.0,tau_r_fast_s=1.0,hold_eps=2.0,idle_frac=0.1,ramp_slope_min=0.0,r_slow_max=30.0,tau_r_slow_s=600.0
+k10_cap10|r_fast=0.02,track_base_frac=1.0,slope_cap_frac=1.0,slope_gate_frac=20.0,slow_confirm_s=0.0,soft_unfreeze_s=0.25,edge_slope_thres=10.0,tau_slope_s=1.0,tau_r_slow_idle_s=30.0,tau_r_fast_s=1.0,hold_eps=2.0,idle_frac=0.1,ramp_slope_min=0.0,r_slow_max=30.0,tau_r_slow_s=600.0

@@ -1,0 +1,13 @@
+exp1：v3.4 基线 vs 修正变体（总值=全通道求和）
+工况数 4；时间轴 frame_index/100.5 Hz；回落=沿后[0.5,8]s峰值-[10,20]s平台（0.3s中值滤波）
+
+[零基线-剧烈变化负载情况] 20260919_192655_single_device_d675cf
+  输入自身回落(参考)   8018.0 ADC   base=  8172.8  M1=  8111.6  M2=  8077.8  M3=  8047.4
+[零基线-反复增减同一负载] 20260919_192141_single_device_73032d
+  输入自身回落(参考)  -3102.0 ADC   base= -2448.6  M1= -2677.1  M2= -2608.8  M3= -2610.9
+[零基线-反复增减同一负载] 20260919_193935_single_device_9c3ca5
+  输入自身回落(参考)    -31.0 ADC   base=   532.9  M1=   506.1  M2=   484.4  M3=   481.4
+[零基线-同一荷载测试] 20260919_193320_single_device_3f32c5
+  输入自身回落(参考)   -512.0 ADC   base=   166.6  M1=    94.5  M2=     0.7  M3=    -3.9
+
+图: D:\workshop\Processing\multi-device-cascade-host-cpp\Document\Update\Dev-Version\v2.7 - 抗蠕变补偿算法\v4.1flash\plan\v4\experiment\scripts\..\figure\exp1_总值对比.png (152 KB)

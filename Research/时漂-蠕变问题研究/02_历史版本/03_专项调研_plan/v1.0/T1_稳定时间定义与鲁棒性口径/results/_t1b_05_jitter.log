@@ -1,0 +1,59 @@
+=== T1-B / 05 时序抖动与丢包敏感性 ===
+cmd: python scripts/t1b_05_jitter_sweep.py
+任务数 986；workers=4；包周期 指尖15.35ms 实录39.9ms
+  40/986 任务，80 行，80s（剩约 31.6 min）
+  80/986 任务，160 行，159s（剩约 30.0 min）
+  120/986 任务，240 行，260s（剩约 31.2 min）
+  160/986 任务，320 行，358s（剩约 30.8 min）
+  200/986 任务，400 行，453s（剩约 29.7 min）
+  240/986 任务，480 行，567s（剩约 29.3 min）
+  280/986 任务，560 行，679s（剩约 28.5 min）
+  320/986 任务，640 行，788s（剩约 27.3 min）
+  360/986 任务，720 行，869s（剩约 25.2 min）
+  400/986 任务，800 行，923s（剩约 22.5 min）
+  440/986 任务，880 行，982s（剩约 20.3 min）
+  480/986 任务，960 行，1045s（剩约 18.4 min）
+  520/986 任务，1040 行，1105s（剩约 16.5 min）
+  560/986 任务，1120 行，1171s（剩约 14.8 min）
+  600/986 任务，1200 行，1250s（剩约 13.4 min）
+  640/986 任务，1280 行，1324s（剩约 11.9 min）
+  680/986 任务，1360 行，1397s（剩约 10.5 min）
+  720/986 任务，1440 行，1483s（剩约 9.1 min）
+  760/986 任务，1520 行，1559s（剩约 7.7 min）
+=== T1-B / 05 时序抖动与丢包敏感性 ===
+cmd: python scripts/t1b_05_jitter_sweep.py adc（maxdev 已按公共长度对齐，修 2026-09-19 首轮 adc 段广播崩溃）
+已有结果 1520 行：本次只补 ADC 段，结束后按主键合并
+任务数 188；workers=4；包周期 指尖15.35ms 实录39.9ms
+  40/188 任务，400 行，191s（剩约 11.8 min）
+  80/188 任务，800 行，380s（剩约 8.5 min）
+  120/188 任务，1044 行，484s（剩约 4.6 min）
+  160/188 任务，1204 行，552s（剩约 1.6 min）
+  188/188 任务，1316 行，598s（剩约 0.0 min）
+完成 2836 行，10.0 min
+--- 显示域 v6：各扰动下的 T_stable / maxdev / 达标（中位 [p10~p90]）---
+  agg3         n=  60 T_stable med=  0.51s [0.44~9.29] 达标 50/60 maxdev med=  9.6674 ep+-1.0
+  agg6         n=  60 T_stable med=  0.48s [0.42~9.27] 达标 50/60 maxdev med=  9.9056 ep+-1.0
+  delay1       n=  70 T_stable med=  0.55s [0.52~9.33] 达标 50/70 maxdev med=  3.7543 ep+-1.0
+  drop_f0.005  n=  70 T_stable med=  0.55s [0.50~9.33] 达标 50/70 maxdev med=  0.0075 ep+-1.0
+  drop_f0.01   n=  70 T_stable med=  0.55s [0.50~9.33] 达标 50/70 maxdev med=  0.0125 ep+-1.0
+  drop_f0.02   n=  70 T_stable med=  0.55s [0.50~9.33] 达标 50/70 maxdev med=  0.0420 ep+-1.0
+  drop_f0.05   n=  70 T_stable med=  0.55s [0.50~9.32] 达标 50/70 maxdev med=  0.0715 ep+-1.0
+  droppkt0.01  n=  62 T_stable med=  0.55s [0.50~9.33] 达标 50/62 maxdev med=  0.0127 ep+-1.0
+  droppkt0.05  n=  60 T_stable med=  0.54s [0.50~9.32] 达标 50/60 maxdev med=  0.0655 ep+-1.0
+  jitter1      n=  70 T_stable med=  0.54s [0.52~9.32] 达标 50/70 maxdev med=  2.4188 ep+-1.0
+  jitter2      n=  70 T_stable med=  0.55s [0.52~9.33] 达标 50/70 maxdev med=  4.2541 ep+-1.0
+  origin_pm1   n=  14 T_stable med=  0.56s [0.52~8.89] 达标 10/14 maxdev med=  0.0000 ep+-1.0
+  origin_pm2   n=  14 T_stable med=  0.58s [0.51~8.89] 达标 10/14 maxdev med=  0.0000 ep+-1.0
+--- ADC 域 v6：漏/误/最大偏差 ---
+  agg16        n=  70 漏= 0.57 误= 2.07 maxdev med=  25622.0 OS% med=  5.15
+  agg8         n=  70 漏= 0.43 误= 1.50 maxdev med=  24858.1 OS% med=  4.82
+  delay1       n=  70 漏= 0.71 误= 1.79 maxdev med=  24625.3 OS% med=  4.78
+  drop_f0.01   n=  70 漏= 0.36 误= 2.14 maxdev med=    532.9 OS% med=  4.91
+  drop_f0.05   n=  70 漏= 0.50 误= 2.14 maxdev med=   1607.3 OS% med=  4.91
+  droppkt0.01  n=  70 漏= 0.29 误= 2.14 maxdev med=    287.7 OS% med=  4.91
+  droppkt0.05  n=  70 漏= 0.43 误= 2.07 maxdev med=   2658.0 OS% med=  4.92
+  jitter1      n=  70 漏= 0.71 误= 1.57 maxdev med=  22026.5 OS% med=  5.05
+  jitter2      n=  70 漏= 0.57 误= 1.36 maxdev med=  24086.7 OS% med=  4.35
+  origin_pm1   n=  14 漏= 0.29 误= 2.14 maxdev med=      0.0 OS% med=  4.91
+  origin_pm2   n=  14 漏= 0.29 误= 2.14 maxdev med=      0.0 OS% med=  4.91
+ALL DONE

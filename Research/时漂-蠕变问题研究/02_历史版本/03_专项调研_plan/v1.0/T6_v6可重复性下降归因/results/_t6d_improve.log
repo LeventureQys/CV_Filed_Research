@@ -1,0 +1,65 @@
+T6-D improve log
+  patch A/B zero (t6d):        I4_ho10s max|Δ|=0.000e+00
+  patch A/B zero (t6d):        I4_ho15s max|Δ|=0.000e+00
+  patch A/B zero (t6d):      I6_rommean max|Δ|=0.000e+00
+  patch A/B zero (t6d): I6_rommean_I4ho10 max|Δ|=0.000e+00
+  patch A/B zero (t6d): I7_revoke_hyst3 max|Δ|=0.000e+00
+  patch A/B zero (t6d):    I7_h3_I4ho10 max|Δ|=0.000e+00
+  patch A/B zero (t6d):      I5_delay3s max|Δ|=0.000e+00
+  patch A/B zero (t6d):  I1f_shrink_050 max|Δ|=0.000e+00
+  patch A/B zero (t6d):  I2_cooldown_1s max|Δ|=0.000e+00
+  patch A/B zero (t6d):     I3_tail_005 max|Δ|=0.000e+00
+  → t6_patch_ab_zero.csv 共 22 条，全部 bit-identical
+  improve      v6_baseline done
+  improve         I4_ho10s done
+  improve         I4_ho15s done
+  improve       I6_rommean done
+  improve I6_rommean_I4ho10 done
+  improve  I7_revoke_hyst3 done
+  improve     I7_h3_I4ho10 done
+  improve       I5_delay3s done
+  improve   I1f_shrink_050 done
+  improve   I2_cooldown_1s done
+  improve      I3_tail_005 done
+  improve        v6.1_asIS done
+  L3         四指指尖/数据1      v6_baseline done
+  L3         四指指尖/数据1         I4_ho10s done
+  L3         四指指尖/数据1         I4_ho15s done
+  L3         四指指尖/数据1       I6_rommean done
+  L3         四指指尖/数据1 I6_rommean_I4ho10 done
+  L3         四指指尖/数据1  I7_revoke_hyst3 done
+  L3         四指指尖/数据1     I7_h3_I4ho10 done
+  L3         四指指尖/数据1       I5_delay3s done
+  L3         四指指尖/数据1   I1f_shrink_050 done
+  L3         四指指尖/数据1   I2_cooldown_1s done
+  L3         四指指尖/数据1      I3_tail_005 done
+  L3         四指指尖/数据1        v6.1_asIS done
+  L3      中途切换-1d9493      v6_baseline done
+  L3      中途切换-1d9493         I4_ho10s done
+  L3      中途切换-1d9493         I4_ho15s done
+  L3      中途切换-1d9493       I6_rommean done
+  L3      中途切换-1d9493 I6_rommean_I4ho10 done
+  L3      中途切换-1d9493  I7_revoke_hyst3 done
+  L3      中途切换-1d9493     I7_h3_I4ho10 done
+  L3      中途切换-1d9493       I5_delay3s done
+  L3      中途切换-1d9493   I1f_shrink_050 done
+  L3      中途切换-1d9493   I2_cooldown_1s done
+  L3      中途切换-1d9493      I3_tail_005 done
+  L3      中途切换-1d9493        v6.1_asIS done
+
+==========================================================================================================================
+表 T6-Q5/Q6  改进方向 A/B（9 份恒载 × 截 80s；L3 代理 = 2 场景 × ±1 包时序抖动 × 5 种子）
+==========================================================================================================================
+              arm  std_R5_pp  pct_std_R5_pp  std_Rstep_pp  pct_std_Rstep_pp  L3_rms_pct_lvl_med  pct_L3_rms_pct_lvl_med  T_stable_med_s  d_T_stable_med_s  bias_R5_pp  mean_revoke
+   I1f_shrink_050     3.2425       -36.3520        3.0560          -13.2811              4.0196                  2.0274            2.70              0.00     -2.8026       0.2222
+   I2_cooldown_1s     5.0944         0.0000        3.5241            0.0000              3.9441                  0.1116            2.70              0.00      2.2247       0.1111
+      I3_tail_005     5.0944         0.0000        3.5241            0.0000              4.1227                  4.6447            2.70              0.00      2.2247       0.2222
+         I4_ho10s     2.5674       -49.6026        2.1919          -37.8029              4.0408                  2.5665            0.56             -2.14      0.8514       0.2222
+         I4_ho15s     2.6067       -48.8323        2.3826          -32.3916              4.0217                  2.0816            0.54             -2.16      0.6663       0.2222
+       I5_delay3s     3.6105       -29.1278        3.5241            0.0000              0.4025                -89.7846            3.29              0.59      2.2247       0.0000
+       I6_rommean     5.0993         0.0978        3.5333            0.2613              3.9313                 -0.2141            2.70              0.00      2.2276       0.2222
+I6_rommean_I4ho10     2.5777       -49.4003        2.1714          -38.3846              4.0301                  2.2936            0.56             -2.14      0.8534       0.2222
+     I7_h3_I4ho10     2.5674       -49.6026        2.1919          -37.8029              0.6035                -84.6817            0.56             -2.14      0.8514       0.1111
+  I7_revoke_hyst3     5.0944         0.0000        3.5241            0.0000              0.4418                -88.7859            2.70              0.00      2.2247       0.1111
+        v6.1_asIS     3.3726       -33.7967        2.9772          -15.5191              3.9268                 -0.3278            0.55             -2.15     -3.8305       0.2222
+      v6_baseline     5.0944         0.0000        3.5241            0.0000              3.9397                  0.0000            2.70              0.00      2.2247       0.2222

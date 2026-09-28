@@ -1,0 +1,39 @@
+
+===== 四指指腹（现役 340.97 → 最优 26.82）=====
+  A A_四指指腹_d1_6a679f_总ADC对比.png: OK
+  A A_四指指腹_d1_5ce2c4_总ADC对比.png: OK
+  A A_四指指腹_d2_857759_总ADC对比.png: OK
+  A A_四指指腹_d2_8e127e_总ADC对比.png: OK
+  B B_四指指腹_残差归一到蠕变.png: OK
+
+===== 右拇指指腹（现役 138.65 → 最优 90.93）=====
+  A A_右拇指指腹_d1_总ADC对比.png: OK
+  A A_右拇指指腹_d2_总ADC对比.png: OK
+  B B_右拇指指腹_残差归一到蠕变.png: OK
+
+===== 左拇指指腹（现役 83.56 → 最优 63.77）=====
+  A A_左拇指指腹_d1_总ADC对比.png: OK
+  A A_左拇指指腹_d2_总ADC对比.png: OK
+  B B_左拇指指腹_残差归一到蠕变.png: OK
+
+===== 右手掌（现役 91.84 → 最优 67.12）=====
+  A A_右手掌_d1_A_总ADC对比.png: OK
+  A A_右手掌_d1_B_总ADC对比.png: OK
+  A A_右手掌_d2_A_总ADC对比.png: OK
+  A A_右手掌_d2_B_总ADC对比.png: OK
+  B B_右手掌_残差归一到蠕变.png: OK
+
+===== 左手掌（现役 94.02 → 最优 66.67）=====
+  A A_左手掌_d1_A_总ADC对比.png: OK
+  A A_左手掌_d1_B_总ADC对比.png: OK
+  A A_左手掌_d2_A_总ADC对比.png: OK
+  A A_左手掌_d2_B_总ADC对比.png: OK
+  B B_左手掌_残差归一到蠕变.png: OK
+  C C_四指指腹_6a679f_现役默认_内部状态.png: OK
+  C C_四指指腹_6a679f_最优参数_内部状态.png: OK
+  C C_左拇指指腹_d1_现役默认_内部状态.png: OK
+  C C_左拇指指腹_d1_最优参数_内部状态.png: OK
+  C C_右手掌_A_现役默认_内部状态.png: OK
+  C C_右手掌_A_最优参数_内部状态.png: OK
+
+全部图片在 D:\workshop\文档\v2.7 - 抗蠕变补偿算法\v3.4\sensor_tune\out\figures

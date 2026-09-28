@@ -1,0 +1,132 @@
+{
+  "右拇指指腹": {
+    "live": {
+      "resid_pct": 89.00065101778705,
+      "tail_pct": 49.67458974439912,
+      "over_adc": 84.0,
+      "ded_pct": 10.999348982212949,
+      "score": 138.67524076218618
+    },
+    "best": {
+      "resid_pct": 0.20113010984264035,
+      "tail_pct": -2.136415621051474,
+      "over_adc": 84.0,
+      "ded_pct": 99.79886989015735,
+      "score": 3.515735889762391,
+      "params": {
+        "r_fast": 0.02,
+        "tau_c_fast_s": 4.0,
+        "r_slow_max": 30.0,
+        "slope_cap_frac": 0.3,
+        "slope_gate_frac": 1.0,
+        "slow_confirm_s": 0.0,
+        "soft_unfreeze_s": 0.5,
+        "edge_slope_thres": 10.0,
+        "tau_slope_s": 3.0,
+        "tau_r_slow_idle_s": 0.5,
+        "tau_r_fast_s": 1.0,
+        "hold_eps": 2.0,
+        "idle_frac": 0.02,
+        "ramp_slope_min": 0.5
+      }
+    }
+  },
+  "左拇指指腹": {
+    "live": {
+      "resid_pct": 81.63493297753327,
+      "tail_pct": 1.9261085363795774,
+      "over_adc": 89.0,
+      "ded_pct": 18.36506702246674,
+      "score": 88.06104151391284
+    },
+    "best": {
+      "resid_pct": 6.7273603149481085,
+      "tail_pct": 0.6743734552896335,
+      "over_adc": 131.56675999500175,
+      "ded_pct": 93.27263968505189,
+      "score": 11.901733770237742,
+      "params": {
+        "r_fast": 0.04,
+        "slope_gate_frac": 2.0,
+        "slope_cap_frac": 0.3,
+        "tau_slope_s": 2.0,
+        "slow_confirm_s": 0.5,
+        "soft_unfreeze_s": 0.5,
+        "tau_c_fast_s": 20.0,
+        "tau_r_slow_idle_s": 30.0,
+        "tau_r_fast_s": 2.0,
+        "hold_eps": 0.5,
+        "idle_frac": 0.05,
+        "r_slow_max": 30.0,
+        "ramp_slope_min": 0.5,
+        "edge_boost_s": 5.0
+      }
+    }
+  },
+  "右手掌": {
+    "live": {
+      "resid_pct": 86.40617382357672,
+      "tail_pct": 5.431894097631633,
+      "over_adc": 42.75,
+      "ded_pct": 13.593826176423264,
+      "score": 91.83806792120836
+    },
+    "best": {
+      "resid_pct": 6.626328790435613,
+      "tail_pct": 1.1374559544828249,
+      "over_adc": 83.29860563668885,
+      "ded_pct": 93.37367120956438,
+      "score": 8.715036466480512,
+      "params": {
+        "r_fast": 0.1,
+        "tau_c_fast_s": 12.0,
+        "r_slow_max": 30.0,
+        "slope_cap_frac": 0.08,
+        "slope_gate_frac": 1.0,
+        "slow_confirm_s": 0.0,
+        "soft_unfreeze_s": 0.5,
+        "edge_slope_thres": 60.0,
+        "tau_slope_s": 2.0,
+        "tau_r_slow_idle_s": 30.0,
+        "tau_r_fast_s": 0.5,
+        "hold_eps": 0.0,
+        "idle_frac": 0.1,
+        "ramp_slope_min": 0.0,
+        "tau_c_fast_boost_s": 1.0
+      }
+    }
+  },
+  "左手掌": {
+    "live": {
+      "resid_pct": 89.0465380730773,
+      "tail_pct": 4.256383999433642,
+      "over_adc": 20.5,
+      "ded_pct": 10.953461926922706,
+      "score": 94.01740110056866
+    },
+    "best": {
+      "resid_pct": 7.367829386043304,
+      "tail_pct": -1.6409921973314685,
+      "over_adc": 59.450960753986514,
+      "ded_pct": 92.6321706139567,
+      "score": 10.047496503894688,
+      "params": {
+        "r_fast": 0.1,
+        "tau_c_fast_s": 2.0,
+        "r_slow_max": 30.0,
+        "slope_cap_frac": 0.08,
+        "slope_gate_frac": 1.0,
+        "slow_confirm_s": 0.0,
+        "soft_unfreeze_s": 1.0,
+        "edge_slope_thres": 60.0,
+        "tau_slope_s": 3.0,
+        "tau_r_slow_idle_s": 2.0,
+        "tau_r_fast_s": 2.0,
+        "hold_eps": 8.0,
+        "idle_frac": 0.05,
+        "ramp_slope_min": 0.0,
+        "tau_c_fast_boost_s": 0.5
+      }
+    }
+  }
+}

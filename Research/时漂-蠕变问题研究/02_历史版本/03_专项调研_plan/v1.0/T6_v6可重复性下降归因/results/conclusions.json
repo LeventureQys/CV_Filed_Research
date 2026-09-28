@@ -1,0 +1,133 @@
+{
+  "task": "T6",
+  "seat": "T6-A",
+  "date": "2026-09-19",
+  "headline": [
+    {
+      "n": 1,
+      "claim": "v6 相对 v5.1 的『可重复性下降』主要落在 L3 路径层，不在 L1 输入层、也不完全在 L2 输出层",
+      "value": "同一份实录输入、仅 ±1 包(±40.0 ms) 时序抖动：输出轨线 RMS 差 v6 7.90%·电平（1473.9 ADC）vs v5.1 0.26%（48.2 ADC）= 30.6×（n=30 种子/条件）",
+      "source": "results/t6_jitter_summary_a.csv:rms_pct_lvl_med(cond=timing_J100P)"
+    },
+    {
+      "n": 2,
+      "claim": "L1 输入层本身就散：同一传感器同一负载重复加载，原始台阶幅度组内 CV ≈7%、快相形状 CV ≈2%（故 L2 的绝对电平散布不能全算在算法头上）",
+      "value": "a_step CV=7.25%, inc5 CV=6.96%, CV_shape 中位=1.85%（n=9，3 组×3 次）",
+      "source": "results/t6_repeat_dispersion.csv:L1_input"
+    },
+    {
+      "n": 3,
+      "claim": "L2 输出层的『谁更差』依赖真值口径：相对 5 s 实测电平 v6 比现役差 66%，相对机械台阶只差 4%；换网格步长（0.3%）还会翻转排名",
+      "value": "std(R5): v5.1 3.07 vs v6 5.09 pp；std(Rstep): v5.1 3.39 vs v6 3.52 pp（n=9）",
+      "source": "results/t6_repeat_dispersion.csv:L2_output"
+    },
+    {
+      "n": 4,
+      "claim": "L3 的分歧是『状态机路径分歧』而非指标噪声：±1 包抖动下 v6 的 revoke/handoff 几乎必变",
+      "value": "v6 序列相同率=0.27（v5.1=1.00）、revoke 变=0.73、handoff 变=0.70、epoch 变=0.50（n=30）",
+      "source": "results/t6_event_sequence_a.csv"
+    },
+    {
+      "n": 5,
+      "claim": "归因（按 Δstd(R5) 排序）：④「τ_ho=5 s 交接」影响最大，其次 ①「取消 2.5 s 硬确认」与 ⑤「起扣提前」；② 形状反演尺度主要决定偏置而非离散；③ 滑行器速率限制的贡献**精确为 0**（先验假设被反驳）",
+      "value": "D4_ho10s Δstd(R5)=-2.53pp、D5_delay5s -1.56pp、D1_confirm50 -1.69pp、D2_noshape -0.05pp（但 bias -7.49pp）、D3_norate +0.0000pp",
+      "source": "results/t6_attribution.csv"
+    },
+    {
+      "n": 6,
+      "claim": "改进空间：有条件有 —— 检测到两条**互不重叠**的可修轴：离散撤销通道（只伤 L3）与连续 Â 尺度通道（只伤 L2）；两者可叠加",
+      "value": "I7（撤销迟滞）: L3_a 0.72%（-91%）而 L2/T_stable 完全不变；I4_ho10s: std(R5) 2.57 pp（-49.6%）且 T_stable Δ-2.14 s；组合臂 I7_h3_I4ho10: L2 -49.6%、L3_a -86.1%、T_stable Δ-2.14 s",
+      "source": "results/t6_improve_ab.csv"
+    },
+    {
+      "n": 7,
+      "claim": "天花板：两条轴各有各的上限 —— L3 的离散通道可被迟滞/推迟起扣几乎归零（仍为 v5.1 的 ~2.8 倍）；L2 的连续通道只能压到现役水平，代价是把锚点拉回更早的实测电平（偏置变负）",
+      "value": "L3_a: 基线 7.71% → I7 0.72% / I5 0.67%（v5.1 场景 a 为 0.26%）；L2 std(R5): v6 5.09 → v5.1 3.07 / I1f 3.24 / v6.1 3.37 pp，但 bias 从 2.22 掉到 -3.83 pp",
+      "source": "results/t6_improve_ab.csv;results/t6_repeat_dispersion.csv"
+    }
+  ],
+  "verdicts": [
+    {
+      "question": "T6-Q1",
+      "answer": "v6 的下降主要落在 **L3 路径层**：同输入 ±1 包抖动下 v6 输出 RMS 差 7.90%·电平 = 30.6× v5.1（v5.1 0.26%）；L2 层 v6 在 R5 口径下 std 比 v5.1 差 66%，在 Rstep 口径下只差 4%；L1 层（CV 7.3%）与算法无关。",
+      "three_state": "支持"
+    },
+    {
+      "question": "T6-Q2",
+      "answer": "抖动-输出差异曲线见 figures/T6_02_jitter_path.png。场景 a（实录）：v6 存在阈值效应 —— J≤25% 包周期时 RMS≈0.40%（p90 已 8.06%，即 13% 种子已整段分歧），J=±1 包时跳到 7.90%；v5.1 全程 ≤0.26%。加性噪声（总量 RMS 1/5 ADC）与单帧丢包对 v6 的扰动为 0.689/0.656/≈0 %，**远小于时序抖动**。场景 b（力域）的噪声行单位不同（1/5 N = 6.5%/33%·电平），只能做同输入配对比较（v6/v5.1 = 1.11×）。",
+      "three_state": "支持"
+    },
+    {
+      "question": "T6-Q3",
+      "answer": "±1 包抖动下 v6 的事件序列改动率：epoch 0.50、revoke 0.73、handoff 0.70，序列完全相同率仅 0.27；v5.1 为 1.00（0% 改动）。最典型的失败是 onset 建事件的**同一帧**被 revoke ⇒ 该次加载整段不补偿（逐帧证据：t_first_div 中位 10.77 s ≈ 首次加载沿，事件前 RMS 差 0.00 ADC，事件后 1614.7 ADC）。→ 指标层差异是结果，状态机路径分歧是原因。",
+      "three_state": "支持"
+    },
+    {
+      "question": "T6-Q4",
+      "answer": "5 处改动逐条消融见 results/t6_attribution.csv（每条只改一处；22 条补丁在默认值下与原型**bit-identical**，见 t6_patch_ab_zero.csv）。排序（Δstd(R5)）：④ 交接 −2.53 pp > ① 0.5 s 硬确认 −1.69 pp > ⑤ 起扣 −1.56 pp > ② κ 占位 −1.24 pp > ② 取消形状外推 −0.05 pp > ③ 滑行器速率 0.0000 pp（**零贡献**）。κ 项按 C-4 只作占位，最终取值须由 T5-A 裁决（T5-A 未交付）。n=9（3 组×3 次），组内 std 只有 3 个样本，排序只用于挑方向，不作显著性结论。",
+      "three_state": "有条件支持"
+    },
+    {
+      "question": "T6-Q5",
+      "answer": "有：11 条候选臂已做数值可行性估计（其中 8 条单旋钮、2 条组合、1 条为既有实现 v6.1 的对照；均为 9 份恒载 × 80 s + 2 场景 L3 代理）。按 L2 最优 = I4_ho10s（std(R5) 2.57 pp，-49.6%）；按 L3 最优 = I5_delay3s / I7_revoke_hyst3（场景 a 从 7.71% 降到 0.67% / 0.72%）；**组合臂 I7_h3_I4ho10 三条一起变好**。另有 3 条零效果（I6 估计量替换、I2 撤销冷却、I3 尾巴门限）—— 负结果同样报出。",
+      "three_state": "有条件支持"
+    },
+    {
+      "question": "T6-Q6",
+      "answer": "权衡表见 results/t6_tradeoff.csv。I4_ho10s 是唯一「既压 L2 又缩短 T_stable」的臂：T_stable 中位 0.56 s（Δ-2.14 s）；I7_revoke_hyst3 的 T_stable 不变（2.70 s）却把 L3_a 压 -91% ⇒ **L3 的修复是零代价的**；反过来 I5_delay3s 的 L3 收益最大但 T_stable 退回 +0.59 s。",
+      "three_state": "有条件支持"
+    },
+    {
+      "question": "T6-Q7",
+      "answer": "有条件有。天花板分两条轴、互不重叠：① **L3 离散通道**（时序抖动 → `inc_s` 瞬时读 0 → 同帧建-撤 → 整段不补偿）可被撤销迟滞或推迟起扣消除 ~85–91%，且这两条都**不损害 L2 与 T_stable**；残余 ~0.4–0.7%·电平仍是 v5.1（0.26%）的 1.6–2.7 倍 ⇒ 天花板不在「零」，而在「与现役同级」。② **L2 连续通道**（形状先验尺度）只能压到现役水平（std 5.09→3.07–3.37 pp），代价是平台锚点回到更早的实测电平（bias 由 +2.22 pp 变 −2.8…−3.8 pp），即**不可能同时保住 v6 的「绝对准」与其离散的消除**。③ 未测边界：τ_ho≥10 s 在「加载后 10 s 内再次变载」的工况下未验证；力域噪声需按相对幅度重扫。",
+      "three_state": "有条件支持"
+    }
+  ],
+  "corrections": [
+    {
+      "against": "13-v6-assessment/b_repeat_disp.csv",
+      "was": "v6 平台误差组内 std（相对 5 s 电平）= 4.83 pp，v5.1 = 3.07 pp",
+      "now": "同口径（legacy 网格 dtm=span/(n-1)）复算 = 4.83 pp，与第一轮完全一致；但换到项目规定的精确 100 Hz 网格（dt=0.01）后 = 5.09 pp（v5.1 3.07）",
+      "verdict": "修正"
+    },
+    {
+      "against": "13-v6-assessment/b_卸载时漂与可重复性分析.md §3.3",
+      "was": "相对机械台阶口径下 v6 的 std = 2.69 pp（最好，优于 v5.1 3.38）",
+      "now": "legacy 网格下复算 = 2.69 pp（一致）；精确 100 Hz 网格下 = 3.52 pp，此时 v5.1 = 3.39 pp ⇒ **排名反转**",
+      "verdict": "修正"
+    },
+    {
+      "against": "13-v6-assessment/b_卸载时漂与可重复性分析.md §4.4",
+      "was": "P4（A=交接时刻实测电平）对平台误差 std 无改善（4.83→4.84）",
+      "now": "本轮不重复该臂；但 L3 实验显示真正的敏感点是**输入到达时刻**而非锚定模式，与『Â 参与滑行目标』的机制解释一致（支持其推断）",
+      "verdict": "相同"
+    },
+    {
+      "against": "11-paper-v6/results/epochs_all.csv",
+      "was": "v6 epoch 数（恒载 9 组）= 2/4/5、3/2/2、4/2/2，组内 std 中位 1.15；v5.1 组内 std 0",
+      "now": "复算 v6 epoch 组内 std = 1.155，v5.1 = 0.000 —— 一致",
+      "verdict": "相同"
+    }
+  ],
+  "gaps": [
+    "同一载荷的重复加载实录只有 3 传感器组 × 3 次（n=9），且都是恒载族；**变载工况没有重复样本**，L1/L2 只能给恒载族的结论。需要补采『同一装载序列重复 5 次以上』的变载实录。",
+    "T1-A 冻结口径未交付（`T1_*/results/t1a_settle_metrics.csv` 不存在）⇒ 本任务 T_stable 用 legacy 口径，**不可与 T1 绝对横比**；所有 T_stable 结论均为同一次运行内的配对差。",
+    "T5-A 的 κ 统一扫描未交付 ⇒ `t6_attribution.csv` 的 κ 行只是占位（κ 1.10 对照），不得作为最终裁决。",
+    "抖动注入的时序模型是『整包平移 + cummax 保序』；J=±1 包时约 13% 的包被保序抬升（reorder_frac 列），真实接收端是否会出现该比例的到达压缩，需要抓包数据核对。",
+    "L3 只在 2 个场景（1 份实录 + 1 份恒载）上做；跨传感器组的 L3 差异未测。",
+    "没有『同一录制反复上电/重放』的实测真值，L3 的抖动只能证明算法敏感，不能直接换算成用户看到的偏差幅度。"
+  ],
+  "blockers": [],
+  "meta": {
+    "n_repeat": 9,
+    "n_jitter_seed_a": 30,
+    "n_jitter_seed_b": 30,
+    "grid": "100 Hz exact (dt=0.01), legacy-grid cross-check in t6_gridsens.csv",
+    "t_stable_caliber": "legacy 5%*step / hold 30 s (T1-A not delivered)",
+    "truth_calibers": [
+      "R5=pre+inc5",
+      "Rstep=pre+a_step"
+    ],
+    "patch_ab_zero_ok": true
+  }
+}

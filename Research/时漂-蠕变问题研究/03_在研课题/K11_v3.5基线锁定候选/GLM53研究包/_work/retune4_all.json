@@ -1,0 +1,152 @@
+{
+  "右拇指指腹": {
+    "live": {
+      "over_adc": 84.0128155693676,
+      "band_adc": 1583.2021141740404,
+      "settle_s": 71.6515,
+      "up_adc": 1401.0284906964753,
+      "ded_pct": 10.784586536583792,
+      "score": 4137.101985390898
+    },
+    "best": {
+      "over_adc": 104.8269683539988,
+      "band_adc": 205.068657265115,
+      "settle_s": 57.1565,
+      "up_adc": -7.224521544854742,
+      "ded_pct": 101.10817171773489,
+      "score": 153.01013240536156,
+      "params": {
+        "track_base_frac": 1.0,
+        "slope_cap_frac": 0.6,
+        "slope_gate_frac": 20.0,
+        "r_fast": 0.0,
+        "tau_c_fast_s": 12.0,
+        "tau_c_fast_boost_s": 1.0,
+        "soft_unfreeze_s": 0.25,
+        "slow_confirm_s": 0.0,
+        "tau_slope_s": 1.0,
+        "tau_r_fast_s": 1.0,
+        "r_slow_max": 30.0,
+        "hold_eps": 0.0,
+        "edge_slope_thres": 10.0,
+        "tau_r_slow_idle_s": 30.0,
+        "tau_r_slow_s": 600.0,
+        "idle_frac": 0.1,
+        "ramp_slope_min": 0.0
+      }
+    }
+  },
+  "左拇指指腹": {
+    "live": {
+      "over_adc": 89.00651963374153,
+      "band_adc": 1752.7695705839892,
+      "settle_s": 179.9775,
+      "up_adc": 1598.36382211832,
+      "ded_pct": 18.38064094636912,
+      "score": 4692.061524191662
+    },
+    "best": {
+      "over_adc": 215.49807615067476,
+      "band_adc": 260.7819307224342,
+      "settle_s": 179.9775,
+      "up_adc": 103.90751346599936,
+      "ded_pct": 95.04595735097277,
+      "score": 385.79876223475253,
+      "params": {
+        "track_base_frac": 1.0,
+        "slope_cap_frac": 0.6,
+        "slope_gate_frac": 5.0,
+        "r_fast": 0.01,
+        "tau_c_fast_s": 12.0,
+        "tau_c_fast_boost_s": 1.0,
+        "soft_unfreeze_s": 0.25,
+        "slow_confirm_s": 0.0,
+        "tau_slope_s": 1.0,
+        "tau_r_fast_s": 2.0,
+        "r_slow_max": 30.0,
+        "hold_eps": 2.0,
+        "edge_slope_thres": 10.0,
+        "tau_r_slow_idle_s": 2.0,
+        "tau_r_slow_s": 600.0,
+        "idle_frac": 0.1,
+        "ramp_slope_min": 0.0
+      }
+    }
+  },
+  "右手掌": {
+    "live": {
+      "over_adc": 43.22587897374706,
+      "band_adc": 1192.7625568101653,
+      "settle_s": 179.9855,
+      "up_adc": 1136.085018037248,
+      "ded_pct": 13.730506644672857,
+      "score": 3107.234905993111
+    },
+    "best": {
+      "over_adc": 148.57618757531645,
+      "band_adc": 154.15325828060463,
+      "settle_s": 44.99575,
+      "up_adc": 60.76812319325229,
+      "ded_pct": 96.09746292668316,
+      "score": 99.21736771516791,
+      "params": {
+        "r_fast": 0.06,
+        "tau_c_fast_s": 12.0,
+        "r_slow_max": 30.0,
+        "slope_cap_frac": 0.6,
+        "slope_gate_frac": 1.0,
+        "slow_confirm_s": 0.0,
+        "soft_unfreeze_s": 0.5,
+        "edge_slope_thres": 20.0,
+        "tau_slope_s": 0.5,
+        "tau_r_slow_idle_s": 30.0,
+        "tau_r_fast_s": 2.0,
+        "hold_eps": 0.0,
+        "idle_frac": 0.02,
+        "ramp_slope_min": 0.0,
+        "tau_c_fast_boost_s": 1.0,
+        "edge_boost_s": 5.0,
+        "track_base_frac": 1.0,
+        "tau_r_slow_s": 600.0
+      }
+    }
+  },
+  "左手掌": {
+    "live": {
+      "over_adc": 20.501559620306473,
+      "band_adc": 735.871460528267,
+      "settle_s": 152.858,
+      "up_adc": 676.4194997944704,
+      "ded_pct": 11.036696973151988,
+      "score": 1729.987451153689
+    },
+    "best": {
+      "over_adc": 142.42049994959743,
+      "band_adc": 110.57105138679343,
+      "settle_s": 16.66925,
+      "up_adc": -1.8128848249234615,
+      "ded_pct": 101.67554132763918,
+      "score": 56.16267606766266,
+      "params": {
+        "r_fast": 0.1,
+        "tau_c_fast_s": 20.0,
+        "r_slow_max": 30.0,
+        "slope_cap_frac": 0.3,
+        "slope_gate_frac": 20.0,
+        "slow_confirm_s": 0.0,
+        "soft_unfreeze_s": 0.25,
+        "edge_slope_thres": 20.0,
+        "tau_slope_s": 2.0,
+        "tau_r_slow_idle_s": 2.0,
+        "tau_r_fast_s": 0.2,
+        "hold_eps": 0.0,
+        "idle_frac": 0.05,
+        "ramp_slope_min": 0.5,
+        "tau_c_fast_boost_s": 0.5,
+        "edge_boost_s": 1.0,
+        "tau_r_slow_s": 30.0,
+        "track_base_frac": 1.0
+      }
+    }
+  }
+}

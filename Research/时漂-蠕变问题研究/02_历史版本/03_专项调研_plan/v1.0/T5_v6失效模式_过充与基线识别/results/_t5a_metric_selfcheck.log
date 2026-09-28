@@ -1,0 +1,8 @@
+python scripts/t5a_metric_selfcheck.py
+
+T_stable(30 s 窗) 有界搜索 vs 穷举扫描：一致 60/60
+Z_final 模式分布：{'t_on+4.6~5.4s中位(=08-v6.1 P 口径)': 59, '段末帧(退化)': 1}
+OS% 极值：max 2679.698 / min -422.213；US% max 3209.605
+G20 范围：-7.401 ~ 9.405
+T_stable(30 s) 非空 15/60；T_stable(10 s) 非空 19/60
+产出 D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T5_v6失效模式_过充与基线识别\results\t5a_metric_selfcheck.csv

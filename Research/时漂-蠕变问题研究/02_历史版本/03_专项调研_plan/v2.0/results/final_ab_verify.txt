@@ -1,0 +1,60 @@
+数据集                                    臂    resid     lead     T5%       G   offabs
+★新录制(ADC/大偏置)                       base   0.0423    4.08%    4.78   0.902      701
+★新录制(ADC/大偏置)                    default   0.0335    0.51%    2.51   0.895       81   Δresid=-0.0088 Δlead=-3.57pp ΔG=-0.007
+★新录制(ADC/大偏置)                  legacy_on   0.0343    0.51%    2.51   0.895       81   Δresid=-0.0080 Δlead=-3.57pp ΔG=-0.007
+
+四指指尖/数据1                            base   0.0073     nan%     nan     nan        4
+四指指尖/数据1                         default   0.0073     nan%     nan     nan        4   Δresid=+0.0000 Δlead=+nanpp ΔG=+nan
+四指指尖/数据1                       legacy_on   0.0073     nan%     nan     nan        4   Δresid=+0.0000 Δlead=+nanpp ΔG=+nan
+
+四指指尖/数据2                            base   0.0107     nan%     nan     nan        3
+四指指尖/数据2                         default   0.0107     nan%     nan     nan        3   Δresid=+0.0000 Δlead=+nanpp ΔG=+nan
+四指指尖/数据2                       legacy_on   0.0107     nan%     nan     nan        3   Δresid=+0.0000 Δlead=+nanpp ΔG=+nan
+
+四指指尖/数据3                            base   0.0076     nan%     nan     nan        2
+四指指尖/数据3                         default   0.0076     nan%     nan     nan        2   Δresid=+0.0000 Δlead=+nanpp ΔG=+nan
+四指指尖/数据3                       legacy_on   0.0076     nan%     nan     nan        2   Δresid=+0.0000 Δlead=+nanpp ΔG=+nan
+
+右拇指指尖/数据1                           base   0.0392     nan%     nan     nan        4
+右拇指指尖/数据1                        default   0.0392     nan%     nan     nan        4   Δresid=+0.0000 Δlead=+nanpp ΔG=+nan
+右拇指指尖/数据1                      legacy_on   0.0392     nan%     nan     nan        4   Δresid=+0.0000 Δlead=+nanpp ΔG=+nan
+
+右拇指指尖/数据2                           base   0.0189     nan%     nan     nan        5
+右拇指指尖/数据2                        default   0.0189     nan%     nan     nan        5   Δresid=+0.0000 Δlead=+nanpp ΔG=+nan
+右拇指指尖/数据2                      legacy_on   0.0189     nan%     nan     nan        5   Δresid=+0.0000 Δlead=+nanpp ΔG=+nan
+
+右拇指指尖/数据3                           base   0.0105     nan%     nan     nan        4
+右拇指指尖/数据3                        default   0.0105     nan%     nan     nan        4   Δresid=+0.0000 Δlead=+nanpp ΔG=+nan
+右拇指指尖/数据3                      legacy_on   0.0105     nan%     nan     nan        4   Δresid=+0.0000 Δlead=+nanpp ΔG=+nan
+
+左拇指指尖/数据1                           base   0.0159     nan%     nan     nan        2
+左拇指指尖/数据1                        default   0.0159     nan%     nan     nan        2   Δresid=+0.0000 Δlead=+nanpp ΔG=+nan
+左拇指指尖/数据1                      legacy_on   0.0159     nan%     nan     nan        2   Δresid=+0.0000 Δlead=+nanpp ΔG=+nan
+
+左拇指指尖/数据2                           base   0.0057     nan%     nan     nan        2
+左拇指指尖/数据2                        default   0.0057     nan%     nan     nan        2   Δresid=+0.0000 Δlead=+nanpp ΔG=+nan
+左拇指指尖/数据2                      legacy_on   0.0057     nan%     nan     nan        2   Δresid=+0.0000 Δlead=+nanpp ΔG=+nan
+
+左拇指指尖/数据3                           base   0.0070     nan%     nan     nan        2
+左拇指指尖/数据3                        default   0.0070     nan%     nan     nan        2   Δresid=+0.0000 Δlead=+nanpp ΔG=+nan
+左拇指指尖/数据3                      legacy_on   0.0070     nan%     nan     nan        2   Δresid=+0.0000 Δlead=+nanpp ΔG=+nan
+
+变化负载/切换负载-快相无责的测试                   base   0.0086   -4.97%    8.30   0.870      298
+变化负载/切换负载-快相无责的测试                default   0.0088   -7.04%    8.70   0.867      260   Δresid=+0.0002 Δlead=-2.07pp ΔG=-0.003
+变化负载/切换负载-快相无责的测试              legacy_on   0.0105    1.19%    8.70   0.875      278   Δresid=+0.0019 Δlead=+6.16pp ΔG=+0.005
+
+变化负载/零负载-中途切换负载-零负载-切换负载            base   0.0183   -1.30%   28.49   0.619      465
+变化负载/零负载-中途切换负载-零负载-切换负载         default   0.0183   -1.30%   28.29   0.619      449   Δresid=+0.0000 Δlead=+0.00pp ΔG=+0.000
+变化负载/零负载-中途切换负载-零负载-切换负载       legacy_on   0.0183   -1.30%   28.29   0.619      449   Δresid=+0.0000 Δlead=+0.00pp ΔG=+0.000
+
+变化负载/零负载-中途切换负载-零负载-切换负载            base   0.0375  -35.08%    8.23   1.288     1300
+变化负载/零负载-中途切换负载-零负载-切换负载         default   0.0389  -35.08%    8.23   1.288      459   Δresid=+0.0014 Δlead=+0.00pp ΔG=+0.000
+变化负载/零负载-中途切换负载-零负载-切换负载       legacy_on   0.0388  -35.08%    8.23   1.288      947   Δresid=+0.0014 Δlead=+0.00pp ΔG=+0.000
+
+变化负载/零负载-切换负载-零负载-再切换负载             base   0.0333    4.05%   21.86   0.862      220
+变化负载/零负载-切换负载-零负载-再切换负载          default   0.0406    0.40%   22.81   0.852      105   Δresid=+0.0073 Δlead=-3.64pp ΔG=-0.010
+变化负载/零负载-切换负载-零负载-再切换负载        legacy_on   0.0406    0.40%   22.81   0.852      105   Δresid=+0.0073 Δlead=-3.64pp ΔG=-0.010
+
+== 汇总（相对 base 的中位变化；口径见文件头）==
+  default    Δresid中位=+0.00000 最坏=+0.00730  Δlead中位=-2.07pp  ΔG中位=-0.0033 最坏=-0.0096  Δoffabs中位=+0
+  legacy_on  Δresid中位=+0.00000 最坏=+0.00730  Δlead中位=+0.00pp  ΔG中位=+0.0000 最坏=-0.0096  Δoffabs中位=+0

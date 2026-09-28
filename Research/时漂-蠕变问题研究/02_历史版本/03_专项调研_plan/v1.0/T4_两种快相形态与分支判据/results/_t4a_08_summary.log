@@ -1,0 +1,54 @@
+# cmd      : python scripts/t4a_08_summary.py
+# cwd      : D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T4_两种快相形态与分支判据
+# argv     : scripts\t4a_08_summary.py
+# when     : 2026-09-18T23:36:21
+# env      : python 3.14.4 | numpy 2.4.6 | pandas 3.0.3
+# 口径     : timestamp 列 / 100 Hz 网格 / Z=Σch / 无 τ=2 s 平滑 / 中位滤波 0.5 s
+
+== 全部加载类（n=40）按 kind 中位 ==
+         t50    t80    t90    t95  z_at_005  z_at_02  z_at_05  z_at_10
+kind                                                                  
+onset   0.02  0.170  0.665  1.895     0.723    0.818    0.885    0.921
+restep  0.17  0.885  1.985  3.195     0.240    0.478    0.657    0.738
+n: {'onset': 22, 'restep': 18}
+
+== clean 子集（n=25）按 kind 中位 ==
+         t50   t80   t90   t95  z_at_005  z_at_02  z_at_10
+kind                                                      
+onset   0.02  0.17  0.62  2.02     0.723    0.828    0.918
+restep  0.24  0.69  1.40  2.44     0.220    0.465    0.856
+
+== 与第一轮逐事件匹配上的加载类（n=34）三口径 0.2 s 完成度 ==
+  onset  n=19 | 第一轮(主通道)  83.8% [72.4~93.5] | 本任务Z  82.4% [77.7~87.1] | 本任务主通道  84.9% [75.4~93.7]
+  restep n=15 | 第一轮(主通道)  62.6% [-24.9~107.3] | 本任务Z  46.5% [-61.6~84.2] | 本任务主通道  35.0% [-41.3~87.2]
+
+== restep 的 t90 分布 ==
+  全部 restep      n=18 t90 中位 1.98 p10 0.26 p90 4.54 s;  t50 中位 0.17 s
+  clean restep   n= 7 t90 中位 1.40 p10 0.89 p90 3.13 s;  t50 中位 0.24 s
+
+== onset 的 t90 分布 ==
+  全部 onset       n=22 t90 中位 0.67 p10 0.38 p90 1.49 s
+  clean onset    n=18 t90 中位 0.62 p10 0.33 p90 1.53 s
+
+== 干净样本效应量前 12（按 |AUC-0.5|）==
+      feature  med_onset  med_restep  med_diff    auc  band_overlap  n_onset_in_restep_band  n_restep_in_onset_band
+pre_over_peak     0.0022      0.7283   -0.7261 0.0000        0.0000                       0                       0
+pre_over_jump     0.0027      3.8844   -3.8817 0.0000        0.0000                       0                       0
+        ratio   377.4359      0.2574  377.1784 1.0000        0.0000                       0                       0
+      exp_tau     0.0265      0.4065   -0.3800 0.0238        0.0000                       1                       0
+          t80     0.1700      0.6900   -0.5200 0.0238        0.0000                       1                       0
+      z_at_01     0.7510      0.2859    0.4651 0.9762        0.0000                       1                       0
+      z_at_02     0.8276      0.4648    0.3628 0.9603        0.0000                       1                       0
+      z_at_03     0.8542      0.6065    0.2477 0.9603        0.0000                       1                       0
+n_frames_rise     2.0000     14.0000  -12.0000 0.0437        0.0000                       2                       0
+     z_at_005     0.7226      0.2202    0.5024 0.9524        0.0000                       2                       0
+          t50     0.0200      0.2400   -0.2200 0.0476        0.0000                       1                       0
+rmse_step_pct     4.7376     12.7590   -8.0214 0.0556        0.0487                       3                       1
+
+== 幅度/预载 与 形状、输入速率 的相关性（Pearson）==
+   group  n  corr_logT_absJ  corr_logT_pre_over_peak  corr_z02_absJ  corr_z02_pre_over_peak
+   onset 22          0.4036                   0.4711        -0.1077                 -0.7161
+  restep 18          0.2950                  -0.0586         0.2295                  0.0903
+all_load 40          0.0778                   0.4307         0.1736                 -0.2838
+
+done

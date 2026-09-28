@@ -1,0 +1,9 @@
+D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\progress\13-v6-assessment\scripts\a5_figs.py:64: UserWarning: Glyph 8658 (\N{RIGHTWARDS DOUBLE ARROW}) missing from font(s) Microsoft YaHei.
+  fig.tight_layout()
+D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\progress\13-v6-assessment\scripts\a5_figs.py:65: UserWarning: Glyph 8658 (\N{RIGHTWARDS DOUBLE ARROW}) missing from font(s) Microsoft YaHei.
+  fig.savefig(os.path.join(FIG, "a_jitter_detector.png"), dpi=130)
+D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\progress\13-v6-assessment\scripts\a5_figs.py:117: UserWarning: Glyph 8658 (\N{RIGHTWARDS DOUBLE ARROW}) missing from font(s) Microsoft YaHei.
+  fig.tight_layout()
+D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\progress\13-v6-assessment\scripts\a5_figs.py:118: UserWarning: Glyph 8658 (\N{RIGHTWARDS DOUBLE ARROW}) missing from font(s) Microsoft YaHei.
+  fig.savefig(os.path.join(FIG, "a_tap_vs_step.png"), dpi=130)
+figures written to D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\progress\13-v6-assessment\figures

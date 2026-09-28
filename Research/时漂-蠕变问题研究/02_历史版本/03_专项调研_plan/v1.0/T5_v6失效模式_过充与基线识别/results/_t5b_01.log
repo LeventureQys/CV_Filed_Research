@@ -1,0 +1,43 @@
+=== ① C++ ↔ 原型常量独立复核 ===
+[常量复核] 检测器 13 条：相同 13/13；扩展 32 条：相同 32/32
+    group      cpp_const  cpp_value      proto_attr  proto_value  same note
+0   det13      kDetFastS       0.20        DET_FAST         0.20  True     
+1   det13       kDetGapS       0.15         DET_GAP         0.15  True     
+2   det13       kDetLagS       0.30         DET_LAG         0.30  True     
+3   det13          kDetK       5.00           DET_K         5.00  True     
+4   det13        kDetRel       0.05         DET_REL         0.05  True     
+5   det13    kDetAbsFrac       0.01    DET_ABS_FRAC         0.01  True     
+6   det13   kDetIdleFrac       0.10   DET_IDLE_FRAC         0.10  True     
+7   det13    kDetPersist       3.00     DET_PERSIST         3.00  True     
+8   det13   kIdleSettleS       0.50     IDLE_SETTLE         0.50  True     
+9   det13  kUnloadBlockS       0.80    UNLOAD_BLOCK         0.80  True     
+10  det13     kBackdateS       0.60      BACKDATE_S         0.60  True     
+11  det13     kTailGateS       3.00     TAIL_GATE_S         3.00  True     
+12  det13  kTailGateFrac       0.10  TAIL_GATE_FRAC         0.10  True     
+
+=== ② A/B 零差证明 ===
+[A/B] W1_1w 帧=6599 电平=12101 电平项中位=604.9 空闲态额外门限中位=1233.2 干净 max(5σ_d)=627.1
+      仅 thr_d 看：被改帧占比=0.0000 新开带最长连续=0 帧；**完整判定链**看：被改帧占比=0.0000 新开带最长连续=0 帧（≥3 帧才可能改变判定 ⇒ can_flip=False）
+      A1=0.000e+00 A2=0.000e+00 A3(CAPF干净)=0.000e+00 | B1(P=1)=5.432e+01 B2(DET_REL=.01)=3.177e+02 B3(CAPF噪声)=1.868e+04 B3b=0.000e+00
+[A/B] W2_3w 帧=3500 电平=28205 电平项中位=1409.9 空闲态额外门限中位=2831.2 干净 max(5σ_d)=410.7
+      仅 thr_d 看：被改帧占比=0.2026 新开带最长连续=53 帧；**完整判定链**看：被改帧占比=0.2011 新开带最长连续=53 帧（≥3 帧才可能改变判定 ⇒ can_flip=True）
+      A1=0.000e+00 A2=0.000e+00 A3(CAPF干净)=0.000e+00 | B1(P=1)=3.815e+02 B2(DET_REL=.01)=3.377e+02 B3(CAPF噪声)=1.054e+03 B3b=0.000e+00
+
+[结论-A] 默认/参数化对照（应当**输出与内部双零差**）：True（输出零差=True，内部零差=True；**与原型**的 ΣA/epoch 起点对拍亦零差=True）
+[结论-A3] CAPF 干净窗：**既不是接线证据、也不是零差证据** —— 输出恒为 0（2 行），但内部是否变化随窗口而异：{'W1_1w': False, 'W2_3w': True}；读法见 n_frames_gate_diff / n_frames_rawhit_diff / n_epoch_* 列
+[结论-B] 故意放宽的参数与补丁（应当**输出与内部双非零**）：True（输出非零=True，内部非零=True）⇒ 本自检**具备检出能力**
+  win                                         variant  max_abs_Y_diff  expect_change                                    control   ok  n_frames_gate_diff  n_frames_rawhit_diff  n_epoch_ref  n_epoch_var  plain_max_abs_sumA_diff  plain_epoch_t0_maxdiff  internal_ok
+W1_1w                  A1 plain vs TraceV6(CAPF=None)        0.000000          False                               default_noop True                   0                     0            3            3                 0.000000                    0.00         True
+W1_1w A2 plain vs TraceV6(显式 DET_PERSIST=3,DET_K=5.0)        0.000000          False                                 param_noop True                   0                     0            3            3                 0.000000                    0.00         True
+W1_1w                  A3 CAPF=1.0 干净窗（vs TraceV6 默认）        0.000000          False capf_clean_output_zero_internal_may_change True                   0                     0            3            3                      NaN                     NaN         True
+W1_1w       B1 plain vs TraceV6(DET_PERSIST=1) [故意放宽]       54.320394           True                          sensitivity_param True                   5                     2            3            3                42.565471                    0.00         True
+W1_1w        B2 plain vs TraceV6(DET_REL=0.01) [故意放宽]      317.708551           True                          sensitivity_param True                5932                    87            3            3               946.448203                    0.59         True
+W1_1w        B3 白噪2000: CAPF=None vs CAPF=1.0 [补丁生效性]    18682.036170           True                          sensitivity_patch True                6525                   779            4           31                      NaN                     NaN         True
+W1_1w         B3b 白噪2000: plain vs TraceV6(CAPF=None)        0.000000          False                         default_noop_noise True                   0                     0            4            4                 0.000000                    0.00         True
+W2_3w                  A1 plain vs TraceV6(CAPF=None)        0.000000          False                               default_noop True                   0                     0            3            3                 0.000000                    0.00         True
+W2_3w A2 plain vs TraceV6(显式 DET_PERSIST=3,DET_K=5.0)        0.000000          False                                 param_noop True                   0                     0            3            3                 0.000000                    0.00         True
+W2_3w                  A3 CAPF=1.0 干净窗（vs TraceV6 默认）        0.000000          False capf_clean_output_zero_internal_may_change True                 709                   188            3            4                      NaN                     NaN        False
+W2_3w       B1 plain vs TraceV6(DET_PERSIST=1) [故意放宽]      381.495342           True                          sensitivity_param True                  31                     2            3            3               280.860275                    0.00         True
+W2_3w        B2 plain vs TraceV6(DET_REL=0.01) [故意放宽]      337.696816           True                          sensitivity_param True                1504                    20            3            3                38.598430                    0.00         True
+W2_3w        B3 白噪2000: CAPF=None vs CAPF=1.0 [补丁生效性]     1053.603169           True                          sensitivity_patch True                3430                   851            2            2                      NaN                     NaN         True
+W2_3w         B3b 白噪2000: plain vs TraceV6(CAPF=None)        0.000000          False                         default_noop_noise True                   0                     0            2            2                 0.000000                    0.00         True

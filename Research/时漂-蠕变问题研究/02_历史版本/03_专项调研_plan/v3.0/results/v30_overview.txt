@@ -1,0 +1,20 @@
+数据集: D:\workshop\Processing\multi-device-cascade-host-cpp\temp\算法数据&原始数据\测试台工况一览\20260919_141824_single_device_110871
+帧数 39900  时长 397.1 s  采样 100.47 Hz  中位 dt 0.0390 s
+params: {'clamp_alpha': 0.005, 'g_neg_floor': -0.05, 'ho_min_s': 3.5, 'kappa_onset': 1.05, 'kappa_restep': 1.12, 'legacy_fixes_enabled': 0, 'param_set': 'plan-v2.0 C+F5', 'revoke_hold_n': 3, 'valley_win_n': 4000}
+
+总量口径（21 通道求和，ADC）：
+  pre   min       2415  max      16759
+  algo  min       2415  max      16759
+  raw   min       2415  max      16759
+
+平台段切分（基于 pre 总量，滞回 25%/75%）共 2 段：
+#   kind           t0        t1      dur    pre_drift   algo_drift    pre_slope   algo_slope
+0   idle         0.01      4.29     4.28           -8           -8          2.9          2.9
+1   loaded       4.29    397.15   392.85         3408         1445          5.2          1.2
+
+长静置段（>= 8 s）明细，按 dt=1 s 桶中位：
+  #1 loaded t=[4.3,397.1] dur 392.9 s
+     pre  桶中位 首 11055 末 14179  极差 3148  首末差 +3124
+     algo 桶中位 首 11107 末 12216  极差 1135  首末差 +1108  (占电平 8.19%)
+     algo 轨迹: 11107 11715 11629 11696 11688 11558 11692 11746 11818 11907 11884 11951 12040 12156 12230
+     pre  轨迹: 11055 12584 12889 13083 13312 13521 13640 13701 13756 13830 13911 13999 14056 14136 14192

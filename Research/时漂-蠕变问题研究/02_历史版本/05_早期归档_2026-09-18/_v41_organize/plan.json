@@ -1,0 +1,566 @@
+{
+ "buckets": {
+  "01-v3-baseline": {
+   "count": 2,
+   "scripts": 2
+  },
+  "02-dsp-route": {
+   "count": 0
+  },
+  "03-v4": {
+   "count": 6,
+   "scripts": 6
+  },
+  "04-v5": {
+   "count": 4,
+   "scripts": 4
+  },
+  "05-v5.1": {
+   "count": 6,
+   "scripts": 6
+  },
+  "06-v5.1-exempt-1s-3s-5s": {
+   "count": 0
+  },
+  "07-v6": {
+   "count": 2,
+   "scripts": 2
+  },
+  "08-v6.1": {
+   "count": 0
+  },
+  "09-v7": {
+   "count": 0
+  },
+  "10-paper-v5-route": {
+   "count": 19,
+   "scripts": 19
+  },
+  "11-paper-v6": {
+   "count": 57,
+   "docs": 2,
+   "figures": 7,
+   "results": 22,
+   "scripts": 26
+  },
+  "12-fig-audit": {
+   "count": 179,
+   "figures": 179
+  },
+  "legacy": {
+   "count": 2,
+   "docs": 2
+  }
+ },
+ "shared": {
+  "scripts\\__pycache__\\ad_lib.cpython-314.pyc": [
+   "03-v4",
+   "10-paper-v5-route",
+   "11-paper-v6"
+  ],
+  "scripts\\__pycache__\\ad_v4.cpython-314.pyc": [
+   "03-v4",
+   "10-paper-v5-route",
+   "11-paper-v6"
+  ],
+  "scripts\\__pycache__\\glm53_v3.cpython-314.pyc": [
+   "01-v3-baseline",
+   "03-v4",
+   "04-v5",
+   "05-v5.1",
+   "10-paper-v5-route",
+   "11-paper-v6"
+  ],
+  "scripts\\__pycache__\\glm53_v5.cpython-314.pyc": [
+   "04-v5",
+   "05-v5.1",
+   "10-paper-v5-route",
+   "11-paper-v6"
+  ],
+  "scripts\\__pycache__\\glm53_v51.cpython-314.pyc": [
+   "05-v5.1",
+   "10-paper-v5-route",
+   "11-paper-v6"
+  ],
+  "scripts\\__pycache__\\glm53_v6.cpython-314.pyc": [
+   "07-v6",
+   "11-paper-v6"
+  ],
+  "scripts\\ad_lib.py": [
+   "03-v4",
+   "10-paper-v5-route",
+   "11-paper-v6"
+  ],
+  "scripts\\ad_v4.py": [
+   "03-v4",
+   "10-paper-v5-route",
+   "11-paper-v6"
+  ],
+  "scripts\\glm53_v3.py": [
+   "01-v3-baseline",
+   "03-v4",
+   "04-v5",
+   "05-v5.1",
+   "10-paper-v5-route",
+   "11-paper-v6"
+  ],
+  "scripts\\glm53_v5.py": [
+   "04-v5",
+   "05-v5.1",
+   "10-paper-v5-route",
+   "11-paper-v6"
+  ],
+  "scripts\\glm53_v51.py": [
+   "05-v5.1",
+   "10-paper-v5-route",
+   "11-paper-v6"
+  ],
+  "scripts\\glm53_v6.py": [
+   "07-v6",
+   "11-paper-v6"
+  ]
+ },
+ "unresolved_results": [],
+ "notes": [
+  "!! BASE_SCRIPT 中不存在: ['_datab.py', '_diff.py', '_ema.py', '_eq.py', '_font.py', '_gap.py', '_gapcalc.py', '_none.py', '_png.py', '_png2.py', '_png3.py', '_rob.py', '_runbh.py', '_tmp_prof.py', '_trace13.py', 'aa_final_compare.py', 'ab_final_figs.py', 'ac_final5.py', 'ad_check_v4_restep.py', 'ad_check_v7.py', 'ad_probe_new.py', 'ad_probe_profile.py', 'ad_single_fig.py', 'ad_single_run.py', 'ad_trace_step.py', 'ad_trace_tail.py', 'ad_trace_v3.py', 'ae_multi_step.py', 'ae_weight_fig.py', 'ae_weight_scenario.py', 'af_two_figs.py', 'af_two_recs.py', 'ba_v5_scenarios.py', 'bb_v5_debug.py', 'bb_v5_debug2.py', 'bc_v5_recordings.py', 'bd_v5_static9.py', 'be_v5_epochs.py', 'be_v5_threshold.py', 'bf_v5_fig.py', 'bg_v5_cpp_parity.py', 'bh_v5_why_fig.py', 'bi_v5_5s_awin.py', 'bj_probe_zero.py', 'bk_trace_unload.py', 'bl_decompose_zero.py', 'bm_synth_zero_pin.py', 'bn_trace_baseline.py', 'bo_v51_verify.py', 'bp_exempt_sweep.py', 'bq_probe_1s.py', 'br_target_13ffca.py', 'bs_loadedge_latency.py', 'bt_constant_load_timeline.py', 'bu_pending_vs_exempt.py', 'bv_scenarios_v51.py', 'bw_metrics_current.py', 'bx_nofreeze_ab.py', 'by_timeline_segments_13ffca.py', 'bz_zoom_1868.py', 'ca_all_datasets_1s.py', 'cb_v6_stepshape.py', 'cc_v6_rawrise.py', 'cd_v6_tail.py', 'ce_v6_estimator.py', 'cf_v6_generalize.py', 'cg_v6_selfshape.py', 'ch_v6_singlepoint.py', 'ci_v6_vs_1s_3s.py', 'cj_v6_smoke.py', 'ck_v6_trace.py', 'cl_v6_holddiag.py', 'cm_v6_outlier.py', 'cn_v6_userreport.py', 'cp_v6_detwin_sweep.py', 'cq_v6_userreport2.py', 'cr_v6_unload.py', 'cs_v6_stateevo.py', 'ct_v6_verify_figs.py', 'cu_v61_spike_diag.py', 'cv_v61_overshoot.py', 'cw_v61_ab.py', 'cx_v61_smoke.py', 'cy_v61_shapecal.py', 'cz_v61_check.py', 'da_v61_window.py', 'db_v61_overest.py', 'dc_v61_figs.py', 'dd_v61_equiv.py', 'de_v61_ledger.py', 'df_v61_ablate.py', 'dg_v61_panelcheck.py', 'dh_v61_13ffca.py', 'di_v61_13ffca_ablate.py', 'e_dsp_fail.py', 'f_review_figs.py', 'glm53_v61.py', 'glm53_v7.py', 'inventory.py', 'q2_slope_look.py', 'q_two_phase.py', 'r_fastphase.py', 's_residual_nature.py', 't_trace_early.py', 'u_varying_fast.py', 'v2_track.py', 'v_dsp_review_probe.py', 'v_final_check.py', 'v_iir_accuracy.py', 'v_iir_diag2.py', 'v_iir_equiv.py', 'v_iir_vs_parallel.py', 'v_probe_decisive.py', 'v_probe_p4_diag.py', 'v_probe_scale_diag.py', 'v_shape_diag.py', 'v_transient_cost.py', 'v_verdict.py', 'w2_dsp_vs_v3.py', 'w2_repeat.py', 'w_dsp_vs_v3.py', 'x2_fastfig.py', 'x_model_id.py', 'y2_varying_steps.py', 'y3_varying_steps2.py', 'y_spatial.py', 'z2_v5.py', 'z3_v6.py', 'z4_v5_trace.py', 'z5_diag_v5.py', 'z6_diag_v5b.py', 'z7_v7_test.py', 'z8_gap.py', 'z9_varying_fig.py', 'z_shape_look.py']",
+  "!! 文档不存在: dsp方案评审报告.md",
+  "!! 文档不存在: 快相与慢相分离分析.md",
+  "!! 文档不存在: 五算法实测对比.md",
+  "!! 文档不存在: 免责期1s-3s-5s对比.md",
+  "!! 文档不存在: v6与免责1s3s对比.md",
+  "!! 文档不存在: Document\\02-v4算法说明.md",
+  "!! 文档不存在: Document\\03-验证与实测结果.md",
+  "!! 文档不存在: Document\\04-C++实现骨架.md",
+  "!! 文档不存在: Document\\05-v5算法说明.md",
+  "!! 文档不存在: Document\\06-抗蠕变漂移补偿算法说明.md",
+  "!! 文档不存在: Document\\07-v6算法说明.md",
+  "!! 文档不存在: Document\\08-v6.1算法说明.md",
+  "!! 共享文档不存在: Document\\05-v5算法说明.md"
+ ],
+ "_detail": {
+  "01-v3-baseline": {
+   "scripts": [
+    "scripts\\__pycache__\\glm53_v3.cpython-314.pyc",
+    "scripts\\glm53_v3.py"
+   ]
+  },
+  "02-dsp-route": {},
+  "03-v4": {
+   "scripts": [
+    "scripts\\__pycache__\\ad_lib.cpython-314.pyc",
+    "scripts\\__pycache__\\ad_v4.cpython-314.pyc",
+    "scripts\\__pycache__\\glm53_v3.cpython-314.pyc",
+    "scripts\\ad_lib.py",
+    "scripts\\ad_v4.py",
+    "scripts\\glm53_v3.py"
+   ]
+  },
+  "04-v5": {
+   "scripts": [
+    "scripts\\__pycache__\\glm53_v3.cpython-314.pyc",
+    "scripts\\__pycache__\\glm53_v5.cpython-314.pyc",
+    "scripts\\glm53_v3.py",
+    "scripts\\glm53_v5.py"
+   ]
+  },
+  "05-v5.1": {
+   "scripts": [
+    "scripts\\__pycache__\\glm53_v3.cpython-314.pyc",
+    "scripts\\__pycache__\\glm53_v5.cpython-314.pyc",
+    "scripts\\__pycache__\\glm53_v51.cpython-314.pyc",
+    "scripts\\glm53_v3.py",
+    "scripts\\glm53_v5.py",
+    "scripts\\glm53_v51.py"
+   ]
+  },
+  "06-v5.1-exempt-1s-3s-5s": {},
+  "07-v6": {
+   "scripts": [
+    "scripts\\__pycache__\\glm53_v6.cpython-314.pyc",
+    "scripts\\glm53_v6.py"
+   ]
+  },
+  "08-v6.1": {},
+  "09-v7": {},
+  "10-paper-v5-route": {
+   "scripts": [
+    "paper\\scripts\\__pycache__\\pd.cpython-314.pyc",
+    "paper\\scripts\\figstyle.py",
+    "paper\\scripts\\pd.py",
+    "paper\\scripts\\pf1_physical.py",
+    "paper\\scripts\\pf2_overview.py",
+    "paper\\scripts\\pf3_step_mech.py",
+    "paper\\scripts\\pf4_timeline.py",
+    "paper\\scripts\\pf5_scenarios.py",
+    "paper\\scripts\\pf6_static9.py",
+    "scripts\\__pycache__\\ad_lib.cpython-314.pyc",
+    "scripts\\__pycache__\\ad_v4.cpython-314.pyc",
+    "scripts\\__pycache__\\glm53_v3.cpython-314.pyc",
+    "scripts\\__pycache__\\glm53_v5.cpython-314.pyc",
+    "scripts\\__pycache__\\glm53_v51.cpython-314.pyc",
+    "scripts\\ad_lib.py",
+    "scripts\\ad_v4.py",
+    "scripts\\glm53_v3.py",
+    "scripts\\glm53_v5.py",
+    "scripts\\glm53_v51.py"
+   ]
+  },
+  "11-paper-v6": {
+   "docs": [
+    "paper_v6\\README.md",
+    "paper_v6\\抗蠕变补偿算法_v6.md"
+   ],
+   "figures": [
+    "paper_v6\\figures\\F1_two_phase.png",
+    "paper_v6\\figures\\F2_overview.png",
+    "paper_v6\\figures\\F3_invert_glide.png",
+    "paper_v6\\figures\\F4_slow_creep.png",
+    "paper_v6\\figures\\F5_overview13.png",
+    "paper_v6\\figures\\F6_fast_tradeoff.png",
+    "paper_v6\\figures\\F7_slow_tradeoff.png"
+   ],
+   "results": [
+    "paper_v6\\results\\_pv_run.log",
+    "paper_v6\\results\\_pv_trim.log",
+    "paper_v6\\results\\cache\\中途切换-13ffca.npz",
+    "paper_v6\\results\\cache\\中途切换-1d9493.npz",
+    "paper_v6\\results\\cache\\再切换负载.npz",
+    "paper_v6\\results\\cache\\切换负载-快相无责.npz",
+    "paper_v6\\results\\cache\\右拇指指尖_数据1.npz",
+    "paper_v6\\results\\cache\\右拇指指尖_数据2.npz",
+    "paper_v6\\results\\cache\\右拇指指尖_数据3.npz",
+    "paper_v6\\results\\cache\\四指指尖_数据1.npz",
+    "paper_v6\\results\\cache\\四指指尖_数据2.npz",
+    "paper_v6\\results\\cache\\四指指尖_数据3.npz",
+    "paper_v6\\results\\cache\\左拇指指尖_数据1.npz",
+    "paper_v6\\results\\cache\\左拇指指尖_数据2.npz",
+    "paper_v6\\results\\cache\\左拇指指尖_数据3.npz",
+    "paper_v6\\results\\epochs_all.csv",
+    "paper_v6\\results\\metrics_all.csv",
+    "paper_v6\\results\\metrics_settle.csv",
+    "paper_v6\\results\\paper_tables.txt",
+    "paper_v6\\results\\trim_ablation.csv",
+    "paper_v6\\results\\vision_check.json",
+    "paper_v6\\results\\vision_check.md"
+   ],
+   "scripts": [
+    "paper_v6\\scripts\\__pycache__\\pv_common.cpython-314.pyc",
+    "paper_v6\\scripts\\pf1_physical.py",
+    "paper_v6\\scripts\\pf2_overview.py",
+    "paper_v6\\scripts\\pf3_invert_glide.py",
+    "paper_v6\\scripts\\pf4_slow_creep.py",
+    "paper_v6\\scripts\\pf5_overview13.py",
+    "paper_v6\\scripts\\pf6_fast_tradeoff.py",
+    "paper_v6\\scripts\\pf7_slow_tradeoff.py",
+    "paper_v6\\scripts\\pv_audit.py",
+    "paper_v6\\scripts\\pv_common.py",
+    "paper_v6\\scripts\\pv_run.py",
+    "paper_v6\\scripts\\pv_style.py",
+    "paper_v6\\scripts\\pv_trim_ablation.py",
+    "paper_v6\\scripts\\pv_vision_check.py",
+    "scripts\\__pycache__\\ad_lib.cpython-314.pyc",
+    "scripts\\__pycache__\\ad_v4.cpython-314.pyc",
+    "scripts\\__pycache__\\glm53_v3.cpython-314.pyc",
+    "scripts\\__pycache__\\glm53_v5.cpython-314.pyc",
+    "scripts\\__pycache__\\glm53_v51.cpython-314.pyc",
+    "scripts\\__pycache__\\glm53_v6.cpython-314.pyc",
+    "scripts\\ad_lib.py",
+    "scripts\\ad_v4.py",
+    "scripts\\glm53_v3.py",
+    "scripts\\glm53_v5.py",
+    "scripts\\glm53_v51.py",
+    "scripts\\glm53_v6.py"
+   ]
+  },
+  "12-fig-audit": {
+   "figures": [
+    "_audit\\F4_bar_zoom48.png",
+    "_audit\\F4_bars_left.png",
+    "_audit\\F4_righttop.png",
+    "_audit\\F4_textzoom4x.png",
+    "_audit\\F4_toplefttext.png",
+    "_audit\\F6_p1.png",
+    "_audit\\F6_p1_legendwide.png",
+    "_audit\\F6_p1_legendzoom.png",
+    "_audit\\F6_p2_spike.png",
+    "_audit\\F6_p3_tail.png",
+    "_audit\\F6_p4_spike.png",
+    "_audit\\F6_p5.png",
+    "_audit\\F6_p9.png",
+    "_audit\\F6_whole.png",
+    "_crop\\f4_A_bottom.png",
+    "_crop\\f4_A_top.png",
+    "_crop\\f4_A_toptext.png",
+    "_crop\\f4_ascii.txt",
+    "_crop\\f4_ascii2.txt",
+    "_crop\\f4_axislabel.png",
+    "_crop\\f4_b.png",
+    "_crop\\f4_bands.txt",
+    "_crop\\f4_bottom_row.png",
+    "_crop\\f4_bottomall.png",
+    "_crop\\f4_c.png",
+    "_crop\\f4_collide.png",
+    "_crop\\f4_label_vs_bar.png",
+    "_crop\\f4_label_zoom.png",
+    "_crop\\f4_labels_zoom.png",
+    "_crop\\f4_legend.png",
+    "_crop\\f4_legend2.png",
+    "_crop\\f4_legend3.png",
+    "_crop\\f4_legend4.png",
+    "_crop\\f4_legend_zone.png",
+    "_crop\\f4_map.txt",
+    "_crop\\f4_note.png",
+    "_crop\\f4_note_end.png",
+    "_crop\\f4_note_line.png",
+    "_crop\\f4_row1_band.png",
+    "_crop\\f4_row3_nearest.png",
+    "_crop\\f4_row3_rgb_nearest.png",
+    "_crop\\f4_rows.txt",
+    "_crop\\f4_rows2.txt",
+    "_crop\\f4_rows3.txt",
+    "_crop\\f4_rows_left.png",
+    "_crop\\f4_runs.txt",
+    "_crop\\f4_scan.txt",
+    "_crop\\f4_segs.txt",
+    "_crop\\f4_t00.png",
+    "_crop\\f4_t01.png",
+    "_crop\\f4_t02.png",
+    "_crop\\f4_t03.png",
+    "_crop\\f4_t04.png",
+    "_crop\\f4_t05.png",
+    "_crop\\f4_t06.png",
+    "_crop\\f4_t07.png",
+    "_crop\\f4_t08.png",
+    "_crop\\f4_t09.png",
+    "_crop\\f4_t10.png",
+    "_crop\\f4_t11.png",
+    "_crop\\f4_t12.png",
+    "_crop\\f4_t13.png",
+    "_crop\\f4_t14.png",
+    "_crop\\f4_t15.png",
+    "_crop\\f4_t16.png",
+    "_crop\\f4_t17.png",
+    "_crop\\f4_t18.png",
+    "_crop\\f4_t19.png",
+    "_crop\\f4_top_labels.png",
+    "_crop\\f4_toplabels2.png",
+    "_crop\\f6_11.png",
+    "_crop\\f6_12.png",
+    "_crop\\f6_13.png",
+    "_crop\\f6_21.png",
+    "_crop\\f6_22.png",
+    "_crop\\f6_23.png",
+    "_crop\\f6_31.png",
+    "_crop\\f6_32.png",
+    "_crop\\f6_33.png",
+    "_crop\\f6_bottom.png",
+    "_crop\\f6_lines.txt",
+    "_crop\\f6_p11.png",
+    "_crop\\f6_p12.png",
+    "_crop\\f6_p12_box.png",
+    "_crop\\f6_p13.png",
+    "_crop\\f6_p21.png",
+    "_crop\\f6_p22_zoom.png",
+    "_crop\\f6_p33_zoom.png",
+    "_crop\\f6_r1c1_big.png",
+    "_crop\\f6_r1c1_spikes.png",
+    "_crop\\f6_r1c3.png",
+    "_crop\\f6_redspike.png",
+    "_crop\\f6_spike_zoom.png",
+    "_crop\\f6_title_sub.png",
+    "_crop\\f6_x1522.png",
+    "_crop\\f6_xlabel.png",
+    "_crop\\f6_ylabel.png",
+    "_review_crops\\a_bottom.png",
+    "_review_crops\\a_graytext3.png",
+    "_review_crops\\a_graytext_all.png",
+    "_review_crops\\a_graytext_wide.png",
+    "_review_crops\\a_legend.png",
+    "_review_crops\\a_legend2.png",
+    "_review_crops\\a_redtop.png",
+    "_review_crops\\a_title.png",
+    "_review_crops\\a_ylabel.png",
+    "_review_crops\\a_ylabel3.png",
+    "_review_crops\\b_bottom.png",
+    "_review_crops\\b_bottom2.png",
+    "_review_crops\\b_curve_top.png",
+    "_review_crops\\b_left_edge.png",
+    "_review_crops\\b_legend_callout.png",
+    "_review_crops\\b_title.png",
+    "_review_crops\\b_ylabel.png",
+    "_review_crops\\b_ylabel2.png",
+    "_review_crops\\bc_gap.png",
+    "_review_crops\\c01_topleft_input.png",
+    "_review_crops\\c02_row1_left.png",
+    "_review_crops\\c03_row1_right.png",
+    "_review_crops\\c04_u_lt_fast.png",
+    "_review_crops\\c05_row2_right.png",
+    "_review_crops\\c06_bottom_a_right.png",
+    "_review_crops\\c07_bottom_a_left.png",
+    "_review_crops\\c08_bottom_a_mid.png",
+    "_review_crops\\c09_sep_header_b.png",
+    "_review_crops\\c10_block_row.png",
+    "_review_crops\\c11_ticks.png",
+    "_review_crops\\c_annot.png",
+    "_review_crops\\c_arrowtip.png",
+    "_review_crops\\c_bottom.png",
+    "_review_crops\\c_bottom2.png",
+    "_review_crops\\c_green_zoom.png",
+    "_review_crops\\c_greentext_only.png",
+    "_review_crops\\c_legend.png",
+    "_review_crops\\c_legend_zoom.png",
+    "_review_crops\\c_overlap.png",
+    "_review_crops\\c_right_tail.png",
+    "_review_crops\\c_title.png",
+    "_review_crops\\c_ylabel.png",
+    "_review_crops\\left_edge.png",
+    "_review_crops\\mid_edge.png",
+    "_review_crops\\right_edge.png",
+    "_review_crops\\z1_redbox_bottomA.png",
+    "_review_crops\\z2_greenbox_bottomA.png",
+    "_review_crops\\z3_redbox_v_carry.png",
+    "_review_crops\\z4_ubox_right.png",
+    "_review_crops\\z5_overlap_zoom.png",
+    "_review_crops\\z6_redbox_full.png",
+    "_review_crops\\z7_midbox_full.png",
+    "_review_crops\\z8_thirdbox_full.png",
+    "_review_crops\\z9_green_title.png",
+    "_zoom\\P1_full.png",
+    "_zoom\\P2_end2.png",
+    "_zoom\\P5_end.png",
+    "_zoom\\P7_full.png",
+    "_zoom\\P8_end.png",
+    "_zoom\\edge_left.png",
+    "_zoom\\edge_right_p2.png",
+    "_zoom\\edge_right_p8.png",
+    "_zoom\\gap_row1_row2.png",
+    "_zoom\\p1_TL.png",
+    "_zoom\\p1_legend_zone.png",
+    "_zoom\\p1_start.png",
+    "_zoom\\p1_topleft_corner.png",
+    "_zoom\\p2_TM.png",
+    "_zoom\\p2_endspike.png",
+    "_zoom\\p2_spike.png",
+    "_zoom\\p3_TR.png",
+    "_zoom\\p3_rightspine.png",
+    "_zoom\\p4_ML.png",
+    "_zoom\\p4_drop_end.png",
+    "_zoom\\p4_enddrop.png",
+    "_zoom\\p5_p6_row2_right.png",
+    "_zoom\\p7_BL.png",
+    "_zoom\\p7_box_zone.png",
+    "_zoom\\p8_annot.png",
+    "_zoom\\p8_drop_end.png",
+    "_zoom\\p9_BR.png",
+    "_zoom\\title.png"
+   ]
+  },
+  "legacy": {
+   "docs": [
+    "Document\\README.md",
+    "README.md"
+   ]
+  }
+ },
+ "_assign": {
+  "paper\\scripts\\figstyle.py": [
+   "10-paper-v5-route"
+  ],
+  "paper\\scripts\\pd.py": [
+   "10-paper-v5-route"
+  ],
+  "paper\\scripts\\pf1_physical.py": [
+   "10-paper-v5-route"
+  ],
+  "paper\\scripts\\pf2_overview.py": [
+   "10-paper-v5-route"
+  ],
+  "paper\\scripts\\pf3_step_mech.py": [
+   "10-paper-v5-route"
+  ],
+  "paper\\scripts\\pf4_timeline.py": [
+   "10-paper-v5-route"
+  ],
+  "paper\\scripts\\pf5_scenarios.py": [
+   "10-paper-v5-route"
+  ],
+  "paper\\scripts\\pf6_static9.py": [
+   "10-paper-v5-route"
+  ],
+  "paper_v6\\scripts\\pf1_physical.py": [
+   "11-paper-v6"
+  ],
+  "paper_v6\\scripts\\pf2_overview.py": [
+   "11-paper-v6"
+  ],
+  "paper_v6\\scripts\\pf3_invert_glide.py": [
+   "11-paper-v6"
+  ],
+  "paper_v6\\scripts\\pf4_slow_creep.py": [
+   "11-paper-v6"
+  ],
+  "paper_v6\\scripts\\pf5_overview13.py": [
+   "11-paper-v6"
+  ],
+  "paper_v6\\scripts\\pf6_fast_tradeoff.py": [
+   "11-paper-v6"
+  ],
+  "paper_v6\\scripts\\pf7_slow_tradeoff.py": [
+   "11-paper-v6"
+  ],
+  "paper_v6\\scripts\\pv_audit.py": [
+   "11-paper-v6"
+  ],
+  "paper_v6\\scripts\\pv_common.py": [
+   "11-paper-v6"
+  ],
+  "paper_v6\\scripts\\pv_run.py": [
+   "11-paper-v6"
+  ],
+  "paper_v6\\scripts\\pv_style.py": [
+   "11-paper-v6"
+  ],
+  "paper_v6\\scripts\\pv_trim_ablation.py": [
+   "11-paper-v6"
+  ],
+  "paper_v6\\scripts\\pv_vision_check.py": [
+   "11-paper-v6"
+  ],
+  "scripts\\ad_lib.py": [
+   "03-v4",
+   "10-paper-v5-route",
+   "11-paper-v6"
+  ],
+  "scripts\\ad_v4.py": [
+   "03-v4",
+   "10-paper-v5-route",
+   "11-paper-v6"
+  ],
+  "scripts\\glm53_v3.py": [
+   "01-v3-baseline",
+   "03-v4",
+   "04-v5",
+   "05-v5.1",
+   "10-paper-v5-route",
+   "11-paper-v6"
+  ],
+  "scripts\\glm53_v5.py": [
+   "04-v5",
+   "05-v5.1",
+   "10-paper-v5-route",
+   "11-paper-v6"
+  ],
+  "scripts\\glm53_v51.py": [
+   "05-v5.1",
+   "10-paper-v5-route",
+   "11-paper-v6"
+  ],
+  "scripts\\glm53_v6.py": [
+   "07-v6",
+   "11-paper-v6"
+  ]
+ },
+ "_total_planned": 277,
+ "_on_disk": 247,
+ "_unique_planned": 247
+}

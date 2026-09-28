@@ -1,0 +1,9 @@
+r1c1 | x2%: red_y=197 gray_y=272 | x10%: red_y=185 gray_y=238 | x25%: red_y=179 gray_y=213 | x45%: red_y=182 gray_y=178 | x60%: red_y=181 gray_y=259 | x75%: red_y=177 gray_y=230
+r1c2 | x2%: red_y=231 gray_y=299 | x10%: red_y=190 gray_y=223 | x25%: red_y=194 gray_y=209 | x45%: red_y=198 gray_y=189 | x60%: red_y=193 gray_y=182 | x75%: red_y=194 gray_y=170
+r1c3 | x2%: red_y=220 gray_y=294 | x10%: red_y=144 gray_y=213 | x25%: red_y=171 gray_y=186 | x45%: red_y=168 gray_y=164 | x60%: red_y=167 gray_y=249 | x75%: red_y=171 gray_y=244
+r2c1 | x2%: red_y=566 gray_y=621 | x10%: red_y=548 gray_y=577 | x25%: red_y=554 gray_y=570 | x45%: red_y=545 gray_y=551 | x60%: red_y=550 gray_y=537 | x75%: red_y=556 gray_y=634
+r2c2 | x2%: red_y=563 gray_y=641 | x10%: red_y=537 gray_y=581 | x25%: red_y=544 gray_y=557 | x45%: red_y=545 gray_y=537 | x60%: red_y=558 gray_y=533 | x75%: red_y=552 gray_y=629
+r2c3 | x2%: red_y=583 gray_y=660 | x10%: red_y=535 gray_y=587 | x25%: red_y=546 gray_y=558 | x45%: red_y=549 gray_y=542 | x60%: red_y=554 gray_y=535 | x75%: red_y=557 gray_y=630
+r3c1 | x2%: red_y=972 gray_y=1068 | x10%: red_y=966 gray_y=1020 | x25%: red_y=972 gray_y=978 | x45%: red_y=965 gray_y=955 | x60%: red_y=967 gray_y=948 | x75%: red_y=969 gray_y=947
+r3c2 | x2%: red_y=982 gray_y=1045 | x10%: red_y=948 gray_y=977 | x25%: red_y=950 gray_y=- | x45%: red_y=947 gray_y=941 | x60%: red_y=940 gray_y=934 | x75%: red_y=941 gray_y=929
+r3c3 | x2%: red_y=1005 gray_y=1058 | x10%: red_y=947 gray_y=978 | x25%: red_y=947 gray_y=959 | x45%: red_y=946 gray_y=942 | x60%: red_y=940 gray_y=934 | x75%: red_y=946 gray_y=924

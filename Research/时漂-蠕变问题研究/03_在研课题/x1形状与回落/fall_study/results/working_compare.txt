@@ -1,0 +1,24 @@
+working 全会话对比：base(v3.4) vs H3 vs H4
+excess=同窗口显示回落-输入自身回落；t_set=进入并保持平台±5%带
+
+  [零基线-剧烈变化负载情况\20260919_192655_single_device_d675cf] 事件数 2
+  base       fall中位= 3993.9 excess中位= 492.7 excess_max=  768.6 t_set中位=10.51s
+  H3_F12_w4  fall中位= 3670.5 excess中位= 170.7 excess_max=  440.1 t_set中位=10.51s
+  H4_F_w4_b3 fall中位= 3658.3 excess中位= 164.1 excess_max=  439.8 t_set中位=10.51s
+
+  [零基线-反复增减同一负载\20260919_191748_single_device_795e5e\20260919_192141_single_device_73032d] 事件数 8
+  base       fall中位= 1439.2 excess中位= 575.3 excess_max=  891.5 t_set中位=10.42s
+  H3_F12_w4  fall中位=  331.7 excess中位= 197.7 excess_max=  694.7 t_set中位= 9.18s
+  H4_F_w4_b3 fall中位=   87.3 excess中位= 194.6 excess_max=  803.7 t_set中位= 9.18s
+
+  [零基线-反复增减同一负载\20260919_193935_single_device_9c3ca5] 事件数 3
+  base       fall中位=  615.1 excess中位= 852.1 excess_max= 1059.9 t_set中位= 2.35s
+  H3_F12_w4  fall中位=  145.9 excess中位= 368.9 excess_max=  407.6 t_set中位= 2.67s
+  H4_F_w4_b3 fall中位=  160.1 excess中位= 406.7 excess_max=  416.2 t_set中位= 2.57s
+
+  [零基线-同一荷载测试\20260919_193320_single_device_3f32c5] 事件数 1
+  base       fall中位=  229.4 excess中位= 836.4 excess_max=  836.4 t_set中位= 7.95s
+  H3_F12_w4  fall中位= -284.1 excess中位= 322.9 excess_max=  322.9 t_set中位= 7.95s
+  H4_F_w4_b3 fall中位= -278.3 excess中位= 328.7 excess_max=  328.7 t_set中位= 7.95s
+
+图: D:\workshop\Processing\multi-device-cascade-host-cpp\Document\Update\Dev-Version\v2.7 - 抗蠕变补偿算法\v4.1flash\plan\v4\fall_study\scripts\..\figure\working对比_base_H3_H4.png (313 KB)

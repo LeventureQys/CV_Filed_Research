@@ -1,0 +1,7 @@
+# run: python scripts/t7a_7_figs.py
+-> figures/T7A_01_unload_profile.png
+-> figures/T7A_02_residual_offset.png
+-> figures/T7A_03_zero_drift.png
+-> figures/T7A_04_event_traces.png
+
+图件支撑：results/t7_event_traces.csv、t7_zero_lines.csv、t7_unload_shape.csv、t7_frozen_offset.csv、t7_zero_drift.csv、t7_arm_unload.csv

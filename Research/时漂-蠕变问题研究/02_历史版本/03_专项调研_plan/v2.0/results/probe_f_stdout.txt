@@ -1,0 +1,97 @@
+回放完成: n=33908
+原型 out 总量  : min=1957 max=18652
+现场 main 总量 : min=1664 max=18848
+逐帧 RMS(原型−现场) = 635.8 ADC ; 中位绝对差 = 483.8 ADC
+事件序列(原型): [(2.24, 'onset'), (5.26, 'restep_reload'), (10.36, 'restep'), (17.86, 'restep'), (25.85, 'restep'), (25.85, 'restep_reload'), (30.86, 'decrease'), (34.57, 'restep'), (34.57, 'restep_reload'), (41.86, 'restep'), (49.03, 'restep'), (56.63, 'restep'), (56.63, 'restep_reload'), (70.13, 'decrease'), (75.02, 'restep'), (75.02, 'restep_reload'), (81.39, 'decrease'), (85.87, 'restep'), (91.83, 'decrease'), (95.65, 'restep'), (95.65, 'restep_reload'), (100.8, 'decrease'), (103.91, 'restep'), (111.06, 'decrease'), (120.63, 'onset'), (130.41, 'restep'), (130.41, 'restep_reload'), (136.61, 'decrease'), (141.96, 'onset'), (146.64, 'decrease'), (149.37, 'onset'), (155.01, 'restep'), (160.32, 'decrease'), (165.19, 'restep'), (165.19, 'restep_reload'), (171.91, 'decrease'), (175.18, 'restep'), (182.5, 'decrease'), (186.72, 'restep'), (186.78, 'restep_reload'), (194.68, 'decrease'), (202.29, 'restep'), (202.29, 'restep_reload'), (208.14, 'decrease'), (211.19, 'decrease'), (219.01, 'onset'), (224.79, 'restep'), (231.45, 'decrease'), (235.98, 'restep'), (235.98, 'restep_reload'), (240.86, 'decrease'), (243.86, 'restep'), (251.27, 'restep'), (257.68, 'decrease'), (261.7, 'restep'), (261.7, 'restep_reload'), (267.61, 'decrease'), (271.54, 'restep'), (279.29, 'decrease'), (283.45, 'restep'), (283.45, 'restep_reload'), (287.41, 'restep_reload'), (292.7, 'onset'), (302.68, 'decrease'), (308.02, 'onset'), (314.83, 'decrease'), (318.46, 'onset'), (326.18, 'restep'), (330.84, 'decrease'), (334.6, 'restep')]
+revoke 次数=0  C5 次数=14  末态=event  g=-0.0417
+
+── 41.0~47.0 s 逐 20 帧（0.2 s）──
+      t     pre   现场main    原型out    off现场    off原型  state         kind    tau    a_hat       c       g    A_sum st
+  41.02   14800    15609    15789      809      989   slow                 nan      nan     nan -0.0633    15986  .
+  41.22   14802    15610    15803      808     1001   slow                 nan      nan     nan -0.0640    15986  .
+  41.42   14804    15612    15817      808     1013   slow                 nan      nan     nan -0.0648    15986  .
+  41.62   14819    15627    15841      808     1022   slow                 nan      nan     nan -0.0654    15986  .
+  41.82   14823    15631    15854      808     1031   slow                 nan      nan     nan -0.0660    15986  .
+  42.01   16563    17318    17524      755      961   slow                 nan      nan     nan -0.0615    15986  .
+  42.22   16907    17740    17947      833     1040  event       restep   0.36     2302    1040 -0.0587    15986  .
+  42.43   16942    17766    18081      824     1139  event       restep   0.57     2365    1139 -0.0587    15986  .
+  42.62   16976    17918    18211      942     1235  event       restep   0.77     2395    1235 -0.0587    15986  .
+  42.83   16983    18036    18249     1053     1266  event       restep   0.97     2397    1266 -0.0587    15986  .
+  43.02   16998    18066    18249     1068     1251  event       restep   1.17     2397    1251 -0.0587    15986  .
+  43.21   17038    18066    18249     1028     1211  event       restep   1.35     2397    1211 -0.0587    15986  .
+  43.41   17054    18066    18249     1012     1195  event       restep   1.55     2397    1195 -0.0587    15986  .
+  43.61   17077    18066    18249      989     1172  event       restep   1.75     2397    1172 -0.0587    15986  .
+  43.81   17097    18066    18249      969     1152  event       restep   1.95     2397    1152 -0.0587    15986  .
+  44.01   17097    18066    18249      969     1152  event       restep   2.15     2397    1152 -0.0587    15986  .
+  44.21   17106    18066    18249      960     1143  event       restep   2.35     2397    1143 -0.0587    15986  .
+  44.40   17114    18066    18249      952     1135  event       restep   2.55     2397    1135 -0.0587    15986  .
+  44.60   17122    18066    18249      944     1127  event       restep   2.74     2397    1127 -0.0587    15986  .
+  44.80   17131    18066    18249      935     1118  event       restep   2.95     2397    1118 -0.0587    15986  .
+  45.00   17129    18066    18249      937     1120  event       restep   3.14     2397    1120 -0.0587    15986  .
+  45.20   17137    18066    18249      929     1112  event       restep   3.35     2397    1112 -0.0587    15986  .
+  45.40   17144    17898    18249      754     1105  event       restep   3.54     2397    1105 -0.0587    15986  .
+  45.61   17145    17910    18249      765     1104  event       restep   3.75     2397    1104 -0.0587    15986  .
+  45.80   17144    17919    18249      775     1105  event       restep   3.94     2397    1105 -0.0587    15986  .
+  46.01   15039    15875    16401      836     1362  event       restep   4.15     2397    1362 -0.0587    15986  .
+  46.20   14947    15830    16670      883     1723  event       restep   4.34     2397    1723 -0.0587    15986  .
+  46.40   14928    15786    16876      858     1948  event       restep   4.54      106    1948 -0.0587    15986  T
+  46.60   14917    15776    16848      859     1931  event       restep   4.74       97    1931 -0.0587    15986  T
+  46.79   14946    15807    16862      861     1916  event       restep   4.93      109    1916 -0.0587    15986  T
+  46.99   14936    15800    15545      864      609   slow                 nan      nan     nan -0.0390    15975  .
+
+── 状态/事件转移点（41~50 s）──
+  t=   42.10  state=event  kind=restep        tau=  0.24 a_hat=     2276 c=    1022 g=-0.0587 A_sum=   15986 base=   14830 target=   18128
+  t=   46.87  state=slow   kind=              tau=   nan a_hat=      nan c=     nan g=-0.0379 A_sum=   15975 base=     nan target=     nan
+  t=   49.27  state=event  kind=restep        tau=  0.25 a_hat=        0 c=     801 g=-0.0472 A_sum=   15975 base=   14924 target=   15725
+
+── 停滞判据复算（42.10 s restep 事件）──
+  t0=41.856 base=14830
+    tau     inc   inc_s   a_hat ratio_mod ratio_obs stall_now  stall_t
+ENG   0.24 a_hat=   1792 inc_ref=    None ref_ok=False stall_t=0.000 stalled=False ratio_obs=-0.0637 ratio_mod=0.0176 | MY ref=    2032 inc_s=   1902 stall_now=False
+ENG   0.36 a_hat=   2302 inc_ref=    None ref_ok=False stall_t=0.000 stalled=False ratio_obs=-0.1060 ratio_mod=0.0550 | MY ref=    2032 inc_s=   1817 stall_now=True
+ENG   0.44 a_hat=   2326 inc_ref=    None ref_ok=False stall_t=0.000 stalled=False ratio_obs=-0.0146 ratio_mod=0.0696 | MY ref=    2032 inc_s=   2002 stall_now=True
+ENG   0.57 a_hat=   2365 inc_ref=    None ref_ok=False stall_t=0.000 stalled=False ratio_obs=0.0377 ratio_mod=0.0922 | MY ref=    2032 inc_s=   2109 stall_now=True
+ENG   0.65 a_hat=   2384 inc_ref=    1902 ref_ok=True stall_t=0.000 stalled=False ratio_obs=0.0474 ratio_mod=0.1055 | MY ref=    2032 inc_s=   2128 stall_now=True
+ENG   0.77 a_hat=   2395 inc_ref=    1902 ref_ok=True stall_t=0.000 stalled=False ratio_obs=0.0544 ratio_mod=0.1181 | MY ref=    2032 inc_s=   2143 stall_now=True
+ENG   0.85 a_hat=   2397 inc_ref=    1902 ref_ok=True stall_t=0.000 stalled=False ratio_obs=0.0579 ratio_mod=0.1276 | MY ref=    2032 inc_s=   2150 stall_now=True
+ENG   0.97 a_hat=   2397 inc_ref=    1902 ref_ok=True stall_t=0.000 stalled=False ratio_obs=0.0610 ratio_mod=0.1410 | MY ref=    2032 inc_s=   2156 stall_now=True
+ENG   1.05 a_hat=   2397 inc_ref=    1902 ref_ok=True stall_t=0.000 stalled=False ratio_obs=0.0654 ratio_mod=0.1467 | MY ref=    2032 inc_s=   2165 stall_now=True
+ENG   1.17 a_hat=   2397 inc_ref=    1902 ref_ok=True stall_t=0.000 stalled=False ratio_obs=0.0675 ratio_mod=0.1520 | MY ref=    2032 inc_s=   2169 stall_now=True
+ENG   1.25 a_hat=   2397 inc_ref=    1902 ref_ok=True stall_t=0.000 stalled=False ratio_obs=0.0744 ratio_mod=0.1559 | MY ref=    2032 inc_s=   2183 stall_now=True
+ENG   1.35 a_hat=   2397 inc_ref=    1902 ref_ok=True stall_t=0.000 stalled=False ratio_obs=0.0825 ratio_mod=0.1603 | MY ref=    2032 inc_s=   2200 stall_now=False
+ENG   1.43 a_hat=   2397 inc_ref=    1902 ref_ok=True stall_t=0.000 stalled=False ratio_obs=0.0867 ratio_mod=0.1639 | MY ref=    2032 inc_s=   2208 stall_now=False
+ENG   1.55 a_hat=   2397 inc_ref=    1902 ref_ok=True stall_t=0.000 stalled=False ratio_obs=0.0930 ratio_mod=0.1695 | MY ref=    2032 inc_s=   2221 stall_now=False
+ENG   1.63 a_hat=   2397 inc_ref=    1902 ref_ok=True stall_t=0.000 stalled=False ratio_obs=0.0984 ratio_mod=0.1733 | MY ref=    2032 inc_s=   2232 stall_now=False
+ENG   1.75 a_hat=   2397 inc_ref=    1902 ref_ok=True stall_t=0.000 stalled=False ratio_obs=0.1028 ratio_mod=0.1791 | MY ref=    2032 inc_s=   2241 stall_now=False
+ENG   1.83 a_hat=   2397 inc_ref=    1902 ref_ok=True stall_t=0.000 stalled=False ratio_obs=0.1063 ratio_mod=0.1830 | MY ref=    2032 inc_s=   2248 stall_now=False
+ENG   1.95 a_hat=   2397 inc_ref=    1902 ref_ok=True stall_t=0.000 stalled=False ratio_obs=0.1116 ratio_mod=0.1888 | MY ref=    2032 inc_s=   2259 stall_now=False
+ENG   2.03 a_hat=   2397 inc_ref=    1902 ref_ok=True stall_t=0.000 stalled=False ratio_obs=0.1122 ratio_mod=0.1922 | MY ref=    2032 inc_s=   2260 stall_now=False
+ENG   2.15 a_hat=   2397 inc_ref=    1902 ref_ok=True stall_t=0.000 stalled=False ratio_obs=0.1125 ratio_mod=0.1966 | MY ref=    2032 inc_s=   2261 stall_now=False
+ENG   2.25 a_hat=   2397 inc_ref=    1902 ref_ok=True stall_t=0.000 stalled=False ratio_obs=0.1140 ratio_mod=0.2004 | MY ref=    2032 inc_s=   2264 stall_now=False
+ENG   2.35 a_hat=   2397 inc_ref=    1902 ref_ok=True stall_t=0.000 stalled=False ratio_obs=0.1141 ratio_mod=0.2040 | MY ref=    2032 inc_s=   2264 stall_now=False
+ENG   2.43 a_hat=   2397 inc_ref=    1902 ref_ok=True stall_t=0.000 stalled=False ratio_obs=0.1159 ratio_mod=0.2070 | MY ref=    2032 inc_s=   2268 stall_now=False
+ENG   2.55 a_hat=   2397 inc_ref=    1902 ref_ok=True stall_t=0.000 stalled=False ratio_obs=0.1176 ratio_mod=0.2112 | MY ref=    2032 inc_s=   2271 stall_now=False
+ENG   2.63 a_hat=   2397 inc_ref=    1902 ref_ok=True stall_t=0.000 stalled=False ratio_obs=0.1179 ratio_mod=0.2141 | MY ref=    2032 inc_s=   2272 stall_now=False
+ENG   2.74 a_hat=   2397 inc_ref=    1902 ref_ok=True stall_t=0.000 stalled=False ratio_obs=0.1214 ratio_mod=0.2185 | MY ref=    2032 inc_s=   2279 stall_now=False
+ENG   2.82 a_hat=   2397 inc_ref=    1902 ref_ok=True stall_t=0.000 stalled=False ratio_obs=0.1240 ratio_mod=0.2214 | MY ref=    2032 inc_s=   2284 stall_now=False
+ENG   2.95 a_hat=   2397 inc_ref=    1902 ref_ok=True stall_t=0.000 stalled=False ratio_obs=0.1247 ratio_mod=0.2258 | MY ref=    2032 inc_s=   2285 stall_now=False
+ENG   3.03 a_hat=   2397 inc_ref=    1902 ref_ok=True stall_t=0.000 stalled=False ratio_obs=0.1268 ratio_mod=0.2285 | MY ref=    2032 inc_s=   2290 stall_now=False
+ENG   3.14 a_hat=   2397 inc_ref=    1902 ref_ok=True stall_t=0.000 stalled=False ratio_obs=0.1290 ratio_mod=0.2313 | MY ref=    2032 inc_s=   2294 stall_now=False
+ENG   3.23 a_hat=   2397 inc_ref=    1902 ref_ok=True stall_t=0.000 stalled=False ratio_obs=0.1297 ratio_mod=0.2334 | MY ref=    2032 inc_s=   2296 stall_now=False
+ENG   3.35 a_hat=   2397 inc_ref=    1902 ref_ok=True stall_t=0.000 stalled=False ratio_obs=0.1342 ratio_mod=0.2362 | MY ref=    2032 inc_s=   2305 stall_now=False
+ENG   3.42 a_hat=   2397 inc_ref=    1902 ref_ok=True stall_t=0.000 stalled=False ratio_obs=0.1353 ratio_mod=0.2381 | MY ref=    2032 inc_s=   2307 stall_now=False
+ENG   3.54 a_hat=   2397 inc_ref=    1902 ref_ok=True stall_t=0.000 stalled=False ratio_obs=0.1363 ratio_mod=0.2409 | MY ref=    2032 inc_s=   2309 stall_now=False
+ENG   3.62 a_hat=   2397 inc_ref=    1902 ref_ok=True stall_t=0.000 stalled=False ratio_obs=0.1365 ratio_mod=0.2428 | MY ref=    2032 inc_s=   2309 stall_now=False
+ENG   3.75 a_hat=   2397 inc_ref=    1902 ref_ok=True stall_t=0.000 stalled=False ratio_obs=0.1403 ratio_mod=0.2460 | MY ref=    2032 inc_s=   2317 stall_now=False
+ENG   3.82 a_hat=   2397 inc_ref=    1902 ref_ok=True stall_t=0.000 stalled=False ratio_obs=0.1409 ratio_mod=0.2476 | MY ref=    2032 inc_s=   2318 stall_now=False
+ENG   3.94 a_hat=   2397 inc_ref=    1902 ref_ok=True stall_t=0.000 stalled=False ratio_obs=0.1420 ratio_mod=0.2505 | MY ref=    2032 inc_s=   2320 stall_now=False
+ENG   4.04 a_hat=   2397 inc_ref=    1902 ref_ok=True stall_t=0.000 stalled=False ratio_obs=-0.0608 ratio_mod=0.2524 | MY ref=    2032 inc_s=   1908 stall_now=True
+ENG   4.15 a_hat=   2397 inc_ref=    1902 ref_ok=True stall_t=0.117 stalled=False ratio_obs=-0.8367 ratio_mod=0.2540 | MY ref=    2032 inc_s=    332 stall_now=True
+ENG   4.22 a_hat=   2397 inc_ref=    1902 ref_ok=True stall_t=0.184 stalled=False ratio_obs=-0.9177 ratio_mod=0.2550 | MY ref=    2032 inc_s=    167 stall_now=True
+ENG   4.34 a_hat=   2397 inc_ref=    1902 ref_ok=True stall_t=0.304 stalled=False ratio_obs=-0.9372 ratio_mod=0.2566 | MY ref=    2032 inc_s=    128 stall_now=True
+ENG   4.42 a_hat=   2397 inc_ref=    1902 ref_ok=True stall_t=0.384 stalled=False ratio_obs=-0.9397 ratio_mod=0.2577 | MY ref=    2032 inc_s=    122 stall_now=True
+ENG   4.54 a_hat=    106 inc_ref=    1902 ref_ok=True stall_t=0.464 stalled=True ratio_obs=-0.9470 ratio_mod=0.2594 | MY ref=    2032 inc_s=    108 stall_now=True
+ENG   4.62 a_hat=    109 inc_ref=    1902 ref_ok=True stall_t=0.464 stalled=True ratio_obs=-0.9459 ratio_mod=0.2605 | MY ref=    2032 inc_s=    110 stall_now=True
+ENG   4.74 a_hat=     97 inc_ref=    1902 ref_ok=True stall_t=0.464 stalled=True ratio_obs=-0.9525 ratio_mod=0.2622 | MY ref=    2032 inc_s=     97 stall_now=True
+ENG   4.84 a_hat=     90 inc_ref=    1902 ref_ok=True stall_t=0.464 stalled=True ratio_obs=-0.9553 ratio_mod=0.2636 | MY ref=    2032 inc_s=     91 stall_now=True
+ENG   4.93 a_hat=    109 inc_ref=    1902 ref_ok=True stall_t=0.464 stalled=True ratio_obs=-0.9454 ratio_mod=0.2649 | MY ref=    2032 inc_s=    111 stall_now=True

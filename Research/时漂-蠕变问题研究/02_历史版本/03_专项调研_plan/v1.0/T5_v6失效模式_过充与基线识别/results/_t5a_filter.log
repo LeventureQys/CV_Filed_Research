@@ -1,0 +1,133 @@
+python scripts/t5a_filter.py
+
+[    0.6s] 事件 60（加载类 41）；滤波器族 31 档
+[   30.3s] 基线 v6（κ 1.30/1.12）跑完 13 份
+[   31.5s]   [display] iir_ema_tau0
+[   32.7s]   [display] iir_ema_tau0.1
+[   33.9s]   [display] iir_ema_tau0.3
+[   35.1s]   [display] iir_ema_tau0.5
+[   36.3s]   [display] iir_ema_tau1
+[   37.6s]   [display] iir_ema_tau2
+[   38.7s]   [display] iir_ema_tau3
+[   40.0s]   [display] med_w0.03
+[   41.2s]   [display] med_w0.05
+[   42.5s]   [display] med_w0.1
+[   43.7s]   [display] med_w0.2
+[   45.1s]   [display] med_w0.3
+[   46.3s]   [display] med_w0.5
+[   47.5s]   [display] mean_w0.05
+[   48.7s]   [display] mean_w0.1
+[   49.9s]   [display] mean_w0.2
+[   51.1s]   [display] mean_w0.5
+[   52.5s]   [display] ratelimit_0.05
+[   53.9s]   [display] ratelimit_0.1
+[   55.0s]   [display] ratelimit_0.2
+[   56.4s]   [display] ratelimit_0.4
+[   57.5s]   [display] clip_0.02
+[   58.7s]   [display] clip_0.05
+[   59.9s]   [display] clip_0.1
+[   61.2s]   [display] medC_w0.05
+[   62.5s]   [display] medC_w0.1
+[   63.7s]   [display] medC_w0.2
+[   64.9s]   [display] medC_w0.5
+[   66.2s]   [display] savgol_w11
+[   67.3s]   [display] savgol_w21
+[   68.5s]   [display] savgol_w31
+[  101.5s]   [internal] iir_ema_tau0
+[  133.1s]   [internal] iir_ema_tau0.1
+[  166.7s]   [internal] iir_ema_tau0.3
+[  200.6s]   [internal] iir_ema_tau0.5
+[  233.9s]   [internal] iir_ema_tau1
+[  268.0s]   [internal] iir_ema_tau2
+[  304.5s]   [internal] iir_ema_tau3
+[  337.9s]   [internal] med_w0.03
+[  369.5s]   [internal] med_w0.05
+[  402.9s]   [internal] med_w0.1
+[  436.4s]   [internal] med_w0.2
+[  469.5s]   [internal] med_w0.3
+[  501.9s]   [internal] med_w0.5
+[  533.5s]   [internal] mean_w0.05
+[  566.1s]   [internal] mean_w0.1
+[  597.7s]   [internal] mean_w0.2
+[  629.3s]   [internal] mean_w0.5
+[  664.7s]   [internal] ratelimit_0.05
+[  699.1s]   [internal] ratelimit_0.1
+[  732.4s]   [internal] ratelimit_0.2
+[  766.5s]   [internal] ratelimit_0.4
+[  792.5s]   [internal] clip_0.02
+[  818.2s]   [internal] clip_0.05
+[  843.6s]   [internal] clip_0.1
+[  844.1s] 产出 results/t5a_filter_pareto.csv
+[  844.2s] 产出 results/t5a_filter_cost.csv
+[  844.2s] 
+===== 与第一轮 filter_pareto.csv 的对表 =====
+ tau  n_rec_firstround  T_med_firstround  T_med_mine  OS_med_firstround  OS_med_mine  err1_med_firstround  err1_med_mine
+ 0.0                13          1.724840       3.660           9.107296    11.654031             4.932698     -34.141123
+ 0.1                13          1.113145       0.670           6.119369     8.539102             5.518042      -9.392820
+ 0.3                13          0.894624       1.270           5.142780     8.491008             0.481234     -12.536754
+ 0.5                13          1.411518       1.980           2.822726     8.454961           -11.043173     -21.817094
+ 1.0                13          3.239806       3.705           2.102273     6.393390           -35.293647     -42.946483
+ 2.0                13          5.854817       7.140           0.408383     6.034273           -59.026815     -64.803926
+ 3.0                13          8.527758      10.710          -1.563379     5.565911           -69.952610     -74.718591
+注：第一轮只对**恒载 9 组**给 T_stable，实录行 T_stable 为空；本表的 T_med 是加载类 41 事件（含实录），故两者的 T_stable 不可直接横比。
+[  844.2s] 
+===== 滤波 Pareto 摘要（加载类 n=41）=====
+--- display ---
+fid                    因果   OS_med   OS_max   T_med  err1|med|  G_med  G_min    MD_med  Pareto
+iir_ema_tau3         True    5.566 1342.113  10.710     74.780  0.800 -21.191   12473.0   False
+ratelimit_0.05       True    5.963 1192.296  15.945     93.573  0.493 -20.988   12271.7   False
+iir_ema_tau2         True    6.034 1524.322   7.140     65.020  0.828 -20.719   12952.1   False
+iir_ema_tau1         True    6.393 1615.756   3.705     42.946  0.968 -19.520   12816.0   False
+ratelimit_0.1        True    6.545 1685.809   7.975     86.610  0.730 -20.061   15256.6   False
+ratelimit_0.2        True    6.584 1687.497   3.975     74.290  0.941 -18.208   14330.5   False
+ratelimit_0.4        True    7.380 1687.497   1.970     53.341  0.976 -14.501   11872.0   False
+iir_ema_tau0.5       True    8.455 1651.060   1.980     21.817  0.987 -17.414   11083.5   False
+iir_ema_tau0.3       True    8.491 1667.805   1.270     12.537  1.000 -15.007    9632.7    True
+mean_w0.5            True    8.515 1672.615   0.875      6.828  1.013 -16.809    9746.3   False
+med_w0.5             True    8.521 1672.650   0.785      6.594  1.012 -21.919   11956.6   False
+medC_w0.5            False    8.521 1681.949   0.545     27.633  0.958 -4.638    5284.9   False
+iir_ema_tau0.1       True    8.539 1679.260   0.670     10.785  0.991 -7.365    7959.0    True
+mean_w0.2            True    8.543 1679.687   0.650      9.083  1.012 -9.087    8988.1   False
+med_w0.3             True    8.546 1677.422   0.685      6.594  1.013 -15.905   10944.5   False
+medC_w0.2            False    8.552 1681.949   0.545     27.401  0.958 -4.624    5282.5   False
+med_w0.2             True    8.552 1678.384   0.635      6.577  1.012 -8.098   10518.1   False
+mean_w0.1            True    8.556 1682.001   0.585     10.861  0.975 -2.780    7455.1   False
+clip_0.02            True   11.217 1571.893   2.390     40.167  0.952 -0.141     555.4    True
+clip_0.1             True   11.217 1687.497   3.660     37.014  0.952 -0.141    2250.2   False
+clip_0.05            True   11.217 1687.497   3.660     38.505  0.952 -0.141    1278.6   False
+med_w0.1             True   11.527 1681.949   0.580      7.509  0.990 -4.988   10517.2    True
+medC_w0.1            False   11.527 1684.696   0.540     27.633  0.975 -1.085    5275.8    True
+mean_w0.05           True   11.606 1683.820   0.560     17.451  0.976 -0.041    6805.4   False
+med_w0.05            True   11.612 1684.325   0.555     17.875  0.978 -0.023    8850.3    True
+medC_w0.05           False   11.612 1686.692   0.535     34.141  0.952 -0.137    2396.7    True
+savgol_w31           False   11.616 1683.177   0.545     37.686  0.848 -1.733    6211.3   False
+savgol_w21           False   11.621 1683.274   0.545     38.400  0.853 -0.688    5953.2   False
+med_w0.03            True   11.637 1685.066   1.075     26.000  0.976 -0.039    8012.7   False
+iir_ema_tau0         True   11.654 1687.497   3.660     34.141  0.942 -0.141    2396.7   False
+savgol_w11           False   12.766 1683.761   1.120     39.419  0.857 -0.268    4479.1   False
+--- internal_input ---
+fid                    因果   OS_med   OS_max   T_med  err1|med|  G_med  G_min    MD_med  Pareto
+iir_ema_tau2         True  -47.074  183.573  74.370     65.954  0.438 -0.276   10159.8   False
+iir_ema_tau1         True  -42.615  378.193     nan     47.726  0.518 -0.356   10346.0   False
+iir_ema_tau0.5       True  -23.359  280.301     nan     29.489  0.684 -2.158    5275.7   False
+ratelimit_0.05       True  -17.783  278.025  19.940     40.507  0.761 -0.276    4375.0   False
+iir_ema_tau3         True   -9.700  310.158  32.360     70.002  0.647 -5.930    7977.3   False
+iir_ema_tau0.3       True   -7.382  587.239     nan     22.364  0.827 -0.200    3378.7   False
+mean_w0.5            True   -2.578  617.502  10.530     17.111  0.856 -0.027    2140.3   False
+ratelimit_0.1        True   -0.089 1313.680   0.790     20.485  0.869 -0.168    2454.0   False
+iir_ema_tau0.1       True    3.251 1115.755   0.575     12.811  0.953 -0.184    1102.4    True
+mean_w0.2            True    4.610 1626.753   0.570     12.083  0.962 -0.230    1520.9    True
+ratelimit_0.2        True    7.041 1454.597  13.160     14.781  0.936 -0.136    1113.2   False
+mean_w0.1            True    7.658 1516.955   0.560     12.074  0.951 -0.017    1777.3   False
+med_w0.03            True    8.602 1674.678   1.105     25.940  0.943 -5.067    2386.7   False
+med_w0.05            True    8.610 1666.347   0.555     22.658  0.945 -0.727    2411.0   False
+med_w0.2             True   11.211 1582.754   0.640      6.368  0.961  0.012    1840.1   False
+mean_w0.05           True   11.385 1582.402   0.550     13.364  0.986 -0.331    2010.6    True
+iir_ema_tau0         True   11.654 1687.497   3.660     34.141  0.942 -0.141    2396.7   False
+clip_0.1             True   11.654 1687.497   3.660     34.141  0.942 -0.141    2396.7   False
+clip_0.05            True   11.654 1687.497   3.660     34.141  0.942 -0.141    2396.7   False
+clip_0.02            True   11.654 1687.497   3.660     34.141  0.942 -0.141    2396.7   False
+med_w0.1             True   12.049 1606.553   0.580      9.722  0.982  0.002    2034.7   False
+med_w0.3             True   12.310 1269.869   0.680      6.367  0.975  0.011    1810.4   False
+med_w0.5             True   12.487  792.199   0.780      6.584  0.973  0.011    1905.2   False
+ratelimit_0.4        True   13.414 1642.095   1.150     20.058  0.977 -1.225    2148.4   False

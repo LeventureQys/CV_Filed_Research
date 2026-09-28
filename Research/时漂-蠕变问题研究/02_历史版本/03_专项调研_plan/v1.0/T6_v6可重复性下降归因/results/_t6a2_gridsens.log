@@ -1,0 +1,99 @@
+T6-A2 gridsens log
+           右拇指指尖/数据1 g100 dtm=0.010000  v5.1 plat=14.774 err5=+0.610 errstep=+30.196 T_stable=5.440
+           右拇指指尖/数据1 g100 dtm=0.010000    v6 plat=14.432 err5=-1.804 errstep=+27.073 T_stable=5.440
+           右拇指指尖/数据1 g100 dtm=0.010000  v6.1 plat=13.638 err5=-7.418 errstep=+19.808 T_stable=0.890
+           右拇指指尖/数据1 gleg dtm=0.009948  v5.1 plat=14.779 err5=+0.667 errstep=+30.089 T_stable=5.432
+           右拇指指尖/数据1 gleg dtm=0.009948    v6 plat=14.473 err5=-1.500 errstep=+27.290 T_stable=5.432
+           右拇指指尖/数据1 gleg dtm=0.009948  v6.1 plat=13.675 err5=-7.142 errstep=+19.998 T_stable=0.875
+           右拇指指尖/数据2 g100 dtm=0.010000  v5.1 plat=16.681 err5=-0.289 errstep=+27.280 T_stable=3.830
+           右拇指指尖/数据2 g100 dtm=0.010000    v6 plat=16.167 err5=-3.416 errstep=+23.288 T_stable=0.540
+           右拇指指尖/数据2 g100 dtm=0.010000  v6.1 plat=15.260 err5=-8.941 errstep=+16.236 T_stable=0.500
+           右拇指指尖/数据2 gleg dtm=0.009948  v5.1 plat=16.685 err5=-0.290 errstep=+26.543 T_stable=3.820
+           右拇指指尖/数据2 gleg dtm=0.009948    v6 plat=16.231 err5=-3.050 errstep=+23.040 T_stable=0.537
+           右拇指指尖/数据2 gleg dtm=0.009948  v6.1 plat=15.299 err5=-8.727 errstep=+15.835 T_stable=0.487
+           右拇指指尖/数据3 g100 dtm=0.010000  v5.1 plat=17.470 err5=+5.612 errstep=+23.009 T_stable=7.320
+           右拇指指尖/数据3 g100 dtm=0.010000    v6 plat=18.506 err5=+11.895 errstep=+30.328 T_stable=7.610
+           右拇指指尖/数据3 g100 dtm=0.010000  v6.1 plat=17.347 err5=+4.870 errstep=+22.145 T_stable=7.320
+           右拇指指尖/数据3 gleg dtm=0.009949  v5.1 plat=17.473 err5=+5.634 errstep=+22.482 T_stable=6.706
+           右拇指指尖/数据3 gleg dtm=0.009949    v6 plat=17.530 err5=+5.979 errstep=+22.882 T_stable=6.706
+           右拇指指尖/数据3 gleg dtm=0.009949  v6.1 plat=17.530 err5=+5.979 errstep=+22.882 T_stable=6.706
+           左拇指指尖/数据1 g100 dtm=0.010000  v5.1 plat=16.317 err5=+6.761 errstep=+25.864 T_stable=9.110
+           左拇指指尖/数据1 g100 dtm=0.010000    v6 plat=17.054 err5=+11.577 errstep=+31.542 T_stable=9.290
+           左拇指指尖/数据1 g100 dtm=0.010000  v6.1 plat=16.036 err5=+4.923 errstep=+23.697 T_stable=9.110
+           左拇指指尖/数据1 gleg dtm=0.009940  v5.1 plat=16.317 err5=+6.759 errstep=+25.879 T_stable=9.284
+           左拇指指尖/数据1 gleg dtm=0.009940    v6 plat=17.053 err5=+11.575 errstep=+31.558 T_stable=10.169
+           左拇指指尖/数据1 gleg dtm=0.009940  v6.1 plat=16.039 err5=+4.938 errstep=+23.732 T_stable=9.284
+           左拇指指尖/数据2 g100 dtm=0.010000  v5.1 plat=16.438 err5=+1.969 errstep=+19.385 T_stable=1.810
+           左拇指指尖/数据2 g100 dtm=0.010000    v6 plat=16.373 err5=+1.566 errstep=+18.913 T_stable=2.700
+           左拇指指尖/数据2 g100 dtm=0.010000  v6.1 plat=16.373 err5=+1.566 errstep=+18.913 T_stable=0.550
+           左拇指指尖/数据2 gleg dtm=0.009939  v5.1 plat=16.438 err5=+1.956 errstep=+19.438 T_stable=1.779
+           左拇指指尖/数据2 gleg dtm=0.009939    v6 plat=16.402 err5=+1.737 errstep=+19.182 T_stable=2.763
+           左拇指指尖/数据2 gleg dtm=0.009939  v6.1 plat=16.402 err5=+1.737 errstep=+19.182 T_stable=0.547
+           左拇指指尖/数据3 g100 dtm=0.010000  v5.1 plat=17.714 err5=+1.054 errstep=+20.885 T_stable=2.570
+           左拇指指尖/数据3 g100 dtm=0.010000    v6 plat=18.394 err5=+4.933 errstep=+25.525 T_stable=0.550
+           左拇指指尖/数据3 g100 dtm=0.010000  v6.1 plat=17.209 err5=-1.822 errstep=+17.444 T_stable=0.490
+           左拇指指尖/数据3 gleg dtm=0.009939  v5.1 plat=17.714 err5=+1.055 errstep=+20.866 T_stable=2.564
+           左拇指指尖/数据3 gleg dtm=0.009939    v6 plat=18.419 err5=+5.077 errstep=+25.677 T_stable=0.547
+           左拇指指尖/数据3 gleg dtm=0.009939  v6.1 plat=17.227 err5=-1.726 errstep=+17.540 T_stable=0.487
+            四指指尖/数据1 g100 dtm=0.010000  v5.1 plat=13.521 err5=+1.024 errstep=+26.226 T_stable=3.180
+            四指指尖/数据1 g100 dtm=0.010000    v6 plat=13.369 err5=-0.115 errstep=+24.803 T_stable=0.530
+            四指指尖/数据1 g100 dtm=0.010000  v6.1 plat=12.578 err5=-6.052 errstep=+17.385 T_stable=0.490
+            四指指尖/数据1 gleg dtm=0.009969  v5.1 plat=13.521 err5=+1.030 errstep=+26.233 T_stable=3.200
+            四指指尖/数据1 gleg dtm=0.009969    v6 plat=13.365 err5=-0.145 errstep=+24.766 T_stable=0.528
+            四指指尖/数据1 gleg dtm=0.009969  v6.1 plat=12.575 err5=-6.075 errstep=+17.355 T_stable=0.488
+            四指指尖/数据2 g100 dtm=0.010000  v5.1 plat=14.780 err5=+0.215 errstep=+28.309 T_stable=4.380
+            四指指尖/数据2 g100 dtm=0.010000    v6 plat=14.441 err5=-2.091 errstep=+25.356 T_stable=0.500
+            四指指尖/数据2 g100 dtm=0.010000  v6.1 plat=13.575 err5=-7.985 errstep=+17.810 T_stable=0.470
+            四指指尖/数据2 gleg dtm=0.009970  v5.1 plat=14.775 err5=+0.191 errstep=+27.999 T_stable=4.467
+            四指指尖/数据2 gleg dtm=0.009970    v6 plat=14.445 err5=-2.053 errstep=+25.133 T_stable=0.508
+            四指指尖/数据2 gleg dtm=0.009970  v6.1 plat=13.577 err5=-7.967 errstep=+17.577 T_stable=0.479
+            四指指尖/数据3 g100 dtm=0.010000  v5.1 plat=15.480 err5=+1.092 errstep=+25.025 T_stable=3.520
+            四指指尖/数据3 g100 dtm=0.010000    v6 plat=15.990 err5=+4.439 errstep=+29.165 T_stable=0.550
+            四指指尖/数据3 g100 dtm=0.010000  v6.1 plat=14.975 err5=-2.222 errstep=+20.926 T_stable=0.480
+            四指指尖/数据3 gleg dtm=0.009969  v5.1 plat=15.479 err5=+1.086 errstep=+25.561 T_stable=3.569
+            四指指尖/数据3 gleg dtm=0.009969    v6 plat=15.975 err5=+4.336 errstep=+29.598 T_stable=0.548
+            四指指尖/数据3 gleg dtm=0.009969  v6.1 plat=14.962 err5=-2.305 errstep=+21.349 T_stable=0.478
+
+====================================================================================================
+网格步长敏感性：同 9 份恒载、同实现，只换网格步长
+====================================================================================================
+grid                          g100    gleg
+arm  metric                               
+v5.1 T_stable_std_s         1.7467  1.4460
+     abs_plat_std           0.9928  0.9918
+     plat_err_std_R5_pp     3.0651  3.0666
+     plat_err_std_Rstep_pp  3.3917  3.3828
+v6   T_stable_std_s         3.6218  3.2565
+     abs_plat_std           1.3178  1.3114
+     plat_err_std_R5_pp     5.0944  4.8279
+     plat_err_std_Rstep_pp  3.5229  2.6901
+v6.1 T_stable_std_s         3.8299  3.4835
+     abs_plat_std           1.2038  1.1989
+     plat_err_std_R5_pp     3.3726  3.3328
+     plat_err_std_Rstep_pp  2.9759  3.2076
+
+逐录制对照（v6，err_plat5_pct；用于与 b_repeat_records.csv 的同一列对拍）
+grid               g100    gleg
+group tag                      
+右拇指   右拇指指尖/数据1  -1.804  -1.500
+      右拇指指尖/数据2  -3.416  -3.050
+      右拇指指尖/数据3  11.895   5.979
+四指    四指指尖/数据1   -0.115  -0.145
+      四指指尖/数据2   -2.091  -2.053
+      四指指尖/数据3    4.439   4.336
+左拇指   左拇指指尖/数据1  11.577  11.575
+      左拇指指尖/数据2   1.566   1.737
+      左拇指指尖/数据3   4.933   5.077
+
+逐录制对照（v6，err_platstep_pct）
+grid               g100    gleg
+group tag                      
+右拇指   右拇指指尖/数据1  27.073  27.290
+      右拇指指尖/数据2  23.288  23.040
+      右拇指指尖/数据3  30.328  22.882
+四指    四指指尖/数据1   24.803  24.766
+      四指指尖/数据2   25.356  25.133
+      四指指尖/数据3   29.165  29.598
+左拇指   左拇指指尖/数据1  31.542  31.558
+      左拇指指尖/数据2  18.913  19.182
+      左拇指指尖/数据3  25.525  25.677

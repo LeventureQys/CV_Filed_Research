@@ -1,0 +1,10 @@
+T6-00 setup copy log
+ROOT=D:\workshop\Processing\multi-device-cascade-host-cpp
+OK  t6_ad_lib.py           <- temp\v4.1flash\progress\07-v6\scripts\ad_lib.py  rewrite=2  bytes=6596  residual_import=[]
+OK  t6_ad_v4.py            <- temp\v4.1flash\progress\04-v5\scripts\ad_v4.py  rewrite=1  bytes=2461  residual_import=[]
+OK  t6_glm53_v3.py         <- temp\v4.1flash\progress\04-v5\scripts\glm53_v3.py  rewrite=0  bytes=7950  residual_import=[]
+OK  t6_glm53_v5.py         <- temp\v4.1flash\progress\04-v5\scripts\glm53_v5.py  rewrite=1  bytes=12842  residual_import=[]
+OK  t6_glm53_v51.py        <- temp\v4.1flash\progress\05-v5.1\scripts\glm53_v51.py  rewrite=1  bytes=8264  residual_import=[]
+OK  t6_glm53_v6.py         <- temp\v4.1flash\progress\07-v6\scripts\glm53_v6.py  rewrite=0  bytes=28249  residual_import=[]
+OK  t6_glm53_v61.py        <- temp\v4.1flash\progress\08-v6.1\scripts\glm53_v61.py  rewrite=3  bytes=9104  residual_import=[]
+OK  t6_a_common.py         <- temp\v4.1flash\progress\13-v6-assessment\scripts\a_common.py  rewrite=4  bytes=7510  residual_import=[]

@@ -1,0 +1,105 @@
+{
+  "note": "max_abs_diff 应等于 0（或仅浮点舍入级别）",
+  "数据1": {
+    "gate_baseline": {
+      "max_abs_diff": 0.0,
+      "pass": true
+    },
+    "ema_hp": {
+      "max_abs_diff": 0.0,
+      "pass": true
+    },
+    "ref_common": {
+      "max_abs_diff": 0.0,
+      "pass": true
+    },
+    "rls_linear": {
+      "max_abs_diff": 0.0,
+      "pass": true
+    },
+    "rls_exp": {
+      "max_abs_diff": 0.0,
+      "pass": true
+    },
+    "rls_log": {
+      "max_abs_diff": 0.0,
+      "pass": true
+    },
+    "kalman_log": {
+      "max_abs_diff": 0.0,
+      "pass": true
+    },
+    "pipeline": {
+      "max_abs_diff": 0.0,
+      "pass": true
+    }
+  },
+  "数据2": {
+    "gate_baseline": {
+      "max_abs_diff": 0.0,
+      "pass": true
+    },
+    "ema_hp": {
+      "max_abs_diff": 0.0,
+      "pass": true
+    },
+    "ref_common": {
+      "max_abs_diff": 0.0,
+      "pass": true
+    },
+    "rls_linear": {
+      "max_abs_diff": 0.0,
+      "pass": true
+    },
+    "rls_exp": {
+      "max_abs_diff": 0.0,
+      "pass": true
+    },
+    "rls_log": {
+      "max_abs_diff": 0.0,
+      "pass": true
+    },
+    "kalman_log": {
+      "max_abs_diff": 0.0,
+      "pass": true
+    },
+    "pipeline": {
+      "max_abs_diff": 0.0,
+      "pass": true
+    }
+  },
+  "数据3": {
+    "gate_baseline": {
+      "max_abs_diff": 0.0,
+      "pass": true
+    },
+    "ema_hp": {
+      "max_abs_diff": 0.0,
+      "pass": true
+    },
+    "ref_common": {
+      "max_abs_diff": 0.0,
+      "pass": true
+    },
+    "rls_linear": {
+      "max_abs_diff": 0.0,
+      "pass": true
+    },
+    "rls_exp": {
+      "max_abs_diff": 0.0,
+      "pass": true
+    },
+    "rls_log": {
+      "max_abs_diff": 0.0,
+      "pass": true
+    },
+    "kalman_log": {
+      "max_abs_diff": 0.0,
+      "pass": true
+    },
+    "pipeline": {
+      "max_abs_diff": 0.0,
+      "pass": true
+    }
+  }
+}

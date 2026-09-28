@@ -1,0 +1,19 @@
+{
+  "session": "20260920_165907_single_device_9d3c12",
+  "frames": 2064,
+  "k6_port_max_err": 1.466947,
+  "k6_port_mean_err": 0.005456739221839415,
+  "n_cycles": 1,
+  "k6_cycle_bias_first": -0.645430312147242,
+  "k6_cycle_bias_last": -0.645430312147242,
+  "k6_cycle_bias_min": -0.645430312147242,
+  "k6_growth": 0.0,
+  "k7_cycle_bias_first": -0.5792502695257347,
+  "k7_cycle_bias_last": -0.5792502695257347,
+  "k7_cycle_bias_min": -0.5792502695257347,
+  "k7_growth": 0.0,
+  "k6_idle_bias": -0.0027586602467343344,
+  "k7_idle_bias": 0.0,
+  "pre_plateau_mean": 11.604422955974844,
+  "k7_plateau_mean": 11.025172686449107
+}

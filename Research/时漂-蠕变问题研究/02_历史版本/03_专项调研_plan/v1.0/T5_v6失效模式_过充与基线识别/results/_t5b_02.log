@@ -1,0 +1,22 @@
+[计划] 单元格 107；trial 1082
+
+### W1_1w 切换负载-快相无责 窗 [26.0,92.0]s 帧=6599 电平中位=12101 干净 epoch=3 真值事件=3
+  [W1_1w] white amp=200 dur=- n=10 失败=10 耗时=41.7s
+  [W1_1w] white amp=500 dur=- n=10 失败=10 耗时=46.6s
+  [W1_1w] white amp=1000 dur=- n=10 失败=10 耗时=54.1s
+  [W1_1w] white amp=2000 dur=- n=10 失败=10 耗时=78.9s
+  [W1_1w] white amp=4000 dur=- n=10 失败=10 耗时=63.5s
+  [W1_1w] white amp=8000 dur=- n=10 失败=10 耗时=52.3s
+  [W1_1w] common amp=200 dur=- n=10 失败=10 耗时=52.0s
+  [W1_1w] common amp=500 dur=- n=10 失败=10 耗时=52.6s
+  [W1_1w] common amp=1000 dur=- n=10 失败=10 耗时=71.5s
+  [W1_1w] common amp=2000 dur=- n=10 失败=10 耗时=81.9s
+  [W1_1w] common amp=4000 dur=- n=10 失败=10 耗时=57.3s
+  [W1_1w] common amp=8000 dur=- n=10 失败=10 耗时=36.7s
+  [W1_1w] band1 amp=500 dur=- n=8 失败=8 耗时=28.1s
+  [W1_1w] band1 amp=1000 dur=- n=8 失败=8 耗时=18.3s
+  [W1_1w] band1 amp=2000 dur=- n=8 失败=8 耗时=18.2s
+  [W1_1w] band1 amp=4000 dur=- n=8 失败=8 耗时=27.5s
+  [W1_1w] band2 amp=500 dur=- n=8 失败=8 耗时=33.7s
+  [W1_1w] band2 amp=1000 dur=- n=8 失败=8 耗时=22.5s
+  [W1_1w] band2 amp=2000 dur=- n=8 失败=8 耗时=20.0s

@@ -1,0 +1,31 @@
+Test project D:/workshop/Processing/multi-device-cascade-host-cpp/build-tests-all
+      Start 929: test_drift_v6_compensator.DriftV6FixtureTest.FixtureLoadsAndShapeIsConsistent
+ 1/13 Test #929: test_drift_v6_compensator.DriftV6FixtureTest.FixtureLoadsAndShapeIsConsistent ...   Passed    0.16 sec
+      Start 930: test_drift_v6_compensator.DriftV6FixtureTest.IdlePassThrough
+ 2/13 Test #930: test_drift_v6_compensator.DriftV6FixtureTest.IdlePassThrough ....................   Passed    0.16 sec
+      Start 931: test_drift_v6_compensator.DriftV6FixtureTest.LoadCausesCompensation
+ 3/13 Test #931: test_drift_v6_compensator.DriftV6FixtureTest.LoadCausesCompensation .............   Passed    0.20 sec
+      Start 932: test_drift_v6_compensator.DriftV6FixtureTest.CompensationNeverExceedsRaw
+ 4/13 Test #932: test_drift_v6_compensator.DriftV6FixtureTest.CompensationNeverExceedsRaw ........   Passed    0.28 sec
+      Start 933: test_drift_v6_compensator.DriftV6FixtureTest.ResetClearsState
+ 5/13 Test #933: test_drift_v6_compensator.DriftV6FixtureTest.ResetClearsState ...................   Passed    0.18 sec
+      Start 934: test_drift_v6_compensator.DriftV6FixtureTest.ChannelCountChangeResets
+ 6/13 Test #934: test_drift_v6_compensator.DriftV6FixtureTest.ChannelCountChangeResets ...........   Passed    0.27 sec
+      Start 935: test_drift_v6_compensator.DriftV6FixtureTest.ClampLimitsLeadOverRaw
+ 7/13 Test #935: test_drift_v6_compensator.DriftV6FixtureTest.ClampLimitsLeadOverRaw .............   Passed    0.26 sec
+      Start 936: test_drift_v6_compensator.DriftV6FixtureTest.ClampDisabledIsPassThrough
+ 8/13 Test #936: test_drift_v6_compensator.DriftV6FixtureTest.ClampDisabledIsPassThrough .........   Passed    0.28 sec
+      Start 937: test_drift_v6_compensator.DriftV6FixtureTest.EventUnloadValleyExitFires
+ 9/13 Test #937: test_drift_v6_compensator.DriftV6FixtureTest.EventUnloadValleyExitFires .........   Passed    0.62 sec
+      Start 938: test_drift_v6_compensator.DriftV6FixtureTest.ReanchorValleyZeroesResidual
+10/13 Test #938: test_drift_v6_compensator.DriftV6FixtureTest.ReanchorValleyZeroesResidual .......   Passed    1.10 sec
+      Start 939: test_drift_v6_compensator.DriftV6FixtureTest.GNegFloorBoundsSlowResidual
+11/13 Test #939: test_drift_v6_compensator.DriftV6FixtureTest.GNegFloorBoundsSlowResidual ........   Passed    0.21 sec
+      Start 940: test_drift_v6_compensator.DriftV6FixtureTest.ParamsRoundTripAndReset
+12/13 Test #940: test_drift_v6_compensator.DriftV6FixtureTest.ParamsRoundTripAndReset ............   Passed    0.17 sec
+      Start 941: test_drift_v6_compensator.DriftV6FixtureTest.NoLivelockOnLongHold
+13/13 Test #941: test_drift_v6_compensator.DriftV6FixtureTest.NoLivelockOnLongHold ...............   Passed    0.68 sec
+
+100% tests passed, 0 tests failed out of 13
+
+Total Test time (real) =   4.76 sec

@@ -1,0 +1,51 @@
+# cmd   : python scripts/t2c_slowphase.py
+# when  : 2026-09-19T00:41:40
+# env   : python 3.14.4 | numpy 2.4.6 | pandas 3.0.3
+# 口径  : timestamp 列 / 100 Hz 网格 / Z=Σch / 形状用原始读数 / 禁用 τ=2 s 平滑
+
+== T2-C 交接点三口径 + 慢相形状模型 ==
+[自检] 与主表 t90 最大差 = 5.55e-17 s（应≈0）
+
+== Q3 交接点三口径（s）==
+   onset           n=22  t90=0.590 [0.165, 1.356] (n=22)   t95=1.675 [0.734, 3.155] (n=22)   t_knee_bi=0.190 [0.092, 0.843] (n=22)   (bi_rms 中位 0.009)
+   restep          n=19  t90=1.060 [0.080, 3.752] (n=18)   t95=2.385 [0.108, 4.228] (n=18)   t_knee_bi=0.668 [0.089, 19.665] (n=15)   (bi_rms 中位 0.051)
+   unload          n=14  t90=0.015 [0.010, 0.118] (n=14)   t95=0.025 [0.010, 0.121] (n=14)   t_knee_bi=0.194 [0.066, 1.597] (n=14)   (bi_rms 中位 0.001)
+   partial_unload  n= 5  t90=0.010 [0.010, 0.188] (n=5)   t95=0.010 [0.010, 0.194] (n=5)   t_knee_bi=0.211 [0.027, 3.497] (n=5)   (bi_rms 中位 0.051)
+   ALL             n=60  t90=0.400 [0.010, 2.816] (n=59)   t95=1.050 [0.010, 3.398] (n=59)   t_knee_bi=0.213 [0.059, 3.246] (n=56)   (bi_rms 中位 0.012)
+   [onset] t95−t90 中位 +0.95 s（p90 |Δ| 1.94）；t_knee−t90 中位 -0.29 s（n=22，比值中位 0.36）
+   [restep] t95−t90 中位 +0.49 s（p90 |Δ| 1.29）；t_knee−t90 中位 +0.07 s（n=15，比值中位 1.59）
+   [ALL] t95−t90 中位 +0.32 s（p90 |Δ| 1.58）；t_knee−t90 中位 +0.06 s（n=56，比值中位 1.90）
+  -> results/t2_phase_boundary_conventions.csv, t2_boundary_conventions_events.csv
+
+== Q4 慢相模型（窗 A = 段级 [t90, 段末] ≤120 s；窗 B = 统一 [t90, t90+30 s]）==
+  -> results/t2_slowphase_fits.csv (224 行)
+  -> results/t2_slowphase_summary.csv
+
+   模型对比（rms 单位 = %·J；in=自身数据，loo=跨录制泛化）
+   [segend / onset]  U 中位 118.0 s
+      lin  n=13  rms_in 中位   7.80% [  6.44,  13.32]   rms_loo 中位   5.72%  a≈0.0038 b≈nan
+      log  n=13  rms_in 中位   0.94% [  0.31,  12.22]   rms_loo 中位   3.07%  a≈0.0660 b≈0.776
+      pow  n=13  rms_in 中位   1.27% [  0.56,  10.87]   rms_loo 中位   3.16%  a≈0.0758 b≈0.261
+      exp  n=13  rms_in 中位   1.61% [  1.26,  12.12]   rms_loo 中位   3.17%  a≈0.3061 b≈15.281
+   [segend / ALL]  U 中位 59.5 s
+      lin  n=23  rms_in 中位   7.79% [  4.18,  22.04]   rms_loo 中位   6.22%  a≈0.0038 b≈nan
+      log  n=23  rms_in 中位   1.29% [  0.51,  12.22]   rms_loo 中位   5.11%  a≈0.0476 b≈0.363
+      pow  n=23  rms_in 中位   1.01% [  0.53,  10.87]   rms_loo 中位   5.15%  a≈0.0773 b≈0.213
+      exp  n=23  rms_in 中位   1.26% [  0.17,  12.12]   rms_loo 中位   5.18%  a≈0.2412 b≈11.681
+   [win30 / onset]  U 中位 30.0 s
+      lin  n=11  rms_in 中位   4.52% [  4.28,   4.92]   rms_loo 中位   4.13%  a≈0.0093 b≈nan
+      log  n=11  rms_in 中位   0.40% [  0.27,   0.69]   rms_loo 中位   1.86%  a≈0.0488 b≈0.636
+      pow  n=11  rms_in 中位   0.78% [  0.49,   0.96]   rms_loo 中位   1.80%  a≈0.0633 b≈0.350
+      exp  n=11  rms_in 中位   0.71% [  0.63,   1.03]   rms_loo 中位   1.97%  a≈0.1959 b≈6.107
+   [win30 / restep]  U 中位 30.0 s
+      lin  n= 1  rms_in 中位   9.17% [  9.17,   9.17]   rms_loo 中位    nan%  a≈0.0333 b≈nan
+      log  n= 1  rms_in 中位   4.54% [  4.54,   4.54]   rms_loo 中位    nan%  a≈0.6327 b≈10.184
+      pow  n= 1  rms_in 中位   5.45% [  5.45,   5.45]   rms_loo 中位    nan%  a≈0.0883 b≈0.680
+      exp  n= 1  rms_in 中位   4.02% [  4.02,   4.02]   rms_loo 中位    nan%  a≈1.0606 b≈18.778
+   [win30 / ALL]  U 中位 30.0 s
+      lin  n=21  rms_in 中位   4.57% [  4.07,  18.14]   rms_loo 中位   5.86%  a≈0.0090 b≈nan
+      log  n=21  rms_in 中位   0.69% [  0.27,   4.98]   rms_loo 中位   2.87%  a≈0.0484 b≈0.015
+      pow  n=21  rms_in 中位   0.78% [  0.49,   1.91]   rms_loo 中位   2.76%  a≈0.0693 b≈0.166
+      exp  n=21  rms_in 中位   0.78% [  0.53,   2.02]   rms_loo 中位   2.89%  a≈0.1778 b≈1.957
+
+完成。

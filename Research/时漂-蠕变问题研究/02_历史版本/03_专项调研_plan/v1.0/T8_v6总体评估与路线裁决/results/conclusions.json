@@ -1,0 +1,239 @@
+{
+ "task": "T8",
+ "seat": "T8-1",
+ "date": "2026-09-19",
+ "scope": "收口席位：把 T1~T7 的 13 份结构化交接件综合、折扣、裁决为可决策结论（T8-Q1~Q7）。不做新实验，仅做对齐口径的少量重算与定向取证。",
+ "inputs": {
+  "handoffs_read": 13,
+  "handoff_files": [
+   "T1_稳定时间定义与鲁棒性口径/results/conclusions_T1A.json",
+   "T1_稳定时间定义与鲁棒性口径/results/conclusions_T1B.json",
+   "T2_三阶段时间特征实测/results/conclusions.json",
+   "T3_快相爬升可重复性与处理必要性/results/conclusions.json",
+   "T3_快相爬升可重复性与处理必要性/results/conclusions_T3A.json",
+   "T3_快相爬升可重复性与处理必要性/results/conclusions_T3B.json",
+   "T4_两种快相形态与分支判据/results/conclusions_T4A.json",
+   "T4_两种快相形态与分支判据/results/conclusions_T4B.json",
+   "T5_v6失效模式_过充与基线识别/results/conclusions_T5A.json",
+   "T5_v6失效模式_过充与基线识别/results/conclusions_T5B.json",
+   "T6_v6可重复性下降归因/results/conclusions.json",
+   "T7_卸载与部分卸载时漂规律/results/conclusions_T7A.json",
+   "T7_卸载与部分卸载时漂规律/results/conclusions_T7B.json"
+  ],
+  "frozen_caliber": "T1-A 的 T_stable_ch5（主通道 + 5 s 参考 + T4-A 真沿 + 严格 100 Hz）；C-1 按此关闭",
+  "not_rerun": "未重跑任何参数扫描；t8_probe.py 仅抽取已交付 CSV 的指定列中位/p10/p90"
+ },
+ "headline": [
+  {
+   "n": 1,
+   "claim": "v6 面对「1~2 s 内基线稳定且读数不漂」的总体判定：机制方向正确，但当前形态不能作为无条件承诺交付 —— 只能承诺「中位 ≤2 s、达标率 ≥55%」",
+   "value": "冻结口径 T_stable_ch5（恒载 9 组 onset，n=9）：v6 中位 1.80 s、≤2 s 达标率 5/9=55.6%、worst 13.16 s；对照 v5.1 2.89 s / 4/9=44.4%；≤1 s 口径 v6 只有 3/9=33.3%",
+   "source": "T1-A results/t1a_settle_summary.csv:med + results/t1a_target_verdict.csv:rate_2s/rate_1s/worst_s（caliber=ch5, group=onset·恒载9组）"
+  },
+  {
+   "n": 2,
+   "claim": "能用/不能用的工况边界：单次加载长保压=可替代（有条件）、卸载=可替代、多次变载=不可替代、部分卸载=不可替代（证据不足+已知缺陷）、强扰动=不可替代",
+   "value": "unload v6 9/9 达标（中位 0.09 s、worst 1.15 s）且残余 max 2.81%·|J|、反向误判 0/19；restep 19 个仅 2 个可测且都 >2 s、OS5 中位 −18.59%·J、G=0.473、MD 383→1440 ADC（3.8×）；部分卸载真实样本 n=1；±1000 ADC 白噪下失败率 10/10=100%、A50 仅 75.7 ADC（0.63% 电平）、最大锚点误差 94% 电平且不自愈",
+   "source": "results/t8_substitutability.csv（4 行，各带 criterion/evidence_ref/precondition）；原始出处 T1-A t1a_target_verdict.csv、T5-A t5a_overcharge_summary.csv+t5a_internal_trace.csv、T7-A t7_frozen_summary.csv、T7-B t7b_reverse_misjudge.csv、T5-B t5b_q1_headline.csv+t5b_boundary_measured.csv"
+  },
+  {
+   "n": 3,
+   "claim": "推荐的开发方案 = 方案 A：v6 + 六项改动（4 项一行常量/零代价、1 项零代价但待验证、1 项状态机改动），全部不需要新增现场标定",
+   "value": "A1 κ_onset 1.30→1.10（最坏折 T_stable(10 s) 78.50→5.36 s = 14.6×）；A2 过充硬限幅 clip 0.02（MD 中位 2396.7→555.4 ADC = −77%、G_min 与基线逐位相同）；A3 清复合事件继承的 c0（restep OS5 −18.59%→目标 0）；A4 HO_MIN 5.0→3.5 s（T_med 3.66→1.96 s）；A5 I7 撤销迟滞 3 帧 + I4 τ_ho 5→10 s（L3 −86.1%、std(R5) −49.6%、T_stable −2.14 s）；A6 低置信期冻结锚定（拍击永久锚点损伤 2713→116 ADC、干净数据副作用 0.0000）",
+   "source": "T5-A results/t5a_kappa_verdict.csv+t5a_kappa_loo.csv+t5a_nonfilter_options.csv；T6 results/t6_improve_ab.csv；T5-B results/t5b_fallback_policies.csv；T7-A results/t7_inject_amp.csv"
+  },
+  {
+   "n": 4,
+   "claim": "对「1~2 s 上限」的总回答：onset 只达「中位承诺」，restep 上的 T_stable 是「指标结构性失效」而非算法不够快",
+   "value": "restep 的「容差/单通道噪声」中位仅 1.20、19 个里 9 个 <1（onset 20.47、unload 30.75）⇒ 5%·J_ch 已低于单通道噪声，该指标在该工况下无定义；另 v6 内部判据/估计延迟下界 0.65 s（TAU_REF 0.20 + STALL_HOLD_S 0.45）",
+   "source": "T1-A results/t1a_tol_noise.csv:ratio_ch + results/t1a_lowerbound.csv + 分析报告.md §6.5"
+  },
+  {
+   "n": 5,
+   "claim": "「restep 慢 6 倍且在输入」这一既有判断被修正：慢的倍数被样本构成放大到 2.2~3.0 倍，且主因是传感器粘弹 + 状态机",
+   "value": "T4-A 反卷积：restep 等效输入斜坡 T_ramp 中位 0.220 s（clean 0.550 s）、仅 1/18 事件 >1 s；传感器侧 restep t90 中位 1.98 s、1 s 完成度仅 0.738（onset 0.921）",
+   "source": "T4-A results/t4a_input_recover.csv:T_ramp；T1-A results/t1a_lowerbound.csv；T2_*/results/conclusions.json:corrections[3]"
+  },
+  {
+   "n": 6,
+   "claim": "乐观性折扣：形状库的泛化误差必须按「跨形态」而非「自身标定」计入设计",
+   "value": "onset 单点反演 @tau_d=0.2 s 中位|误差|：自身标定 3.10% → 同族留一事件 5.52% → 同族留一录制 4.76% → 跨族 5.33% → 跨形态 56.39%；restep 侧依次 29.88/52.07/40.30/27.47/36.06%（n=6）",
+   "source": "T3-A results/t3a_generalization.csv:med_abs_pct（sample=usable, tau_d=0.2）；本席位用 scripts/t8_probe.py 逐场景复核"
+  },
+  {
+   "n": 7,
+   "claim": "对账表 21 行全部裁决完成，其中 9 行相对差 ≥5% 且全部追到脚本与列名",
+   "value": "一致 10 行 / 修正 6 行 / 推翻 3 行（含严重不一致 1 行）；差异的最大来源是「样本构成」（restep 事件集）与「通道口径」（主通道 vs 总通道对过充的稀释），而不是算错",
+   "source": "results/t8_reconciliation.csv（rid A1~A6、B1~B6、C1~C2、D1~D3、E1~E4）"
+  },
+  {
+   "n": 8,
+   "claim": "评估矩阵 78 格全部有出处三元组，但有 12 格是「缺数据」——不得写成「无差异」",
+   "value": "v3 的 T_stable/重复性/计算量 = 缺数据（第一轮与 T1~T7 都未跑 v3 臂）；v6.1 的稳态时漂/下冲/强扰动/卸载 = 缺数据（只做了 3 个相对档 × 5 种子）；v5.1 的下冲/强扰动 = 缺数据（US5 列只在 v6/v6.1 臂产出，T5-B 只扫 v6）",
+   "source": "results/t8_matrix.csv:note（逐格标注）；figures/T8_01_matrix_radar.png 用灰色表示缺数据"
+  }
+ ],
+ "verdicts": [
+  {
+   "question": "T8-Q1",
+   "answer": "评估矩阵已产出：results/t8_matrix.csv（78 行，10 维度 × 5 路线）。每格含 value + unit + source_task + source_file + column + caliber + n + note，无孤立数字。关键格：稳定时间 v6 1.80 s（冻结口径）/v6.1 1.16 s/v5.1 2.89 s/T3-B 第三条路 0.52 s；过充 v6 中位 9.64%、max 120.81%/v6.1 max 74.83%/v5.1 max 54.39%/第三条路 3.02%；重复性（±1 包抖动）v6 7.90%·电平 vs v5.1 0.26%·电平 = 30.6×；强扰动 v6 失败率 100%、A50 75.7 ADC；可标定性 v6 跨形态 56.39% 而 v5.1 与 T3-B 第三条路均「不需新增标定」。**v3 列 10 格中有 3 格缺数据、其稳态时漂/台阶保真/卸载行为转引自 progress/ 下 v5 时代的自有口径表，已逐格标注「与本次冻结口径不同源、不可横比」。**",
+   "three_state": "支持",
+   "n": "78 格；n=9（恒载）/n=13 录制/n=39~41 事件/n=1062 trials（视格而定）"
+  },
+  {
+   "question": "T8-Q2",
+   "answer": "乐观性折扣表已产出：results/t8_optimism_discount.csv（10 项，每项带 optimistic / opt_source / pessimistic / pess_source / ratio_or_gap / **decide_with** / reason）。**7 项明确写「决策用悲观」**：O1 达标率（1 s 33.3% vs 2 s 55.6%）、O2 形状泛化（3.10% vs 56.39%）、O3 同族留一（3.10% vs 5.52%，尾部 51.78%）、O5 强扰动（A50 75.7 ADC vs 用户量级 100% 失败）、O6 重复性（Rstep 3.52 pp vs R5 5.09 pp）、O7 路径抖动（v5.1 0.26% vs v6 7.90%）、O8 卸载残余（中位 0.19% vs max 2.81%）；2 项「两者并报」（O9 对称性两口径都 >1；O10 时间相位 0.2 s 与 1.0 s）；1 项「乐观可用但该值本身已是悲观口径」（O4 κ 尾部 = 13 折留一的最坏折）。主要来源已核验：T3-A t3a_generalization.csv 与 T5-A t5a_kappa_loo.csv 的逐值均已用 scripts/t8_probe.py 复核。",
+   "three_state": "支持",
+   "n": "10 项；n=18（形状泛化）/n=39 事件+13 折（κ）/n=30 种子（抖动）/n=14（卸载）/n=10（强扰动）"
+  },
+  {
+   "question": "T8-Q3",
+   "answer": "可替代性裁决已产出：results/t8_substitutability.csv（4 工况，各带 criterion / evidence_v6 / evidence_ref / risk / precondition / confidence）。① 单次加载长保压 = **v6 可替代（有条件）**（中位 1.80 s、达标 55.6%、worst 13.16 s ⇒ 只可承诺中位）；② 多次变载（restep/复合事件）= **不可替代**（可测 2/19、OS5 中位 −18.59%·J、G=0.473、MD 是 v5.1 的 3.8 倍；根因 = 继承旧修正量 c0 再被 pin 永久钉住，**ROM_SCALE 治不了**：US5_max 两臂同为 1230.09%）；③ 卸载与部分卸载 = **有条件可替代**（全卸载 9/9 达标、残余 max 2.81%、反向误判 0/19；但 20%~80% 档真实样本 n=1 ⇒ 现行只能定性）；④ 强扰动 = **不可替代**（v6 与 v5.1 都失效，且 v6 的退化路径更危险：竞态抖动下 30.6× 于 v5.1）。",
+   "three_state": "有条件支持",
+   "n": "n=9（恒载 onset）/n=19（restep）/n=14~16（unload）/n=1（partial_unload）/n=10 trials（±1000 ADC）"
+  },
+  {
+   "question": "T8-Q4",
+   "answer": "达标矩阵与不可达说明已给出（分析报告 §3.4）。达标：unload v6 9/9（中位 0.09 s、worst 1.15 s）；部分达标：onset·恒载 9 组 v6 5/9（worst 13.16 s）、v6.1 5/9、v5.1 4/9、raw 1/9；不达标：restep（19 个里仅 2 个可测、都 >2 s、75 s 量级）。**物理/结构上不可达的三个工况机制**：① restep 的「容差/单通道噪声」中位仅 1.20（9/19 <1）⇒ 指标在该工况下无定义；② restep 的慢来自传感器粘弹（t90 中位 1.98 s、1 s 完成度 0.738）与判据，**不来自「输入没走完」**（T_ramp 中位 0.220 s、仅 1/18 >1 s）；③ v6 内部判据/估计延迟下界 0.65 s（TAU_REF 0.20 + STALL_HOLD_S 0.45）。**承诺建议**：onset 承诺「中位 ≤2 s、达标率 ≥55%」（不承诺上限）；restep 不用 T_stable 验收、改用事件级指标（事件后 1/2 s 偏差 + G + MD）；unload 可承诺 ≤1 s；强扰动承诺「总量扰动 ≤75 ADC（0.63% 电平）内保持基线」。",
+   "three_state": "有条件支持",
+   "n": "达标率分母=可测事件数（onset 9、unload 9、restep 2、onback实录 3）"
+  },
+  {
+   "question": "T8-Q5",
+   "answer": "开发方案建议 ≥2 个已给出（t8_verdict.md §3~§4）：**方案 A（推荐）** = v6 + 六项改动，工作量落到两个模块：A1 κ 常量、A2 显示层封顶 1 行、A4 HO_MIN 常量、A5 I7 计数器 + I4 常量、A6 补偿器加 1 个布尔状态 + 阈值标定 —— 以上落在 **src/domain/drift_v6/**（v6 的补偿器与其常量表）；A3 清 c0 落在 **src/domain/drift_v6/ 的 epoch 继承处（状态机改动）**；v5.1 的 **src/domain/drift/** 只在方案 B 里需要改（加调度 + 工况判定 + 切换复位）。**方案 B** = v5.1 为默认 + v6 仅 onset 生效（预期退回 v5.1 的稳定时间、但换取抖动 0.26%·电平；代价 = 放弃 77%→0% 的录制达标率，且分支判据已被 T4-B 实测为「对 1~2 s 目标零贡献」，工作量约 3~5× 方案 A ⇒ 不推荐首选）；**方案 C** = T3-B 的第三条路单侧门（过充归零 −0.305% 但 T_stable 0.54→0.70 s、err1 −10.97% ⇒ 可作 A1 的替代、但不解决变载与强扰动）；另列 **方案 Z（不动）** 作为诚实对照：v5.1 在重复性与强扰动两维全面优于 v6。已量化的项全部排入方案 A：κ=1.10（一行常量）、过充硬限幅（显示层封顶+1 行）、HO_MIN=3.5 s（一行常量）、清 c0（状态机改动）、I7+I4（1 个计数器 + 1 个常量）、低置信期冻结（1 个布尔状态）、T7-A 的卸载判据前移（状态机改动，列为 P1）。",
+   "three_state": "支持",
+   "n": "方案 A 6 项改动；每项的预期指标均引自对应席位的实测列（见 t8_verdict.md §3.1 的出处列）"
+  },
+  {
+   "question": "T8-Q6",
+   "answer": "必须补采的数据清单已产出：results/t8_data_gaps.csv（21 行，把 T1~T7 的 74 条原始 gaps 去重合并；每行带 prio / gap / impact / spec / source_task / source_file / merged_from）。P0 = 6 条：无载荷量（N/gf）标定与真值力（合并 5 处）、无「1w ADC ± 1000 ADC」量级实录（T5-B G1）、无人手拍击/揉压实录（合并 2 处）、无受控速率实验（合并 4 处）、无「同一标称载荷重复加载」样本（合并 4 处）、现场 exe 版本未知（T5-A G1）；P1 = 6 条；P2 = 8 条；P3 = 1 条（v3/v6.1 臂的对照缺口，**本席位自查新增**，因矩阵 v3 列 3 格与 v6.1 列 4 格为缺数据）。",
+   "three_state": "支持",
+   "n": "21 条（P0 6 / P1 6 / P2 8 / P3 1）；原始条目 74 条"
+  },
+  {
+   "question": "T8-Q7",
+   "answer": "未解问题清单已产出（分析报告 §5.1、t8_verdict.md §7），共 14 条，每条标注原因（缺数据/超范围/结论不确定）与「需要什么才能回答」。**其中第一条是 T5-A 提出的待用户确认项：现场 exe 到底是 v6 还是 v5.1** —— T5-A 判 v6（三条间接依据），并给出可证伪条件：v5.1 的 OS5 max 仅 +54.39%，远小于 v6 的 +120.81%；**若现场是 v5.1，则 T5-A 的过充归因不适用于该次体验**。其余 13 条：载荷量级依赖、人手拍击误捕获与空间判据、部分卸载幅度-回复关系（n=1）、零漂物理来源分离、卸载谷值是否只是「读数落到底」、卸载是否在单包内完成（超分辨率）、形状时不变性（样本不足）、长保压 >300 s 的加载历史累积、族间差异是否真实（p=0.554 功效不足）、κ×EMA 组合的强扰动鲁棒性、T_stable 网格敏感性边界、C++ 落地与真机 A/B、rescue/四旋钮负结果的普遍性。",
+   "three_state": "不适用（诚实清单）",
+   "n": "14 条"
+  },
+  {
+   "question": "对账表（T8 附加作业）",
+   "answer": "预置_跨任务数字对账表.md 的 20 个 ⬜ 全部填满（A1~A6 / B1~B6 / C1~C2 / D1~D3 / E1~E3），并新增 E4（partial_unload 样本数的统一表述，预置表未列但属用户点名要求）⇒ results/t8_reconciliation.csv 共 21 行。**凡相对差 ≥5% 的 9 行全部追到脚本与列名**：A1（2.1%，四套口径下 07-v6 的 9 组值逐点最大差 0.0000）、A2（29%，事件集 9 组 vs 22 + t90 vs t90_sus，同管线复现 07-v6 得 24/24 行完全一致）、A3（171%，第一轮 restep n=15 含恒载组 10 次 3~10% 小增量其 t90 在 2.4~4.9 s）、A4（5.3%，边界；0.796 的差来自事件集）、A5（240%，同批 15 个 restep 三口径最大差 28 pt + T3-A 证 7/19 无法归一化）、C1（表面相反，restep_k1.12 行 n_OS_identical=78 而 onset_k1.10 行为 28）、C2（130%，第一轮 filter_pareto.csv 无 MD 列）、D3（100%，两个数字数的东西不同）、E4（冻结窗把全卸载误标成 partial_unload）。**未把任何一行草率写成「口径不同」**。",
+   "three_state": "支持",
+   "n": "21 行（一致 10 / 修正 6 / 推翻 3，含严重不一致 1）"
+  },
+  {
+   "question": "冲突裁决（T8 附加作业）",
+   "answer": "五项跨任务冲突的最终表述已固化为 results/t8_conflict_rulings.csv（5 行，每行带 conflict / position_a / position_b / ruling / final_wording / source_file:column / n / status）：X-1 κ（C-4，取 κ_onset=1.10/κ_restep=1.12，一行常量）；X-2 驻留确认（T5-B 对，不作为默认改动，并补上「两数字为何不矛盾」的机制解释）；X-3 EMA 滤波（T3-B 对，第一轮双赢作废；口径差已说清：第一轮输出端全档扫描且 T_stable 列带切片 bug、**无 MD 列**；T3-B 30 s 窗；T5-A 5 s 窗）；X-4 partial_unload（统一表述 = 16 全卸载 + 1 部分卸载 + 2 小减重）；X-5 T_stable 网格敏感（T1-A 与 T6 独立发现互为正佐证，升格为项目纪律）。另在分析报告 §4.2 追加对 C-5（加载/卸载对称性）的裁决：对称假设不成立，T4-A 的 E2 证据下调评级。",
+   "three_state": "支持",
+   "n": "5 行 + 1 条追加（C-5）"
+  }
+ ],
+ "corrections": [
+  {
+   "against": "07-v6（docs/07-v6算法说明.md §2.2「restep 比 onset 慢 6 倍，且慢在输入不在传感器」）",
+   "was": "restep t90 2.87 s = onset 0.48 s 的 6.0 倍，慢在输入",
+   "now": "倍数被样本构成放大到 2.2~3.0 倍（T2/T4-A）；且慢的主因是传感器粘弹（restep t90 中位 1.98 s、1 s 完成度 0.738）与状态机，**不是输入未走完**（T4-A 反卷积 T_ramp 中位 0.220 s、仅 1/18 事件 >1 s）",
+   "verdict": "修正（对承诺口径影响重大：若「慢在输入」则 1 s 目标只能放弃；若「慢在传感器+状态机」则改判据延迟与清 c0 有意义）"
+  },
+  {
+   "against": "T1-B（results/conclusions_T1B.json:headline[7]「驻留确认是唯一有效改造」）",
+   "was": "dwell 0.15 s 使拍击 30% 的 epoch 2.0→1.0、干净 onset T_stable 代价 +0.00 s ⇒ 唯一有效改造",
+   "now": "T5-B 的 28 次配对拍击 × 4 档实测：dwell 0.02→0.15 s 使存活伪事件 0.500→1.000、留下 >20% 永久锚点损伤的拍击占比 21.4%→42.9%、抖动漏 0.833→1.000、延迟 0.10→0.23 s；Pareto 上 0.07~0.40 s 各档均被现状支配。**两数字可同时成立**（dwell 越长、越多短拍击不再触发 ⇒ epoch 计数降；但一旦触发更可能跨过撤销窗走完交接 ⇒ 存活伪事件升）",
+   "verdict": "推翻（本席位同意 MainAgent 原判，并补上机制解释；判据取「用户实际后果」= 基线被锚错）"
+  },
+  {
+   "against": "第一轮 13-v6-assessment（filter_pareto.csv / 答复 §5.1「EMA τ=0.3 s 是双赢」）",
+   "was": "过充 9.11%→5.14% 且 T_stable 2.72→1.89 s，判定为净收益",
+   "now": "T3-B 在 13 录制 × 23 臂复算：过充确实降（9.00%→7.33%），但 T_stable 0.54→1.24 s（变差）、**MD 从 1440 暴涨到 4211 ADC（最大 26826）**；T5-A 进一步证明**内部状态层滤波全部更差**（G→0.438、过充中位翻成 −47%、T_stable NaN）",
+   "verdict": "推翻（第一轮 filter_pareto.csv **无 MD 列** ⇒ 代价当时不可见，这是差异的根因而非口径）"
+  },
+  {
+   "against": "T4-A（分析报告_T4A.md §3.1/§3.4「装载类 n=40（onset 22 / restep 18，clean 25）」）",
+   "was": "n=40",
+   "now": "冻结 CSV t4a_morphology.csv 实为 **60 行**、装载类 **41**（onset 22 / restep 19）、unload 14、partial_unload 5、jump 缺失 1（T3-A 已记录该版本漂移）",
+   "verdict": "修正（版本漂移；T8 引用一律用 41）"
+  },
+  {
+   "against": "T4-A（results/t4a_morphology.csv:partial_unload 5 行）",
+   "was": "5 个部分卸载样本",
+   "now": "4 例降幅 <20%（3.4/12.8/15.0/14.7%，属 restep/小减重）、1 例 post 窗被后续加载沿污染（stab_post=0.127>0.05）；改用自适应 post 窗后其中 2 例（SW1@129.37、SW1@182.03）实测为**全卸载**（99.8% 电平）",
+   "verdict": "修正（统一表述 = 19 个真实减重事件 = 全卸载 16 + 部分卸载 1 + 小减重 2）"
+  },
+  {
+   "against": "总报告.md §4「强扰动（总量 RMS 1000 ADC 抖动）显示最大偏差中位 7767 ADC、平均漏检 1.4 个真实事件」",
+   "was": "把 1.4 记为 A=1000 ADC 的漏检数、7767 ADC 记为 A=1000 的 maxdev",
+   "now": "T1-B 实测 A=1000 的漏检只有 **0.31**（基线 0.29），**1.44 是 A=2000 的值**；A=1000 的 maxdev 中位 = **6684 ADC**，A=2000 为 11414 ADC",
+   "verdict": "修正（口径对齐；建议总报告按「A=2000：漏检 1.44、maxdev 11414；A=1000：漏检 0.31、maxdev 6684」改写）"
+  },
+  {
+   "against": "T4-A（E2 机制证据「卸载 0.2 s 完成 100.3% ⇒ 差别在输入不在传感器」，其论证依赖正负响应对称假设）",
+   "was": "作为独立机制证据",
+   "now": "T7-A（同录制配对 n=13，t90(onset)/t90(unload) 中位 18.25×）与 T7-B（A3_matched 24.0、A8_tight_conservative 13.48、f(0.2 s) 0.795 vs 1.004 p=1.8e-07）**独立否决对称性假设**",
+   "verdict": "修正（C-5 关闭：E2 评级从「独立机制证据」下调为「与机制一致的方向性事实」；T4-A 结论方向不变，E1/E3/E4 不依赖对称性）"
+  },
+  {
+   "against": "预置_跨任务数字对账表.md（B1 行「1.72 / 0.46 / 0.41 s 三口径 + 早期 2.72 s」的表述）",
+   "was": "2.72 s 与 1.72 s 是口径差异（「差 1.9 倍」）",
+   "now": "**2.72 = 1.72 + 1.00 s，是 r4_filter_tradeoff.py::stable_time 把切片相对下标当绝对下标的恒定偏移（bug），不是另一个口径**；用第一轮网格 + 第一轮 t_on 复算 9/9 份与公布值逐份相同",
+   "verdict": "推翻（T1-A 已推翻，本席位核验通过）"
+  },
+  {
+   "against": "本席位自身（T8-Q1 评估矩阵的 v3 列）",
+   "was": "初版把 v3 的 10 个维度全部写成「无可引用的 v3 产物」",
+   "now": "改为**分层标注**：3 格（T_stable / 重复性 / 计算量）确为缺数据（第一轮 settle_arms.csv 只有 raw/v5.1/v6 三臂、T1~T7 未跑 v3）；其余 7 格转引 progress/01-v3-baseline/MANIFEST.md 与 progress/04-v5/docs/05-v5算法说明.md，并逐格标注「列名是 v5 时代的自有口径、与本次冻结口径不同源、不可横比」（如 v3 稳态时漂 1.58% 全段、台阶保真 0.89/1.00、零点段显示均值极差 1023 ADC）",
+   "verdict": "修正（自查补完；同时把「v3/v6.1 臂的对照缺口」登记为 t8_data_gaps.csv 的 P3 项）"
+  }
+ ],
+ "gaps": [
+  "★ 【需用户确认】现场 exe 版本（v6 / v6.1 / v5.1）：T5-A 判 v6 但依据是间接的（症状方向 + 08-v6.1 自述 C++ 未落地 + 只有 ADC 域量级能肉眼看见 4% 偏差），可证伪条件 = v5.1 的 OS5 max 仅 +54.39%（远小于 v6 的 +120.81%）。若现场是 v5.1，则本报告第五章的过充/下冲归因不适用。核对方式：现场 exe 版本号 / 关于对话框 / 产物文件名（CMakeLists.txt 的 TACTILESENSE_DISPLAY_VERSION）",
+  "v3 的 T_stable / 重复性 / 计算量无任何臂的实测值 ⇒ 评估矩阵该 3 格为缺数据（第一轮 settle_arms.csv 只有 raw/v5.1/v6 三臂，T1~T7 亦未跑 v3 臂）；补跑规格见 t8_data_gaps.csv 的 P3 行",
+  "v6.1 的稳态时漂 / 下冲 / 强扰动 / 卸载 = 缺数据：v6.1 只做了「3 个相对档 × 5 种子」的四臂对照（T1-B）与 λ 扫描（T5-A），未做全曲线",
+  "v5.1 的下冲 / 强扰动 = 缺数据：T5-A 的 US5 列只在 v6/v6.1 臂产出，T5-B 的 M1~M4 失败率只扫 v6 臂",
+  "T8 的「预期组合效果」中凡涉及多改动叠加（A1+A4+A5b 对 T_stable 的合成、达标率从 55.6% 提升到 ≥67%）的列**都是本席位的合成外推，不是实测** —— 各改动由不同席位在各自口径下单独测量；验收必须真机 A/B",
+  "本席位执行环境不支持读图 ⇒ figures/ 下三张图仅经底层 CSV 数值校验与脚本无异常退出验证，**未做人工目视核对**（建议 MainAgent / 用户目视确认一次）",
+  "本席位只在「对账表相对差 ≥5% 的 21 行」上做了溯源，**未对 T1~T7 的全部产物做全量复核**（那是 T8-2 独立复核位的职责）；若某席位产物本身有算错而未被 ≥5% 门限捕获，本报告不会发现",
+  "t8_matrix.csv 的 v3 列有 7 格转引自 progress/ 下 v5 时代的文档表（01-v3-baseline/MANIFEST.md、04-v5/docs/05-v5算法说明.md），其列名与定义属 v5 时代的自有口径（如「时漂残余 全段」「阶跃保真」「实测过冲」），**与本次 00_共享/指标字典 的冻结口径不同源**，已在 note 列逐格声明不可横比",
+  "T5-A 的 G4（κ=1.10 与 EMA τ=0.3 s 的组合在 ±1000 ADC 抖动下是否仍成立）属真实未验证项，本轮无席位覆盖，已列入 t8_data_gaps.csv 的 P2 行",
+  "T3-B 的 G2（主通道 v6 中位 1.12 s vs 第一轮 1.72 s 的差异来源未完全拆开 —— 样本集、J 窗 4~6 s vs 5~7 s、是否平滑三个因素）本席位也未拆开：冻结口径下主通道恒载 9 组为 1.80 s，而 T3-B 的 1.12 s 是 40 事件（含实录）口径 ⇒ **两者不可直接横比，已在分析报告 §2.2 与对账表 B1 行标注**"
+ ],
+ "blockers": [
+  "无硬阻塞。唯一的判定性缺口是现场 exe 版本（属现场信息，需派发方与用户核对），它决定 T5-A 的过冲/欠冲归因是否适用于用户那次体验 —— 本席位已在分析报告 §5.1 的 Q7-1 与 t8_verdict.md §7.1 用「★」标出，并给出可证伪条件与核对方式"
+ ],
+ "artifacts": {
+  "report": "分析报告.md",
+  "verdict": "t8_verdict.md",
+  "results": [
+   "results/conclusions.json",
+   "results/t8_matrix.csv",
+   "results/t8_optimism_discount.csv",
+   "results/t8_substitutability.csv",
+   "results/t8_data_gaps.csv",
+   "results/t8_reconciliation.csv",
+   "results/t8_conflict_rulings.csv",
+   "results/t8_handoff_index.csv",
+   "results/_t8_conclusions_dump.txt"
+  ],
+  "figures": [
+   "figures/T8_01_matrix_radar.png",
+   "figures/T8_02_verdict.png",
+   "figures/T8_03_discount.png"
+  ],
+  "scripts": [
+   "scripts/t8_common.py",
+   "scripts/t8_read_conclusions.py",
+   "scripts/t8_probe.py",
+   "scripts/t8_matrix.py",
+   "scripts/t8_reconcile.py",
+   "scripts/t8_figs.py"
+  ],
+  "logs": [
+   "results/_t8_read_conclusions.log",
+   "results/_t8_probe.log",
+   "results/_t8_matrix.log",
+   "results/_t8_reconcile.log",
+   "results/_t8_figs.log"
+  ]
+ },
+ "scope_compliance": "未改 src/、未改 CMake、未构建、未跑测试、未启动 exe；未改 progress/ 与其它 T*_*/ 下任何文件（全部只读引用）；新增文件全部位于 temp/v4.1flash/plan/v1.0/T8_v6总体评估与路线裁决/ 下；未覆盖 预置_跨任务数字对账表.md（另建 results/t8_reconciliation.csv）。"
+}

@@ -1,0 +1,57 @@
+
+########## 右拇指指腹 ##########
+  现役默认：score=4137.1 过减=84 带宽=1583 入带=72s 上漂=1401
+  起点0: score=471.9 过减=85 带宽=373 入带=71.7s
+    pass1: score=153.52
+    pass2: score=153.01
+    pass3: score=153.01
+  起点1: score=410.5 过减=85 带宽=350 入带=64.2s
+    pass1: score=221.73
+    pass2: score=168.43
+    pass3: score=160.59
+    pass4: score=160.59
+  ★ 最优 score=153.01 过减=105 带宽=205 入带=57.2s 上漂=-7 扣除=101%
+    {"track_base_frac": 1.0, "slope_cap_frac": 0.6, "slope_gate_frac": 20.0, "r_fast": 0.0, "tau_c_fast_s": 12.0, "tau_c_fast_boost_s": 1.0, "soft_unfreeze_s": 0.25, "slow_confirm_s": 0.0, "tau_slope_s": 1.0, "tau_r_fast_s": 1.0, "r_slow_max": 30.0, "hold_eps": 0.0, "edge_slope_thres": 10.0, "tau_r_slow_idle_s": 30.0, "tau_r_slow_s": 600.0, "idle_frac": 0.1, "ramp_slope_min": 0.0}
+
+########## 左拇指指腹 ##########
+  现役默认：score=4692.1 过减=89 带宽=1753 入带=180s 上漂=1598
+  起点0: score=832.1 过减=205 带宽=438 入带=180.0s
+    pass1: score=429.13
+    pass2: score=413.97
+    pass3: score=389.21
+    pass4: score=385.80
+    pass5: score=385.80
+  起点1: score=557.1 过减=137 带宽=407 入带=180.0s
+    pass1: score=504.18
+    pass2: score=504.18
+  ★ 最优 score=385.80 过减=215 带宽=261 入带=180.0s 上漂=104 扣除=95%
+    {"track_base_frac": 1.0, "slope_cap_frac": 0.6, "slope_gate_frac": 5.0, "r_fast": 0.01, "tau_c_fast_s": 12.0, "tau_c_fast_boost_s": 1.0, "soft_unfreeze_s": 0.25, "slow_confirm_s": 0.0, "tau_slope_s": 1.0, "tau_r_fast_s": 2.0, "r_slow_max": 30.0, "hold_eps": 2.0, "edge_slope_thres": 10.0, "tau_r_slow_idle_s": 2.0, "tau_r_slow_s": 600.0, "idle_frac": 0.1, "ramp_slope_min": 0.0}
+
+########## 右手掌 ##########
+  现役默认：score=3107.2 过减=43 带宽=1193 入带=180s 上漂=1136
+  起点0: score=231.6 过减=214 带宽=169 入带=70.1s
+    pass1: score=184.68
+    pass2: score=171.78
+    pass3: score=154.16
+    pass4: score=154.16
+  起点1: score=474.4 过减=92 带宽=363 入带=120.8s
+    pass1: score=99.22
+    pass2: score=99.22
+    pass3: score=99.22
+  ★ 最优 score=99.22 过减=149 带宽=154 入带=45.0s 上漂=61 扣除=96%
+    {"r_fast": 0.06, "tau_c_fast_s": 12.0, "r_slow_max": 30.0, "slope_cap_frac": 0.6, "slope_gate_frac": 1.0, "slow_confirm_s": 0.0, "soft_unfreeze_s": 0.5, "edge_slope_thres": 20.0, "tau_slope_s": 0.5, "tau_r_slow_idle_s": 30.0, "tau_r_fast_s": 2.0, "hold_eps": 0.0, "idle_frac": 0.02, "ramp_slope_min": 0.0, "tau_c_fast_boost_s": 1.0, "edge_boost_s": 5.0, "track_base_frac": 1.0, "tau_r_slow_s": 600.0}
+
+########## 左手掌 ##########
+  现役默认：score=1730.0 过减=21 带宽=736 入带=153s 上漂=676
+  起点0: score=142.1 过减=198 带宽=122 入带=4.2s
+    pass1: score=104.54
+    pass2: score=101.54
+    pass3: score=98.69
+    pass4: score=98.69
+  起点1: score=97.1 过减=89 带宽=179 入带=22.4s
+    pass1: score=56.16
+    pass2: score=56.16
+  ★ 最优 score=56.16 过减=142 带宽=111 入带=16.7s 上漂=-2 扣除=102%
+    {"r_fast": 0.1, "tau_c_fast_s": 20.0, "r_slow_max": 30.0, "slope_cap_frac": 0.3, "slope_gate_frac": 20.0, "slow_confirm_s": 0.0, "soft_unfreeze_s": 0.25, "edge_slope_thres": 20.0, "tau_slope_s": 2.0, "tau_r_slow_idle_s": 2.0, "tau_r_fast_s": 0.2, "hold_eps": 0.0, "idle_frac": 0.05, "ramp_slope_min": 0.5, "tau_c_fast_boost_s": 0.5, "edge_boost_s": 1.0, "tau_r_slow_s": 30.0, "track_base_frac": 1.0}
+
+batches=438  写出 D:\workshop\文档\v2.7 - 抗蠕变补偿算法\GLM53\_work\retune4_all.json

@@ -1,0 +1,25 @@
+== ① 事件对表：本任务 35 个加载类事件 → 匹配到 T4-A 34 个（±0.6 s）==
+   |Δt| 中位 0.010 s   p90 0.107 s   最大 0.300 s
+   类别一致率 0.971
+   类别不一致的事件（标签门限差异，不是检测器差异）：
+      rec  t_on_t4b kind_t4b kind_t4a  pre_frac_t4b  t4a_armed
+切换负载-快相无责    217.75    onset   restep        0.1962       True
+
+== ② 判据交叉核对 ==
+                                  check  n  statistic       p                                    note
+P1: pre_frac(T4B) vs pre_over_peak(T4A) 34     0.8925 0.00000             两套独立实现的同一物理量（pre 电平 ÷ 记录峰值）
+     P1 θ=0.40 与 T4-A armed(20%) 的标签一致率 34     0.9118     NaN                     一致率越高 ⇒ 判据对实现细节越不敏感
+     shape: sh_020(T4B) vs z_at_02(T4A) 34     0.9768 0.00000                  归一化形状的同一物理量（0.2 s 完成度）
+        T4-A 内部：pre_over_peak vs T_ramp 34     0.4032 0.01804 T4-A 报告 §3.4(c)：预载只是输入斜坡时长的代理（R²=0.467）
+             T_ramp(T4A) vs sh_020(T4B) 34    -0.7325 0.00000                         非因果驱动量 vs 因果形状量
+
+== ③ 建议门限 θ=0.35 附近（±0.15）的事件：迟滞设计必须覆盖这些 ==
+      rec  t_on_t4b kind_t4b kind_t4a  pre_frac_t4b  t4a_clean
+ 四指指尖/数据2     11.04    onset    onset        0.3026       True
+右拇指指尖/数据1      8.28    onset    onset        0.3383      False
+右拇指指尖/数据3     10.60    onset    onset        0.3392       True
+ 四指指尖/数据1     10.95    onset    onset        0.3909      False
+切换负载-快相无责     75.59    onset    onset        0.4155       True
+   共 5 / 34 个事件落在门限 ±0.15 内
+
+-> results/t4b_t4a_crosscheck.csv / t4b_t4a_agreement.csv

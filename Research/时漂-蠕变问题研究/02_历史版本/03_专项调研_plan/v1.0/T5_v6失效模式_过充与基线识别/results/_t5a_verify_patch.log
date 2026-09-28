@@ -1,0 +1,24 @@
+python scripts/t5a_verify_patch.py
+
+=== T5-A 补丁零差证明 ===
+V1 load_rec: n=6420  max|Δt|=0.000e+00  max|ΔX|=0.000e+00
+V2 v6 原型: max|ΔY|=0.000e+00  epoch 6 vs 6
+V3 κ 补丁 v6: max|ΔY|=0.000e+00  epoch 6 vs 6
+V4 κ 补丁 v6.1: max|ΔY|=0.000e+00
+V5 v6.1 关修复: max|ΔY|=0.000e+00
+V6 κ 探针 v6（开）: max|ΔY|=0.000e+00  探针有效帧=5279
+V7 κ 探针 v6.1（开）: max|ΔY|=0.000e+00
+V8 κ 探针 v6（关）: max|ΔY|=0.000e+00
+
+vid                                  what subject  n_elem  max_abs_diff  pass_         note
+ V1             数据层 load_rec（timestamp 轴）     SW3    6420           0.0   True             
+ V2     原型 glm53_v6 vs t5a_glm53_v6（逐帧输出）     SW3  134106           0.0   True epoch 6 vs 6
+ V3    κ 补丁 KV6(1.30/1.12) vs 原型 v6（逐帧输出）     SW3  134106           0.0   True epoch 6 vs 6
+ V4 κ 补丁 KV61(1.30/1.12) vs 原型 v6.1（逐帧输出）     SW3  134106           0.0   True             
+ V5            v6.1 关 F1/F2 后 vs v6（逐帧输出）     SW3  134106           0.0   True             
+ V6        κ 探针补丁 KV6P（探针开）vs 原型 v6（逐帧输出）     SW3  134106           0.0   True 探针有效帧 5279 帧
+ V7     κ 探针补丁 KV61P（探针开）vs 原型 v6.1（逐帧输出）     SW3  134106           0.0   True             
+ V8             κ 探针补丁（探针关）vs 原型 v6（逐帧输出）     SW3  134106           0.0   True             
+
+ALL PASS = True
+产出：D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T5_v6失效模式_过充与基线识别\results\t5a_patch_ab_zero.csv

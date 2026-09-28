@@ -1,0 +1,50 @@
+==== T1-A 05_lowerbound ==== 2026-09-19 00:46:25
+cmd : C:\Python314\python.exe scripts/t1a_05_lowerbound.py
+ROOT: D:\workshop\Processing\multi-device-cascade-host-cpp
+脚本目录: D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T1_稳定时间定义与鲁棒性口径\scripts
+== 0. T4-A 输入反卷积表（只读引用） ==
+  t4a_input_recover.csv：40 行，列=key,rec,dom,t_on,kind,clean,jump,pre_over_peak,…
+
+== 1. Q5 事实基线：输入侧时间尺度（分工况，n=39 有反卷积的事件） ==
+ onset（n=22）
+  等效输入斜坡 T_ramp (s)            n=22  中位   0.010   p10~p90   0.000~  0.371   最差   0.700  
+  等效输入幅度 A_ramp                n=22  中位 9272.221   p10~p90  13.816~26162.723   最差 27630.264  
+ restep（n=18）
+  等效输入斜坡 T_ramp (s)            n=18  中位   0.220   p10~p90   0.000~  0.830   最差   1.150  
+  等效输入幅度 A_ramp                n=18  中位 1375.209   p10~p90 -6935.329~6307.350   最差 6449.877  
+
+  [口径核对] T4-A 报告 §② 的「restep 中位 0.550 s」= **clean 子集**的中位；
+    onset  全样本 n=22 中位 0.010 | clean n=18 中位 0.010 | T_ramp>0 的 n=16 中位 0.010
+    restep 全样本 n=18 中位 0.220 | clean n= 7 中位 0.550 | T_ramp>0 的 n=15 中位 0.290
+  全部事件 T_ramp 中位 0.015 s（onset 0.010 vs restep 0.220）
+  [交叉核对] T4-B t4b_tramp_join.csv：34 行，含 T_ramp 的列=['T_ramp']
+    T_ramp         中位   0.0100  n=34
+
+== 2. 输入侧稳定时间 T_in5（原始信号，与算法同口径 D1-ev） ==
+ onset（n=22，可测 8）
+  主通道 T_in5 (s)                n= 8  中位   4.700   p10~p90   1.534~ 14.473   最差  17.350  
+  总通道 T_in5 (s)                n=11  中位  10.370   p10~p90   2.370~ 18.360   最差  22.890  
+  等效输入斜坡 T_ramp (s)            n=22  中位   0.010   p10~p90   0.000~  0.371   最差   0.700  
+ restep（n=19，可测 0）
+  主通道 T_in5 (s)                n= 0  中位     nan   p10~p90     nan~    nan   最差     nan  无可测样本
+  总通道 T_in5 (s)                n= 0  中位     nan   p10~p90     nan~    nan   最差     nan  无可测样本
+  等效输入斜坡 T_ramp (s)            n=18  中位   0.220   p10~p90   0.000~  0.830   最差   1.150  
+
+== 3. 实测 vs 下界（restep 与 onset 分开；冻结口径 D1-ev，主通道） ==
+  onset  raw   n= 8  中位   4.70 s  T_in5 中位   4.70 s  短于下界的事件 0/8
+  onset  v5.1  n= 8  中位   2.10 s  T_in5 中位   4.70 s  短于下界的事件 7/8
+  onset  v6    n= 8  中位   0.83 s  T_in5 中位   4.70 s  短于下界的事件 8/8
+  onset  v6.1  n= 8  中位   0.46 s  T_in5 中位   4.70 s  短于下界的事件 8/8
+
+== 4. 「输入本身还没走完」的事件数（1 s / 2 s 判据） ==
+  onset  n=22  T_ramp>1 s:  0/22 (0.0%)   T_ramp>2 s: 0/22   t90>1 s: 7/22
+  restep n=18  T_ramp>1 s:  1/18 (5.6%)   T_ramp>2 s: 0/18   t90>1 s: 12/18
+  1 s 时刻输入完成度 z_at_10 中位：onset 0.921（n=22） restep 0.738（n=18）
+
+== 5. 判据侧最小延迟（常数逐字取自 t1a_glm53_v6.py） ==
+  TAU_REF=0.20 s（逆模型最早可用）  AWIN=0.60 s（拟合窗）  STALL_START_S=0.60 s
+  STALL_HOLD_S=0.45 s（停滞确认）  HO_MIN=5.00 s（最早交接）  REVOKE=0.40 s（撤销窗）
+  ⇒ 算法自延迟下界 ≈ TAU_REF + STALL_HOLD_S = 0.65 s（输入瞬时到位时也不可能更快「停下」）
+
+-> D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T1_稳定时间定义与鲁棒性口径\results\t1a_lowerbound.csv（41 行）
+done

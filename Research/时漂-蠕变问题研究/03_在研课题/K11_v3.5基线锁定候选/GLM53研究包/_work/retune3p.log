@@ -1,0 +1,15 @@
+
+########## 右手掌 (UP_W=4)
+  v3: score=72.70 过减=88 上漂=106
+    pass1: score=72.34
+    pass2: score=72.34
+  ★ score=72.34 过减=89 上漂=109 扣除=92%
+  {"r_fast": 0.06, "tau_c_fast_s": 2.0, "r_slow_max": 30.0, "slope_cap_frac": 0.15, "slope_gate_frac": 1.0, "slow_confirm_s": 0.0, "soft_unfreeze_s": 0.25, "edge_slope_thres": 20.0, "tau_slope_s": 0.5, "tau_r_slow_idle_s": 30.0, "tau_r_fast_s": 0.5, "hold_eps": 0.0, "idle_frac": 0.02, "ramp_slope_min": 0.5, "tau_c_fast_boost_s": 0.5, "edge_boost_s": 5.0}
+
+########## 左拇指指腹 (UP_W=4)
+  v3: score=78.48 过减=130 上漂=134
+    pass1: score=78.48
+  ★ score=78.48 过减=130 上漂=134 扣除=93%
+  {"r_fast": 0.04, "slope_gate_frac": 5.0, "slope_cap_frac": 0.3, "tau_slope_s": 2.0, "slow_confirm_s": 0.5, "soft_unfreeze_s": 1.0, "tau_c_fast_s": 20.0, "tau_r_slow_idle_s": 30.0, "tau_r_fast_s": 2.0, "hold_eps": 2.0, "idle_frac": 0.1, "r_slow_max": 30.0, "ramp_slope_min": 0.0, "edge_boost_s": 5.0, "tau_c_fast_boost_s": 1.0}
+
+写出 retune3p_all.json

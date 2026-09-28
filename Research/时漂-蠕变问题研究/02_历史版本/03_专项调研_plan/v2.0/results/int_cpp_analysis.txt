@@ -1,0 +1,68 @@
+=== 独立复算(analysis) ===
+pre frames=33908 ch=21  ref frames=33908
+  A rows=33908 max|raw_total-sum(ch)|=0 t_range=0.0260~337.5310
+  B rows=33908 max|raw_total-sum(ch)|=0 t_range=0.0260~337.5310
+  C rows=33908 max|raw_total-sum(ch)|=0 t_range=0.0260~337.5310
+
+=== 阳性对照(同一帧集合, 更紧的限幅界) ===
+  alpha=0.0050  config A : frames out_total > raw_total + a*sum|raw| = 0 / 33908
+  alpha=0.0050  config B : frames out_total > raw_total + a*sum|raw| = 22172 / 33908
+  alpha=0.0050  config C : frames out_total > raw_total + a*sum|raw| = 0 / 33908
+  alpha=0.0010  config A : frames out_total > raw_total + a*sum|raw| = 23988 / 33908
+  alpha=0.0010  config B : frames out_total > raw_total + a*sum|raw| = 24189 / 33908
+  alpha=0.0010  config C : frames out_total > raw_total + a*sum|raw| = 23988 / 33908
+  alpha=0.0005  config A : frames out_total > raw_total + a*sum|raw| = 24222 / 33908
+  alpha=0.0005  config B : frames out_total > raw_total + a*sum|raw| = 24410 / 33908
+  alpha=0.0005  config C : frames out_total > raw_total + a*sum|raw| = 24222 / 33908
+  alpha=0.0000  config A : frames out_total > raw_total + a*sum|raw| = 24539 / 33908
+  alpha=0.0000  config B : frames out_total > raw_total + a*sum|raw| = 24655 / 33908
+  alpha=0.0000  config C : frames out_total > raw_total + a*sum|raw| = 24539 / 33908
+  说明: 逐格阳性对照(C++ 侧)见 int_cpp_counts.txt 末行与 集成验证报告 §阳性对照
+
+=== Q1 复核(配置 B vs 现场现役 v6 输出) ===
+  median=-8.726  median|d|=19.659  mean|d|=154.706  rms=332.548  min=-1539.791  max=683.955
+  frames d<0 = 23020 / 33908
+
+=== Q4 复核(受载段 median(out_total-raw_total), p60=16842.0, 受载帧=13550) ===
+  A = 78.524
+  B = 416.781
+  C = 78.524
+
+=== Q5 复核(沿后 0.3~1.2 s 的 median(out_total-raw_total)) ===
+  edges: 2.271 120.675 142.026 149.406 219.076 292.742 308.075 318.491
+  A per-edge: 57.53 60.46 65.83 63.19 63.28 77.53 79.41 76.58
+  A median   : 64.559
+  B per-edge: 460.80 438.25 518.70 431.61 470.06 667.33 626.95 650.30
+  B median   : 494.382
+  C per-edge: 57.53 60.46 65.83 63.19 63.28 77.53 79.41 76.58
+  C median   : 64.559
+
+=== Q6 复核(受载段滑窗 500 帧极差中位 / 段中位) ===
+  A range=638.438 seg=17343.476 ratio=0.03681
+  B range=923.047 seg=17741.422 ratio=0.05203
+  C range=638.438 seg=17343.476 ratio=0.03681
+
+=== 受载连通段(>=2 s)平台中位 ===
+  seg00 t=26.777~30.862 A=   79.49 B=  545.14 C=   79.49
+  seg01 t=34.926~38.175 A=   79.97 B=  779.00 C=   79.97
+  seg02 t=42.296~45.837 A=   78.69 B=  909.85 C=   78.69
+  seg03 t=57.409~70.286 A=   82.99 B=  764.23 C=   82.99
+  seg04 t=75.342~81.391 A=   78.25 B=  777.56 C=   78.25
+  seg05 t=85.997~91.827 A=   77.07 B=  895.61 C=   77.07
+  seg06 t=95.931~100.796 A=   78.25 B=  304.21 C=   78.25
+  seg07 t=104.026~111.061 A=   84.85 B=  257.76 C=   84.85
+  seg08 t=155.960~160.316 A=  -32.36 B=  -32.36 C=  -32.36
+  seg09 t=165.336~171.912 A=   78.06 B=  138.60 C=   78.06
+  seg10 t=175.331~182.546 A=   83.77 B=  408.44 C=   83.77
+  seg11 t=186.860~194.775 A=   81.04 B=  524.21 C=   81.04
+  seg12 t=202.532~208.142 A=   52.07 B=   52.57 C=   52.07
+  seg13 t=225.270~231.476 A=   68.73 B=   83.67 C=   68.73
+  seg14 t=236.896~240.858 A=   44.30 B=  101.11 C=   44.30
+  seg15 t=244.042~248.323 A=   78.84 B=  200.98 C=   78.84
+  seg16 t=251.492~257.676 A=   78.86 B=  421.37 C=   78.86
+  seg17 t=261.862~267.632 A=   77.62 B=  680.29 C=   77.62
+  seg18 t=271.827~279.326 A=   79.69 B=  710.28 C=   79.69
+  seg19 t=283.592~287.292 A=   77.23 B=  191.52 C=   77.23
+  seg20 t=297.381~302.681 A=  -89.85 B=  -89.85 C=  -89.85
+  seg21 t=326.496~330.842 A=   71.88 B=  115.38 C=   71.88
+  seg22 t=334.937~337.531 A=   79.73 B=  474.23 C=   79.73

@@ -1,0 +1,49 @@
+=== 数据集: 新录制（从零基线） ===
+加载沿: [2.27, 120.67, 142.03, 149.41, 219.08, 292.74, 308.07, 318.49]
+
+-- 现役(inc_ref 迟延锁存) --  事件数=8  末态=event  g=-0.0417
+    t_up       A  off_ss    驻留(s)     过充峰值/A  T5%(s)      G
+    2.27   12124    1206     1.15      9.04%    2.99  1.183
+  120.67   10100    1286     0.75     19.47%    0.33  1.071
+  142.03   14340     506     1.65     19.15%   -0.06  0.796
+  149.41   14350     906     0.37      3.27%    5.78  0.805
+  219.08   13715     204    11.22     10.05%    5.71  0.832
+  292.74   13902    1205     1.78     10.39%    0.32  1.089
+  308.07   14510     946     4.50     17.33%    0.38  1.057
+  318.49   14300     946     2.80     17.58%    0.42  0.970
+   驻留中位=1.71s 最大=11.22s  过充峰值中位=13.86%  G 中位=1.013
+
+-- 修复(插值取参考) --  事件数=8  末态=event  g=-0.0417
+    t_up       A  off_ss    驻留(s)     过充峰值/A  T5%(s)      G
+    2.27   12124    1206     1.15      9.04%    2.99  1.183
+  120.67   10100    1286     0.75     19.47%    0.33  1.071
+  142.03   14340     506     1.65     19.15%   -0.06  0.796
+  149.41   14350     906     0.37      3.27%    5.78  0.805
+  219.08   13715     204    11.22     10.05%    5.71  0.832
+  292.74   13902    1205     1.78     10.39%    0.32  1.089
+  308.07   14510     946     4.50     17.33%    0.38  1.057
+  318.49   14300     946     2.80     17.58%    0.42  0.970
+   驻留中位=1.71s 最大=11.22s  过充峰值中位=13.86%  G 中位=1.013
+
+=== 既有录制回归（力矩域/ADC 域混合，仅看是否劣化） ===
+数据集                            事件      驻留中位      驻留最大      过充中位     G中位   ← 现役 / 修复
+四指指尖/数据1                        1        -        -        -       -        -        -        -       -   ← 现役 / 修复
+四指指尖/数据2                        1        -        -        -       -        -        -        -       -   ← 现役 / 修复
+四指指尖/数据3                        1        -        -        -       -        -        -        -       -   ← 现役 / 修复
+Traceback (most recent call last):
+  File "D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v2.0\scripts\probe_g_incref.py", line 216, in <module>
+    main()
+    ~~~~^^
+  File "D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v2.0\scripts\probe_g_incref.py", line 203, in main
+    _c, o2 = replay(cls, el2, V2)
+             ~~~~~~^^^^^^^^^^^^^^
+  File "D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v2.0\scripts\probe_g_incref.py", line 55, in replay
+    out[i] = c.process(float(el[i]), V[i])
+             ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\progress\archived\07-v6\scripts\glm53_v6.py", line 245, in process
+    self._push(ts, total, v, self.last_out[:self.n])
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\progress\archived\07-v6\scripts\glm53_v6.py", line 164, in _push
+    self._bvx[:, i] = v
+    ~~~~~~~~~^^^^^^
+ValueError: could not broadcast input array from shape (31,) into shape (21,)

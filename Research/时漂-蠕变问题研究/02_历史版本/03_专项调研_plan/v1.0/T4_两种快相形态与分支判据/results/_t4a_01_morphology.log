@@ -1,0 +1,44 @@
+# cmd      : python scripts/t4a_01_morphology.py
+# cwd      : D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T4_两种快相形态与分支判据
+# argv     : scripts\t4a_01_morphology.py
+# when     : 2026-09-18T23:35:53
+# env      : python 3.14.4 | numpy 2.4.6 | pandas 3.0.3
+# 口径     : timestamp 列 / 100 Hz 网格 / Z=Σch / 无 τ=2 s 平滑 / 中位滤波 0.5 s
+
+== 检出事件 n=60（13 份录制，总量 Z 口径）==
+kind
+onset             22
+partial_unload     5
+restep            19
+unload            14
+
+== armed 门限敏感性（统一到「加载/卸载」与「是否带载起」）==
+  thr=10%  onset n=19  restep n=21  |  与 thr=20% 标签不一致 3 个
+  thr=20%  onset n=22  restep n=18  |  与 thr=20% 标签不一致 0 个
+  thr=30%  onset n=23  restep n=17  |  与 thr=20% 标签不一致 1 个
+
+== 加载类事件按 armed_20 分组的形态中位（真形态对比，未剔除脏事件）==
+         t50    t80    t90    t95   z_at_02   z_at_10  step_frame_frac  top3_frame_frac  rise_frames_10_90   exp_tau  exp_beta     pow_p   T_slope  pre_over_peak
+kind                                                                                                                                                             
+onset   0.02  0.170  0.665  1.895  0.818041  0.920857         0.390620         0.632485               61.5  0.026477  0.243839  0.069793  0.500027       0.002464
+restep  0.17  0.885  1.985  3.195  0.478182  0.738007         0.448543         0.989100               98.0  0.414752  1.128175  0.766479  0.528559       0.653314
+
+== 干净事件的同一对比（指标字典 §2.1）==
+  clean: onset n=18  restep n=7
+         t50   t80   t90   t95   z_at_02   z_at_10  step_frame_frac  top3_frame_frac  rise_frames_10_90   exp_tau  exp_beta     pow_p   T_slope
+kind                                                                                                                                           
+onset   0.02  0.17  0.62  2.02  0.827552  0.917645         0.387299         0.632485               61.5  0.026477  0.241296  0.068467  0.449902
+restep  0.24  0.69  1.40  2.44  0.464750  0.855796         0.489098         1.090509              133.0  0.406461  0.606952  0.828822  0.588627
+
+== 标签口径不一致事件（armed_20 vs 第一轮 kind_prej）==
+  n=3
+      rec   t_on  kind kind_prej      pre      jump  pre_over_peak  pre_over_jump  z_at_02
+切换负载-快相无责  28.63 onset    restep 4821.356  6784.361          0.172          0.711    0.854
+切换负载-快相无责  75.89 onset    restep 5445.501 12646.175          0.194          0.431    0.399
+切换负载-快相无责 233.05 onset    restep 5212.793 15032.640          0.186          0.347   -0.062
+
+= 列名（T4-B 接口）=
+  key, rec, dom, main_ch, t_on, k_on, kind, armed, armed_10, armed_20, armed_30, kind_prej, clean, n_other_near, pre, post, jump, ratio, peak, pre_over_peak, pre_over_jump, t10, t50, t80, t90, t95, rise_frames_10_90, n_frames_rise, frames_to_50, frames_to_90, step_frame_frac, top3_frame_frac, z_at_005, z_at_01, z_at_02, z_at_03, z_at_05, z_at_10, z_at_20, z_at_50, exp_tau, exp_beta, exp_rms, pow_p, pow_tau, pow_rms, T_slope, t_on5, d_t_on5, src_ev, pkt_dt
+
+-> D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T4_两种快相形态与分支判据\results\t4a_morphology.csv
+done

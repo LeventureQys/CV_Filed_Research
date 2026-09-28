@@ -1,0 +1,82 @@
+==== T1-A 03_metrics ==== 2026-09-19 00:40:18
+cmd : C:\Python314\python.exe scripts/t1a_03_metrics.py
+ROOT: D:\workshop\Processing\multi-device-cascade-host-cpp
+脚本目录: D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T1_稳定时间定义与鲁棒性口径\scripts
+事件表 60 行；每行 × 4 臂 = 240 行输出
+  右拇指指尖/数据1              E001           t_on=   8.27 kind=onset          J=   14.153 J_ch=   1.105 J_creep=   1.595 cut=13.6    win=   5.3 s
+  右拇指指尖/数据1              E002           t_on=  13.60 kind=restep         J=    1.203 J_ch=   0.075 J_creep=   0.493 cut=115.4   win= 101.8 s
+  右拇指指尖/数据1              E003           t_on= 115.37 kind=unload         J=  -19.092 J_ch=  -1.578 J_creep=  -1.573 cut=记录末     win=  47.3 s
+  右拇指指尖/数据2              E004           t_on=  12.32 kind=onset          J=   16.418 J_ch=   1.326 J_creep=   1.797 cut=147.1   win= 134.8 s
+  右拇指指尖/数据2              E005           t_on= 147.11 kind=restep         J=    1.118 J_ch=   0.124 J_creep=   0.134 cut=159.5   win=  12.4 s
+  右拇指指尖/数据2              E006           t_on= 159.49 kind=unload         J=  -21.208 J_ch=  -1.876 J_creep=  -1.876 cut=记录末     win=  74.7 s
+  右拇指指尖/数据3              E007           t_on=  10.59 kind=onset          J=   16.509 J_ch=   1.446 J_creep=   1.804 cut=135.7   win= 125.1 s
+  右拇指指尖/数据3              E008           t_on= 135.70 kind=unload         J=  -20.744 J_ch=  -1.814 J_creep=  -1.806 cut=记录末     win=  54.7 s
+  左拇指指尖/数据1              E009           t_on=  11.69 kind=onset          J=   15.284 J_ch=   1.209 J_creep=   1.296 cut=147.5   win= 135.8 s
+  左拇指指尖/数据1              E010           t_on= 147.52 kind=unload         J=  -18.157 J_ch=  -1.296 J_creep=  -1.296 cut=记录末     win=  48.7 s
+  左拇指指尖/数据2              E011           t_on=  14.92 kind=onset          J=   16.121 J_ch=   1.278 J_creep=   1.346 cut=140.9   win= 126.0 s
+  左拇指指尖/数据2              E012           t_on= 140.92 kind=unload         J=  -18.604 J_ch=  -1.347 J_creep=  -1.347 cut=记录末     win=  57.6 s
+  左拇指指尖/数据3              E013           t_on=  10.87 kind=onset          J=   17.513 J_ch=   1.292 J_creep=   1.362 cut=132.6   win= 121.7 s
+  左拇指指尖/数据3              E014           t_on= 132.59 kind=unload         J=  -19.340 J_ch=  -1.363 J_creep=  -1.363 cut=记录末     win=  60.2 s
+  四指指尖/数据1               E015           t_on=  10.94 kind=onset          J=   13.319 J_ch=   1.528 J_creep=   1.797 cut=12.2    win=   1.2 s
+  四指指尖/数据1               E016           t_on=  12.19 kind=restep         J=    2.689 J_ch=   0.133 J_creep=   0.389 cut=130.8   win= 118.6 s
+  四指指尖/数据1               E017           t_on= 130.75 kind=unload         J=  -16.353 J_ch=  -1.858 J_creep=  -1.840 cut=记录末     win=  60.0 s
+  四指指尖/数据2               E018           t_on=  11.03 kind=onset          J=   14.684 J_ch=   1.659 J_creep=   1.853 cut=130.8   win= 119.8 s
+  四指指尖/数据2               E019           t_on= 130.78 kind=unload         J=  -16.976 J_ch=  -1.852 J_creep=  -1.877 cut=记录末     win=  59.8 s
+  四指指尖/数据3               E020           t_on=  11.00 kind=onset          J=   15.244 J_ch=   1.778 J_creep=   1.962 cut=140.4   win= 129.4 s
+  四指指尖/数据3               E021           t_on= 140.40 kind=unload         J=  -16.931 J_ch=  -1.851 J_creep=  -1.962 cut=记录末     win=  59.3 s
+  切换负载-快相无责              E022           t_on=  10.84 kind=onset          J= 4164.703 J_ch= 352.298 J_creep=3523.126 cut=28.6    win=  17.8 s
+  切换负载-快相无责              E023           t_on=  28.63 kind=onset          J= 6784.361 J_ch= 631.394 J_creep=3133.984 cut=71.7    win=  43.0 s
+  切换负载-快相无责              E024           t_on=  71.67 kind=restep         J= 3901.893 J_ch=1015.196 J_creep=2408.126 cut=75.9    win=   4.2 s
+  切换负载-快相无责              E025           t_on=  75.89 kind=onset          J=12646.175 J_ch=1781.599 J_creep=3019.126 cut=110.5   win=  34.6 s
+  切换负载-快相无责              E026           t_on= 110.45 kind=restep         J= 6463.012 J_ch=1025.015 J_creep=1086.944 cut=129.4   win=  18.9 s
+  切换负载-快相无责              E027           t_on= 129.37 kind=partial_unload J= -900.178 J_ch=-1087.252 J_creep=-395.226 cut=133.8   win=   4.5 s
+  切换负载-快相无责              E028           t_on= 133.83 kind=onset          J=27105.961 J_ch=2839.207 J_creep=3137.365 cut=182.0   win=  48.2 s
+  切换负载-快相无责              E029           t_on= 182.03 kind=partial_unload J=-3592.283 J_ch=-565.093 J_creep=-820.980 cut=186.0   win=   3.9 s
+  切换负载-快相无责              E030           t_on= 185.97 kind=onset          J=25194.165 J_ch=2761.027 J_creep=2323.658 cut=202.7   win=  16.7 s
+  切换负载-快相无责              E031           t_on= 202.65 kind=partial_unload J=-3914.873 J_ch=-452.196 J_creep=-561.747 cut=212.4   win=   9.8 s
+  切换负载-快相无责              E032           t_on= 212.40 kind=partial_unload J=-16379.180 J_ch=-1788.552 J_creep=-118.403 cut=217.7   win=   5.3 s
+  切换负载-快相无责              E033           t_on= 217.74 kind=restep         J= 6092.977 J_ch= 653.023 J_creep=1670.638 cut=230.6   win=  12.9 s
+  切换负载-快相无责              E034           t_on= 230.64 kind=restep         J= 7765.798 J_ch= 474.503 J_creep=1027.161 cut=233.1   win=   2.4 s
+  切换负载-快相无责              E035           t_on= 233.05 kind=onset          J=15032.640 J_ch=1222.332 J_creep=1688.332 cut=240.7   win=   7.7 s
+  切换负载-快相无责              E036           t_on= 240.72 kind=restep         J= 5255.772 J_ch= 425.754 J_creep= 439.083 cut=249.6   win=   8.9 s
+  切换负载-快相无责              E037           t_on= 249.63 kind=unload         J=-25810.698 J_ch=-2328.384 J_creep=-2328.384 cut=记录末     win=   6.1 s
+  再切换负载                  E038           t_on=  11.79 kind=onset          J=14393.568 J_ch=2424.870 J_creep=2741.000 cut=13.7    win=   1.9 s
+  再切换负载                  E039           t_on=  13.70 kind=restep         J= 1434.927 J_ch= 117.150 J_creep= 386.183 cut=31.2    win=  17.5 s
+  再切换负载                  E040           t_on=  14.86 kind=restep         J=  481.005 J_ch= 125.483 J_creep= 346.127 cut=31.2    win=  16.4 s
+  再切换负载                  E041           t_on=  31.22 kind=restep         J= 1341.382 J_ch=-572.099 J_creep= 129.997 cut=36.0    win=   4.7 s
+  再切换负载                  E042           t_on=  35.96 kind=onset          J=21602.995 J_ch=2670.000 J_creep=2741.000 cut=50.6    win=  14.6 s
+  再切换负载                  E043           t_on=  50.61 kind=unload         J=-22616.000 J_ch=-2744.834 J_creep=-2744.834 cut=57.3    win=   6.7 s
+  再切换负载                  E044           t_on=  57.30 kind=onset          J=25170.819 J_ch=1891.003 J_creep=1889.972 cut=记录末     win=  13.6 s
+  中途切换-1d9493            E045           t_on=  10.92 kind=onset          J=17623.905 J_ch=1891.374 J_creep=3346.354 cut=20.7    win=   9.8 s
+  中途切换-1d9493            E046           t_on=  20.72 kind=restep         J= 7062.150 J_ch= 728.968 J_creep=1216.944 cut=30.7    win=  10.0 s
+  中途切换-1d9493            E047           t_on=  30.68 kind=unload         J=-25925.773 J_ch=-2934.046 J_creep= 412.308 cut=39.1    win=   8.4 s
+  中途切换-1d9493            E048           t_on=  39.08 kind=onset          J=26580.506 J_ch=3251.389 J_creep=3346.354 cut=记录末     win=  24.8 s
+  中途切换-1d9493            E049           t_on=  60.78 kind=restep         J=      nan J_ch=     nan J_creep=     nan cut=记录末     win=   3.1 s
+  中途切换-13ffca            E050           t_on=   8.41 kind=onset          J=15362.887 J_ch=1901.287 J_creep=2931.914 cut=18.7    win=  10.3 s
+  中途切换-13ffca            E051           t_on=  18.68 kind=restep         J= 6406.419 J_ch= 653.639 J_creep= 940.553 cut=26.6    win=   7.9 s
+  中途切换-13ffca            E052           t_on=  26.57 kind=restep         J= 1174.268 J_ch= 169.378 J_creep= 236.579 cut=27.6    win=   1.0 s
+  中途切换-13ffca            E053           t_on=  27.60 kind=restep         J= 4667.170 J_ch= 423.628 J_creep= 484.107 cut=45.3    win=  17.7 s
+  中途切换-13ffca            E054           t_on=  45.28 kind=partial_unload J=-3628.227 J_ch=-285.471 J_creep=   9.444 cut=61.4    win=  16.1 s
+  中途切换-13ffca            E055           t_on=  61.37 kind=restep         J= 3447.114 J_ch= 295.621 J_creep= 295.116 cut=68.9    win=   7.6 s
+  中途切换-13ffca            E056           t_on=  68.93 kind=unload         J=-24363.592 J_ch=-2947.000 J_creep= 380.958 cut=88.0    win=  19.1 s
+  中途切换-13ffca            E057           t_on=  88.00 kind=onset          J=27820.765 J_ch=2983.818 J_creep=3318.958 cut=99.4    win=  11.4 s
+  中途切换-13ffca            E058           t_on=  99.36 kind=restep         J= 2422.469 J_ch= 143.565 J_creep= 322.859 cut=104.2   win=   4.9 s
+  中途切换-13ffca            E059           t_on= 104.24 kind=restep         J= 2716.102 J_ch= 282.481 J_creep= 284.100 cut=113.8   win=   9.6 s
+  中途切换-13ffca            E060           t_on= 113.80 kind=unload         J=-32372.755 J_ch=-3313.052 J_creep=-3331.052 cut=记录末     win=   6.8 s
+
+== 冻结主口径 T_stable_ch5 的中位（按臂 × 事件类别，全部事件）==
+arm       raw   v5.1     v6   v6.1
+kind                              
+onset    9.42   3.36   3.35   3.22
+restep  75.18  75.18  75.18  75.18
+unload   0.03   0.12   0.09   0.12
+
+== 删失比例（cens_*，真=未在窗内停下）==
+  cens_ch5         删失 151/240
+  cens_tot5        删失 146/240
+  cens_chcreep     删失 139/240
+  cens_ev_ch5      删失 144/240
+
+-> D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T1_稳定时间定义与鲁棒性口径\results\t1a_settle_metrics.csv（240 行 × 49 列）
+冻结列: ds, ev_id, key, family, dom, kind, clean, t_on, arm, main_ch, chalt, J_ch, J_tot, J_creep, J_chalt, J_tot_ev, T_stable_ch5, cens_ch5, T_stable_tot5, cens_tot5, T_stable_chcreep, cens_chcreep, T_stable_chalt5, cens_chalt5, T_stable_ev_ch5, cens_ev_ch5, win_ev_ch5, T_stable_ev_tot5, cens_ev_tot5, win_ev_tot5, T_stable_ev_chcreep, cens_ev_chcreep, win_ev_chcreep, T_settle_ch2, T_settle_ch5, T_settle_tot2, T_settle_tot5, zfinal_from_s, T_band_ch5, OS_pct, err_1s_pct, err_2s_pct, win_avail_s, cut_s, pkt_dt, n_epoch_before, n_epoch_in_win, epoch_per100s, note
+done

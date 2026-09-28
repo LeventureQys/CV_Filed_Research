@@ -1,0 +1,10 @@
+=== T1-B / 07b 旋钮生效性自检 ===
+knob                     clean              tap30            noise2%           noise10%
+base         ep 2 tap0 Ts 0.54  ep 4 tap2 Ts 0.54  ep 1 tap0 Ts 0.53  ep 1 tap0 Ts  nan
+dwell0.10    ep 2 tap0 Ts 0.54  ep 3 tap1 Ts 0.54  ep 1 tap0 Ts 0.31  ep 1 tap0 Ts  nan
+dwell0.15    ep 2 tap0 Ts 0.54  ep 3 tap1 Ts 0.58  ep 1 tap0 Ts 0.59  ep 1 tap0 Ts  nan
+dwell0.25    ep 1 tap0 Ts 0.55  ep 2 tap1 Ts 0.60  ep 1 tap0 Ts 0.59  ep 2 tap0 Ts  nan
+dwell0.40    ep 1 tap0 Ts 0.68  ep 1 tap0 Ts 0.68  ep 1 tap0 Ts 0.72  ep 1 tap0 Ts 7.99
+rel0.08      ep 2 tap0 Ts 0.54  ep 4 tap2 Ts 0.54  ep 1 tap0 Ts 0.53  ep 1 tap0 Ts  nan
+rel0.12      ep 2 tap0 Ts 0.54  ep 4 tap2 Ts 0.54  ep 1 tap0 Ts 0.53  ep 1 tap0 Ts  nan
+k7           ep 2 tap0 Ts 0.54  ep 4 tap2 Ts 0.54  ep 1 tap0 Ts 0.53  ep 1 tap0 Ts  nan

@@ -1,0 +1,36 @@
+帧数=33908
+事件态帧数 = 12525；其中 idle_now 为真 = 1 帧（0.0%）
+慢相态帧数 = 17690；其中 idle_now 为真 = 0 帧（0.0%）
+空载态帧数 = 3693；其中 idle_now 为真 = 3675 帧
+
+B 现有卸载出口实际触发（事件→无事件）次数 = 63
+
+A 事件态内没有出现 ≥2 帧的主动 idle 段
+
+E 事件期内 inc < 0.5·inc_max 的帧数 = 131
+   前 15 处（ts, tau, inc, inc_max）：
+     t=    7.49  tau=  2.23  inc=    1307  inc_max=    3496  inc/inc_max=0.37
+     t=    7.49  tau=  2.23  inc=    1212  inc_max=    3496  inc/inc_max=0.35
+     t=    7.49  tau=  2.23  inc=    1145  inc_max=    3496  inc/inc_max=0.33
+     t=    7.49  tau=  2.23  inc=    1158  inc_max=    3496  inc/inc_max=0.33
+     t=    7.53  tau=  2.27  inc=    1111  inc_max=    3496  inc/inc_max=0.32
+     t=    7.53  tau=  2.27  inc=    1146  inc_max=    3496  inc/inc_max=0.33
+     t=    7.53  tau=  2.27  inc=    1259  inc_max=    3496  inc/inc_max=0.36
+     t=    7.53  tau=  2.27  inc=    1367  inc_max=    3496  inc/inc_max=0.39
+     t=    7.57  tau=  2.31  inc=    1208  inc_max=    3496  inc/inc_max=0.35
+     t=    7.57  tau=  2.31  inc=    1195  inc_max=    3496  inc/inc_max=0.34
+     t=    7.57  tau=  2.31  inc=    1171  inc_max=    3496  inc/inc_max=0.33
+     t=    7.57  tau=  2.31  inc=    1184  inc_max=    3496  inc/inc_max=0.34
+     t=    7.61  tau=  2.34  inc=    1165  inc_max=    3496  inc/inc_max=0.33
+     t=    7.61  tau=  2.34  inc=    1190  inc_max=    3496  inc/inc_max=0.34
+     t=    7.61  tau=  2.35  inc=    1178  inc_max=    3496  inc/inc_max=0.34
+
+D 各受载平台的偏移（显示−原始）分布：
+  段      t0    dur    off 中位  off p10  off p90   off 最大    |off|>0.5%读数 的帧%
+  0     5.3  105.8      1273      752     1527     1873               99.4%
+  2   130.4    6.6      -455     -645     -337      732               98.0%
+  4   152.0   59.2       438       11      720      802               71.4%
+  6   224.8   62.5       533      137      943     1152               96.1%
+  8   292.8    9.9        10     -150      460      705               56.7%
+ 10   308.1    6.8       260      145      565      666               95.5%
+ 11   318.5   19.1       148       12      558      680               74.1%

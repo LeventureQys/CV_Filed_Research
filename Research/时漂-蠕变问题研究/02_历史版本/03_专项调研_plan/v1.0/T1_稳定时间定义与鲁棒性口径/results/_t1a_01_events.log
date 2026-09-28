@@ -1,0 +1,45 @@
+==== T1-A 01_events ==== 2026-09-19 00:28:36
+cmd : C:\Python314\python.exe scripts/t1a_01_events.py
+ROOT: D:\workshop\Processing\multi-device-cascade-host-cpp
+脚本目录: D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T1_稳定时间定义与鲁棒性口径\scripts
+T4-A 事件表: 60 行 × 51 列  <- D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T4_两种快相形态与分支判据\results\t4a_morphology.csv
+
+== 自检 ==
+  网格一致性（|t_on − k_on·dt| ≤ 5 ms）: 不一致 0 个
+  J == post − pre（相对误差）: 最大 3.719e-07（59 个有效 J）
+  J 缺失事件: 1 个 -> E049/中途切换-1d9493
+  列 NaN 计数: J=1, pre=0, post=1, t50=1, t80=1, t90=1, t95=1, z_at_02=1, z_at_10=1
+
+== 事件构成（ds × kind）==
+kind         onset  partial_unload  restep  unload
+ds                                                
+中途切换-13ffca      2               1       6       2
+中途切换-1d9493      2               0       2       1
+再切换负载            3               0       3       1
+切换负载-快相无责        6               4       5       1
+右拇指指尖/数据1        1               0       1       1
+右拇指指尖/数据2        1               0       1       1
+右拇指指尖/数据3        1               0       0       1
+四指指尖/数据1         1               0       1       1
+四指指尖/数据2         1               0       0       1
+四指指尖/数据3         1               0       0       1
+左拇指指尖/数据1        1               0       0       1
+左拇指指尖/数据2        1               0       0       1
+左拇指指尖/数据3        1               0       0       1
+
+== 分族 × 分工况 ==
+kind    onset  partial_unload  restep  unload
+family                                       
+右拇指         3               0       2       3
+四指          3               0       1       3
+实录         13               5      16       5
+左拇指         3               0       0       3
+
+== 与需求文档 §3-2 的事件覆盖要求 ==
+  onset 22（要求 ≥9）| restep 19（要求 ≥15）| 实录类事件 39（要求 ≥10，含 onset/restep/unload）
+  J 为总通道口径（Σ_c ch_c）；主通道/含蠕变口径的参考幅度另见 t1a_settle_metrics.csv
+
+冻结列（13）: ds, kind, t_on, J, pre, post, t50, t80, t90, t95, z_at_02, z_at_10, clean
+溯源列（15）: ev_id, key, dom, family, main_ch, k_on, J_ok, peak, ratio, armed_20, kind_prej, n_other_near, src_ev, pkt_dt, src
+-> D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T1_稳定时间定义与鲁棒性口径\results\t1_events.csv
+done

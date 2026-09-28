@@ -1,0 +1,5 @@
+config	clamp_alpha	legacy_fixes	g_neg_floor	clamp_hits	shape_hits	n_valley_exit	n_reanchor_idle	n_g_floor	n_g_valley_reset	in_event_end	in_slow_end	in_valley_end	valley_run_s_end	slow_residual_g_end	clip_grid	clip_frames	clip_sum_adc_grid	clip_max_cell_adc	violations
+A	0.005	0	-0.05	277497	11235	0	0	14	449	1	0	0	0	-0.00732128	327832	23380	9.40041e+06	217.803	0
+B	0	0	-0.05	0	11235	0	0	450	450	1	0	0	0	-0.00732128	0	0	0	0	375111
+C	0.005	1	-0.05	277497	11235	0	3	12	439	1	0	0	0	-0.00732128	327832	23380	9.40041e+06	217.803	0
+# positive_control: B(alpha=0) output vs alpha=0.005 bound violations = 311629

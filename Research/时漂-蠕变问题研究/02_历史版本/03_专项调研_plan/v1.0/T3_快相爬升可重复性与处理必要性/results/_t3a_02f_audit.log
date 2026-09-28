@@ -1,0 +1,29 @@
+# cmd      : python scripts/t3a_02f_audit.py
+# cwd      : D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T3_快相爬升可重复性与处理必要性
+# argv     : scripts\t3a_02f_audit.py
+# when     : 2026-09-19T01:00:05
+# env      : python 3.14.4 | numpy 2.4.6 | pandas 3.0.3
+# 口径     : timestamp 列 / 100 Hz 网格 / Z=Σch / 无 τ=2 s 平滑 / 中位滤波 0.5 s /
+#            f(τ) 基准 = T4-A 的 pre 窗中位 / 主 τ 网格 = T4-A 的 z_at_* 采样点
+
+装载类事件 n=41（onset 22 / restep 19）
+
+判据汇总（按类）：
+  onset   n=22   J_ok=22  posdef=21  clean=18  usable=18 
+  restep  n=19   J_ok=17  posdef=12  clean=7   usable=6  
+
+非正定事件（f(τ) 含负值或 >1.5）n=8 —— 这些事件**不可用于比值反演**：
+       uid   kind  clean fam         jump  J_over_peak      f_min    f_max
+RT2@147.11 restep   True 右拇指     1.118180     0.050498  -0.208530 1.000497
+ SW1@71.67 restep  False  实录  3901.892899     0.139271  -1.772271 1.000708
+SW1@230.64 restep  False  实录  7765.798232     0.277186  -0.894763 1.000148
+SW1@233.05  onset  False  实录 15032.639923     0.536562  -0.070793 1.000027
+ SW2@14.86 restep  False  实录   481.004524     0.018568  -1.643113 0.978287
+ SW2@31.22 restep  False  实录  1341.381565     0.051781 -11.910985 1.057504
+ SW3@60.78 restep  False  实录          NaN          NaN        NaN      NaN
+ SW4@26.57 restep  False  实录  1174.267975     0.036153  -3.026196 1.000212
+
+J 低于 2% 峰值的事件：['SW2@14.86', 'SW3@60.78']
+
+主样本 usable（J_ok & posdef & clean & is_load）n=24（onset 18 / restep 6；域：显示 8 / ADC 16）
+-> results/t3a_inlier_audit.csv（60 行）

@@ -1,0 +1,2233 @@
+====================================================================================================
+FILE: T1_稳定时间定义与鲁棒性口径/results/conclusions_T1A.json
+{
+ "task": "T1",
+ "seat": "T1-A",
+ "date": "2026-09-19",
+ "scope": "T1-Q1~Q5（稳定时间的定义与实测）；T1-Q6~Q10（鲁棒性扰动扫描）属 T1-B，本件不含",
+ "frozen_caliber": {
+  "name": "T_stable_ch5（主口径 D1）",
+  "definition": "从真沿 t_on 起算，首次存在 τ 使 [t_on+τ, t_on+τ+30 s] 内显示读数相对该时刻自身的漂移 ≤ 5%·|J_ref|；要求完整 30 s 窗，不因后续事件截断",
+  "signal": "事件主通道（该录制加载段最大台阶通道；恒载 9 组 = 第一轮指定通道 17/18/11）",
+  "ref_amplitude": "J_ref = 中位([t_on+4, t_on+6]) − 中位([t_on−2, t_on))（指标字典 §2.1）",
+  "grid": "timestamp 重采样 100 Hz（dt=0.01 s）",
+  "t_on": "T4-A 真沿（检出沿 ±0.20 s 内最大单帧跳变帧）",
+  "worst_case_caliber": "即本口径本身（三候选中数值最大：恒载 9 组 v6 1.80 s ≥ 总通道 0.55 s ≥ 含蠕变 0.50 s）",
+  "multi_event_variant": "T_stable_ev_ch5：窗在下一真实事件处截断、要求可用窗 ≥5 s（实录类必须用它，且须同报删失状态）"
+ },
+ "headline": [
+  {
+   "n": 1,
+   "claim": "冻结口径（主通道 + 5 s 参考）下 v6 的恒载 9 组 onset 中位稳定时间",
+   "value": "1.80 s（v6.1 1.16 s；v5.1 2.89 s；raw 9.42 s）",
+   "source": "results/t1a_settle_summary.csv:caliber=ch5,group=onset·恒载9组,col=med"
+  },
+  {
+   "n": 2,
+   "claim": "「≤2 s」达标率（冻结口径，分母 = 可测事件数）——中位达标但最差严重超标",
+   "value": "v6 5/9=55.6%（worst 13.16 s）；v6.1 5/9=55.6%；v5.1 4/9=44.4%；raw 1/9=11.1%",
+   "source": "results/t1a_target_verdict.csv（caliber=ch5,group=onset·恒载9组）"
+  },
+  {
+   "n": 3,
+   "claim": "分工况达标（冻结口径）：卸载类最好、restep 结构性不可测、实录类靠修订口径才可测",
+   "value": "unload v6 9/9 达标（中位 0.09 s）；restep 19 个里仅 2 个可测且都 >2 s；实录族 v6 修订口径 6/8 达标",
+   "source": "results/t1a_target_verdict.csv + results/t1a_settle_summary.csv"
+  },
+  {
+   "n": 4,
+   "claim": "三个自由度的口径差（同一份 v6、同一批恒载 9 组；冻结口径）",
+   "value": "主通道 1.80 / 总通道 0.55 / 含蠕变 0.50 s（最大差 3.6 倍）；第一轮口径下同一组为 1.72 / 0.46 / 0.40 s",
+   "source": "results/t1a_settle_summary.csv（v6,onset·恒载9组）+ results/t1a_settle_edge_sensitivity.csv"
+  },
+  {
+   "n": 5,
+   "claim": "第一轮 5 个公开值全部复现/裁决完成",
+   "value": "1.72 / 0.46 / 0.41 s 精确复现（用第一轮自己的 t_on 与网格，9/9 份逐份差 ≤0.01 s）；2.72 s = 1.72+1.00 s 的切片下标 bug（非口径）；0.55 s 用『总通道+回溯真沿』独立复现 0.55 s",
+   "source": "results/t1a_round1_audit.csv、results/t1a_settle_edge_sensitivity.csv、results/t1a_grid_sensitivity.csv"
+  },
+  {
+   "n": 6,
+   "claim": "本任务冻结口径相对第一轮系统性 +0.08~0.10 s（只因 t_on 定义更早 0.09 s）",
+   "value": "v6 主通道：1.72（第一轮口径 1.72）→ 1.80 s（冻结口径）；总通道 0.46→0.55；含蠕变 0.40→0.50",
+   "source": "results/t1a_settle_edge_sensitivity.csv"
+  },
+  {
+   "n": 7,
+   "claim": "T_stable 与 T_settle(ε) 的口径差：中位接近、删失更多、极端差可达 120 s",
+   "value": "配对中位差 0.00~1.11 s（v6），但 T_settle 删失 43/60 > T_stable 删失 37/60，单事件最大差 120.96 s",
+   "source": "results/t1a_d1_vs_d2.csv、results/t1a_definition_compare.csv"
+  },
+  {
+   "n": 8,
+   "claim": "理论下界：输入侧不构成瓶颈，瓶颈是传感器粘弹 + 判据延迟",
+   "value": "等效输入斜坡 T_ramp 中位 onset 0.010 s / restep 0.220 s（clean 0.550 s），restep 仅 1/18 事件 >1 s；v6 内部延迟下界 0.65 s；跟随器下界 T_in5 中位 4.70 s（n=8）",
+   "source": "results/t1a_lowerbound.csv、T4-A/results/t4a_input_recover.csv、scripts/t1a_glm53_v6.py 常数"
+  }
+ ],
+ "verdicts": [
+  {
+   "question": "T1-Q1",
+   "answer": "给 3 个候选（D1 T_stable 自身漂移型 / D2 T_settle(ε) 相对终值型 / D3 T_band 真值带型），推荐并冻结 D1 的主通道+5 s 参考版（T_stable_ch5）：它是三者中最严（数值最大）、不奖励通道平均、不奖励移动参考幅度、且与第一轮/07-v6 同源可追溯。D2/D3 因『Z_final/真值』本身依赖算法正确性（把『准』混进『稳』）且删失更多，仅作为辅助口径。",
+   "three_state": "支持"
+  },
+  {
+   "question": "T1-Q2",
+   "answer": "三实现 × 三口径 × 分族/分工况的分布见 results/t1a_settle_metrics.csv（240 行）与 t1a_settle_summary.csv；恒载 9 组 onset 中位：v6 1.80 / 0.55 / 0.50 s（主通道/总通道/含蠕变），v6.1 1.16 / 0.53 / 0.43 s，v5.1 2.89 / 3.83 / 2.78 s，raw 9.42 / 16.29 / 8.11 s。",
+   "three_state": "支持"
+  },
+  {
+   "question": "T1-Q3",
+   "answer": "分工况裁决：onset·恒载9组 v6 5/9 达标（最差 13.16 s）⇒部分达标；onset·实录 修订口径 v6 7/11=64%；unload v6 9/9=100% ⇒达标；restep 19 个中仅 2 个可测且均 >2 s（75 s 量级）⇒不达标且指标结构性失效。逐个超标事件与超出量见 t1a_target_exceed.csv（41 行）。",
+   "three_state": "有条件支持"
+  },
+  {
+   "question": "T1-Q4",
+   "answer": "T_stable 与 T_settle(ε) 在配对样本上中位差 0.00~1.11 s、Spearman 0.68~0.96，但 D2 删失更多（43~47/60 vs 37/60）且单事件最大差 120 s；验收应用 D1（T_stable_ch5），D2 只作辅助。对第一轮的裁决：1.72/0.46/0.41 s 全部复现（口径本身就是这三档）；2.72 s 是代码 bug 不是口径（=修正值+1.00 s）；0.55 s 是『总通道+回溯真沿』口径（独立复现）。",
+   "three_state": "支持"
+  },
+  {
+   "question": "T1-Q5",
+   "answer": "下界由三件事决定：(a) 输入等效斜坡 T_ramp（onset 0.010 s、restep 0.220 s，仅 1/18 个 restep >1 s）⇒『输入没走完』不是 ≤2 s 的主要障碍；(b) 判据/估计延迟（v6: TAU_REF 0.20 + STALL_HOLD_S 0.45 = 0.65 s）；(c) 传感器粘弹（restep t90 中位 1.98 s、1 s 完成度仅 0.738 vs onset 0.921）。纯跟随器的下界 T_in5 中位 4.70 s（n=8 可测）——v6 在 8/8 同批事件上快于该下界，靠预测+冻结，代价是过冲。",
+   "three_state": "有条件支持"
+  }
+ ],
+ "corrections": [
+  {
+   "against": "13-v6-assessment/results/settle_arms.csv",
+   "was": "v6 T_stable 中位 1.72 / 0.46 / 0.41 s（主通道/总通道/含蠕变）",
+   "now": "同口径逐份复现（9/9 份差 ≤0.01 s，中位完全相同）；本任务冻结口径（换用 T4-A 真沿）给出 1.80 / 0.55 / 0.50 s",
+   "verdict": "相同"
+  },
+  {
+   "against": "plan/v1.0/第一轮现状与口径更正.md（2.72 s 为『早期主通道』）",
+   "was": "2.72 s 与 1.72 s 是口径差异",
+   "now": "2.72 = 1.72 + 1.00 s，是 r4 stable_time 把切片相对下标当绝对下标的恒定偏移（该文件自述的 bug），不是另一个口径；用第一轮网格+第一轮 t_on 复算 9/9 份 = 5.35/13.06/3.79/0.41/1.05/0.40/2.63/1.72/0.39（公布值逐份同）",
+   "verdict": "推翻"
+  },
+  {
+   "against": "07-v6/MANIFEST.md（T_stable 中位 0.55 s）",
+   "was": "v6 把稳定时间压到 0.55 s（可与 1.72 s 混讲）",
+   "now": "0.55 s 是『总通道 + 回溯真沿』口径；本任务独立复现 = 0.55 s。主通道+5 s 口径下同一份 v6 是 1.80 s ⇒ 两数不可横比",
+   "verdict": "修正"
+  },
+  {
+   "against": "07-v6/docs/07-v6算法说明.md §2.2（restep 慢 6 倍且慢在输入）",
+   "was": "restep t90 2.87 s、慢在输入不在传感器",
+   "now": "T4-A 反卷积：restep 等效输入斜坡中位 0.220 s（clean 0.550 s），仅 1/18 事件 >1 s ⇒ 输入本身在 1 s 内走完；restep 的慢来自传感器粘弹响应（t90 中位 1.98 s、1 s 完成度 0.738）与判据，而不是输入未完成",
+   "verdict": "修正"
+  },
+  {
+   "against": "第一轮（主通道/总通道/含蠕变三口径并列，未冻结）",
+   "was": "『1~2 s 达没达标取决于选哪个口径』",
+   "now": "冻结唯一验收口径 T_stable_ch5；并把『总通道更松』这一直觉限定为『只对补偿臂成立』——raw 臂上总通道反而更严（16.29 s vs 9.42 s）",
+   "verdict": "修正"
+  }
+ ],
+ "gaps": [
+  "跨载荷量级（5N/10N/20N）缺失：无法判定稳定时间是否随载荷量级变化（沿用 T4-A G1）",
+  "无受控加载速率实验：T_ramp 只能反演、不能标定，Q5 的『输入侧下界』只能用观测到的斜坡时长",
+  "restep 工况只有 2/19 个事件可测稳定时间 ⇒ restep 的结论基于 n=2（仅定性参考），需要『短静默窗 + 事件后偏差』类指标的新定义与补采",
+  "实录类 ADC 域的 5%·J 容差在部分小台阶事件上低于单通道噪声（ratio_ch<1，见 t1a_tol_noise.csv）⇒ 这些事件的 T_stable 是噪声驱动量，需要先定『容差下限（如 ≥3σ）』",
+  "v6 的 T_stable 对分析网格敏感：1/9 份录制在 100 Hz vs 100.5 Hz（span/(n−1)）网格下从 3.79 s 变 6.66 s（路径抖动，见 t1a_grid_sensitivity.csv）；未做系统抖动扫描（属 T1-B Q8）",
+  "本次未做时序抖动/丢包/拍击注入下的 T_stable 退化（属 T1-B），因此『鲁棒性达标率』本件不回答",
+  "raw 臂的总通道 T_stable 中位复算 16.21 s vs 首轮 17.98 s（1 份录制的平台判定差异）；raw 非候选臂，未逐份深究"
+ ],
+ "blockers": []
+}
+====================================================================================================
+FILE: T1_稳定时间定义与鲁棒性口径/results/conclusions_T1B.json
+{
+ "task": "T1",
+ "seat": "T1-B",
+ "date": "2026-09-19",
+ "scope": "T1-Q6~Q10（鲁棒性扰动扫描）；T1-Q1~Q5 属 T1-A",
+ "inputs": {
+  "events": "results/t1b_events.csv（T4-A 冻结事件表里 kind=onset & clean & 事件后≥35 s 无事件；显示域7/ADC域11）",
+  "arms": [
+   "raw",
+   "v51",
+   "v6",
+   "v61"
+  ],
+  "grid": "timestamp 列重采样 100 Hz；指标评估用 Z̄=median(Z,0.5 s)",
+  "caliber": "总通道 Σ_c（指标字典 §1 默认）；T1-A 冻结口径为主通道 T_stable_ch5，二者绝对值不可横比，总通道上两方一致（0.55 s，见 t1b_caliber_check.csv）",
+  "sweep_rows": {
+   "t1b_robustness_sweep.csv": 7560,
+   "t1b_jitter_sensitivity.csv": 2836,
+   "t1b_tap_recovery.csv": 660,
+   "t1b_cost_benefit.csv": 830
+  }
+ },
+ "headline": [
+  {
+   "n": 1,
+   "claim": "T1-Q6 逐字档位：白噪总量 RMS 1~50 ADC 区间内 v6 无退化",
+   "value": "A=1→50 ADC：漏检恒 0.29/0.29 个/次（零噪声档同为 0.29）、T_stable 中位 0.555~0.560 s、达标率恒 0.75、OS% 中位 4.83~5.75；50 ADC 仅为实录电平的 0.24%，远低于 5%·电平门限（≈1000 ADC）",
+   "source": "t1b_summary_noise_adc.csv:n_miss_mean,t_stable_med,frac_meet_2s,os_med"
+  },
+  {
+   "n": 2,
+   "claim": "拐点/崩塌点：显示域 r*=5%，崩塌 r=10%；ADC 域失守 ≈2000 ADC（≈8% 电平）",
+   "value": "显示域白噪：r=0.0005→0.55 s/达标 0.71；r=0.01→0.53 s/0.74；r=0.02→0.39 s/0.91（假改善）；r=0.05→0.39 s/0.79；r=0.10→16.18 s/0.06；r=0.20→不可测/0。ADC 域白噪：漏检 0.31(1000) → 1.44(2000) → 6.96(4000)",
+   "source": "t1b_summary_noise_hold.csv / t1b_summary_noise_adc.csv / t1b_knee.csv"
+  },
+  {
+   "n": 3,
+   "claim": "「更稳」是假象：噪声先毁准确度再毁稳定度（r=2% 显示偏置中位 2.26 显示单位 = 12.8% 电平）",
+   "value": "r=2%：显示静偏 |bias| 中位 2.26（12.8% 电平）、Â 偏低 11.1%（−1.77）、ΣA 偏低 1.70，机制 = 回溯 t0 被推迟 0.12~0.39 s；同期 T_stable 0.54→0.39 s、达标率 0.71→0.91",
+   "source": "t1b_noise_bias_probe.csv:bias_display,dAhat_pct / t1b_summary_noise_hold.csv"
+  },
+  {
+   "n": 4,
+   "claim": "T1-Q7 三类扰动：带限 0.3~40 Hz 最狠；同相共模不增漏检但超调/偏差最坏",
+   "value": "A=2000 漏检 白噪1.44/带限1.96/同相1.46；A=4000 OS% 白噪15.11/带限20.25/同相23.17；显示域 r=5% OS%最坏 白噪7.0/带限9.2",
+   "source": "t1b_summary_noise_adc.csv:n_miss_mean,os_med / t1b_summary_noise_hold.csv:os_p90"
+  },
+  {
+   "n": 5,
+   "claim": "T1-Q8 时序抖动/丢包：T_stable 不敏感（±0.03 s），最大偏差对 ±1 包/包聚合敏感",
+   "value": "显示域 T_stable：起点±1/±2 包 0.56/0.58 s、抖动±1/±2 包 0.54/0.55 s、聚合 k=3/6 0.51/0.48 s（基线 0.55 s）；maxdev 抖动±1/±2 包 2.42/4.25、聚合 9.67/9.91 显示单位（59%/61% 电平）、丢包 ≤0.07；ADC 域抖动/延迟/聚合 maxdev 22027~25622 ADC 但慢相偏差 ≈0（0~52 ADC）",
+   "source": "t1b_summary_jitter.csv:t_stable_med,maxdev_med,slow_dev_med"
+  },
+  {
+   "n": 6,
+   "claim": "T1-Q9 拍击不破坏基线（交接=0、ΣA 不变），显示峰值 1.05~1.87× 拍击、恢复 0.24~0.25 s",
+   "value": "显示域 10/30/50%L：触发 1.00/2.00/2.00 epoch、撤销 1.00、交接 0.00、峰值 12.2/32.3/52.3%L、恢复 0.25 s、净台阶 -0.247；ADC 域净台阶 0.000（对照扣除后）；真实扰动(2.0~3.8%L) 0/6 建事件",
+   "source": "t1b_summary_tap.csv + t1b_real_tap_compare.csv"
+  },
+  {
+   "n": 7,
+   "claim": "T1-Q10 只有驻留确认是有效改造（代价 ≤0.01 s，dwell 0.4 s 才 +0.145 s），CAPF 有害、rescue 零收益、四旋钮未绑定",
+   "value": "dwell0.15：ΔT_stable +0.000 s、建事件延迟 0.16 s、拍击30% epoch 1.0、白噪 maxdev 2.08、ADC 漏检 4.8（base 3.5）；dwell0.40：拍击30/50% epoch 0.0、ΔT_stable +0.070 s；capf1.0：ADC 误触发 0.5→14.6；rescue0.40：漏检 3.5（=base）",
+   "source": "t1b_summary_costbenefit.csv:dT_stable,ep_latency_med,tap30_ep_mean,noise_maxdev_med,adc_miss_mean,adc_extra_mean"
+  }
+ ],
+ "verdicts": [
+  {
+   "question": "T1-Q6",
+   "answer": "白噪总量 RMS 1~50 ADC 在 v6 上测不出任何退化（漏检/达标率/超调与零噪声档一致）；退化拐点：显示域 r≈5%（达标率 0.71→0.79→0.06）、ADC 域 A≈2000 ADC（≈8% 电平，漏检 0.29→1.44→6.96）。给出噪声-指标 Pareto 图与拐点表。",
+   "three_state": "支持"
+  },
+  {
+   "question": "T1-Q7",
+   "answer": "退化确实更严重但方向不同：带限 0.3~40 Hz 在同等总量 RMS 下漏检最多（2000 ADC 时 1.96 vs 白噪 1.44）；同相共模不增加漏检（1.46），但 A=4000 的超调中位最大（23.2%）且显示域 r≤2% 时偏差最小 —— 它与白噪对判据的破坏机制不同（整体电平抬升 vs 随机电平差）。",
+   "three_state": "支持"
+  },
+  {
+   "question": "T1-Q8",
+   "answer": "事件起点 ±1/±2 包只把 T_stable 平移 +0.01/+0.03 s；包到达抖动、丢包、聚合对 T_stable 影响 ≤0.07 s；但最大显示偏差对 ±1 包（2.42 显示单位）与包聚合（9.67~9.91 = 59~61% 电平）敏感，且 ADC 域偏差 ≈一个平台幅度 —— 然而慢相/稳态偏差 ≈0 ⇒ 偏差是边缘瞬态。结论：亚秒（<0.1 s）结论在 ±1 包下不可信，平台级结论稳健。",
+   "three_state": "有条件支持"
+  },
+  {
+   "question": "T1-Q9",
+   "answer": "拍击（50/100/50 ms，10/30/50% 电平）叠加在保压段：触发 1.14~2.0 epoch 但 100% 被 0.4 s 撤销窗撤销、交接 0 次、ΣA 不变、净永久台阶 ≤1.0% 电平（ADC 域对照扣除后为 0）⇒ 不破坏已建立的基线、不需要重算 T_stable；显示峰值 1.05~1.87× 拍击幅度、恢复 0.24~0.25 s（显示域）。真实人手扰动（2.0~3.8% 电平）连 epoch 都不建、完全透传。唯一风险：全部靠撤销窗接住，实测最晚撤销 0.39 s vs 窗口 0.40 s（沿用第一轮）。",
+   "three_state": "支持"
+  },
+  {
+   "question": "T1-Q10",
+   "answer": "代价-收益矩阵（13 旋钮 × 4 场景 × 10 种子）：驻留确认是唯一有效改造 —— dwell 0.15 s 收益（拍击 30% epoch 2.0→1.0、白噪 maxdev 2.94→2.08）而代价（clean onset T_stable +0.00 s、建事件延迟 +0.12 s）；dwell 0.40 s 把 10/30/50% 拍击的 epoch 全部清零、代价 T_stable +0.145 s（快事件）。新发现代价：驻留把 ADC 2000 ADC 噪声下的漏检从 3.5 抬到 4.8/5.7。CAPF 被独立复现为有害（误触发 0.5→14.6/录制）；救援检测器零收益；rel/k/idle/revoke 四旋钮未绑定。",
+   "three_state": "有条件支持"
+  }
+ ],
+ "corrections": [
+  {
+   "against": "13-v6-assessment/docs/v6评估与需求答复.md §7.2（主要症状是漏不是错）",
+   "was": "抖动下以漏检为主（1000 ADC 平均漏 1.4 个）",
+   "now": "一致：本报告 A=2000 漏 1.44、A=4000 漏 6.96 而误触发降到 0.10；A=1000 时漏检仍只有 0.31（基线 0.29）",
+   "verdict": "相同"
+  },
+  {
+   "against": "13-v6-assessment/docs/v6评估与需求答复.md §7.2（0.3~5 Hz 慢变干扰最危险）",
+   "was": "带限慢变干扰漏检比白噪高一倍以上",
+   "now": "同向、倍数较小：本报告把频段放宽到 0.3~40 Hz 后，2000 ADC 漏检 1.96 vs 白噪 1.44（+36%），显示域 r=5% 的 OS% 最坏 31.3% vs 11.3%",
+   "verdict": "相同"
+  },
+  {
+   "against": "13-v6-assessment/docs/a_快速扰动下基线识别分析.md §3.2（拍击被 0.4 s 撤销窗接住）",
+   "was": "60 次拍击里 58 次撤销、ΣA 不变、0.18~0.24 s 回到 ±2%",
+   "now": "一致且更强：本报告 10% 电平即建 epoch（触发率 1.00）、撤销率 1.00、交接 0 次、恢复 0.24~0.25 s；并用『同段无拍击对照』把永久台阶钉死（ADC 域净 0.000、显示域 ≤1.0% 电平）",
+   "verdict": "相同"
+  },
+  {
+   "against": "13-v6-assessment/docs/a_快速扰动下基线识别分析.md §3.3（拍击 vs 真实 restep 可辨识）",
+   "was": "撤销次数/是否交接/事件配对三条可判据化差异",
+   "now": "支持：本报告实测拍击 100% 撤销、0 交接；真实人手扰动（2.0~3.8% 电平）连 epoch 都不建",
+   "verdict": "相同"
+  },
+  {
+   "against": "13-v6-assessment（第一轮未做的部分）",
+   "was": "无噪声→T_stable/达标率退化曲线、1~50 ADC 逐字档位、包聚合/延迟/事件起点 ±k 包的指标敏感性、真实人手扰动的量化对照、以及 T_stable 口径下的改造代价",
+   "now": "T1-B 全部补齐（§3.1、§3.4、§3.5b、§3.6），并把 T1-A gaps 里『未做抖动/丢包/拍击→T_stable 退化』闭环",
+   "verdict": "相同"
+  },
+  {
+   "against": "13-v6-assessment/docs/a_快速扰动下基线识别分析.md §2.4（失守经验式 A ≳ 0.026L，本批 500~900 ADC 起）",
+   "was": "抖动从 500~900 ADC 起开始失守",
+   "now": "方向一致但系数偏保守：实测 A=1000 仍只有 0.31 漏检（基线 0.29），第一处上升在 1000~2000 ADC，灾难性失守在 4000 ADC（6.96 个/次）",
+   "verdict": "修正"
+  },
+  {
+   "against": "13-v6-assessment/docs/a_快速扰动下基线识别分析.md §4 建议 4（救援检测器预期救回 4~7 个变载，未做原型验证）",
+   "was": "建议做『pending_rescue』型救援检测器",
+   "now": "T1-B 做了原型级实现并实测：0.40 s 同向持续触发 10.1 次/录制，但 SW4 全长 2000 ADC 白噪下漏检 3.5→3.5 不变，显示域四场景与原型逐项相同 ⇒ 本批数据上零收益",
+   "verdict": "推翻"
+  },
+  {
+   "against": "13-v6-assessment/results/a7_dwell_sweep.csv（驻留 0.15~0.25 s 最划算）",
+   "was": "代价只有建事件延迟 +120~210 ms；漏检『不改善』",
+   "now": "一致（0.04→0.16/0.26 s），并补两项：① 用 T1 口径度量 T_stable 代价 = +0.00/+0.005 s（≤0.25 s 档）；② 驻留在 ADC 2000 ADC 下把漏检从 3.5 抬到 4.8（0.15 s）/5.7（0.25 s）——它会变差，不是中性",
+   "verdict": "修正"
+  },
+  {
+   "against": "13-v6-assessment/results/a6_fix_ablation.csv（CAPF 封顶被证伪）",
+   "was": "CAPF 抖动下单次录制 13~59 个误触发，偏差涨到 4.3 万 ADC",
+   "now": "独立复现：capf1.0 使 SW4 全长误触发 0.5→14.6 个/录制、epoch 8→23.6（同量级）",
+   "verdict": "相同"
+  },
+  {
+   "against": "13-v6-assessment/results/settle_arms.csv（v6 总通道 T_stable 0.46 s）",
+   "was": "0.46 s（第一轮口径，9 组恒载）",
+   "now": "本报告 7 个 clean onset 上总通道 0.55 s（与 T1-A 冻结口径下的 0.55 s 逐字一致）；差 0.09 s 来自事件集（7 vs 9）与 t_on/网格定义，见 t1b_caliber_check.csv",
+   "verdict": "相同"
+  },
+  {
+   "against": "13-v6-assessment/docs/v6评估与需求答复.md §7.2（1000 ADC 抖动 → 显示最大偏差 7767~10803 ADC）",
+   "was": "抖动被放大 6~18 倍传到显示，整段被拉偏",
+   "now": "同量级（本报告 A=1000 的 maxdev 中位 6684、A=2000 为 11414），但慢相偏差中位仅 −679~−1691 ADC ⇒ 『放大』主要发生在事件沿附近，不是整段基线偏移",
+   "verdict": "修正"
+  }
+ ],
+ "gaps": [
+  "跨域无法换算（G1）：13/13 录制 has_raw_adc=false、force_conversion_active=false、calibration.params={} ⇒ 显示域(N) 与 ADC 域无法给出换算系数，只能用相对口径 r 把两域放在同一曲线。需补采：同一次按压同时记录 raw ADC 与 processed_display",
+  "实录里没有干净的真实拍击样本：37 个孤立双相扰动全部紧邻真实变载（最近 4.16 s），9 个干净候选全在恒载保压段。需补采：保压段单独做一次人手拍击/揉压并标注时刻",
+  "T_stable 在变载实录上大多不可测（11 个 ADC onset 仅 2~3 个满足『事件后 ≥30 s 无其它事件』）⇒ ADC 域达标率分母 <20，只能定性；需补采长保压(≥60 s)变载实录",
+  "跨载荷量级（5N/10N/20N）缺失：噪声-幅度分层无法做（沿用 T4-A/T1-A G1）",
+  "v5.1/v6.1 只做了 3 个相对档 × 5 种子的四臂对照，未做全曲线；raw 臂的达标率无意义（无补偿）",
+  "rescue 检测器是原型级近似实现（未做 C++ 落地与现场标定），其负结果只在本批数据成立；rel/k/idle/revoke 四旋钮『未绑定』同样只在本批工况成立",
+  "未做「更慢/更久拍击」（上升>80 ms 或保持>200 ms）扫描：撤销窗 0.39/0.40 s 的薄余量风险仍在（沿用第一轮）",
+  "包聚合实验只在『主机侧把 k 帧打成同值时间戳』模型下做，未模拟丢包重传/乱序重排缓冲；实录 k=8/16 的严重退化需现场证实主机是否会聚合到 8~16 帧",
+  "全部结论基于 Python 原型（逐行复制件）；未做 C++ 落地验证与实测"
+ ],
+ "blockers": []
+}
+====================================================================================================
+FILE: T2_三阶段时间特征实测/results/conclusions.json
+{
+ "task": "T2",
+ "seat": "T2-A",
+ "date": "2026-09-19",
+ "dataset": "13 份实机录制（恒载 9 组 = 显示域、变载实录 4 份 = ADC 域）；事件集复用 T4-A 冻结事件表 60 个（onset 22 / restep 19 / unload 14 / partial_unload 5）；主信号 Z3 = 总量 Z 的 3 帧中值；100 Hz 网格",
+ "headline": [
+  {
+   "n": 1,
+   "claim": "裁决：「阶跃」不是独立物理阶段，而是输入上升时间的一种极端取值。onset 上成立（20/22），unload 上成立（13/14），restep 上只有 8/19 成立；三阶段表述须修正为「输入相（阶跃 | 撞击瞬态+斜坡）— 快相爬升 — 慢相爬升」",
+   "value": "onset step_ok 20/22（t25_sus 中位 0.010 [0.000, 0.010] (n=22)，跃变帧中位 1.0 帧）；restep step_ok 8/19（t25_sus 中位 0.115 [0.000, 4.410] (n=18)）；unload 13/14",
+   "source": "results/t2_phase_times.csv:step_ok,t25_sus,jump_frames"
+  },
+  {
+   "n": 2,
+   "claim": "边界判据：S1 末 = t25_sus（Z3 首次达 0.25·|J| 且此后 0.10 s 持续 ≥0.25·|J|）；S2 末 = t90_sus；S3 末 = min(下一事件−0.5 s, t_on+60 s, 录制末−0.5 s)。「阶跃成立」= t25_sus ≤ 0.05 s",
+   "value": "阈值敏感性（frac×t_max）：0.15/0.05 s → onset 20/22、restep 10/19；0.25/0.05 s → 20/22、8/19；0.35/0.05 s → 20/22、6/19 —— 结论不随阈值翻转",
+   "source": "results/t2_phase_boundary_rules.csv"
+  },
+  {
+   "n": 3,
+   "claim": "阶段时长（主口径，事件级）：onset = 阶跃 ~1 帧 + 快相 0.6 s + 慢相 ≥20 s；restep 无阶跃相、快相 0.8 s；unload 一步到位后只有 51 s 级回复相",
+   "value": "onset S1 0.010 [0.000, 0.010] (n=22) / S2 0.610 [0.343, 1.485] (n=22) / S3 20.6 [6.5, 59.4] (n=21)；restep S1 0.115 [0.000, 4.410] (n=18) / S2 0.780 [0.077, 2.837] (n=18) / S3 8.1 [4.5, 45.1] (n=14)；unload S1 0.010 [0.000, 0.010] (n=14) / S2 0.010 [0.000, 0.065] (n=14) / S3 51.1 [6.2, 59.6] (n=14)",
+   "source": "results/t2_phase_durations.csv"
+  },
+  {
+   "n": 4,
+   "claim": "交接点三口径互不相等且排序稳定：t_knee_bi < t90 < t95；onset 的 t_knee_bi≈0.19 s 与 v6 的 0.20 s 形状锚点吻合 ⇒ 推荐用 t90 记账、用 t_knee_bi 做机制对照",
+   "value": "onset t90 0.590 [0.165, 1.356] (n=22) vs t95 1.675 [0.734, 3.155] (n=22) vs t_knee_bi 0.190 [0.092, 0.843] (n=22)；restep t90 1.060 [0.080, 3.752] (n=18) vs t95 2.385 [0.108, 4.228] (n=18) vs t_knee_bi 0.668 [0.089, 19.665] (n=15)",
+   "source": "results/t2_phase_boundary_conventions.csv"
+  },
+  {
+   "n": 5,
+   "claim": "慢相爬升：幂律 a·t^b 与对数 a·ln(1+u/b) 统计上等价且泛化最好，线性差 2~5 倍，单指数居中；幂律指数 b 中位 0.21（<1 ⇒ 减速爬升，永不收敛）",
+   "value": "幂律 rms 中位 in 1.01%·J → 跨录制 LOO 5.15%·J（n=23）；线性 in 7.79% → LOO 6.22%；对数 LOO 5.11%；指数 LOO 5.18%",
+   "source": "results/t2_slowphase_summary.csv"
+  },
+  {
+   "n": 6,
+   "claim": "f(1 s) 与 07-v6 的 0.912 完全一致（同一 9 组 onset，中位 0.912，范围 0.873~0.926）；差异口径（轴/J 窗/t0/平滑）对 f(1 s) 的影响 < 0.003",
+   "value": "onset f(1 s) 0.922 [0.873, 0.960] (n=22)；restep 0.774 [-2.113, 0.949] (n=18)（⇒ 1 s 时尚有 8%·J / 23%·J 未建模余量）",
+   "source": "results/t2_vs_v6_profile_check.csv"
+  },
+  {
+   "n": 7,
+   "claim": "时间轴口径（100 Hz 网格 vs 原始包时刻）对阶段边界不敏感，对 τ<0.2 s 的完成度敏感；±1 包位移给出同量级不确定度",
+   "value": "Δt90 中位|Δ| 0.010 s（p90 0.218）；Δt25 0.010 s；Δf(0.05) 0.010（对照 onset f(0.05)=0.723 ⇒ 1.4%）；±1 包（grid−1 包）Δt90 0.040 s、Δf(0.05) 0.043（6.0%）",
+   "source": "results/t2_timeaxis_summary.csv"
+  }
+ ],
+ "verdicts": [
+  {
+   "question": "T2-Q1",
+   "answer": "判据 = 含量阈值 + 持续窗：S1 末 t25_sus（0.25·|J|，持续 0.10 s）、S2 末 t90_sus、S3 末 min(下一事件−0.5 s, t_on+60 s, 录制末−0.5 s)；60 个事件全部标注（results/t2_phase_times.csv）。持续窗是为剔除 restep 的加载撞击过冲（实测 4/19 事件在 0.02~0.05 s 有 25~45%·J 过冲并在 0.1 s 内回落）",
+   "three_state": "支持"
+  },
+  {
+   "question": "T2-Q2",
+   "answer": "分三类给出：onset S1 0.010/S2 0.610/S3 20.640 s（n=22）；restep S1 0.115/S2 0.780/S3 8.150 s（n=19）；unload S1 0.010/S2 0.010/S3 51.110 s（n=14）；中位/p10~p90/max 见 results/t2_phase_durations.csv（restep 的 S3 仅 n=14 有窗）",
+   "three_state": "支持"
+  },
+  {
+   "question": "T2-Q3",
+   "answer": "三口径差：onset t90 0.59 vs t95 1.68 vs t_knee 0.19 s（t95−t90 中位 +1.08 s）；restep t90 1.06 vs t95 2.38 vs t_knee 0.67 s。推荐 **t90**（与指标字典一致、对 J 窗与样本最稳），并用 t_knee_bi 做机制对照；t95 会把慢相算进快相。但须强调：这条界是记账阈值不是物理相界——f(τ) 在 0.05~60 s 上无特征拐点，幂律即可描述（rms 1.01%·J）",
+   "three_state": "有条件支持"
+  },
+  {
+   "question": "T2-Q4",
+   "answer": "幂律 a·t^b（b 中位 0.21）与对数 a·ln(1+u/b) 并列最优（跨录制 LOO 5.15%/5.11%·J）；单指数 5.18%；线性 6.22%（差 2 倍）。结论：慢相是减速幂律型爬升、窗口内不收敛；restep 的慢相样本不足（n≤6），只能定性",
+   "three_state": "支持"
+  },
+  {
+   "question": "T2-Q5",
+   "answer": "「阶跃」在 onset/unload 上是真实阶段但极短：onset 20/22 成立、跃变帧中位 1.0 帧（t_step_end 中位 0.01 s）、交付 72~84%·J；unload 13/14 成立、1 帧交付 100%·J。在 restep 上只有 8/19 成立（其余 11 个 T_ramp 0.2~1.15 s 的纯斜坡），且有 4/19 是「过冲后回落」的撞击瞬态、不构成承载电平。⇒ 三阶段表述**须修正**：按工况为 onset=3 段、restep=2~3 段（无阶跃）、unload=2 段（无快相）",
+   "three_state": "反驳"
+  },
+  {
+   "question": "T2-Q6",
+   "answer": "两口径并排表见 results/t2_timeaxis_compare.csv：Δt90 中位|Δ| 0.010 s（p90 0.218 s）、Δt25 0.010 s、Δf(0.05) 0.010（分数）；±1 包：Δt90 0.040 s、Δf(0.05) 0.043。⇒ τ≥0.2 s 的结论对口径不敏感；τ<0.2 s 的完成度必须带 ±1 包误差棒并标注「时间轴畸变区」",
+   "three_state": "支持"
+  },
+  {
+   "question": "T2-Q7",
+   "answer": "分族（右拇指 n=3 / 左拇指 n=3 / 四指 n=3 / 实录 n=4 份录制）onset 的 f(0.05) 中位 0.677 / 0.802 / 0.726 / 0.705、f(0.2) 中位 0.788 / 0.848 / 0.799 / 0.824、t90 中位 0.85 / 0.65 / 1.26 / 0.40 s；跨族 f(0.2) 极差 5.9 pt（不大于第一轮报告的 15 pt，且方向一致：左拇指最快）",
+   "three_state": "支持"
+  }
+ ],
+ "corrections": [
+  {
+   "against": "13-v6-assessment",
+   "was": "阶跃 = 0→0.2 s 窗口，占 5 s 增量 79.8~95.1%（段级中位 89.4%）",
+   "now": "阶跃段实测只有 1~2 帧（onset 跃变帧中位 1.0 帧、t25_sus 中位 0.010 s、t_step_end 中位 0.010 s）；0.2 s 是**时间轴畸变区上界**，不是阶跃段的物理终点。按同一批数据的事件级口径，f(0.2) 中位 82.1%（onset）——与第一轮的 89.4% 只差口径（归一参考与窗口起点）",
+   "verdict": "修正"
+  },
+  {
+   "against": "13-v6-assessment",
+   "was": "慢相 τ_slow ≈ 19.7~71 s（中位 40.6 s）/ phases.csv slow_tau 中位 24.80（p10~p90 5.62~627.83）",
+   "now": "τ_slow 不可辨识：同一批数据换拟合起点/窗口给出 13.23 s（本任务，从 t90 起算，n=12，p10~p90 2.87~28.75）；且幂律/对数在 LOO 上优于单指数 —— τ_slow 只能在声明的窗口口径下引用",
+   "verdict": "修正"
+  },
+  {
+   "against": "07-v6",
+   "was": "§2.1 原始读数 1 s 处 f=0.912（9 组恒载 onset）",
+   "now": "复现完全一致：本任务四套口径（网格/包轴 × 原始/Z3 × J=[4,6]/[4.5,5.5]）的 f(1 s) 中位均为 0.912；复现其管线与 v6_onset_profile9.csv 逐点最大差 0.0000",
+   "verdict": "相同"
+  },
+  {
+   "against": "07-v6",
+   "was": "§2.2 onset t90=0.48 s、restep t90=2.87 s；Z(0.2 s)/阶跃 0.796 vs 0.212；Z(1 s)/阶跃 0.925 vs 0.641",
+   "now": "同管线复现 24/24 行（t90 最大差 1e-16 s）；换成 3 帧中值主口径后逐事件 t90 中位差 onset -0.053 s / restep -0.139 s（|Δ| 中位 0.144 s、p90 0.96 s）；事件级 z_at_10 差 +0.001 / +0.036。⇒ 单事件层面 07-v6 数字**成立**；但「restep 比 onset 慢 6 倍」的聚合差被样本构成放大，本任务换事件集与口径后为 2.2~3.0 倍",
+   "verdict": "修正"
+  },
+  {
+   "against": "T4-A",
+   "was": "「输入上升时间 T_ramp 中位 onset 0.010 s / restep 0.550 s，是形态的驱动量」",
+   "now": "独立验证（支持），但补一条限定：T_ramp（≤0.15 s 视为近阶跃）与「持续穿越判据 t25_sus ≤0.05 s」在 restep 上一致率只有 53%（10/19）：8 个判为「有阶跃」的事件里 4 个 T_ramp >0.15 s，11 个判为「无阶跃」的事件里 4 个 T_ramp ≤0.15 s ⇒ 两个「输入快慢」度量不是同一个量，T3/T4 用哪一个必须声明",
+   "verdict": "有条件修正"
+  },
+  {
+   "against": "13-v6-assessment",
+   "was": "§3.3 跨传感器 0.2 s 占比 右拇指 78.7% / 四指 88.4% / 左拇指 93.5%（主通道口径）",
+   "now": "总量 Z3 口径下 onset f(0.2) 中位 右拇指 78.8% / 四指 79.9% / 左拇指 84.8%（右拇指与第一轮一致，四指、左拇指低 5~9 pt）；原因是信号口径（主通道 vs 总量）而非数据不同，T4-A 已测同批 onset：总量 82.4% vs 主通道 84.9%",
+   "verdict": "修正"
+  }
+ ],
+ "gaps": [
+  "restep 的慢相样本不足：统一 30 s 窗只有 1~2 个可用事件、段级窗 6 个（其中多数幅度门被剔除），⇒ restep 慢相只能定性；需补采「带载阶跃 + 长保压 ≥60 s」各 5 次以上",
+  "0.2 s 以内（尤其 ≤0.05 s）处于时间轴畸变区：包周期 16.7 ms（指尖）/40 ms（实录）决定 f(0.05) 的 ±1 包不确定度中位 0.017~0.097·J（相对 24%~40%）；更高采样率（≥500 Hz，包周期 ≤2 ms）才能把阶跃段定死",
+  "无受控速率实验：t25_sus（持续穿越）与 T_ramp（反卷积）在 restep 上一致率只有 53%（10/19），因缺少「同一加载装置 × 5 档上升时间」的标定；需位移/力控装置 0.05/0.2/0.5/1.0/2.0 s × 各 5 次",
+  "无真值力/位移：J 与 5 s 参考电平都取自读数本身，无法独立验证慢相幅度；需同步力传感器（对齐 ≤5 ms）",
+  "partial_unload 仅 n=5、恒载组 restep 仅 n=2~3 → 相关分位数（p10~p90）不确定度大，已在报告中标注「仅定性参考」",
+  "低于 T4-A 检测门限（max(8σ_d, 2% 记录极差)）的小事件未表征；本表 60 事件之外仍有小增量（07-v6 的 24 行里有 9 行不在 T4-A 事件集内）"
+ ],
+ "blockers": []
+}
+====================================================================================================
+FILE: T3_快相爬升可重复性与处理必要性/results/conclusions.json
+{
+ "task": "T3",
+ "seat": "T3-A",
+ "date": "2026-09-19",
+ "scope": "T3-Q1~Q5（快相爬升形状的可重复性统计）。T3-Q6~Q10（路线 ROI 与反事实实验）由 T3-B 负责，本席位不涉及。",
+ "inputs": {
+  "data": "temp/ 下 13 份实机录制（恒载 9 组 = processed_display 显示域；变载实录 4 份 = ADC 域）",
+  "frozen_event_table": "T4_两种快相形态与分支判据/results/t4a_morphology.csv（60 行 × 54 列，只读引用）",
+  "shape_base": "f(tau) = (Zbar(t_on+tau) - pre)/J，base = T4-A 的 pre 窗中位（C-2 处置）",
+  "tau_grid_main": "T4-A 的 z_at_* 采样点 [0.05,0.10,0.20,0.30,0.50,1.00,2.00,5.00]（grid 列 = T4A_z_at_grid）",
+  "tau_grid_supplement": "d tau = 0.01 s 加密网格（grid 列 = fine_0p01s），仅用于分位曲线",
+  "signal": "Z = sum_c ch_c（总量）；timestamp 列；np.interp → 100 Hz；无 tau=2 s 平滑；0.5 s 中位滤波仅用于指标",
+  "samples": "all = 装载类 41 事件（onset 22 / restep 19）；J_ok 39；usable 24（onset 18 / restep 6；显示域 8 / ADC 域 16）",
+  "audit_file": "results/t3a_inlier_audit.csv（每个装载事件的 J_ok / posdef / clean / usable 判据）"
+ },
+ "headline": [
+  {
+   "n": 1,
+   "claim": "同类内 onset 形状在 tau>=0.3 s 高度可重复（CQV 3~4%·f）",
+   "value": "usable onset n=18：f(0.30 s) 中位 0.854、p10~p90 0.795~0.903、spread 0.108、CQV 0.034；f(1.00 s) 中位 0.918、p10~p90 0.871~0.957、CQV 0.031；只有 tau<=0.2 s 显著变差（f(0.05 s) CQV 0.104、spread 0.348）",
+   "source": "results/t3a_shape_spread.csv:kind=onset,sample=usable,row=tau,cqv/spread/med/p10/p90"
+  },
+  {
+   "n": 2,
+   "claim": "restep 的归一化形状在同类内也不稳定，且有 37% 的事件无法归一化",
+   "value": "restep all n=18：主网格极差 12.9、f(0.20 s) p10=-2.063；19 个 restep 中 7 个的 f(tau) 出现负值或 >1.5（不可用于比值反演）、2 个 |J| 低于 2% 记录峰值、最终 usable 仅 6 个；usable 子集内 spread 仍为 0.339~0.392（0.05~0.50 s），是 onset 的 2.4~3.4 倍",
+   "source": "results/t3a_inlier_audit.csv:posdef/J_ok/usable; results/t3a_shape_spread.csv:kind=restep"
+  },
+  {
+   "n": 3,
+   "claim": "形状参数化后，可依赖的参数只有「固定 tau 上的完成度 f(tau)」（而不是任何拟合时间常数）",
+   "value": "usable onset 按 CQV 升序：f(1.00 s) 0.031、w_fast 0.033、f(0.30 s) 0.034、f(0.50 s) 0.034，而 tau1 0.152（CV 0.449）、tau_e 0.530、beta 0.062（但 beta 的 CV=0.666 不可用）、双 tau 的 tau_a 0.168/tau_b 0.136；推荐参数 = f(0.30 s) 与 f(1.00 s)（双参数），退化单参数用 f(0.50 s)",
+   "source": "results/t3a_param_cv.csv:param,cqv,cv,med,p10,p90"
+  },
+  {
+   "n": 4,
+   "claim": "泛化（乐观 vs 悲观）：onset 留一事件泛化在个位数百分点，restep 与跨形态则崩到几十个百分点",
+   "value": "usable 单点反演@tau_d=0.2 s 中位|误差|：onset 自身标定(own) 3.10% / 同族留一事件 5.52% / 同族留一录制 4.76% / 跨族 5.33% / 跨形态 56.39%；restep 依次 29.88% / 52.07% / 40.30% / 27.47% / 36.06%（n=6）；tau_d=1.0 s 时 onset 分别 2.13% / 3.15% / 2.98% / 3.31% / 5.14%",
+   "source": "results/t3a_generalization.csv:sample=usable,scenario,tau_d,inv=single@tau,ref=post,med_abs_pct"
+  },
+  {
+   "n": 5,
+   "claim": "既有「0.2 s 估到 ±7%」只在「显示域 + onset + 录制级留一」成立；全样本尾部大得多",
+   "value": "显示域 onset（n=7）事件级留一中位|误差|：0.2 s 3.83%、0.5 s 5.50%、1.0 s 3.44%；一旦把 restep 与慢压 onset 算进来，usable 全样本（onset 18 + restep 5 = n=23）0.2 s 中位|误差| 5.9%、p90 52.0%、最大 75.0%、|误差|>5% 占比 61%",
+   "source": "results/t3a_generalization.csv:sample=usable,kind=both,scenario=loo_event,tau_d=0.20"
+  },
+  {
+   "n": 6,
+   "claim": "形状稳定性的分层：输入形态（T_ramp 类）与相对载荷量级显著，族与批次不显著（但族/批次样本不足）",
+   "value": "usable：otype 维 f(0.30 s) Kruskal-Wallis H=12.29 p=0.0021（硬阶跃 n=14 / 慢压 n=4 / restep n=6）；|J|/峰值 维 H=6.94 p=0.0312（n=3/5/16，小相对幅度事件完成度更低）；fam 维 p=0.554（n=3/2/16/3）、batch 维 p=0.447（n=10/5/6/3）",
+   "source": "results/t3a_strata_tests.csv:dim,metric,H,p,n_each; results/t3a_strata.csv"
+  },
+  {
+   "n": 7,
+   "claim": "形状未显示明显的时变（弱结论，早/晚期样本只有 n=3）",
+   "value": "录制内早/中/晚三段 f(1.0 s) 中位 0.899 / 0.956 / 0.952（n=12/3/3）；同录制内 onset 的 Spearman rho(f(1.0 s), t_on) 中位 +0.90（5 组，仅 1 组 p<0.05，方向多为正）；距上一事件间隔分层（<=5 s n=5 / 5~30 s n=8）中位 0.956 vs 0.908",
+   "source": "results/t3a_time_stability.csv; results/t3a_time_trend.csv"
+  }
+ ],
+ "verdicts": [
+  {
+   "question": "T3-Q1",
+   "answer": "同类内归一化形状的稳定性必须分 onset/restep 报。usable onset（n=18）在 tau>=0.3 s 很稳（CQV 0.031~0.034、spread 0.086~0.108），tau=0.05/0.10/0.20 s 明显变差（CQV 0.104/0.091/0.041，spread 0.348/0.281/0.149）；usable restep（n=6）全程不稳（spread 0.339~0.392 @0.05~0.50 s，CQV 0.614/0.471/0.263/0.115/0.122/0.069）。onset 的 CV 与 CQV 在小 tau 处分道扬镳（tau=0.05 s：CV 0.259 vs CQV 0.104），因为 f 的均值趋 0 时 std/mean 病态放大 ⇒ 本任务以 CQV + spread 为主口径、CV 作对照（已在报告 §2.3 声明）。全样本（all）的 restep 完全不可归一化（spread 2.2~3.2、极差 12.9），这本身是结论。",
+   "three_state": "有条件支持",
+   "n": "onset 18 / restep 6（usable）；all 22 / 18"
+  },
+  {
+   "question": "T3-Q2",
+   "answer": "参数化的结论是「不要用拟合时间常数，用固定 tau 的完成度」。usable onset 的 CQV：f(1.00 s) 0.031、w_fast 0.033、f(0.30 s) 0.034、f(0.50 s) 0.034、beta 0.062、tau_b 0.136、tau1 0.152、tau_a 0.168、p_pow 0.184、tau_pow 0.354、tau_e 0.530；CV 列会给出相反的排序（tau1 的 CV 0.449 看似可用、beta 的 CV 0.666 明显不可用），因为单 tau 拟合对 onset（近似阶跃）本质上是「拟合一个不存在的特征」。推荐可依赖参数 = ① f(0.30 s)（中位 0.854，p10~p90 0.795~0.903）、② f(1.00 s)（中位 0.918，p10~p90 0.871~0.957）；只允许一个参数时用 f(0.50 s)（CQV 0.034、中位 0.890）。restep 侧最稳的仍是 f(1.00 s) 与 f(0.30 s)（CQV 0.069/0.115）但只有 n=6。",
+   "three_state": "支持",
+   "n": "onset 18 / restep 6"
+  },
+  {
+   "question": "T3-Q3",
+   "answer": "按输入形态分层显著：f(0.30 s) Kruskal-Wallis H=12.29、p=0.0021（硬阶跃 onset n=14 中位 0.862 / 慢压 onset n=4 中位 0.819 / restep n=6 中位 0.621）；按【相对】载荷量级 |J|/记录峰值 分层也显著：H=6.94、p=0.0312（<5% n=0 可用、5~15% n=3、15~40% n=5、>=40% n=16，小相对幅度事件完成度更低：f(0.30 s) 0.636/0.687 vs 0.854）。按族分层不显著（p=0.554，各层 n=3/2/16/3），按批次分层不显著（p=0.447，n=10/5/6/3）—— 但族内 usable 样本只有 2~3 个事件，**不是「无差异」的证据，而是「样本不足」**：第一轮报的跨传感器 15 pt 差在本任务 clean+非病态子集上无法在 0.05 水平复现。**绝对载荷量级（5/10/20 N）无标定数据，本任务只用相对量**（缺口 G1）。",
+   "three_state": "有条件支持",
+   "n": "usable 24（onset 18 / restep 6），各层 n 见表"
+  },
+  {
+   "question": "T3-Q4",
+   "answer": "本任务最重要的结论：**乐观数与悲观数必须并列**，且差距按 kind 与输入形态分级。①乐观（形状库含本事件自己，= 既有 ROM 自标定的等价物）：onset 单点反演@tau_d=0.2 s 中位|误差| 3.10%、tau_d=1.0 s 2.13%（n=18）。②悲观-留一事件（同族同 kind 的 usable 事件内留一）：onset 0.2 s 5.52%（>5% 占比 56%）、0.5 s 4.70%、1.0 s 3.15%；restep 0.2 s 52.07%、1.0 s 4.92%（n=5~6）。③悲观-留一录制：onset 4.76%/4.59%/2.98%—— 与留一事件几乎相同，说明**瓶颈不是「哪一个传感器」，而是「哪一次加载」**。④跨族：onset 5.33%、restep 27.47%（onset 的跨族损失与留一相当 ⇒ 同域同形态内形状确实近似通用，复现既有「跨位置通用」）。⑤跨形态（拿 onset 库反演 restep 或反向）：onset 56.39%、restep 36.06%，是本项目最大的误差源。⑥窗口最小二乘（winLS 0.2→tau_d）并不一致更好：onset 留一 0.5 s 5.46%、1.0 s 4.73%（比单点差），restep 留一 1.0 s 9.39%（比单点差）⇒ **窗口 LS 抑制单点噪声但引入了库形状的整体偏差**，两者都要报。把参考电平从 post 换成 5 s 对结论无影响（onset 留一 0.2 s 5.52% → 5.52%）。",
+   "three_state": "不适用（数值结论）",
+   "n": "usable onset 18 / restep 6（留一录制与留一事件 n=17~18 / 5~6）"
+  },
+  {
+   "question": "T3-Q5",
+   "answer": "未发现明显时变，但样本量只允许弱结论。录制内早/中/晚三段（按 pos = t_on/录制时长 三分位）的 f(1.0 s) 中位 = 0.899 / 0.956 / 0.952（n=12/3/3），f(0.30 s) 中位 = 0.836 / 0.843 / 0.927（n=12/3/3）—— 晚期略高但 n=3 不构成证据。同录制内 onset 的 Spearman rho(f(1.0 s), t_on) 中位 +0.90（5 组，跨度 21~175 s，仅 SW1 的 n=5 组 p=0.037），方向为正（越晚完成度略高），与「温漂/加载历史让形状变慢」的担心相反。加载历史分层：距上一事件 <=5 s（n=5）f(0.30 s) 中位 0.794、5~30 s（n=8）0.826、>30 s（n=1 仅定性）0.511。**结论：本批数据里没有「形状随时间漂移」的证据，但早/晚期各只有 3 个事件、单个录制内的 onset 最多 5 个 ⇒ 只能写「未发现」，不能写「不存在」**（缺口 G8）。",
+   "three_state": "有条件支持（弱）",
+   "n": "早 12 / 中 3 / 晚 3（usable 全部）；组内 trend 5 组"
+  }
+ ],
+ "h1_verdict": {
+  "hypothesis": "H1：快相爬升的形状「总是差不多稳定的」，可以当作已知形状用掉（需求文档 §1）",
+  "overall": "反驳",
+  "by_criterion": [
+   {
+    "criterion": "C1 同类内可重复性（onset）",
+    "three_state": "支持",
+    "evidence": "CQV<=0.034、spread<=0.109（tau=0.3/0.5/1.0 s 取最差），n=18；f(0.30 s) 中位 0.854"
+   },
+   {
+    "criterion": "C1 同类内可重复性（restep）",
+    "three_state": "反驳",
+    "evidence": "spread 0.361 @0.50 s > 0.35 门槛，CQV 0.122，n=6"
+   },
+   {
+    "criterion": "C2 跨形态可移植性（硬门 20%）",
+    "three_state": "不通过",
+    "evidence": "onset 库→restep tau_d=0.2 s 中位|误差| 36.1%；restep 库→onset 56.4%"
+   },
+   {
+    "criterion": "C3 同类内泛化（软门 5% @tau_d=0.5 s）",
+    "three_state": "有条件支持",
+    "evidence": "onset 4.70% 通过；restep 17.93% 不通过"
+   }
+  ],
+  "why": "H1 作为普遍假设不成立：①restep 的归一化形状自身就不稳定（同类 spread 0.34~0.39，19 个 restep 里 7 个连归一化都做不到）；②跨形态不可移植（用 onset 形状库反演 restep 的最终电平，tau_d=0.2 s 中位误差 36.1%，且 100% 的事件超 5%）。它只在明确限定的子域里成立：**同一形态（onset）、硬阶跃输入（T4-A T_ramp<0.15 s）、tau>=0.3 s**，此时 onset 内 CQV 3~4%、留一事件泛化 4.7~5.5%。",
+  "counterexample": "反例（同族留一事件、usable、单点@tau_d=0.2 s）：SW1@75.89（onset，T_ramp=0.60 s，|J|=12646 ADC）单点|误差| 51.8%、SW1@133.83 25.2%、SW4@88.00 11.2% —— 三个都是「零基线慢压」型 onset；restep 侧 6 个 usable 事件里有 5 个留一误差 > 15%（最大 51.8%）。"
+ },
+ "corrections": [
+  {
+   "against": "13-v6-assessment §3.1 (shape_stats.csv)",
+   "was": "onset 群体中位 f(0.2 s)=0.838、p10~p90=0.724~0.935；f(1 s)=0.931（n=19，主通道，A_5s 基准）",
+   "now": "usable onset n=18：0.828（p10~p90 0.721~0.870）、f(1 s)=0.918；all onset n=22：0.818、0.921",
+   "verdict": "相同（中位差 <=0.013）",
+   "why": "口径三项同时变（信号：总量 Z vs 主通道；基准：T4-A pre 窗中位 vs A_5s；样本：clean+n 非病态 18 个 vs 19 个），中位几乎不动、带宽略窄"
+  },
+  {
+   "against": "13-v6-assessment §3.2 (shape_timewarp.csv)",
+   "was": "单参数时间缩放 alpha 中位 0.50、p10 0.30、p90 1.69；允许缩放后 RMS 0.096→0.048（降 50%）",
+   "now": "本任务等价量（事件形状自身的时间常数，非\"对 ROM 的缩放\"）：usable onset tau1 中位 0.137 s、p10~p90 0.114~0.181、CQV 0.152、CV 0.449；tau_e 中位 0.024 s、CQV 0.530",
+   "verdict": "修正（不可直接横比）",
+   "why": "alpha 是【事件 vs 现役 ROM】的相对缩放（含 ROM 自身偏慢的系统项）；本任务的 tau1 是【事件自身】的绝对时间常数。本任务给出的是\"参数自身的离散度\"（CQV 0.152），说明不能用单一缩放吃掉失配——与第一轮\"约一半可解释\"不矛盾：另一半正对应\"参数本身的离散度\"。"
+  },
+  {
+   "against": "13-v6-assessment §3.3 (跨传感器)",
+   "was": "同一传感器 3 次重复差 4.5~6.3 pt；跨传感器差 15 pt（右拇指 78.7% vs 左拇指 93.5% @0.2 s）",
+   "now": "本任务 usable 子集在恒载 3 族的 f(0.30 s)：右拇指 n=2 中位 0.829、左拇指 n=3 中位 0.864、四指 n=2 中位 0.832；fam 维 Kruskal-Wallis H=2.09 p=0.554，族间 Mann-Whitney p>=0.20",
+   "verdict": "有条件支持（方向一致、显著性不成立）",
+   "why": "clean + 非病态判据把恒载 3 族的样本压到每族 2~3 个事件，统计功效不足以在 0.05 水平复现 15 pt。**要在同口径下复现需要每族 >=5 次同型事件（缺口 G7）**；本任务不给\"族间无差异\"的结论"
+  },
+  {
+   "against": "13-v6-assessment §3.3 (rom_loo.csv)",
+   "was": "留一 Â 偏差中位 -0.12%、p10~p90 -8.93~+7.12%、|偏差| 最大 11.02%（n=19 行 = 每录制首个 onset）",
+   "now": "usable onset 事件级留一 @tau_d=0.2 s：中位 +0.84%、中位|误差| 5.52%、p90|误差| 15.47%、最大|误差| 51.78%（n=18）",
+   "verdict": "相同（中位）/ 修正（尾部）",
+   "why": "中位偏差同为个位数；尾部差一个量级，因为第一轮每行是「每录制 1 个代表事件」（已把复合/慢压事件挡在外面），本任务 n=18 含 SW1@75.89 这类慢压 onset（单点|误差| 51.8%）"
+  },
+  {
+   "against": "07-v6 §2.4",
+   "was": "形状约束反演在 0.2 s 已可把最终电平估到 ±7%（9 组恒载留一，单点 max 7.2%；窗口 LS 中位|误差| 0.30/0.50/0.75/1.00 s = 1.9/1.5/1.0/0.5%）",
+   "now": "同口径（显示域 onset）事件级留一：中位|误差| 0.2 s 3.83%、0.5 s 5.50%、1.0 s 3.44%（n=7）；全样本（含 restep 与慢压 onset，n=23）0.2 s 中位|误差| 5.9%、p90 15.5%、最大 51.8%、>5% 占比 56%；tau_d=1.0 s 中位|误差| 3.6%、最大 15.0%",
+   "verdict": "修正（±7% 只在显示域 onset 成立）",
+   "why": "①第一轮是【录制级】留一（库=其余 8 组的中位形状，事件噪声被平掉），本任务是【事件级】留一（显示域 3 族每族只剩 1~3 个 usable onset，库噪声很大）；②第一轮只评 9 个稳定恒载 onset，本任务含 slow-onset 与 restep。⇒ **误差预算必须按 kind 与输入形态分级，不能全项目引用一个 ±7%**"
+  },
+  {
+   "against": "07-v6 §2.4「跨位置泛化」",
+   "was": "留一位置：右拇指 0.3~4.7%、左拇指 0.3~2.7%、四指 0.7~2.4%（中位|误差|）⇒ 形状在位置上几乎通用",
+   "now": "本任务跨族（cross_fam，usable）：onset 单点@0.2 s 中位|误差| 5.33%、tau_d=1.0 s 3.31%；restep 27.47%/22.79%。跨形态（cross_kind）：onset 56.39%、restep 36.06%",
+   "verdict": "相同（跨族小）/ 新增（跨形态大）",
+   "why": "既有\"跨位置通用\"在同域同形态内成立（本任务跨族复现为个位数，与留一录制 4.76% 几乎相同）；真正致命的是【跨形态/跨输入方式】——这正对应 T4-A 的 T_ramp 连续谱"
+  },
+  {
+   "against": "07-v6 §2.2",
+   "was": "onset t90=0.48 s vs restep t90=2.87 s（差 6.0 倍）",
+   "now": "本任务不重算该口径（属 T2/T4），直接引用 T4-A 冻结表 t90 列（T4-A 已修正为 clean：0.62 s / 1.40 s）",
+   "verdict": "引用不推翻",
+   "why": "边界（t90 vs t95 vs 拟合拐点）由 T2-Q3 裁决（C-3）；本任务只用 T4-A 的 t_on / pre / post / z_at_*"
+  },
+  {
+   "against": "08-v6.1",
+   "was": "ROM 比现场慢 6% ⇒ Â 系统性高估（onset 中位 +3.2%、最大 +10.9%），ROM_SCALE=1.06 后降到 +0.4%",
+   "now": "本任务把同源机制拆成两半并各自给数：①形状【稳定】（usable onset f(1.0 s) CQV 0.031、CV 0.040，n=18）；②形状【不可通用】（跨形态 @0.2 s 中位|误差| 56.4%、usable restep 留一 52.1%）",
+   "verdict": "支持并扩展",
+   "why": "需求文档 §5-3 要求把\"稳定\"与\"正确/通用\"分开报。注意本任务的形状库由本批事件自身构造、不含 v6 的 ROM 偏慢项 ⇒ **不能**用它检验偏差方向，该方向仍以 08-v6.1 为准"
+  },
+  {
+   "against": "T4-A 分析报告_T4A.md §3.1/§3.4",
+   "was": "报告正文写装载类 n=40（onset 22 / restep 18，clean 25）",
+   "now": "T4-A 冻结 CSV（t4a_morphology.csv）实为 60 行，装载类 41（onset 22 / restep 19；unload 14 / partial_unload 5；jump 缺失 1）；本任务 usable 24（onset 18 / restep 6）",
+   "verdict": "修正（版本漂移）",
+   "why": "冻结表在报告正文写成之后被更新过（多 1 个 restep）。本任务以【冻结 CSV】为准并在报告 §④ 标注，避免 T8 引用时 n 对不上"
+  },
+  {
+   "against": "T4-A 冻结表（z_at_* 口径）",
+   "was": "T4-A 的 z_at_* = (Zbar(t_on+tau) − pre)/J，Zbar 单点取值、pre 窗中位为基准",
+   "now": "本任务独立重算 60 事件 × 8 个 tau 点 = 472 对，|Δ| 中位 2.47e-07、最大 1.76e-06（超 1e-6 的 3 对）",
+   "verdict": "相同（完全对齐）",
+   "why": "同法同源；残余差异来自冻结 CSV 的浮点打印位数（<2e-6）"
+  },
+  {
+   "against": "13-v6-assessment §3.1 结论「0.2 s 之前不可用」",
+   "was": "0.05 s 极差 0.705、0.2 s 极差 0.591（n=19，主通道）",
+   "now": "usable onset：0.05 s 极差 0.650、0.2 s 极差 0.497；CQV 从 0.05 s 的 0.104 单调升到 0.20 s 的 0.041、1.0 s 的 0.031",
+   "verdict": "相同（独立复现）",
+   "why": "两个独立事件集、不同信号口径给出同向结论"
+  },
+  {
+   "against": "13-v6-assessment §3.1「形状与幅度基本无关」",
+   "was": "corr(幅度, 0.2 s 占比) ≈ −0.01~−0.23",
+   "now": "本任务按【相对】载荷 |J|/记录峰值 分层：f(0.30 s) Kruskal-Wallis H=6.94、p=0.0312（各层 n=3/5/16），小相对幅度事件完成度更低（中位 0.636/0.687 vs 0.854）",
+   "verdict": "修正（条件性）",
+   "why": "既有结论建立在【绝对幅度跨域不可比】的前提下；用相对幅度分层后出现弱相关（p=0.03）。与 T4-A 的 corr=−0.11~+0.23 不矛盾：小相对幅度事件多为慢压/多级加载 ⇒ 真正的驱动量仍是输入上升时间（T4-A T_ramp），相对幅度只是它的代理"
+  }
+ ],
+ "gaps": [
+  "G1 无绝对载荷量级标定（5/10/20 N）：T3-Q3 的「载荷量级」只能用 |J|/记录峰值 的相对量；实测该相对量分层显著（p=0.031）但无法换算成力值。补采：同一装置 5/10/20 N × 硬阶跃/0.5 s 斜坡 × 各 5 次，带力值标定（与 T4-A 的 G1/G3/G4 同一批实验即可满足）",
+  "G2 restep 可用样本过少：19 个 restep 里 7 个归一化病态、2 个 |J|<2% 峰值、clean 只有 7 个，最终 usable 仅 6 个（实录用 5 个）⇒ restep 的一切分位数都是低置信。补采：同一载荷下重复 ≥10 次同型 restep（带载硬压与 0.5 s 斜坡各一组），并记录输入速率",
+  "G3 族间差异无法定量复现：usable 在恒载 3 族每族仅 2~3 个事件（第一轮报的 15 pt 跨传感器差在本子集上 p=0.554）⇒ 「族间是否真的差」在本轮数据上不可判定。补采：每族同型事件 ≥5 次（与 T4-A 的 G7 同一批）",
+  "G4 无跨传感器同载荷的配对实验：所有跨族结论都是「不同录制、不同时间、不同载荷」的混合比较，含录制批次与操作者混淆。补采：同一载荷在 3 个传感器上各做 ≥5 次",
+  "G5 显示域量化限制：恒载 9 组是 processed_display 域（0.001 刻度）、|J| 只有 11~17 个单位（远低于 ADC 域的 2.7k~28k），因此恒载组的 f(tau) 分辨率约 0.06~0.09 个归一化单位（1/J）。补采/改进：用 ADC 原始域重录恒载组",
+  "G6 「形状正确性」未独立验证：本任务的形状库由本批事件自身构造，**不含**任何 ROM 参数，故只能给「稳定/可通用」的数，不能给「对不对」的数；08-v6.1 的 ROM_SCALE=1.06 结论本任务未复算。需 T5-A/T8 用与 ROM 版本对齐的形状参数复算偏差方向（C-4 κ 扫描同批）",
+  "G7 事件起点 ±1 包敏感性未在反演上重算：T4-A 已证 ±1 包对 z_at_* 的影响中位 <=0.0015（AUC 变化 <=0.016），但本任务的单点反演 Â=Z(tau)/f(tau) 对 t_on 更敏感（t_on 平移 1 包 = tau=0.2 s 处 f 变化约 0.01~0.02，对应 Â 误差 1~2%）。本轮**未做**该敏感性扫描，属未验证项",
+  "G8 时不变性样本不足：录制内早/晚期各只有 3 个 usable 事件、单录制内 onset 最多 5 个 ⇒ 只能写「未发现明显时变」。补采：单次录制内做 >=8 次同载荷同速率的重复加载，跨越 >=200 s，才能定量 separ 温漂与疲劳",
+  "G9 长保压后形状是否漂移（>300 s 保压）未测：本批最长保压 107~147 s（恒载）/ 53 s（实录），无法判断\"加载历史累积\"是否改变快相形状"
+ ],
+ "blockers": [
+  "无硬阻塞。仅一处口径依赖未闭合：T2 的 results/t2_shape_profile.csv 尚未交付，因此本任务按 C-2 的处置用 T4-A 冻结的 z_at_* 网格作为主骨架（并在 t3a_shape_grid.csv 内同时给出 d tau=0.01 s 的加密网格）。T2 交付后需回对一次：若 T2 的主网格或基准电平与 T4-A 不同，本任务的 f(tau) 曲线需按同一基准重算（脚本支持，只改 t3a_common.TAU_MAIN / base 来源即可）"
+ ]
+}
+====================================================================================================
+FILE: T3_快相爬升可重复性与处理必要性/results/conclusions_T3A.json
+{
+ "task": "T3",
+ "seat": "T3-A",
+ "date": "2026-09-19",
+ "scope": "T3-Q1~Q5（快相爬升形状的可重复性统计）。T3-Q6~Q10（路线 ROI 与反事实实验）由 T3-B 负责，本席位不涉及。",
+ "inputs": {
+  "data": "temp/ 下 13 份实机录制（恒载 9 组 = processed_display 显示域；变载实录 4 份 = ADC 域）",
+  "frozen_event_table": "T4_两种快相形态与分支判据/results/t4a_morphology.csv（60 行 × 54 列，只读引用）",
+  "shape_base": "f(tau) = (Zbar(t_on+tau) - pre)/J，base = T4-A 的 pre 窗中位（C-2 处置）",
+  "tau_grid_main": "T4-A 的 z_at_* 采样点 [0.05,0.10,0.20,0.30,0.50,1.00,2.00,5.00]（grid 列 = T4A_z_at_grid）",
+  "tau_grid_supplement": "d tau = 0.01 s 加密网格（grid 列 = fine_0p01s），仅用于分位曲线",
+  "signal": "Z = sum_c ch_c（总量）；timestamp 列；np.interp → 100 Hz；无 tau=2 s 平滑；0.5 s 中位滤波仅用于指标",
+  "samples": "all = 装载类 41 事件（onset 22 / restep 19）；J_ok 39；usable 24（onset 18 / restep 6；显示域 8 / ADC 域 16）",
+  "audit_file": "results/t3a_inlier_audit.csv（每个装载事件的 J_ok / posdef / clean / usable 判据）"
+ },
+ "headline": [
+  {
+   "n": 1,
+   "claim": "同类内 onset 形状在 tau>=0.3 s 高度可重复（CQV 3~4%·f）",
+   "value": "usable onset n=18：f(0.30 s) 中位 0.854、p10~p90 0.795~0.903、spread 0.108、CQV 0.034；f(1.00 s) 中位 0.918、p10~p90 0.871~0.957、CQV 0.031；只有 tau<=0.2 s 显著变差（f(0.05 s) CQV 0.104、spread 0.348）",
+   "source": "results/t3a_shape_spread.csv:kind=onset,sample=usable,row=tau,cqv/spread/med/p10/p90"
+  },
+  {
+   "n": 2,
+   "claim": "restep 的归一化形状在同类内也不稳定，且有 37% 的事件无法归一化",
+   "value": "restep all n=18：主网格极差 12.9、f(0.20 s) p10=-2.063；19 个 restep 中 7 个的 f(tau) 出现负值或 >1.5（不可用于比值反演）、2 个 |J| 低于 2% 记录峰值、最终 usable 仅 6 个；usable 子集内 spread 仍为 0.339~0.392（0.05~0.50 s），是 onset 的 2.4~3.4 倍",
+   "source": "results/t3a_inlier_audit.csv:posdef/J_ok/usable; results/t3a_shape_spread.csv:kind=restep"
+  },
+  {
+   "n": 3,
+   "claim": "形状参数化后，可依赖的参数只有「固定 tau 上的完成度 f(tau)」（而不是任何拟合时间常数）",
+   "value": "usable onset 按 CQV 升序：f(1.00 s) 0.031、w_fast 0.033、f(0.30 s) 0.034、f(0.50 s) 0.034，而 tau1 0.152（CV 0.449）、tau_e 0.530、beta 0.062（但 beta 的 CV=0.666 不可用）、双 tau 的 tau_a 0.168/tau_b 0.136；推荐参数 = f(0.30 s) 与 f(1.00 s)（双参数），退化单参数用 f(0.50 s)",
+   "source": "results/t3a_param_cv.csv:param,cqv,cv,med,p10,p90"
+  },
+  {
+   "n": 4,
+   "claim": "泛化（乐观 vs 悲观）：onset 留一事件泛化在个位数百分点，restep 与跨形态则崩到几十个百分点",
+   "value": "usable 单点反演@tau_d=0.2 s 中位|误差|：onset 自身标定(own) 3.10% / 同族留一事件 5.52% / 同族留一录制 4.76% / 跨族 5.33% / 跨形态 56.39%；restep 依次 29.88% / 52.07% / 40.30% / 27.47% / 36.06%（n=6）；tau_d=1.0 s 时 onset 分别 2.13% / 3.15% / 2.98% / 3.31% / 5.14%",
+   "source": "results/t3a_generalization.csv:sample=usable,scenario,tau_d,inv=single@tau,ref=post,med_abs_pct"
+  },
+  {
+   "n": 5,
+   "claim": "既有「0.2 s 估到 ±7%」只在「显示域 + onset + 录制级留一」成立；全样本尾部大得多",
+   "value": "显示域 onset（n=7）事件级留一中位|误差|：0.2 s 3.83%、0.5 s 5.50%、1.0 s 3.44%；一旦把 restep 与慢压 onset 算进来，usable 全样本（onset 18 + restep 5 = n=23）0.2 s 中位|误差| 5.9%、p90 52.0%、最大 75.0%、|误差|>5% 占比 61%",
+   "source": "results/t3a_generalization.csv:sample=usable,kind=both,scenario=loo_event,tau_d=0.20"
+  },
+  {
+   "n": 6,
+   "claim": "形状稳定性的分层：输入形态（T_ramp 类）与相对载荷量级显著，族与批次不显著（但族/批次样本不足）",
+   "value": "usable：otype 维 f(0.30 s) Kruskal-Wallis H=12.29 p=0.0021（硬阶跃 n=14 / 慢压 n=4 / restep n=6）；|J|/峰值 维 H=6.94 p=0.0312（n=3/5/16，小相对幅度事件完成度更低）；fam 维 p=0.554（n=3/2/16/3）、batch 维 p=0.447（n=10/5/6/3）",
+   "source": "results/t3a_strata_tests.csv:dim,metric,H,p,n_each; results/t3a_strata.csv"
+  },
+  {
+   "n": 7,
+   "claim": "形状未显示明显的时变（弱结论，早/晚期样本只有 n=3）",
+   "value": "录制内早/中/晚三段 f(1.0 s) 中位 0.899 / 0.956 / 0.952（n=12/3/3）；同录制内 onset 的 Spearman rho(f(1.0 s), t_on) 中位 +0.90（5 组，仅 1 组 p<0.05，方向多为正）；距上一事件间隔分层（<=5 s n=5 / 5~30 s n=8）中位 0.956 vs 0.908",
+   "source": "results/t3a_time_stability.csv; results/t3a_time_trend.csv"
+  }
+ ],
+ "verdicts": [
+  {
+   "question": "T3-Q1",
+   "answer": "同类内归一化形状的稳定性必须分 onset/restep 报。usable onset（n=18）在 tau>=0.3 s 很稳（CQV 0.031~0.034、spread 0.086~0.108），tau=0.05/0.10/0.20 s 明显变差（CQV 0.104/0.091/0.041，spread 0.348/0.281/0.149）；usable restep（n=6）全程不稳（spread 0.339~0.392 @0.05~0.50 s，CQV 0.614/0.471/0.263/0.115/0.122/0.069）。onset 的 CV 与 CQV 在小 tau 处分道扬镳（tau=0.05 s：CV 0.259 vs CQV 0.104），因为 f 的均值趋 0 时 std/mean 病态放大 ⇒ 本任务以 CQV + spread 为主口径、CV 作对照（已在报告 §2.3 声明）。全样本（all）的 restep 完全不可归一化（spread 2.2~3.2、极差 12.9），这本身是结论。",
+   "three_state": "有条件支持",
+   "n": "onset 18 / restep 6（usable）；all 22 / 18"
+  },
+  {
+   "question": "T3-Q2",
+   "answer": "参数化的结论是「不要用拟合时间常数，用固定 tau 的完成度」。usable onset 的 CQV：f(1.00 s) 0.031、w_fast 0.033、f(0.30 s) 0.034、f(0.50 s) 0.034、beta 0.062、tau_b 0.136、tau1 0.152、tau_a 0.168、p_pow 0.184、tau_pow 0.354、tau_e 0.530；CV 列会给出相反的排序（tau1 的 CV 0.449 看似可用、beta 的 CV 0.666 明显不可用），因为单 tau 拟合对 onset（近似阶跃）本质上是「拟合一个不存在的特征」。推荐可依赖参数 = ① f(0.30 s)（中位 0.854，p10~p90 0.795~0.903）、② f(1.00 s)（中位 0.918，p10~p90 0.871~0.957）；只允许一个参数时用 f(0.50 s)（CQV 0.034、中位 0.890）。restep 侧最稳的仍是 f(1.00 s) 与 f(0.30 s)（CQV 0.069/0.115）但只有 n=6。",
+   "three_state": "支持",
+   "n": "onset 18 / restep 6"
+  },
+  {
+   "question": "T3-Q3",
+   "answer": "按输入形态分层显著：f(0.30 s) Kruskal-Wallis H=12.29、p=0.0021（硬阶跃 onset n=14 中位 0.862 / 慢压 onset n=4 中位 0.819 / restep n=6 中位 0.621）；按【相对】载荷量级 |J|/记录峰值 分层也显著：H=6.94、p=0.0312（<5% n=0 可用、5~15% n=3、15~40% n=5、>=40% n=16，小相对幅度事件完成度更低：f(0.30 s) 0.636/0.687 vs 0.854）。按族分层不显著（p=0.554，各层 n=3/2/16/3），按批次分层不显著（p=0.447，n=10/5/6/3）—— 但族内 usable 样本只有 2~3 个事件，**不是「无差异」的证据，而是「样本不足」**：第一轮报的跨传感器 15 pt 差在本任务 clean+非病态子集上无法在 0.05 水平复现。**绝对载荷量级（5/10/20 N）无标定数据，本任务只用相对量**（缺口 G1）。",
+   "three_state": "有条件支持",
+   "n": "usable 24（onset 18 / restep 6），各层 n 见表"
+  },
+  {
+   "question": "T3-Q4",
+   "answer": "本任务最重要的结论：**乐观数与悲观数必须并列**，且差距按 kind 与输入形态分级。①乐观（形状库含本事件自己，= 既有 ROM 自标定的等价物）：onset 单点反演@tau_d=0.2 s 中位|误差| 3.10%、tau_d=1.0 s 2.13%（n=18）。②悲观-留一事件（同族同 kind 的 usable 事件内留一）：onset 0.2 s 5.52%（>5% 占比 56%）、0.5 s 4.70%、1.0 s 3.15%；restep 0.2 s 52.07%、1.0 s 4.92%（n=5~6）。③悲观-留一录制：onset 4.76%/4.59%/2.98%—— 与留一事件几乎相同，说明**瓶颈不是「哪一个传感器」，而是「哪一次加载」**。④跨族：onset 5.33%、restep 27.47%（onset 的跨族损失与留一相当 ⇒ 同域同形态内形状确实近似通用，复现既有「跨位置通用」）。⑤跨形态（拿 onset 库反演 restep 或反向）：onset 56.39%、restep 36.06%，是本项目最大的误差源。⑥窗口最小二乘（winLS 0.2→tau_d）并不一致更好：onset 留一 0.5 s 5.46%、1.0 s 4.73%（比单点差），restep 留一 1.0 s 9.39%（比单点差）⇒ **窗口 LS 抑制单点噪声但引入了库形状的整体偏差**，两者都要报。把参考电平从 post 换成 5 s 对结论无影响（onset 留一 0.2 s 5.52% → 5.52%）。",
+   "three_state": "不适用（数值结论）",
+   "n": "usable onset 18 / restep 6（留一录制与留一事件 n=17~18 / 5~6）"
+  },
+  {
+   "question": "T3-Q5",
+   "answer": "未发现明显时变，但样本量只允许弱结论。录制内早/中/晚三段（按 pos = t_on/录制时长 三分位）的 f(1.0 s) 中位 = 0.899 / 0.956 / 0.952（n=12/3/3），f(0.30 s) 中位 = 0.836 / 0.843 / 0.927（n=12/3/3）—— 晚期略高但 n=3 不构成证据。同录制内 onset 的 Spearman rho(f(1.0 s), t_on) 中位 +0.90（5 组，跨度 21~175 s，仅 SW1 的 n=5 组 p=0.037），方向为正（越晚完成度略高），与「温漂/加载历史让形状变慢」的担心相反。加载历史分层：距上一事件 <=5 s（n=5）f(0.30 s) 中位 0.794、5~30 s（n=8）0.826、>30 s（n=1 仅定性）0.511。**结论：本批数据里没有「形状随时间漂移」的证据，但早/晚期各只有 3 个事件、单个录制内的 onset 最多 5 个 ⇒ 只能写「未发现」，不能写「不存在」**（缺口 G8）。",
+   "three_state": "有条件支持（弱）",
+   "n": "早 12 / 中 3 / 晚 3（usable 全部）；组内 trend 5 组"
+  }
+ ],
+ "h1_verdict": {
+  "hypothesis": "H1：快相爬升的形状「总是差不多稳定的」，可以当作已知形状用掉（需求文档 §1）",
+  "overall": "反驳",
+  "by_criterion": [
+   {
+    "criterion": "C1 同类内可重复性（onset）",
+    "three_state": "支持",
+    "evidence": "CQV<=0.034、spread<=0.109（tau=0.3/0.5/1.0 s 取最差），n=18；f(0.30 s) 中位 0.854"
+   },
+   {
+    "criterion": "C1 同类内可重复性（restep）",
+    "three_state": "反驳",
+    "evidence": "spread 0.361 @0.50 s > 0.35 门槛，CQV 0.122，n=6"
+   },
+   {
+    "criterion": "C2 跨形态可移植性（硬门 20%）",
+    "three_state": "不通过",
+    "evidence": "onset 库→restep tau_d=0.2 s 中位|误差| 36.1%；restep 库→onset 56.4%"
+   },
+   {
+    "criterion": "C3 同类内泛化（软门 5% @tau_d=0.5 s）",
+    "three_state": "有条件支持",
+    "evidence": "onset 4.70% 通过；restep 17.93% 不通过"
+   }
+  ],
+  "why": "H1 作为普遍假设不成立：①restep 的归一化形状自身就不稳定（同类 spread 0.34~0.39，19 个 restep 里 7 个连归一化都做不到）；②跨形态不可移植（用 onset 形状库反演 restep 的最终电平，tau_d=0.2 s 中位误差 36.1%，且 100% 的事件超 5%）。它只在明确限定的子域里成立：**同一形态（onset）、硬阶跃输入（T4-A T_ramp<0.15 s）、tau>=0.3 s**，此时 onset 内 CQV 3~4%、留一事件泛化 4.7~5.5%。",
+  "counterexample": "反例（同族留一事件、usable、单点@tau_d=0.2 s）：SW1@75.89（onset，T_ramp=0.60 s，|J|=12646 ADC）单点|误差| 51.8%、SW1@133.83 25.2%、SW4@88.00 11.2% —— 三个都是「零基线慢压」型 onset；restep 侧 6 个 usable 事件里有 5 个留一误差 > 15%（最大 51.8%）。"
+ },
+ "corrections": [
+  {
+   "against": "13-v6-assessment §3.1 (shape_stats.csv)",
+   "was": "onset 群体中位 f(0.2 s)=0.838、p10~p90=0.724~0.935；f(1 s)=0.931（n=19，主通道，A_5s 基准）",
+   "now": "usable onset n=18：0.828（p10~p90 0.721~0.870）、f(1 s)=0.918；all onset n=22：0.818、0.921",
+   "verdict": "相同（中位差 <=0.013）",
+   "why": "口径三项同时变（信号：总量 Z vs 主通道；基准：T4-A pre 窗中位 vs A_5s；样本：clean+n 非病态 18 个 vs 19 个），中位几乎不动、带宽略窄"
+  },
+  {
+   "against": "13-v6-assessment §3.2 (shape_timewarp.csv)",
+   "was": "单参数时间缩放 alpha 中位 0.50、p10 0.30、p90 1.69；允许缩放后 RMS 0.096→0.048（降 50%）",
+   "now": "本任务等价量（事件形状自身的时间常数，非\"对 ROM 的缩放\"）：usable onset tau1 中位 0.137 s、p10~p90 0.114~0.181、CQV 0.152、CV 0.449；tau_e 中位 0.024 s、CQV 0.530",
+   "verdict": "修正（不可直接横比）",
+   "why": "alpha 是【事件 vs 现役 ROM】的相对缩放（含 ROM 自身偏慢的系统项）；本任务的 tau1 是【事件自身】的绝对时间常数。本任务给出的是\"参数自身的离散度\"（CQV 0.152），说明不能用单一缩放吃掉失配——与第一轮\"约一半可解释\"不矛盾：另一半正对应\"参数本身的离散度\"。"
+  },
+  {
+   "against": "13-v6-assessment §3.3 (跨传感器)",
+   "was": "同一传感器 3 次重复差 4.5~6.3 pt；跨传感器差 15 pt（右拇指 78.7% vs 左拇指 93.5% @0.2 s）",
+   "now": "本任务 usable 子集在恒载 3 族的 f(0.30 s)：右拇指 n=2 中位 0.829、左拇指 n=3 中位 0.864、四指 n=2 中位 0.832；fam 维 Kruskal-Wallis H=2.09 p=0.554，族间 Mann-Whitney p>=0.20",
+   "verdict": "有条件支持（方向一致、显著性不成立）",
+   "why": "clean + 非病态判据把恒载 3 族的样本压到每族 2~3 个事件，统计功效不足以在 0.05 水平复现 15 pt。**要在同口径下复现需要每族 >=5 次同型事件（缺口 G7）**；本任务不给\"族间无差异\"的结论"
+  },
+  {
+   "against": "13-v6-assessment §3.3 (rom_loo.csv)",
+   "was": "留一 Â 偏差中位 -0.12%、p10~p90 -8.93~+7.12%、|偏差| 最大 11.02%（n=19 行 = 每录制首个 onset）",
+   "now": "usable onset 事件级留一 @tau_d=0.2 s：中位 +0.84%、中位|误差| 5.52%、p90|误差| 15.47%、最大|误差| 51.78%（n=18）",
+   "verdict": "相同（中位）/ 修正（尾部）",
+   "why": "中位偏差同为个位数；尾部差一个量级，因为第一轮每行是「每录制 1 个代表事件」（已把复合/慢压事件挡在外面），本任务 n=18 含 SW1@75.89 这类慢压 onset（单点|误差| 51.8%）"
+  },
+  {
+   "against": "07-v6 §2.4",
+   "was": "形状约束反演在 0.2 s 已可把最终电平估到 ±7%（9 组恒载留一，单点 max 7.2%；窗口 LS 中位|误差| 0.30/0.50/0.75/1.00 s = 1.9/1.5/1.0/0.5%）",
+   "now": "同口径（显示域 onset）事件级留一：中位|误差| 0.2 s 3.83%、0.5 s 5.50%、1.0 s 3.44%（n=7）；全样本（含 restep 与慢压 onset，n=23）0.2 s 中位|误差| 5.9%、p90 15.5%、最大 51.8%、>5% 占比 56%；tau_d=1.0 s 中位|误差| 3.6%、最大 15.0%",
+   "verdict": "修正（±7% 只在显示域 onset 成立）",
+   "why": "①第一轮是【录制级】留一（库=其余 8 组的中位形状，事件噪声被平掉），本任务是【事件级】留一（显示域 3 族每族只剩 1~3 个 usable onset，库噪声很大）；②第一轮只评 9 个稳定恒载 onset，本任务含 slow-onset 与 restep。⇒ **误差预算必须按 kind 与输入形态分级，不能全项目引用一个 ±7%**"
+  },
+  {
+   "against": "07-v6 §2.4「跨位置泛化」",
+   "was": "留一位置：右拇指 0.3~4.7%、左拇指 0.3~2.7%、四指 0.7~2.4%（中位|误差|）⇒ 形状在位置上几乎通用",
+   "now": "本任务跨族（cross_fam，usable）：onset 单点@0.2 s 中位|误差| 5.33%、tau_d=1.0 s 3.31%；restep 27.47%/22.79%。跨形态（cross_kind）：onset 56.39%、restep 36.06%",
+   "verdict": "相同（跨族小）/ 新增（跨形态大）",
+   "why": "既有\"跨位置通用\"在同域同形态内成立（本任务跨族复现为个位数，与留一录制 4.76% 几乎相同）；真正致命的是【跨形态/跨输入方式】——这正对应 T4-A 的 T_ramp 连续谱"
+  },
+  {
+   "against": "07-v6 §2.2",
+   "was": "onset t90=0.48 s vs restep t90=2.87 s（差 6.0 倍）",
+   "now": "本任务不重算该口径（属 T2/T4），直接引用 T4-A 冻结表 t90 列（T4-A 已修正为 clean：0.62 s / 1.40 s）",
+   "verdict": "引用不推翻",
+   "why": "边界（t90 vs t95 vs 拟合拐点）由 T2-Q3 裁决（C-3）；本任务只用 T4-A 的 t_on / pre / post / z_at_*"
+  },
+  {
+   "against": "08-v6.1",
+   "was": "ROM 比现场慢 6% ⇒ Â 系统性高估（onset 中位 +3.2%、最大 +10.9%），ROM_SCALE=1.06 后降到 +0.4%",
+   "now": "本任务把同源机制拆成两半并各自给数：①形状【稳定】（usable onset f(1.0 s) CQV 0.031、CV 0.040，n=18）；②形状【不可通用】（跨形态 @0.2 s 中位|误差| 56.4%、usable restep 留一 52.1%）",
+   "verdict": "支持并扩展",
+   "why": "需求文档 §5-3 要求把\"稳定\"与\"正确/通用\"分开报。注意本任务的形状库由本批事件自身构造、不含 v6 的 ROM 偏慢项 ⇒ **不能**用它检验偏差方向，该方向仍以 08-v6.1 为准"
+  },
+  {
+   "against": "T4-A 分析报告_T4A.md §3.1/§3.4",
+   "was": "报告正文写装载类 n=40（onset 22 / restep 18，clean 25）",
+   "now": "T4-A 冻结 CSV（t4a_morphology.csv）实为 60 行，装载类 41（onset 22 / restep 19；unload 14 / partial_unload 5；jump 缺失 1）；本任务 usable 24（onset 18 / restep 6）",
+   "verdict": "修正（版本漂移）",
+   "why": "冻结表在报告正文写成之后被更新过（多 1 个 restep）。本任务以【冻结 CSV】为准并在报告 §④ 标注，避免 T8 引用时 n 对不上"
+  },
+  {
+   "against": "T4-A 冻结表（z_at_* 口径）",
+   "was": "T4-A 的 z_at_* = (Zbar(t_on+tau) − pre)/J，Zbar 单点取值、pre 窗中位为基准",
+   "now": "本任务独立重算 60 事件 × 8 个 tau 点 = 472 对，|Δ| 中位 2.47e-07、最大 1.76e-06（超 1e-6 的 3 对）",
+   "verdict": "相同（完全对齐）",
+   "why": "同法同源；残余差异来自冻结 CSV 的浮点打印位数（<2e-6）"
+  },
+  {
+   "against": "13-v6-assessment §3.1 结论「0.2 s 之前不可用」",
+   "was": "0.05 s 极差 0.705、0.2 s 极差 0.591（n=19，主通道）",
+   "now": "usable onset：0.05 s 极差 0.650、0.2 s 极差 0.497；CQV 从 0.05 s 的 0.104 单调升到 0.20 s 的 0.041、1.0 s 的 0.031",
+   "verdict": "相同（独立复现）",
+   "why": "两个独立事件集、不同信号口径给出同向结论"
+  },
+  {
+   "against": "13-v6-assessment §3.1「形状与幅度基本无关」",
+   "was": "corr(幅度, 0.2 s 占比) ≈ −0.01~−0.23",
+   "now": "本任务按【相对】载荷 |J|/记录峰值 分层：f(0.30 s) Kruskal-Wallis H=6.94、p=0.0312（各层 n=3/5/16），小相对幅度事件完成度更低（中位 0.636/0.687 vs 0.854）",
+   "verdict": "修正（条件性）",
+   "why": "既有结论建立在【绝对幅度跨域不可比】的前提下；用相对幅度分层后出现弱相关（p=0.03）。与 T4-A 的 corr=−0.11~+0.23 不矛盾：小相对幅度事件多为慢压/多级加载 ⇒ 真正的驱动量仍是输入上升时间（T4-A T_ramp），相对幅度只是它的代理"
+  }
+ ],
+ "gaps": [
+  "G1 无绝对载荷量级标定（5/10/20 N）：T3-Q3 的「载荷量级」只能用 |J|/记录峰值 的相对量；实测该相对量分层显著（p=0.031）但无法换算成力值。补采：同一装置 5/10/20 N × 硬阶跃/0.5 s 斜坡 × 各 5 次，带力值标定（与 T4-A 的 G1/G3/G4 同一批实验即可满足）",
+  "G2 restep 可用样本过少：19 个 restep 里 7 个归一化病态、2 个 |J|<2% 峰值、clean 只有 7 个，最终 usable 仅 6 个（实录用 5 个）⇒ restep 的一切分位数都是低置信。补采：同一载荷下重复 ≥10 次同型 restep（带载硬压与 0.5 s 斜坡各一组），并记录输入速率",
+  "G3 族间差异无法定量复现：usable 在恒载 3 族每族仅 2~3 个事件（第一轮报的 15 pt 跨传感器差在本子集上 p=0.554）⇒ 「族间是否真的差」在本轮数据上不可判定。补采：每族同型事件 ≥5 次（与 T4-A 的 G7 同一批）",
+  "G4 无跨传感器同载荷的配对实验：所有跨族结论都是「不同录制、不同时间、不同载荷」的混合比较，含录制批次与操作者混淆。补采：同一载荷在 3 个传感器上各做 ≥5 次",
+  "G5 显示域量化限制：恒载 9 组是 processed_display 域（0.001 刻度）、|J| 只有 11~17 个单位（远低于 ADC 域的 2.7k~28k），因此恒载组的 f(tau) 分辨率约 0.06~0.09 个归一化单位（1/J）。补采/改进：用 ADC 原始域重录恒载组",
+  "G6 「形状正确性」未独立验证：本任务的形状库由本批事件自身构造，**不含**任何 ROM 参数，故只能给「稳定/可通用」的数，不能给「对不对」的数；08-v6.1 的 ROM_SCALE=1.06 结论本任务未复算。需 T5-A/T8 用与 ROM 版本对齐的形状参数复算偏差方向（C-4 κ 扫描同批）",
+  "G7 事件起点 ±1 包敏感性未在反演上重算：T4-A 已证 ±1 包对 z_at_* 的影响中位 <=0.0015（AUC 变化 <=0.016），但本任务的单点反演 Â=Z(tau)/f(tau) 对 t_on 更敏感（t_on 平移 1 包 = tau=0.2 s 处 f 变化约 0.01~0.02，对应 Â 误差 1~2%）。本轮**未做**该敏感性扫描，属未验证项",
+  "G8 时不变性样本不足：录制内早/晚期各只有 3 个 usable 事件、单录制内 onset 最多 5 个 ⇒ 只能写「未发现明显时变」。补采：单次录制内做 >=8 次同载荷同速率的重复加载，跨越 >=200 s，才能定量 separ 温漂与疲劳",
+  "G9 长保压后形状是否漂移（>300 s 保压）未测：本批最长保压 107~147 s（恒载）/ 53 s（实录），无法判断\"加载历史累积\"是否改变快相形状"
+ ],
+ "blockers": [
+  "无硬阻塞。仅一处口径依赖未闭合：T2 的 results/t2_shape_profile.csv 尚未交付，因此本任务按 C-2 的处置用 T4-A 冻结的 z_at_* 网格作为主骨架（并在 t3a_shape_grid.csv 内同时给出 d tau=0.01 s 的加密网格）。T2 交付后需回对一次：若 T2 的主网格或基准电平与 T4-A 不同，本任务的 f(tau) 曲线需按同一基准重算（脚本支持，只改 t3a_common.TAU_MAIN / base 来源即可）"
+ ]
+}
+====================================================================================================
+FILE: T3_快相爬升可重复性与处理必要性/results/conclusions_T3B.json
+{
+ "task": "T3",
+ "seat": "T3-B",
+ "date": "2026-09-19",
+ "scope": "T3-Q6~Q10（路线 ROI 与反事实实验）；H1 的统计裁决归 T3-A，本席位只做成本侧增量",
+ "metric_spec": "T_stable 一律用 T1-A 冻结口径的代码实现（scripts/t3b_settle.py 逐行复制自 T1_*/scripts/t1a_common.py）：D1 = 完整 30 s 窗、不因后续事件截断、此后自身漂移 ≤5%·|J_ref|；D1-ev = 同 D1 但窗在下一真实事件处截断（可用窗 ≥5 s，实录类唯一可测）；指标序列 = 总量/主通道的 0.5 s 中值（Z̄）；J_ref = [t_on+4, t_on+6] 中位 − 前 2 s 中位。T1-A 的 results/t1a_settle_metrics.csv 截稿时未产出 ⇒ 用同一实现自行复算，已用 t3b_dbg_stable.py 与第一轮 r4.stable_time 在同序列上逐值对齐（1.100/1.100、0.520/0.520、5.390/5.390）",
+ "headline": [
+  {
+   "n": 1,
+   "claim": "H2a「必须在 1~2 s 内稳定 ⇒ 快相必须被处理」成立（支持）",
+   "value": "13 录制中位 T_stable：raw 15.49 s、免费期路线 2.90/3.81/4.19 s（免责 1/3/5 s）、v6 0.54 s；≤2 s 录制比 0% / 23% / 8% / 0% / 77%",
+   "source": "results/t3b_route_q6q7.csv:tag=tot_ev,med,frac_le_2s"
+  },
+  {
+   "n": 2,
+   "claim": "推荐路线 = v6 形状反演 + 形状库上包络重标 1.04~1.06；不要加输出端滤波、不要动滑行器速率",
+   "value": "rom_scale 1.06：T_stable 0.52 s（v6 0.54）、OS 3.0%（v6 9.0%）、MD 1215 ADC（v6 1440）、G 0.982（v6 1.033）；EMA τ=0.3 s 会把 MD 抬到 4211 ADC（最大 26826）",
+   "source": "results/t3b_route_roi.csv:rom_scale,OS_ch_med,MD_tot_med,G_med"
+  },
+  {
+   "n": 3,
+   "claim": "ROI 拐点：形状库缩放 1.04~1.06、κ 强度 0.15（= κ 1.15）起才有可观测效果；滑行器速率与「只对 onset 生效」两维无效",
+   "value": "rom_scale 拐点 T=1.06/OS=1.06/MD=1.08；κ 触发率 4.1%(1.30)→7.2%(1.25)→41.0%(1.15)→75.8%(1.00)→100%(0.95)；滑行器 0.3~3.0 全程 ΔT≤0.14 s、ΔMD≤103 ADC",
+   "source": "results/t3b_roi_knee.csv:knee_Tstable; results/t3b_route_roi.csv:trigger_rate"
+  },
+  {
+   "n": 4,
+   "claim": "C-4 的机制被触发率直接证实：κ 是单侧上限，跨过阈值前完全不可观测",
+   "value": "κ=1.25 与 1.30 的四联指标逐位相同（T 0.540 s / OS 8.999% / MD 1440.286 ADC），而触发率 4.1%→7.2%；κ=1.00 时触发率 75.8% 且 OS 降到 −0.305%",
+   "source": "results/t3b_route_roi.csv:arm in (v6,kap125,kap100),trigger_rate"
+  },
+  {
+   "n": 5,
+   "claim": "形状库精度不是稳定时间的瓶颈（H1/H2b 的成本侧证据）",
+   "value": "rom_scale 1.00/1.04/1.06/1.08/1.12 ⇒ T_stable 0.54/0.51/0.52/0.63/0.65 s，而 OS 9.0/4.9/3.0/1.6/−0.1%、err1 −3.7/−6.3/−9.2/−9.8/−11.0%",
+   "source": "results/t3b_route_roi.csv:rom_scale,Tstab_tot_ev_med,OS_ch_med,err1_ch_med"
+  },
+  {
+   "n": 6,
+   "claim": "第三条路：单侧门（C4）可把过充归零但付 11% 欠报；滤波（C2）把过充换成最大偏差；解耦（C3）四联指标 Δ≈0",
+   "value": "C4：OS −0.305%、err1 −10.97%、G 0.946、T 0.700 s；C2：MD 4211 ADC（最大 26826）；C3：ΔT −0.005 s、ΔOS 0.000 pt、ΔMD −23 ADC",
+   "source": "results/t3b_third_routes.csv:dT_vs_v6,dOS_vs_v6,dMD_vs_v6"
+  },
+  {
+   "n": 7,
+   "claim": "口径声明：本任务的 T_stable 与第一轮 r4 的实现逐值一致，但样本与平滑口径不同（第一轮 13 个 onset、未平滑；本任务 40 事件、0.5 s 中值），故不做绝对横比",
+   "value": "同序列对照：未平滑/平滑 与 r4 分别 2.670/2.670、0.520/0.520、5.390/5.390 s；±1 包（±40 ms）起点敏感度 |ΔT| 中位 0.080 s",
+   "source": "results/t3b_patch_ab_zero.csv:C_kernel_equiv_*; results/t3b_jitter_pm1pkt.csv"
+  }
+ ],
+ "verdicts": [
+  {
+   "question": "T3-Q6",
+   "three_state": "反驳",
+   "answer": "不处理快相（v5 免责期）在 13 份录制上的 T_stable 中位为 2.90/3.81/4.19 s（免责 1/3/5 s），全部 >2 s；≤2 s 的录制比 0~23%；最坏录制 7.39/7.88/9.10 s。放任（raw）中位 15.49 s。结论：该路线**不能**普遍进 2 s，与 1~2 s 上限的距离 = +0.90 ~ +2.19 s（中位）。"
+  },
+  {
+   "question": "T3-Q7",
+   "three_state": "支持",
+   "answer": "处理快相（v6）中位 T_stable 0.54 s（总通道）/1.12 s（主通道），77%/62% 的录制 ≤2 s；代价 = 过充 OS 中位 9.0%（onset 9.0%）、1 s 误差 −3.7%、最大偏差中位 1440 ADC（最大 5446）、epoch 1.71/100 s（免责 3 s 为 1.05）、台阶捕获比 1.033（n=7, ADC 域大台阶）。"
+  },
+  {
+   "question": "T3-Q8",
+   "three_state": "支持",
+   "answer": "四维扫描给出拐点：形状库缩放 1.04~1.06（Kneedle 1.06）、κ 强度 0.15（κ=1.15，触发率 41%）起才可观测、滑行器速率 0.3~3.0 无效、「只对 onset 生效」四联指标 Δ≈0。"
+  },
+  {
+   "question": "T3-Q9",
+   "three_state": "有条件支持",
+   "answer": "5 个候选里 C4（单侧门）与 C3（解耦/慢修正）站得住，C1（只对 onset 反演）无收益但零代价、C2（+EMA）代价过大、C5（慢滑行）数值上不成立（被 GLIDE_MAX=0.8 s 吃掉）。均不需要新增现场标定。"
+  },
+  {
+   "question": "T3-Q10",
+   "three_state": "支持/有条件支持",
+   "answer": "H1 反驳（引用 T3-A，成本侧同向）；H2a 支持、H2b 有条件支持、H2c 有条件支持。即：「必须处理快相」成立；「必须用形状反演这种机制」不能被证实为必要 —— 收益来自「在快相内设定目标并钉住」，不来自形状库精度；「1~2 s 可达」只在按工况分级的前提下成立。"
+  },
+  {
+   "question": "H2",
+   "three_state": "支持（必须处理）/ 有条件支持（必须用形状反演）",
+   "answer": "见 results/t3b_h2_verdict.csv 的 H2a/H2b/H2c 三行；三条各自带数字与 n。"
+  }
+ ],
+ "corrections": [
+  {
+   "against": "13-v6-assessment（settle_arms.csv / 答复 §6）",
+   "was": "v6 的 T_stable 为 0.46 s（总通道）/ 1.72 s（主通道）；raw 9.33 s、v5.1 2.80 s；1~2 s「v6 达标」",
+   "now": "本任务用 T1-A 冻结口径（D1-ev）在 40 事件上复算：v6 0.54 s（总通道）/ 1.12 s（主通道）；raw 15.49 s、v5.1 免责 1/3/5 s 2.90/3.81/4.19 s。量级与方向一致，但**样本与口径不同**（第一轮 13 个 onset、未平滑、J 取 5~7 s 窗；本任务 40 事件、0.5 s 中值、J 取 4~6 s 窗），故不作绝对横比；在同序列上两种实现逐值一致（见 t3b_patch_ab_zero.csv）",
+   "verdict": "修正"
+  },
+  {
+   "against": "13-v6-assessment（filter_pareto.csv / 答复 §5.1）",
+   "was": "输出端 EMA τ=0.3 s 是「双赢」：过充 9.11%→5.14% 且 T_stable 2.72 s→1.89 s",
+   "now": "过充确实降（9.00%→7.33%），但 T_stable 在 T1-A 口径下反而变差（0.54→1.16 s），且**最大偏差 MD 从 1440 涨到 4211 ADC（最大 26826 ADC，v6 为 5446）**—— EMA 破坏「显示随原始同步跳变」，把偏差搬到了瞬时失配上。第一轮未报 MD，故这个代价当时不可见",
+   "verdict": "修正"
+  },
+  {
+   "against": "13-v6-assessment（kappa_ablation / 答复 §5.2）",
+   "was": "κ 1.30→1.10 让过充中位 7.06%→3.33%，且 T_stable 1.72 s→0.43 s，被称为「性价比最高的改动」",
+   "now": "κ 的收益是**阈值型**：触发率 4.1%(κ=1.30)→7.2%(1.25)→41.0%(1.15)→75.8%(1.00)。κ=1.25 与 1.30 的四联指标逐位相同；κ=1.15 起才有可观测变化；κ=1.00 把过充压到 −0.305% 但 1 s 误差退到 −10.97%、G 退到 0.946，T_stable 反而 0.54→0.78 s。⇒「过充砍半」成立，「同时更快」不成立",
+   "verdict": "修正"
+  },
+  {
+   "against": "T4-B（t4b_branch_cost.csv / 报告 §3.3）",
+   "was": "「κ 项本身零收益」：M0_now(κ=1.30) 与 M2_correctA(κ=1.12) 在 35 个事件上输出完全相同",
+   "now": "同意其数据、并给出机制解释：在**未跨过触发阈值**的区间里 κ 确实完全不可观测（κ=1.25 vs 1.30 触发率仅 4.1%→7.2%，四联指标逐位相同）；一旦跨过（κ≤1.15 触发率 ≥41%，κ≤1.00 ≥76%）则过充被显著改写",
+   "verdict": "相同（并补充机制）"
+  },
+  {
+   "against": "T4-B（restep 的 T_stable 中位 9.630 s「在所有臂上完全相同 ⇒ 该口径对分支无判别力」）",
+   "was": "restep T_stable 中位被窗口长度顶住，无判别力",
+   "now": "本任务用 T1-A 的 D1-ev（窗在下一真实事件处截断、可用窗 ≥5 s）复算：v6 的 restep 可测样本只有 n=2（其余删失）⇒ 结论仍是「restep 在实录上不可测」，与其判断一致；差别是删失被显式报出（本任务逐事件带 cens 列）",
+   "verdict": "相同"
+  },
+  {
+   "against": "06-v5.1-exempt-1s-3s-5s（免责期1s-3s-5s对比.md）",
+   "was": "免责 1 s 档的台阶捕获比最小 0.76、全程最大偏差中位 3258 ADC（11.4% 峰值）、epoch 31 vs 29；结论 1 s 不可取",
+   "now": "方向一致但量级不同（本任务口径 = 总通道、20 s、|Δ原始|≥2000 ADC、n=7）：免责 1 s 的 G 中位 0.934 / 最小 0.810、MD 中位 682 / 最大 4752 ADC、epoch/100 s 1.051（与免责 3/5 s 相同）。⇒「1 s 档最差」在本口径下**未被复现**：1 s 档的 T_stable 反而最短（2.90 s vs 3.81/4.19 s）且 MD 最小，代价主要体现在 1 s 时刻欠报 −10.5% 与 G 偏低",
+   "verdict": "修正（口径差异，需交叉核对）"
+  },
+  {
+   "against": "07-v6（MANIFEST.md，「单次加载可替代 v5.1，多次变载不可」）",
+   "was": "v6 更快但不适合多次变载",
+   "now": "复现：v6 全面更快（配对 −2.5 ~ −3.1 s，11~13/13 录制），但 epoch 1.05→1.71/100 s、MD 383→1440 ADC（3.8 倍）、过充 +2.81%→+9.00%",
+   "verdict": "相同"
+  },
+  {
+   "against": "13-v6-assessment（答复 §9.1「稳定只能是相对某个参考幅度的稳定」）",
+   "was": "口径必须先冻结，否则同一算法给不同结论",
+   "now": "复现并加强：同一 v6 在三个口径下给出 0.54 s（总通道 D1-ev）/ 0.77 s（主通道）/ 0.535 s（D1）；实录上 D1 删失 57%；T_settle(5%) 与 T_stable 不可互换（v6 onset 的 T_settle 只有 n=5 可测、中位 3.95 s）",
+   "verdict": "相同"
+  },
+  {
+   "against": "T3-A（t3a_shape_spread.csv / t3a_generalization.csv）",
+   "was": "onset 形状在 τ≥0.3 s 稳定、跨形态不稳（泛化中位|误差| 5.18% vs 56.37%）",
+   "now": "本席位不重做统计，只做成本侧增量：形状库越保守 ⇒ 过充单调下降、欠报单调上升 （rom_scale 1.00→1.12，n=40），与该结论同向",
+   "verdict": "相同"
+  }
+ ],
+ "gaps": [
+  "G1 T1-A 的 results/t1a_settle_metrics.csv 截稿时未产出：本任务的 T_stable 用「同一实现」自行复算（已在同序列上与第一轮 r4.stable_time 逐值对齐），T1 交付后需与 t1a_settle_metrics.csv 逐事件对齐一次",
+  "G2 主通道口径 v6 中位 1.12 s vs 第一轮 1.72 s 的差异来源未完全拆开（样本集、J 窗 4~6 s vs 5~7 s、是否平滑三个因素）：本任务只证明「平滑」影响很小（配对差中位 0.000 s），另两项未做受控实验",
+  "G3 无 relstep（负载内加重）的 1 s 目标可行性专项实验：本任务只能给出「v6 在 restep 上可测样本 n=2」的删失事实",
+  "G4 无跨载荷量级（5/10/20 N）数据 ⇒ 形状库缩放的最优值 1.04~1.06 无法判定是否随载荷变化",
+  "G5 无重复性（组内离散）指标：C3 解耦路线的「收益在重复性而非四联指标」这一假设本任务无法裁决（T6 的口径），只能报「四联指标 Δ≈0」",
+  "G6 κ 的密扫（1.05/1.10）归 T5-A；本任务只有 1.30/1.25/1.15/1.00/0.95 五个点，而 1.15→1.00 之间是收益变化最快的区间",
+  "G7 现场标定：rom_scale / κ 的最优值全部来自本批 13 份录制；换传感器或夹具后是否成立未验证（T3-A 已实测跨族/跨形态泛化误差 5.5%→56%）",
+  "G8 ±1 包的「事件起点」不确定性只做了平移敏感性（|ΔT_stable| 中位 0.080 s，±40 ms 平移）；没做「不同 t_on 定位算法选到相邻包」的敏感性",
+  "G9 无「拍击后加压」样本（T4-A H 类 n=0）⇒ 该中间态本任务无法表征",
+  "G10 US%（下冲）在本任务的实现下不可解释：us_dir 的窗从 t_on 起算、含「显示尚未到位」段 ⇒ 恒约等于 −100%（v6 −100.0%、v5.1 −99.1%）。补做：窗改为「target 首次到达之后」；本报告已改为不报该列"
+ ],
+ "blockers": [
+  "无阻塞。仅 t1a_settle_metrics.csv 未交付（G1），已在报告与 JSON 中显式声明口径替代方案"
+ ]
+}
+====================================================================================================
+FILE: T4_两种快相形态与分支判据/results/conclusions_T4A.json
+{
+ "task": "T4",
+ "seat": "T4-A",
+ "date": "2026-09-18",
+ "headline": [
+  {
+   "n": 1,
+   "claim": "两种形态的差异只活在前 0.2 s，之后迅速收敛",
+   "value": "干净事件 0.05/0.10/0.20 s 完成度 onset 72.3%/75.1%/82.8% vs restep 22.0%/28.6%/46.5%（AUC 0.952/0.976/0.960）；1 s 完成度只差 6.2 pt（91.8% vs 85.6%，AUC 0.770）、2 s 差 1.4 pt",
+   "source": "results/t4a_separability.csv:med_onset,med_restep,auc"
+  },
+  {
+   "n": 2,
+   "claim": "差异的驱动量是输入上升时间而不是预载",
+   "value": "反卷积等效输入斜坡时长 T_ramp 中位 onset 0.010 s vs restep 0.550 s（AUC 0.063 ≈ 反向 0.94）；阶跃输入模型残差中位 12.8%·|J|、斜坡输入模型 5.0%·|J|（改善 2.3 倍）",
+   "source": "results/t4a_input_recover.csv:T_ramp; results/t4a_mechanism.csv:rmse_step_pct,rmse_ramp_pct,gain_ramp"
+  },
+  {
+   "n": 3,
+   "claim": "既有论断「差别在输入而不在传感器」被独立验证（支持）",
+   "value": "同录制同带载状态的卸载 0.2 s 完成 100%：z_at_02 中位 1.003（n=13，全部 1.000~1.033，t50 中位 0.02 s）；而同档 pre/peak≥0.69 的 restep 只有 0.594（n=5，全局 n=7 为 0.465）",
+   "source": "results/t4a_mechanism.csv:z_at_02(E2),t50(E2); results/t4a_unload_symmetry.csv:unload_z_at_02,restep_z_at_02_med"
+  },
+  {
+   "n": 4,
+   "claim": "第二条独立证据是通道间同步性",
+   "value": "事件内各通道自身 t50 的四分位距中位 onset 0.006 s vs restep 0.265 s（AUC 0.016）——零基线加载全阵同时起步，带载加压按通道分批起步",
+   "source": "results/t4a_channel_consistency.csv:t50_ch_iqr"
+  },
+  {
+   "n": 5,
+   "claim": "两形态是同一连续谱的两个端点，不是两个离散类",
+   "value": "T_ramp 连续覆盖 0.00~1.15 s；onset 组 5/22 个 ≥0.15 s、restep 组 7/18 个 ≤0.09 s；8/40 落于 [0.05,0.30] s 重叠区（2 onset+6 restep）；GMM 双峰在输入轴（ΔBIC=−64.0，clean n=25）而非工况标签",
+   "source": "results/t4a_intermediate.csv:categories,T_ramp; results/t4a_continuum.csv:dBIC,gmm2_mu1,gmm2_mu2"
+  },
+  {
+   "n": 6,
+   "claim": "预载只是代理变量",
+   "value": "pre/peak 同处 0.17~0.21 的三个事件 T_ramp=0.00/0.60/0.80 s、z_at_02=0.854/0.399/0.132；OLS 中 log10 T_ramp 对 z_at_02 的 R²=0.615 高于 armed 的 0.538，两者同时入模后 armed 的 t 值降到 −2.04；10%/30% 门限间 4 个事件改标签而主结论 AUC 仅 0.903~0.960",
+   "source": "results/t4a_continuum.csv:r2,beta,t; results/t4a_sensitivity.csv:auc"
+  },
+  {
+   "n": 7,
+   "claim": "负面结论：候选的「上升沿单帧跃变占比」在总量 Z 上不可用",
+   "value": "step_frame_frac AUC=0.397、frames_to_50 AUC=0.483（比随机还差）；可用替代量是 z_at_01（AUC 0.976）与 n_frames_rise（onset 中位 2 帧 vs restep 14 帧，AUC 0.044）",
+   "source": "results/t4a_separability.csv:auc"
+  }
+ ],
+ "verdicts": [
+  {
+   "question": "T4-Q1",
+   "answer": "两形态特征表已产出并固定为交接接口：results/t4a_morphology.csv（60 行 × 51 列），每事件一行含 t10/t50/t80/t90/t95、z_at_005~z_at_50（含 z_at_02/z_at_10）、台阶幅度 pre/post/jump/ratio、上升沿帧数 rise_frames_10_90/n_frames_rise/frames_to_50/frames_to_90、单帧跃变占比 step_frame_frac/top3_frame_frac、指数与幂律拟合参数 exp_tau/exp_beta/exp_rms/pow_p/pow_tau/pow_rms，以及 armed_10/20/30 三个门限标志与 clean 标志；干净样本 n_onset=18、n_restep=7",
+   "three_state": "不适用"
+  },
+  {
+   "question": "T4-Q2",
+   "answer": "差异是效应量级而非仅显著性：z_at_01 AUC 0.976、z_at_02 0.960、z_at_005 0.952（区间重叠均为 0，但仍有 1/18 个 onset 落入 restep 带内）；t80 AUC 0.024（反向 0.976）；t90 只有 AUC 0.194、区间重叠 0.53；1 s 完成度 AUC 0.770、2 s 0.690。所有样本换成含脏事件的 40 个加载事件后 z_at_* 的 AUC 降到 0.808~0.826",
+   "three_state": "不适用"
+  },
+  {
+   "question": "T4-Q3",
+   "answer": "既有论断「差别在输入而不在传感器」成立，由 4 条互相独立的证据支持：E1 逐帧微分（0.05 s 完成度 3.28 倍差、承载 50% 的帧数 2 vs 14）、E2 卸载对称性（同一带载状态卸载 z_at_02=1.003 vs 同档 restep 0.594）、E3 通道间起步同步性（t50 的 IQR 0.006 s vs 0.265 s）、E4 反卷积定量反演输入上升时间（T_ramp 0.010 s vs 0.550 s；斜坡模型对 restep 的残差 5.0% 优于阶跃模型 12.8%）。E1/E2/E3 不使用任何形状核；E4 的核由最快 onset 构造，存在结构性循环，已声明并有 3 条前提假设（阶跃响应与预载无关、正负方向响应对称、线性叠加）",
+   "three_state": "支持"
+  },
+  {
+   "question": "T4-Q4",
+   "answer": "存在中间态，而且它不是少数例外，而是两端的连续过渡带：40 个加载类事件中 26 个带中间态标签（A 零基线慢压起 5、B 带载硬压 8、C 低预载 4、D 标签随门限翻转 4、E 复合/基线在动 15、F 卸载后加压 4、G 连续两次加载 11），其中 8/40 落在 T_ramp∈[0.05,0.30] s 的重叠区；分布虽在输入轴上呈双峰，但决定形态的物理量（输入上升时间）连续覆盖 0.00~1.15 s，且预载只解释其方差的 47%（R²=0.467）⇒ 「两形态」应理解为同一连续谱的两个端点，预载是代理变量；H 类「拍击后加压」在本批数据中无样本（缺数据）",
+   "three_state": "支持"
+  }
+ ],
+ "corrections": [
+  {
+   "against": "13-v6-assessment",
+   "was": "restep 的 0.2 s 完成度 = 62.6~72.2%",
+   "now": "clean restep（总量 Z）= 46.5%；对同一批 15 个 restep 事件，三种口径分别给出 62.6%（第一轮，主通道）/ 46.5%（本任务 Z）/ 35.0%（本任务主通道），最大差 28 pt ⇒ 该数字不稳健，引用必须带口径与样本清单",
+   "verdict": "修正"
+  },
+  {
+   "against": "13-v6-assessment",
+   "was": "onset 的 0.2 s 完成度 = 83.8%",
+   "now": "clean onset（总量 Z）= 82.8%；对同一批 19 个 onset 事件三口径为 83.8%/82.4%/84.9%，互差 ≤1.5 pt ⇒ 稳健",
+   "verdict": "相同"
+  },
+  {
+   "against": "07-v6",
+   "was": "onset t90=0.48 s vs restep t90=2.87 s，差 6.0 倍",
+   "now": "clean 复算 onset 0.62 s vs restep 1.40 s（2.3 倍）；全样本 0.67 s vs 1.99 s；方向一致但倍数修正（样本与 t_on 口径差异：第一轮 restep n=15 含恒载组 10 次 3~10% 小增量，其 t90 在 2.4~4.9 s；本任务 clean restep 仅 7 个）",
+   "verdict": "修正"
+  },
+  {
+   "against": "13-v6-assessment",
+   "was": "「1 s 时两者已追平」",
+   "now": "clean 的 1 s 完成度 onset 0.918 vs restep 0.856，差 6.2 pt（AUC 0.770），2 s 差 1.4 pt ⇒ 基本追平，但仍残留弱可分性",
+   "verdict": "相同"
+  },
+  {
+   "against": "07-v6",
+   "was": "机制论断「差别在输入而不在传感器」（未独立验证，基于逐帧核对）",
+   "now": "4 条独立证据支持并定量化：T_ramp 0.010 s vs 0.550 s、卸载 z_at_02 1.003 vs 同档 restep 0.594、通道 t50 的 IQR 0.006 s vs 0.265 s、0.05 s 完成度 3.28 倍差；同时声明 3 条未验证前提",
+   "verdict": "相同"
+  },
+  {
+   "against": "07-v6",
+   "was": "「restep 的输入本身就是 0.3~1.2 s 的斜坡」（举证为单个事件 0.75 s 走完 91%）",
+   "now": "逐事件反演：T_ramp（restep）中位 0.550 s，15/18 个事件 >0.09 s，其中 11 个 >0.2 s；另有 2 个 <0.15 s 的「带载硬压」反例 ⇒ 区间吻合但非全称",
+   "verdict": "相同"
+  },
+  {
+   "against": "13-v6-assessment",
+   "was": "建议「至少两套形状/两套 κ（onset 一套、restep 一套）」",
+   "now": "早期形状差异真实（1.8~3.3 倍），但分界变量是输入上升时间而不是工况标签：用 armed 选库会与 20%（8/40）的事件不一致，门限 10%/30% 之间还有 4 个事件改标签；该差异是连续变量上的两端",
+   "verdict": "修正"
+  },
+  {
+   "against": "13-v6-assessment",
+   "was": "卸载在 0.2 s 完成 100.9%（n=21）",
+   "now": "总量 Z 口径：卸载 z_at_02 中位 1.003（n=13，1.000~1.033），t50 中位 0.02 s；并由「卸载 vs 同档 restep」对照升级为传感器在带载状态不慢的机制证据",
+   "verdict": "相同"
+  },
+  {
+   "against": "13-v6-assessment",
+   "was": "onset 形状在 0.2 s 处中位 0.838、p10~p90=0.724~0.935（n=19，主通道）",
+   "now": "clean onset（Z，n=18）中位 0.828（差 0.010，相同）但 p10~p90=0.721~0.870（上界更低，与第一轮样本含更高完成度事件及信号口径不同有关）⇒ 混合判定",
+   "verdict": "修正"
+  },
+  {
+   "against": "13-v6-assessment",
+   "was": "形状与幅度基本无关（corr ≈ −0.01~−0.23）",
+   "now": "corr(z_at_02,|J|) = −0.108（onset）/ +0.229（restep）；另外输入速率与台阶幅度只有弱相关 corr(log10 T_ramp,|J|) = +0.404 / +0.295 ⇒ 输入速率不由台阶大小决定",
+   "verdict": "相同"
+  },
+  {
+   "against": "T4-B",
+   "was": "需求书候选判据④「上升沿形状（单帧跃变 vs 多帧斜坡）」——按“单帧跃变占比”实现",
+   "now": "该实现在总量 Z 上不可分：step_frame_frac AUC=0.397、frames_to_50 AUC=0.483；可用的早期量是 z_at_005/z_at_01/z_at_02（AUC 0.952/0.976/0.960，仅需 50~200 ms 数据）与 n_frames_rise（AUC 0.044）",
+   "verdict": "修正"
+  }
+ ],
+ "gaps": [
+  "G1 无跨载荷量级标称（5/10/20 N）：无法判定输入斜坡时长/形态是否随载荷量级变化；只能以 |J| 与记录峰值作相对幅度，且与 log10 T_ramp 仅弱相关（r=+0.08~+0.40）。补采：同一装置 5/10/20 N × 硬阶跃/0.5 s 斜坡 × 各 5 次，带力值标定",
+  "G2 无「拍击后加压」样本（T4-Q4 的 H 类 n=0）：该中间态无法表征（拍击不满足本任务 2%·记录极差的电平门限）。补采：拍击后 0.2~2 s 再加压的录制 ≥5 次",
+  "G3 无受控速率实验：T_ramp 与操作方式的对应关系只能由观测推断，无法标定「手速↔T_ramp」。补采：力/位移控装置做 0.05/0.2/0.5/1.0/2.0 s 上升时间 × 各 5 次",
+  "G4 无同步力/位移真值：无法把 T_ramp 从读数反演升级为实测输入，也无法独立验证反卷积的绝对精度。补采：加载装置带力传感器同步采集（对齐 ≤5 ms）",
+  "G5 检测门限 max(8σ_d, 2%·记录极差) 以下的慢小增量未表征：restep 样本因此偏向大台阶。若要覆盖需先提高信噪比",
+  "G6 显示域量化（0.001 刻度）限制恒载组的逐帧微分类指标（step_frame_frac、n_frames_rise 受量化影响）。建议用 ADC 原始域重录恒载组",
+  "G7 单次录制内缺乏「同载荷重复加载」：clean restep 仅 n=7，分组中位数不确定度较大。建议每个工况重复 ≥5 次同型事件"
+ ],
+ "blockers": [
+  "T4-A 交付本身无阻塞；仅「传感器阶跃响应与预载无关」这一机制前提无法用现有 13 份录制闭合（E4 的核由最快 onset 构造，存在结构性循环），需按 G3/G4 补采受控实验才能彻底验证"
+ ]
+}
+====================================================================================================
+FILE: T4_两种快相形态与分支判据/results/conclusions_T4B.json
+{
+ "task": "T4",
+ "seat": "T4-B",
+ "date": "2026-09-19",
+ "headline": [
+  {
+   "n": 1,
+   "claim": "不该硬分支：把现状单库换成可实现的因果判据分支（θ=0.40，在环跑完整算法）后，配对差 T_stable 中位/最坏 0.000 s、平台偏差中位 0.000 %、最坏 0.027 %·事件绝对幅度（1.1 ADC）、最大偏差 0.00 ADC；换成真值分支（上界）同样 T_stable 中位/p90 变化 0.000 s。分支对「1~2 s 稳定」零贡献。",
+   "value": "ΔT_stable 中位 = 0.000 s（最坏 0.000 s）；Δ平台偏差中位 = 0.000 %，最坏 = 0.027 %·幅度（1.1 ADC）；ΔMD 中位 = 0.00 ADC",
+   "source": "results/t4b_branch_cost.csv:dT_med/dT_absmax/dPlatAbs_med/dPlatAbs_absmax/dMD_med（arm=M3_causal_thr0.40 / M2_correct）"
+  },
+  {
+   "n": 2,
+   "claim": "最简判据存在且只需 Δ=0：s = pre 因果电平 ÷ 因果滚动峰值 ≤ θ；冻结峰值实现（可在线落地）给出完全相同的 AUC/balanced accuracy；固定门限不调参的准确率 θ=0.10→0.686、0.20/0.30→0.829、0.40→0.943。",
+   "value": "AUC = 0.9964；balanced accuracy = 0.9783；p10~p90 重叠 = 0.0000；lag_s = 0.00（θ=0.4155 最优，θ=0.40 固定准确率 0.9429）",
+   "source": "results/t4b_separability.csv:crit=P1_pre_frac / P1b_pre_frac_frozenV 的 auc_eff/balanced_acc/acc/p10p90_overlap/lag_s"
+  },
+  {
+   "n": 3,
+   "claim": "需求书候选④（上升沿形状：单帧跃变 vs 多帧斜坡）不能用：因果口径下可分性差；原因是幅度可分、形状重叠。已与 T4-A 的独立结论互相确认 ⇒ 不再作为可行候选。",
+   "value": "JF_020（=J(0.00)/J(0.20)）AUC = 0.6166、balanced acc = 0.6601、p10~p90 重叠 = 0.4172；同批事件复算 T4-A 的列：step_frame_frac AUC = 0.5138（clean 0.5702）、frames_to_50 AUC = 0.6167；两形态 0.05 s 完成度中位差 30.6 pt 但 p10~p90 重叠率 0.480",
+   "source": "results/t4b_separability.csv:P4_singleframe@020 与 results/t4b_shape_by_arm.csv:overlap（另见 results/t4b_tramp_ref_crit.csv:auc）"
+  },
+  {
+   "n": 4,
+   "claim": "「用输入速率」不比「用电平门限」更好、而且更慢：T4-A 的 T_ramp（非因果反卷积）是形态驱动量但作为二分类判据很弱；它的两个因果替身（到达时刻 T50c、早期到达比例 FR）在任何 Δ 上都不超过 0.70；两者互相信息近乎不重叠（把 P1 加进已有 T_ramp 的模型 ΔR² 仅 +0.0015）。窗口表里 slope_auc 一列的高值（0.92~0.98）不是速率证据，而是与 P1 的结构性共线（见 source）。",
+   "value": "P1（Δ=0）AUC = 0.9960（clean 0.9912）vs T_ramp AUC = 0.6522（clean 0.8860）；T50c 最大 0.6870 @ Δ=0.02 s（Δ=0.10 s 为 0.6591，Δ=0.30/0.50/1.00 s 为 0.5514/0.4466/0.3913）；FR 峰值 0.6913 @ Δ=0.10 s；T_ramp 对 z_at_02 的 R² = 0.8329（ρ=−0.7697），P1 对 z_at_02 的 R² = 0.0391；层次回归 ΔR²(P1|T_ramp) = +0.0015；slope_auc 与 P1 的 ρ = −0.815、R² 中位 0.661，去 P1 秩成分后 AUC = 0.598",
+   "source": "results/t4b_tramp_ref_crit.csv:auc（T4-A T_ramp / T4-A armed / P1）；results/t4b_tramp_window.csv:T50c_auc/FR_auc/slope_auc；results/t4b_tramp_vs_p1.csv:R2_z_at_02；results/t4b_tramp_r2.csv:R2；results/t4b_slope_collinearity.csv:rho_slope_P1/R2_slope_P1/slope_auc_rank_resid"
+  },
+  {
+   "n": 5,
+   "claim": "判据的时序容差是单侧的，这是落地时最硬的约束：早看没关系，晚 40 ms 开始崩；变载实录的 ±1 包（40 ms）正好落在临界处 ⇒ 判据必须在 t_on 起 +30 ms 内下决定，不能用整个上升沿。",
+   "value": "误判数（θ=0.30，n=35）：−80 ms→3、0 ms→3、+20 ms→4、+30 ms→4、+40 ms→7、+60 ms→9、+80 ms→15；onset 的 s 中位 +40 ms 时 0.050→0.193",
+   "source": "results/t4b_dbg_margin.csv:s_off_+000/s_off_+020/s_off_+040/s_off_+060/s_off_+080"
+  },
+  {
+   "n": 6,
+   "claim": "误判代价是真金白银的幅度、但不是时间：把 onset 判成 restep（用更慢的形状库）的上界是平台偏差中位 −3.8 %·事件绝对幅度、平均绝对误差中位 2.7%、最坏 31.1%、平台偏差绝对最坏 1896 ADC，而 T_stable 变化中位仅 −0.02 s。",
+   "value": "M2_inverse(onset)：Δ平台偏差中位 = −3.821 %·幅度、最坏 = 31.148 %；ΔMAE 中位 = 2.680 %、最坏 = 27.044 %；Δ平台偏差 ADC 最坏 = 1895.8；ΔMD 中位 = −0.70、最坏 = 1557.3 ADC；ΔT_stable 中位 = −0.020 s、最坏（全样本）1.69 s /（clean 子集）4.86 s",
+   "source": "results/t4b_branch_cost.csv:true_kind=onset 的 dPlatAbs_med/dPlatAbs_absmax/dMAE_abs_med/dADC_absmax/dMD_med/dMD_absmax/dT_med/dT_absmax；results/t4b_cost_t1_summary.csv（clean）"
+  },
+  {
+   "n": 7,
+   "claim": "跨载荷量级：绝对量级无法判定（无数据），相对量级可判且看不出依赖；只有 onset 子样本的 0.5 s 完成度与相对量级有弱显著秩相关，但低档只 4 个事件，只作可疑信号上报。",
+   "value": "13/13 份 calibration.params = {}、0/13 有载荷量(N/gf)数值标注、7/13 份 force_conversion_active=False、ADC 域 4 份峰值只差 1.26 倍；相对量级上 4 份 ADC 实录共 27 段 >3 s 载荷档位（0.15~0.98 峰值），形状差在 −4.8~+11.3 pt 摆动、AUC 0.33~0.69 无方向；onset 子样本 ρ(sh_050b, post_frac_rec) = +0.449（p=0.032, n=23）",
+   "source": "results/t4b_loadlevel_probe.csv:calibration.params/force_conversion_active；results/t4b_loadlevel_tiers.csv:level_frac_peak；results/t4b_loadlevel_shape.csv:d_pt/auc；results/t4b_loadlevel_corr.csv:rho/p"
+  }
+ ],
+ "verdicts": [
+  {
+   "question": "T4-Q5",
+   "answer": "最简判据是 Δ=0 的因果电平门限：s = pre 因果电平（0.5 s 窗）÷ 因果滚动峰值 ≤ θ（推荐 θ=0.40）。AUC 0.9964、balanced accuracy 0.9783、p10~p90 完全不重叠；冻结峰值 V 的实现给相同数值（可在线落地）。四个候选里：① pre 门限最优且 Δ=0；② 上升沿斜率（Δ=0.10 s）AUC 0.9275、可用的替代；③ 台阶幅度/电平比（Δ=0.20 s）AUC 0.9746 但慢 0.20 s；④ 上升沿形状（单帧跃变占比，Δ=0.20 s）AUC 0.6166、重叠 0.4172 ⇒ 不可用。T4-A 的 T_ramp 虽为形态驱动量（对 z_at_02 的 R²=0.8329）但非因果，其因果替身在 Δ=0.10 s 最好也只有 AUC 0.6591 ⇒ 用输入速率对 1~2 s 目标无用。判据时序容差单侧：+30 ms 仍 4/35 误判、+40 ms 变 7/35。",
+   "three_state": "支持"
+  },
+  {
+   "question": "T4-Q6",
+   "answer": "混淆矩阵（θ=0.40，n=35）：onset 21 判对 / 2 个 FN，restep 12/12 全判对，0 个 FP ⇒ 事件级误判 2/35=5.7%。误判代价用 T1 口径表达（复用 T4-A 的 z_at_*，不另立归一化）：onset 误判为 restep 的上界是平台偏差中位 −3.8 %·事件绝对幅度、MAE 中位 2.7%、最坏 31.1%、平台偏差绝对最坏 1896 ADC，而 T_stable 中位只差 −0.02 s（最坏：全样本 1.69 s / clean 4.86 s）、MD 中位 −0.70 ADC（最坏 1557.3 ADC）。反方向（restep 误判为 onset）代价更大约一个量级：过充差最坏 73 pt、MAE 最坏 7.0 %·幅度。9 条臂 × 两类事件 × 两套样本（全样本 34 配对事件 / T4-A clean 25 个）的中位 T_stable 只取 4 个值（0.500 / 9.630 / 2.170 / 0.480 s），差异来自样本而非臂。",
+   "three_state": "支持"
+  },
+  {
+   "question": "T4-Q7",
+   "answer": "不应硬分支。形态学依据（T4-A）：两形态是同一连续谱的两端而非两个离散类 —— T_ramp 连续覆盖 0.00~1.15 s、8/40 个事件落在 [0.05,0.30] s 重叠区、GMM 双峰落在输入轴上（ΔBIC=−64.0）⇒ 任何门限型硬分支都必然误分约 20% 的事件。算法级依据（本任务受控实验）：可实现分支 M3_causal_thr0.40 相对现状的配对差是平台偏差最坏 0.027 %·幅度（1.1 ADC）、T_stable 中位/最坏差 0.000 s；真值分支（上界）同样 0.000 s；κ 项本身零收益（M0_now(κ=1.30) 与 M2_correctA(κ=1.12) 在 35 个事件上输出完全相同）。连续参数化也不成立：参数取 T_ramp（本任务用其因果替身 α，由 [0.10,0.60] s 实测增量比拟合、窗口 0.60 s），M4_warped 相对真值分支平台偏差最坏仍 4.2 %·幅度（669.8 ADC）、MD 最坏 378.4 ADC、中位差全 0 且方向不一致（α(τ) 跨 3 个数量级 ⇒ 两形态差别不是单一时间缩放）。正确表述不是「改用连续参数化」，而是「在 v6 的停滞检测+速率限幅+滑行器+pin 交接结构下，形状库选型在 T1 口径上不可见，这件事不值得动」。若一定要分支：只做事件内一次性、不可逆的判定（s ≤ 0.40 ⇒ onset 支），并保证误判方向是安全方向（宁可把 onset 判成 restep 欠报，不可反向）。",
+   "three_state": "反驳"
+  },
+  {
+   "question": "T4-Q8",
+   "answer": "用冻结门限值的正确实现时判据很稳、不需迟滞；但门限附近的个体事件无法靠迟滞救。门限穿越（事件后 0.2 s 窗，每事件平均）：θ=0.30 无噪声 1.120 次、A=400 ADC 时 1.120；额外穿越（相对 A=0）θ=0.30 为 0.874，加 h=0.10 迟滞降到 0.760；θ=0.40 无噪声已是最低档 0.754，且加迟滞反而使额外穿越升到 0.480~0.589。迟滞改变不了最终误判率（A=400 时 θ=0.30 的 final_err 在 h=0~0.15 横盘 0.469~0.531，θ=0.40 为 0.469~0.503），本批 5/34 个事件落在 θ=0.40 的 ±0.15 内（0.303/0.338/0.339/0.391/0.416，其中 0.416 正是被误判那个）。建议按可信度排序：① 首选「事件内一次锁定、不提供反向切换」（与 v6 的 _armed / ev_block_until 语义兼容，结构性消灭反复切换）；② 若用双门限迟滞则取 θ=0.30、h=0.10（额外穿越 0.874→0.760）；③ θ=0.40 时不要加迟滞。实现陷阱：判据分母若写成 max_{t≤i}（跟着斜坡一起涨）会自我指涉，实测每事件 2.39 次穿越 —— 分母必须在事件检测帧冻结。",
+   "three_state": "有条件支持"
+  },
+  {
+   "question": "T4-Q9",
+   "answer": "绝对载荷量级：无数据，无法判定。13/13 份录制的 calibration.params 为空 {}、0/13 有载荷量（N/gf）数值标注、7/13 份 force_conversion_active=False（ADC 无物理标度）、ADC 域 4 份总量峰值只差 1.26 倍 ⇒ 跨录制比绝对幅度无意义。相对量级（平台电平 ÷ 该录制峰值）：有数据、可判 —— 4 份 ADC 实录共 27 段持续 >3 s 的载荷档位（0.15~0.98 峰值，单份「切换负载-快相无责」内就有 9 档），但事件落点仍集中在高档（仅 4 个事件落在 <0.55 峰值）；按半量级/满量级分档后归一化形状差在 −4.8~+11.3 pt 摆动、方向在 τ≈0.3 s 处翻转、AUC 0.33~0.69 跨 0.5 两侧 ⇒ 不构成形态随量级变化的证据。仅 onset 子样本的 0.5/0.65/1.0 s 完成度与相对量级有弱显著秩相关（ρ=+0.449/+0.447/+0.422，p≈0.03~0.045，n=23，低档只 4 个事件）⇒ 属可疑信号，不作结论。补采规格 N1~N5：N1 同一传感器同一装置 5/10/20 N 三档 ×（硬阶跃 / 0.5 s 斜坡）× 各 ≥5 次、力传感器同步 ≤5 ms；N2 每份录制写入 calibration.params（force_N 与标定系数）；N3 同一档位重复加载≥5 轮以分离量级依赖与事件序位依赖；N4 至少 10 个落到半量级档位的 onset（现只有 4 个、且全在 2 份录制里）；N5 受控速率实验 0.05/0.2/0.5/1.0/2.0 s 五档 × 各 5 次，用于标定 T_ramp 及其因果替身。",
+   "three_state": "不适用"
+  }
+ ],
+ "corrections": [
+  {
+   "against": "13-v6-assessment",
+   "was": "第一轮 §4 建议「至少两套形状/两套 κ（onset 一套、restep 一套）」，理由是单形状库必然一侧过充、另一侧欠充（onset 过充中位 +5.0%、restep −6.3%）。",
+   "now": "方向对（两形态的形状差异真实：0.05 s 完成度中位差 30.6 pt、τ≤0.3 s 差 11~31 pt），但把它落成「按 pre 门限切库」换不来任何指标改善：可实现分支 M3_causal_thr0.40 相对现状的配对差是平台偏差最坏 0.027 %·事件绝对幅度（1.1 ADC）、T_stable 中位/最坏 0.000 s、MD 0.00 ADC；真值分支（上界、不可实现）同样 ΔT_stable 中位/p90 = 0.000 s；κ 这一项本身零收益（M0_now 用 κ=1.30 与 M2_correctA 用 κ=1.12 在 35 个事件上输出完全相同）。第一轮缺的「误判代价 + 该不该分」两问的答案是：代价太小、不该硬分支。",
+   "verdict": "修正"
+  },
+  {
+   "against": "13-v6-assessment",
+   "was": "隐含的替代方案：既然两形态的物理驱动量是连续量，改用连续参数化（例如用输入斜坡时长做自适应参数）即可，不必硬分支。",
+   "now": "推翻。把物理正确的参数（T4-A 的 T_ramp）因果化后做成自适应（M4_warped：统一 onset 形状库 + 由 [0.10,0.60] s 实测增量比拟合时间缩放 α、裁剪 [0.3,2.5]，窗口 0.60 s），相对真值分支的配对差仍是平台偏差最坏 4.2 %·幅度（669.8 ADC）、MD 最坏 378.4 ADC（clean 245.7 ADC），中位差全 0 且方向不一致。根因：两形态的差别不是单一时间缩放（α(τ) 从 0.05 s 处的 0.028 变到 5 s 处的 5.04，跨 3 个数量级）；且因果窗口内速率量本身估不准（最好 Δ=0.10 s、AUC 0.6591）。正确表述是「不硬分支，但不是改用连续参数化，而是这件事不值得动」。",
+   "verdict": "推翻"
+  },
+  {
+   "against": "13-v6-assessment",
+   "was": "第一轮 §4 把 restep 的极端偏差（最坏 −93%）归因为「多出现在卸载/减重后紧接着加载的复合事件上（局部基线本身在动）」，即用事件几何解释失真。",
+   "now": "修正归因。复现了该事件（中途切换-13ffca @99.36），但在 9 条臂的配对代价分析中，这类复合事件在包括真值分支（M2_correct）在内的所有臂上都差 —— 换形状库不改变它们的偏差 ⇒ 根因不是「分支错」，而是 v6 状态机对复合事件（卸载后紧接加载、基线在动）的处理，属 T5/T6 的取证范围。本条把「分支错」从该现象的候选原因里排除。",
+   "verdict": "修正"
+  },
+  {
+   "against": "T4-A",
+   "was": "T4-A 报告 §3.2 把 pre_over_peak（其 armed 标签的定义量）列为 AUC=1.000 的第一位特征，并在脚注声明它是标签定义量、不得当作形态可分性证据。",
+   "now": "采纳其声明，并用因果口径独立实现同类判据：P1（pre 因果 0.5 s 电平 ÷ 因果滚动峰值）得 AUC 0.9964、balanced accuracy 0.9783、p10~p90 重叠 0.0000、lag_s=0.00；冻结峰值 V 的可在线实现给完全相同的数值。要点在于两者测的不是同一件事：T4-A 的量是「形态可分性」（其真实驱动量是输入斜坡时长 T_ramp，对 z_at_02 的 R²=0.8329），本任务的 P1 测的是「工况可分性」（回答该用哪一支形状库），而这正是分支判据需要的量。交叉核对：事件配对 34/35、|Δt| 中位 0.010 s、类别一致率 0.971、pre_frac↔pre_over_peak ρ=0.8925、sh_020↔z_at_02 ρ=0.9768。补充推进：T_ramp 作为二分类判据 AUC 仅 0.6522（clean 0.8860），把 P1 加进已有 T_ramp 的模型 ΔR² 仅 +0.0015 ⇒ 判据用 P1，T_ramp 只回答「形状长什么样」。",
+   "verdict": "相同"
+  }
+ ],
+ "gaps": [
+  "G1 无载荷量（N）标注：13/13 份 calibration.params = {}，7/13 份 force_conversion_active=False ⇒ 快相形态的绝对量级依赖性完全无法判定。补采 N1（同一传感器、同一加载装置，5/10/20 N 三档 × 硬阶跃/0.5 s 斜坡 × 各 ≥5 次，力传感器同步采集、时间对齐 ≤5 ms）与 N2（每份录制把 force_N 与标定系数写入 session.json 的 calibration.params）。",
+  "G2 中间量级的加载事件只有 4 个（加载后落点 < 0.55·该录制峰值）⇒ 相对量级依赖只能用 n=4 定性、不能定量。补采 N4：至少 10 个落到半量级档位（0.4~0.6 峰值）的 onset 事件。",
+  "G3 无受控速率实验（自然操作）⇒ 「输入斜坡时长 ↔ 形态」的映射无法标定，M4_warped 的失败不能排除是 α 估计方式的问题。补采 N5：力控/位移控装置做 0.05/0.2/0.5/1.0/2.0 s 五档上升时间 × 各 5 次。",
+  "G4 无「载荷分两级施加/中途保压」的标注 ⇒ M0_now 的 restep 代价里混着「输入中途停住」的事件（v6 靠 STALL_* 兜底），分支代价与停滞检测代价无法完全分离。补采：录制时标注施加方式（一次到位 / 分两级 / 中途保压各 ≥5 次）。",
+  "G5 变载实录的 ±1 包（40 ms）抖动只有敏感性分析、没有真实重复录制 ⇒ §3.4 的「判据必须在 +30 ms 内下决定」是单包抖动下的推论。补采：同一工况重复录制 ≥5 次，比对判据统计量的真实重复性。",
+  "G6（T4-A 接口新增）T4-A clean 主样本的 restep 只有 6 个（本任务 ∩ clean = 25：onset 19 / restep 6）⇒ clean 上的 restep 列（OS%/MD）不确定度大，只作定性参考。补采：录制「孤立变载」（前后各留 8 s 空档），把 clean restep 提到 ≥15 个。",
+  "G7（T4-A 接口新增）无受控速率实验 ⇒ T_ramp 的因果替身与 T_ramp 的对应关系未标定，只能断言「本任务用的这两种因果速率量在任何 Δ 上 ≤0.70」，不能断言「所有可能的因果速率判据上限就是 0.70」。补采同 G3/N5，并同时记录 T_ramp 与因果替身。",
+  "【已澄清·2026-09-19 核验回填】`results/t4b_tramp_window.csv` 的 `slope_auc` 列（0.92~0.98）与「因果输入速率判据不可用」之间的表面冲突已定量澄清 —— 该列统计量 `slope(Δ) = J(Δ)/Δ ÷ 记录峰值` 与 P1 高度共线：Spearman ρ = −0.815（全部 Δ 上 p < 1e-7）、线性 R² 中位 0.661（最高 0.7269，Δ=1.00 s）；把 slope 对 P1 做秩空间残差化后 AUC 塌到 0.598（范围 0.565~0.620）；按 P1 二分层的「层内 AUC」虽有 0.83~1.00，但属退化分层（低 P1 层 17 个事件全是 onset、restep = 0，因 restep 的 pre_frac 最小 0.697 ≫ 中位 0.303），且层内方向仍由定义决定（高 P1 层 2 个 onset 的 slope(0.50 s) 中位 63.00 vs 12 个 restep 7.60）⇒ slope 测的是「台阶幅度 ÷ 电平尺度」，不是输入速率；共线是结构性的（slope 的分子 J(Δ) 就是从 pre 起算的增量，与 P1 共享电平尺度与幅度两个因子）。证据表 results/t4b_slope_collinearity.csv（列 slope_auc / rho_slope_P1 / R2_slope_P1 / slope_auc_cond2_median / slope_auc_rank_resid / FR_auc），脚本 scripts/t4b_slope_collinearity.py。剔除该列后纯速率量只剩 T50c（最大 0.6870 @ Δ=0.02 s）与 FR（最大 0.6913 @ Δ=0.10 s），任何 Δ 上均 ≤0.70 ⇒「因果速率判据远弱于 P1(0.996)」成立，且不存在被共线掩盖的隐藏强判据（残差 AUC 0.598 已排除该可能）。正文见 分析报告_T4B.md §3.7② 表注与 §3.7④。",
+  "【表述订正·2026-09-19 核验回填】关于 `T50c_auc` 列的「最好档」：该列最大值为 0.6870 @ Δ=0.02 s（不是 Δ=0.10 s 的 0.6591）；0.5514 / 0.4466 / 0.3913 分别对应 Δ=0.30 / 0.50 / 1.00 s。曲线在 0.02~0.10 s 之间非单调（0.687→0.555→0.583→0.659），波动幅度 ±0.07 与 n=23/12 下的 AUC 抽样误差同量级，故不宜挑「最好档」；可辩护表述为「Δ ≤ 0.10 s 时 0.66~0.69，Δ ≥ 0.30 s 后单调退化到 0.39（比随机差）」。已同步修正 分析报告_T4B.md §3.7②（含列名字典：slope_auc = J(Δ)/Δ÷峰值；T50c_auc = Δ 内达 0.5·J(Δ) 的时刻，未达记 NaN 且不进 AUC；FR_auc = level(t_on+Δ)/level(t_on+0.01)）与 §① 第 4 条。",
+  "另有两条数据缺口属本任务声明范围：卸载/减重序列的 4.3 事件态提前退出阈值需在减重序列上标定；长保压（>300 s）录制缺失（第一轮 §8 的缺口，本任务不越界处理，仅登记）。"
+ ],
+ "blockers": [
+  "κ 参数收益与第一轮冲突：第一轮 changelog 记 κ_onset 1.30→1.10 使过充 7.06%→3.33% 且 T_stable 1.72→0.43 s（三项同向变好），我方测得 M0_now(κ=1.30) 与 M2_correctA(κ=1.12) 在 35 事件上输出完全相同 ⇒ 两者口径不同不可直接对比，需 T5-A 做统一 κ 扫描裁决",
+  "T4-Q9 的绝对量级依赖性判定被数据阻断：13/13 份录制无载荷量（N/gf）数值标注、7/13 份 ADC 无物理标度 ⇒ 「快相形态是否随载荷量级变化」无法判定，需按 G1/N1/N2 补采后才能给出结论。",
+  "本报告 §3.4（Q8）的抖动分析只覆盖「加性噪声 + 固定门限」，不覆盖第一轮 §7 已证实的「σ_d 接管门限 ⇒ 漏触发真实变载」失效路径（该文实测 4000 ADC 下 11 个变载只剩 4 个、慢相偏差 −2942~−8795 ADC）⇒ Q8「判据很稳」的结论不得外推到强扰动工况；强扰动下 P1 的输入（pre 电平）被污染的程度本报告未量化，需 T5-A/T5-B 给出量化后再定论。",
+  "T_stable 口径未由 T1 冻结：本实现为「此后 |显示 − 参考终值| ≤ 5%·J 的首个时刻」，与指标字典的字面口径（窗内自身漂移 ≤5%·J）在本批实录上不可达（返回 NaN）。绝对 T_stable 值不可与其他口径横向比较；「分支对 T_stable 无影响」是同一实现下的配对相对结论，不受此影响，但若 T1 冻结了别的实现需重跑确认。"
+ ]
+}
+====================================================================================================
+FILE: T5_v6失效模式_过充与基线识别/results/conclusions_T5A.json
+{
+ "task": "T5",
+ "seat": "T5-A",
+ "date": "2026-09-19",
+ "scope": "用户诉求⑤前半段：识别到基线之后的快速爬升对抗 ⇒ 向上过充/向下过冲 的复现、归因、滤波可解性、非滤波手段；以及接口冲突 C-4（统一 κ 扫描裁决）。T5-B（强扰动下的基线识别）不在本席位范围。",
+ "event_set": "T4-A 冻结表 results/t4a_morphology.csv（60 事件：onset 22 / restep 19 / partial_unload 5 / unload 14），只读引用",
+ "grid": "timestamp 列 / 100 Hz 网格 / 无 τ=2 s 平滑 / 自动定位 ##Data / 脚本 __file__ 锚点",
+ "headline": [
+  {
+   "n": 1,
+   "claim": "用户现象复现：向上过充与向下过冲是两个不同缺陷，不是同一根因的两个方向",
+   "value": "v6(κ=1.30/1.12) 在 41 个加载事件上：onset(22) 的 5 s 窗瞬态过充中位 +4.08%·J（p10~p90 −10.59~+10.34，max +12.85%），13/22 向上>2%，中位上冲 147.5 ADC、最坏 4034.8 ADC；restep(11) 反向：OS5 中位 −18.59%·J，9/11 向下>2%，中位下冲 2865.2 ADC；unload(14) 几乎无过冲（OS5 max +4.84%）",
+   "source": "results/t5a_overcharge_summary.csv 的 OS5_med / OS_med_adc / n_up_gt_2pct / n_dn_gt_2pct（行 onset / restep / unload）"
+  },
+  {
+   "n": 2,
+   "claim": "向上过充的根因逐帧锁死：形状反演高估 → 滑行器钉住显示 → 停滞检测一步拉回",
+   "value": "切换负载-快相无责 @185.98 s（J=25195.2）：τ=0.20 s Â=27943（高估 +10.91%）；滑行器在 τ=0.80 s 把显示钉到 27997（比原始高 +3731 ADC）；停滞首帧 τ=2.32 s、Â←24759，显示在 0.28 s 内掉回原始（Δ=−3097 ADC）。群体 Â/|J|−1 中位 +3.04%、p90 +6.62%、max +11.33%，7/22 个 onset >5%",
+   "source": "results/t5a_internal_trace.csv（帧 18618~18858）；results/t5a_attribution.csv 的 H1_ahat_over_J_pct"
+  },
+  {
+   "n": 3,
+   "claim": "向下过冲的根因是复合事件里继承的旧修正量没被清掉，再被 pin 锚定永久保留",
+   "value": "切换负载 @71.67 s（J=3909.6）：decrease epoch(base=13416) 把 c0=y0sum−base=−2258 继承下来，后续 restep/restep_reload 继续继承 ⇒ 显示整段比原始低 1000~3200 ADC；handoff @80.59 的 A_new=15098 把它钉住 ⇒ 台阶捕获比 G=0.473、err_1s=−286.7%。群体 restep(11) OS5 中位 −18.59%、Â/|J|−1 中位 −9.84%（低估方向）",
+   "source": "results/t5a_internal_trace.csv（帧 7187~8167）；results/t5a_event_state_events.csv（SW1 epoch@71.57）"
+  },
+  {
+   "n": 4,
+   "claim": "τ_ho=5 s 交接跳变与慢相提前起扣被证伪（归因链只剩两环）",
+   "value": "交接帧 |ΔΣY| 中位仅 2.1 ADC(onset) / 135.4 ADC(restep)；交接后 5 s 内 g 斜率中位 0.00244 / 0.00409 每 s，无跳变",
+   "source": "results/t5a_attribution.csv 的 H3_handoff_jump_abs / H4_g_slope_per_s"
+  },
+  {
+   "n": 5,
+   "claim": "v6.1 的 ROM_SCALE=1.06 压掉约一半瞬态过充但没清零；用户看到的更可能是 v6（附带可证伪条件）",
+   "value": "同一批事件：OS5 中位 +0.02%→−2.51%、OS5 max +120.81%→+74.83%、OS>5% 事件 12→7、T_stable(30 s 窗) 3.660→0.520 s；代价 err1|中位| 31.30%→35.90%、G 0.942→0.920。反证：v5.1 的 OS5 max 只有 +54.39%（比 v6 小），若现场跑的是 v5.1 则归因不适用",
+   "source": "results/t5a_v6_vs_v61_summary.csv（行 v6 / v61_s106 / v5.1）"
+  },
+  {
+   "n": 6,
+   "claim": "滤波只能压约三成过充，且内部状态层滤波不可用",
+   "value": "显示层因果档：EMA τ=0.1 s → 过充中位 11.65→8.54%、T_stable 3.66→0.67 s、err1 34.1→10.8%；因果中值 w=0.1 s → err1 7.51% 但 G_min −0.14→−4.99；τ=3 s → 过充 5.57% 但 T_stable 10.71 s、err1 74.8%；内部状态层（进补偿器前）全部更差：G 掉到 0.438、过充中位翻成 −47%、T_stable 出现 NaN",
+   "source": "results/t5a_filter_pareto.csv（layer=display / internal_input）"
+  },
+  {
+   "n": 7,
+   "claim": "非滤波手段：过充硬限幅收益最大且不磨台阶；速率上限与撤销窗基本无效",
+   "value": "clip 0.02：MD 中位 2396.7→555.4 ADC(−77%)、T_med 3.66→2.39 s、G_med 略升 0.942→0.952、G_min 与基线相同；HO_MIN 5.0→3.5 s：T_med 3.66→1.96 s、err1 34.1→31.3%；RATE_MAX 0.4/0.6/1.2 与 REVOKE 0.20/0.30/0.60 对 OS5 中位与 max 无实质影响",
+   "source": "results/t5a_nonfilter_options.csv"
+  },
+  {
+   "n": 8,
+   "claim": "【C-4】两处结论都成立，各自只覆盖一半：κ_onset 有效、κ_restep 无效 ⇒ κ 取 1.10 / 1.12",
+   "value": "统一 κ 1.30→1.10：OS5 中位 +0.02%→−0.06%、OS5 max +120.81%→+101.08%、T_stable(5 s 窗) 中位 3.660→0.820 s（p90 23.44→8.48）、err1 中位 −21.69%→−23.11%、G 0.942→0.935、MD 中位 2396.7→2196.2；留一 13 折：最坏折 OS5 max 120.81%→101.08%、最坏折 T_stable(10 s) 78.500→5.360 s。单独扫 κ_restep（κ_onset 固定 1.30）：39/39 事件的 OS/T_stable/err1 逐事件相同（dOS_absmax ≤ 0.055 pt）",
+   "source": "results/t5a_kappa_four_metrics.csv；results/t5a_kappa_summary.csv；results/t5a_kappa_loo.csv"
+  }
+ ],
+ "verdicts": [
+  {
+   "question": "T5A-Q1",
+   "answer": "复现成功。事件清单 results/t5a_overcharge_events.csv（60 事件 × 120 列，四条口径：OS_pct_5s 主口径 / OS_pct_30s 字典窗长 / OS_pct_task_literal 字面口径 / dev_pre_pct 卸载类专用）。主口径（J_frac≥0.10，n=33）：onset 22 个 OS5 中位 +4.08%、max +12.85%，13 个向上>2%、上冲中位 147.5 ADC、最坏 4034.8 ADC；restep 11 个 OS5 中位 −18.59%，9 个向下>2%、下冲中位 2865.2 ADC；unload 14 个 OS5 max +4.84%。±1 包（40 ms）敏感性：OS% 中位变化 ≤0.6 pt、T_stable ≤0.08 s，但 err_1s 从 −3.6% 变到 −69.4%。任务书字面 Z_final 规则在恒载 9 组上落在卸载后（OS%≈+100% 伪影，实测 RT1@8.27 s=+100.8、F41@10.94 s=+101.1），已改用 08-v6.1 的 P 口径（Z_final = 原始 t_on+4.6~5.4 s 中位）并逐事件保留字面口径结果。",
+   "three_state": "支持"
+  },
+  {
+   "question": "T5A-Q2",
+   "answer": "归因到具体内部动作，两条逐帧证据：① 向上过充 = 形状反演高估（onset 群体 Â/|J|−1 中位 +3.04%、p90 +6.62%、max +11.33%，7/22 >5%；@185.98 s 实例 Â=27943 vs J=25195 = +10.91%）→ 滑行器在 τ=0.80 s 把显示钉到 27997（+3731 ADC）→ 停滞检测 τ=2.32 s 把 Â 一步改写为实测增量 24759，显示 0.28 s 内掉回原始（尖峰）。② 向下过冲 = 复合事件里 decrease epoch 的 c0=y0sum−base 被后续事件继承（@71.67 s 的 c0=−2258）→ 交接时 A_new=y0+share·Â 把负偏置永久钉住（G=0.473、下冲 3190 ADC）。速率限幅只在少数事件短暂贴顶（H2_rate_ratio_med 中位 0.02~0.13）；τ_ho 交接跳变（绝对量中位 2.1 ADC）与慢相提前起扣（g 斜率中位 0.0024/s）被证伪。逐帧内部量落盘 226684 行 × 26 列（results/t5a_internal_trace.csv）。",
+   "three_state": "支持"
+  },
+  {
+   "question": "T5A-Q3",
+   "answer": "ROM_SCALE=1.06 消掉约一半瞬态过充、剩下的一半主要是事件集里本来就差的事件。同一批 41 加载事件：OS5 中位 +0.02%→−2.51%、OS5 max +120.81%→+74.83%(−38%)、OS>5% 12→7、OS>10% 7→5、T_stable(30 s 窗) 3.660→0.520 s、MD 中位 2396.7→1799.8 ADC；代价 err1|中位| 31.30→35.90%、G 0.942→0.920。λ 扫描 1.00→1.12 显示过充 max 单调降（120.81→74.83→62.5→48.34%）而 err1 与 G 单调变差 ⇒ 不存在两边都好的点。关 F1 后与 v6 逐事件 33/60 相同 ⇒ 尖峰由 F1 治。用户看到的是哪一版：判定为 v6（更可能），依据三条（症状方向；v6.1 仍是原型未落地，08-v6.1 §6.6 明写 C++ 一行未动；只有 ADC 域量级能肉眼看见 4% 偏差）；附带可证伪条件：v5.1 的 OS5 max 仅 +54.39%，若现场是 v5.1 则归因不适用。",
+   "three_state": "有条件支持"
+  },
+  {
+   "question": "T5A-Q4",
+   "answer": "滤波能压约三成，救不了那 10% 的系统性过冲。显示层 Pareto 前沿 7 档（5 档因果：iir_ema_tau0.1 / iir_ema_tau0.3 / med_w0.1 / med_w0.05 / clip_0.02；2 档非因果：medC_w0.05 / medC_w0.1）。最优因果档：EMA τ=0.1 s（过充 11.65→8.54%、T_stable 3.66→0.67 s、err1 34.1→10.8%、G_med 0.991 但 G_min −7.37）与因果中值 w=0.1 s（过充 11.53%、T_stable 0.58 s、err1 7.51%、G_min −4.99）。τ≥1 s 进入时间换幅度：τ=3 s 过充 5.57% 但 T_stable 10.71 s、err1 74.8%、G 0.800。非因果对照需延迟：medC_w0.1 需 5 帧、medC_w0.5 需 25 帧、savgol_w21 需 10 帧。已扩展第一轮（保留其全部 7 档 EMA 且逐档对表 results/t5a_filter_vs_firstround.csv）。",
+   "three_state": "有条件支持"
+  },
+  {
+   "question": "T5A-Q5",
+   "answer": "必须做在显示层，不能做在内部状态层：内部状态层（进补偿器前）滤波会改变检测器判据与滑行器起点，实测 iir_ema_tau2 的 G 掉到 0.438、过充中位翻成 −47%（严重欠报）、T_stable 出现 NaN ⇒ 否决。显示层滤波会把台阶边沿磨掉，代价可量化为 G_min：基线 −0.141 → EMA τ=0.1 s −7.37 / 因果中值 w=0.1 s −4.99 / w=0.5 s −21.92 / 限速 0.05 −20.99；而 G_med 基本不掉（0.94→0.99）——只看 G_med 会漏掉这个代价。唯一不磨台阶的滤波是过充硬限幅 clip_raw（G_med 略升至 0.952、G_min 与基线相同 −0.141），因为它只截上限、不动原始以下的部分；代价是对欠冲完全无效。",
+   "three_state": "支持"
+  },
+  {
+   "question": "T5A-Q6",
+   "answer": "四类手段（16 臂）实测：① 滑行器速率上限 0.4/0.6/1.2 —— 基本无效（OS5 中位 11.654→11.654/12.251%、max 全部 1687.5%、T 不变）；② 交接时刻 HO_MIN 5.0→3.5 s —— T_stable(5 s) 中位 3.66→1.96 s、err1 34.14→31.25%、G 0.942→0.933；5.0→2.5 s 时 T 中位 0.550 s 但需真机复核（07-v6 记过早交接 3~9 s 暂态，本任务聚合口径未见）；③ 过充硬限幅 clip 0.02 —— MD 中位 2396.7→555.4 ADC(−77%)、T_med 3.66→2.39 s、G 略升，收益最大且不磨台阶，推荐上线；④ 反向撤销窗 REVOKE 0.20/0.30 —— err1 34.14→31.30%、MD →2156.6 ADC(−10%)，但该常量同时管正/反向，单独改会削弱拍击抑制，不建议。推荐组合（按性价比）：ROM_SCALE(F1) > 显示层 EMA τ=0.3 s + clip 0.02 > HO_MIN 3.5 s；不要动 RATE_MAX 与 REVOKE。注意 F1 与 EMA 有重叠（F1 已把 onset 过冲中位压到 −2.5%），建议先上 F1+clip，再真机 A/B 决定是否加 EMA。",
+   "three_state": "支持"
+  },
+  {
+   "question": "T5A-Q7",
+   "answer": "不同源。onset（22）向上 13/22、向下 4/22、中位上冲 147.5 ADC，主因形状反演高估（Â/|J|−1 中位 +3.04%）；restep（11）向上 1/11、向下 9/11、中位下冲 2865.2 ADC，主因继承旧修正量 c0 再被 pin 钉住（同一量中位 −9.84%，低估方向）；unload（14）向下 0/14、几乎无过冲；partial_unload（5）全部标 norm_unstable。三条判别证据：① 同一形状库在两个方向给出相反偏差（+3.04% vs −9.84%），过冲方向与各自偏差方向一致；② 单旋钮 ROM_SCALE 1.00→1.06 使 onset 过冲 max −38%，restep 下冲几乎不动（US5_max 两臂都是 1230.09%）；③ 触发条件不同（onset 需快速到位后保压、restep 需复合事件）。",
+   "three_state": "支持"
+  },
+  {
+   "question": "C-4",
+   "answer": "【κ 裁决】κ_onset 取 1.10、κ_restep 保持 1.12。第一轮与 T4-B 两处结论都成立，冲突根因是「κ 的两个常量被当成一个旋钮讨论」：第一轮改的是 κ_onset（有效，本任务复现：统一 κ 1.30→1.10 使 OS5 中位 +0.02%→−0.06%、OS5 max +120.81%→+101.08%、T_stable(5 s 窗) 中位 3.660→0.820 s、p90 23.44→8.48 s、err1 中位 −21.69%→−23.11%、G 0.942→0.935、MD 中位 2396.7→2196.2）；T4-B 比的是 κ_restep（无效，单独扫 κ_restep 时 39/39 事件的 OS/T_stable/err1 逐事件相同，dOS_absmax ≤ 0.055 pt，只有 MD 有 ≤966 ADC 的单事件差异）。判据还包括：κ≥1.15 时结果逐事件完全相同（39/39）⇒ 1.20/1.30/1.40 与 1.15 是同一工作点（解释第一轮「1.2 与 1.3 相同」）；κ=1.00/0.95 则明显欠报（OS5 中位 −8.79%/−14.68%、G 0.844/0.778、T_stable(5 s) 反升到 1.96 s）。留一泛化（13 折）：κ=1.10 的留出集 OS5 中位区间 −216.14%~+4.74%（折间极差 220.88 pt，远大于 κ 的 14.7 pt 效应）⇒ κ 的真实价值在压尾部：最坏折 OS5 max 120.81%→101.08%、最坏折 T_stable(10 s) 78.500→5.360 s（改善 14.6 倍）。代价：onset 方向由微正转微负（欠报）、G 降 1.7 pt。与 ROM_SCALE 的关系：两者是同类旋钮（κ 限 Â 相对 inc 的上限、ROM_SCALE 直接减小 Â），建议二选一，不要同时上。上线成本：一行常量。",
+   "three_state": "支持"
+  }
+ ],
+ "corrections": [
+  {
+   "against": "13-v6-assessment",
+   "was": "§4/§9.4「向上过充与向下过充是同一根因的两个方向」",
+   "now": "分成两条独立通路：onset 向上过充 = 形状反演高估（Â/|J|−1 中位 +3.04%，ROM_SCALE 可治：max −38%）；restep 向下过冲 = decrease epoch 的 c0=y0sum−base 被后续事件继承再被 pin 钉住（G=0.473、下冲 3190 ADC；ROM_SCALE 对它几乎无效）。逐帧证据见 t5a_internal_trace.csv 帧 18618~18858 与 7187~8167",
+   "verdict": "修正"
+  },
+  {
+   "against": "13-v6-assessment",
+   "was": "§5.2「κ 1.30→1.10：过充中位 7.06%→3.33%、T_stable 1.72→0.43 s、1 s 误差 +1.97%→+0.88%，三项同向变好」",
+   "now": "方向与量级复现（统一 κ 1.30→1.10：OS5 中位 −2.01 pt、OS5 max −19.73 pt、T_stable(5 s 窗) 中位 −2.84 s、err1 略好）；但绝对值依赖样本：显示域单独看 ΔOS 中位只有 −0.69 pt。第一轮样本是恒载 9 组每份 1 个小台阶，本任务是 39 个加载事件（含 restep）。引用必须带口径与样本",
+   "verdict": "有条件相同"
+  },
+  {
+   "against": "T4-B",
+   "was": "§3.3「κ 项本身就是零收益：M0_now(κ=1.30) 与 M2_correctA(κ=1.12) 在 35 个事件上输出完全相同」",
+   "now": "在 restep 一侧成立并复现（单独扫 κ_restep 时 39/39 事件的 OS/T_stable/err1 逐事件相同）；但在 onset 一侧不成立——T4-B 两臂的 onset 侧 κ 都是 1.30，改成 κ_onset=1.10 后 OS5 max −19.73 pt、T_stable(5 s 窗) 中位 −2.84 s。⇒ T4-B 的「κ 零收益」应限定表述为「κ_restep 零收益」",
+   "verdict": "补充/澄清"
+  },
+  {
+   "against": "08-v6.1",
+   "was": "§2.2「切换负载 @185.98 s：Â=27934(+10.9%)、显示冲到 +3857 ADC、τ≈2.3~3.8 s 停滞」",
+   "now": "独立复现：Â=27943(+10.91%)、显示峰值 +3731 ADC、停滞首帧 τ=2.32 s、0.28 s 掉回原始。群体 Â/真值 中位 ×1.0351、max ×1.1091，与 08-v6.1 §2.1 的 ×1.032/×1.109 逐项吻合",
+   "verdict": "相同"
+  },
+  {
+   "against": "13-v6-assessment",
+   "was": "§5.1 filter_pareto.csv：只有输出端因果 EMA × 7 档 τ × 13 份，指标 T_stable/over_pct/err_1s",
+   "now": "扩展为 32 档 × 2 落点（显示层 / 内部状态层）× 6 滤波器族 + 2 个非因果对照 + G/MD/US 三指标。新增负面结论：内部状态层滤波全部不可用（G 掉到 0.438、过充中位翻负、T_stable NaN）。趋势复现：τ∈[0.1,0.3] s 双赢、τ≥1 s 时间换幅度。逐档对表见 results/t5a_filter_vs_firstround.csv（T_stable 绝对值不可横比：窗长与通道口径不同，趋势一致）",
+   "verdict": "相同 + 扩展"
+  },
+  {
+   "against": "07-v6",
+   "was": "HO_MIN 注释「交接时刻必须取 τ=5 s；若在 τ≈1 s 交接，g 要从锚定值一路爬到真实蠕变水平，实测产生 3~9 s 暂态」",
+   "now": "本任务聚合口径下 HO_MIN 5.0→2.5/3.5 s 未见暂态恶化：T_stable(5 s) 中位 3.66→0.55/1.96 s、err1 34.1→31.3%、G 0.942→0.949/0.933。07 的暂态是单事件观察，本任务是聚合，两者不矛盾只是尺度不同 ⇒ 建议真机 A/B 复核后再定 HO_MIN",
+   "verdict": "补充"
+  },
+  {
+   "against": "T5 需求文档 §2 方法要求",
+   "was": "过充定义写死：OS% = max_t(Z(t) − Z_final)/J，t∈[t_on, t_on+30 s]，Z_final = t_on+60 s 后中位",
+   "now": "该 Z_final 规则在本批数据上不适用：恒载 9 组的 onset 在 8~15 s、卸载在 115~147 s ⇒ t_on+60 s 之后整段空载、Z_final≈0、OS%≈+100% 伪影（实测 RT1@8.27 s=+100.8、F41@10.94 s=+101.1）。改用 08-v6.1 的 P 口径（Z_final = 原始 [t_on+4.6, t_on+5.4] s 中位），字面口径结果逐事件保留在 OS_pct_task_literal 列。同时把 30 s 窗与 5 s 窗分开报（同批事件下 30 s 窗中位比 08-v6.1 的 over_peak 高 12.5 pt，因为含慢相走廊失配）",
+   "verdict": "修正（显式口径偏离，已在报告 §2.2 与附录登记）"
+  },
+  {
+   "against": "07-v6",
+   "was": "「restep 的输入本身就是 0.3~1.2 s 的斜坡」等机制论断",
+   "now": "从状态机侧补一条独立证据：restep 的向下过冲不是形状反演（形状反演对 restep 是低估方向，Â/|J|−1 中位 −9.84%），而是「继承旧修正量 + pin 钉住」；这与 T4-A「差别在输入而不在传感器」不冲突，但说明 restep 的显示误差有一半来自状态机的状态继承而非形状库",
+   "verdict": "补充"
+  }
+ ],
+ "gaps": [
+  "G1 无现场 exe 版本记录：「用户看到的是哪一版」（v6 / v6.1 / v5.1）的判定建立在症状方向 + 08-v6.1 文档自述「C++ 未落地」+ 只有 ADC 域量级可肉眼看见 4% 三条间接依据上。反证：v5.1 的 OS5 max 仅 +54.39%（比 v6 的 +120.81% 小）。本报告无法读取现场版本号，需用户确认。",
+  "G2 算法级实验用原型副本而非 C++ 现役实现；结论限定在 v6 参数下（GLIDE_MAX=0.8 / RATE_MAX=0.8 / HO_MIN=5.0 / ANCHOR_MODE=pin / TRIM_RATE=0.0）。13-v6-assessment 只核对过 13 个检测器常量，滑行器与慢相模块未核对。",
+  "G3 T_stable 用自定口径（完整窗 + 5/10/30 s 三档），T1-A 冻结口径未就绪（T1_*/results/ 下当时只有 t1b_probe.csv）⇒ 绝对数值不可与 T1 横比；本任务所有结论都是配对比较，不受影响。待 T1-A 就绪后按 C-1 处置复算一次。",
+  "G4 未做噪声注入下的 κ/滤波鲁棒性（任务书要求「每档 ≥10 次不同种子」）。未做的理由：§3.2 已把机制锁死在确定性内部量上（Â 偏差、c0 继承），且 T5-B 正在做扰动扫描。真实缺口：κ=1.10 与 EMA τ=0.3 s 的组合在 ±1000 ADC 抖动下是否仍成立，未测。",
+  "G5 err_1s 对 t_on 的 ±1 包（40 ms）极敏感（−3.6% → −69.4%，results/t5a_t0_sensitivity.csv），绝对值不可跨报告引用；本任务只在同口径配对差里使用它。",
+  "G6 partial_unload 的百分比口径不可用（J_frac 最小 0.032），其结论只用绝对量；unload/partial_unload 的字典 OS% 定义不适用，本任务用 dev_pre_pct_* 代替，建议《指标字典》对这 3 类事件补一条正式定义（建议：以 pre 为参考、|J| 归一）。",
+  "G7 无「复合事件」受控标注（卸载→再加压的间隔、是否保压）：restep 向下过冲的触发条件只能用 17 个 restep + 5 个 partial_unload 描述。补采：卸载后 0.5/2/5 s 再加压 × 各 ≥5 次。",
+  "G8 无同一工况重复录制：±1 包敏感性只能做时间轴平移（伪重复）。补采：同工况重复录制 ≥5 次。",
+  "G9 无加载前静置 ≥120 s 的基线录制：「基线识别之后」的绝对基线可信度无法判定。",
+  "G10 OS_pct_30s 里混着慢相走廊失配（与 08-v6.1 的 over_peak 差 12.5 pt），不是纯瞬态量；引用 30 s 数字必须同时引 5 s 数字。"
+ ],
+ "blockers": [
+  "T5-A 交付本身无阻塞。唯一的判定性缺口是 G1（现场 exe 版本未知），它决定 §3.2 的归因是否适用于用户那次体验；这属现场信息，需派发方与用户核对。",
+  "G4（κ=1.10 + EMA τ=0.3 s 在 ±1000 ADC 抖动下的鲁棒性）属真实未验证项，建议由 T5-B 的扰动扫描或后续专项补做；本席位不做 T5-B 的工作。"
+ ],
+ "artifacts": {
+  "report": "分析报告_T5A.md",
+  "results": [
+   "results/conclusions_T5A.json",
+   "results/t5a_overcharge_events.csv",
+   "results/t5a_overcharge_summary.csv",
+   "results/t5a_overcharge_rates.csv",
+   "results/t5a_event_metrics_by_arm.csv",
+   "results/t5a_internal_trace.csv",
+   "results/t5a_internal_snap.csv",
+   "results/t5a_attribution.csv",
+   "results/t5a_event_state_events.csv",
+   "results/t5a_v6_vs_v61.csv",
+   "results/t5a_v6_vs_v61_summary.csv",
+   "results/t5a_filter_pareto.csv",
+   "results/t5a_filter_cost.csv",
+   "results/t5a_filter_perevent.csv",
+   "results/t5a_filter_vs_firstround.csv",
+   "results/t5a_nonfilter_options.csv",
+   "results/t5a_nonfilter_perevent.csv",
+   "results/t5a_kappa_sweep.csv",
+   "results/t5a_kappa_summary.csv",
+   "results/t5a_kappa_four_metrics.csv",
+   "results/t5a_kappa_verdict.csv",
+   "results/t5a_kappa_by_domain.csv",
+   "results/t5a_kappa_loo.csv",
+   "results/t5a_kappa_loo_raw.csv",
+   "results/t5a_kappa_perevent.csv",
+   "results/t5a_patch_ab_zero.csv",
+   "results/t5a_metric_selfcheck.csv",
+   "results/t5a_overshoot_metric_diff.csv",
+   "results/t5a_t0_sensitivity.csv",
+   "results/t5a_crosscheck_v61.csv"
+  ],
+  "figures": [
+   "figures/T5A_01_overcharge_trace.png",
+   "figures/T5A_02_filter_pareto.png",
+   "figures/T5A_03_kappa_sweep.png",
+   "figures/T5A_03b_kappa_loo.png",
+   "figures/T5A_04_attribution.png",
+   "figures/T5A_05_filter_cost.png",
+   "figures/T5A_06_v6_vs_v61.png"
+  ],
+  "logs": [
+   "results/_t5a_verify_patch.log",
+   "results/_t5a_metric_selfcheck.log",
+   "results/_t5a_overcharge.log",
+   "results/_t5a_overcharge_summary.log",
+   "results/_t5a_trace.log",
+   "results/_t5a_v61.log",
+   "results/_t5a_kappa.log",
+   "results/_t5a_kappa_verdict.log",
+   "results/_t5a_filter.log",
+   "results/_t5a_nonfilter.log"
+  ]
+ }
+}
+====================================================================================================
+FILE: T5_v6失效模式_过充与基线识别/results/conclusions_T5B.json
+{
+ "task": "T5",
+ "seat": "T5-B",
+ "branch": "强扰动下的基线识别鲁棒性（需求文档 §3 的 T5B-Q1~Q6）",
+ "date": "2026-09-19",
+ "headline": [
+  {
+   "n": 1,
+   "claim": "用户现象复现：1.2w ADC 平台（12048 ADC 实录）上叠加 ±1000 ADC RMS 白噪时，10/10 次 trial 至少失一条失效判据",
+   "value": "失败率 100%（Wilson 95% CI [0.72,1.00]）；M1 漏 0.90 / M2 锚错 1.00 / M3 伪捕获 0.10 / M4 显示越界 1.00；算法可归因超额显示偏差中位 29.5% 电平（≈3570 ADC）",
+   "source": "results/t5b_q1_headline.csv:white,1000.0,W1_1w"
+  },
+  {
+   "n": 2,
+   "claim": "失效边界被钉到实测：复合失效 50% 的扰动幅值远低于 ±1000 ADC",
+   "value": "A50 = 75.7 ADC [50.8,100.2] @1.2w 平台（0.63% 电平）、214.9 [200.1,352.6] @1.8w、304.2 [248.8,355.8] @1.5w；共模 89.0/232.8/279.8 ADC；低幅补测确认 W1 白噪 20 ADC→0/6、100→5/6、150→6/6",
+   "source": "results/t5b_boundary_measured.csv:A50,A50_ci_lo,A50_ci_hi；results/t5b_lowamp.csv"
+  },
+  {
+   "n": 3,
+   "claim": "主导机制是 σ 门限顶掉电平门槛＋锚点结构漂移，不是误触发狂潮",
+   "value": "σ_d(W1) = 10.8(干净)/71.6/169/330.7/645.7/1274 ADC（200/500/1000/2000/4000），5σ_d ≈ 1.6~1.8·A，在 A≈355 ADC 处反超 5%·lv_ref=605 ADC；±1000 ADC 档（W1 白噪）四分量率 M2=1.00、M4=1.00、M1=0.90、M3=0.10（跨 4 窗 M3 上限 0.40）",
+   "source": "results/t5b_sigma_d_sweep.csv:sigma_d_med,ratio_5sig_over_A；results/t5b_q1_headline.csv"
+  },
+  {
+   "n": 4,
+   "claim": "『找不到基线』有两条实测机制链（真实数据一条 + 抖动一条），均带帧号与数值",
+   "value": "真实：SW4@99.45~99.78 s 的冲击瞬态 raw_hit 连续 ≥34 帧、d 峰值 2355.7 ADC > 5% 门槛 1442.8，但空闲态额外门限 0.10·max_tot=3147.7 ADC 把它挡掉 ⇒ 零 epoch、8.2% 电平的真实 restep 被漏；抖动：C4 帧35 命中 → 帧260 建 onset 当帧被 _to_idle 清零 A/g/loaded（全窗唯一一次）→ 帧5014 重建（隔 47.5 s）→ 帧5456 交接锚定 ΣA=16530 vs 同期干净 5153（Δ=11377 ADC=94% 电平，且不再自愈）",
+   "source": "results/t5b_mech_chain.csv；results/t5b_internal_trace.csv"
+  },
+  {
+   "n": 5,
+   "claim": "判据缺的那一维是『平台/保持』——保持维可判，抬门限方向相反",
+   "value": "以超门限持续时长为判据 AUC=0.841（τ≥0.5 s：TPR 0.691 @ FPR 0.01，精确率 1.000）；非因果『+0.5 s 后仍保有 ≥40% 偏移』AUC=0.950（TPR 1.000 @ FPR 0.000）；现行唯一旋钮（抬 ratio 门限）AUC=0.402（比随机差，FPR≤0.2 内 TPR=0）",
+   "source": "results/t5b_criteria_summary.csv:auc；results/t5b_criteria_roc.csv"
+  },
+  {
+   "n": 6,
+   "claim": "【修正第一轮】把保持维实现为『推迟判定』是负收益：驻留 0.15 s 比现状更糟",
+   "value": "配对 28 拍击×4 档：dwell 0.02→0.15 s 使存活伪事件 0.500→1.000 次/次拍击、永久锚点损伤 >20% 的拍击占比 21.4%→42.9%、抖动漏 0.833→1.000，延迟 0.10→0.23 s；唯一改善是抖动显示超额 p90 0.853→0.800（−6% 相对）。Pareto 非支配点只有 (0.10 s, 0.500) 与 (0.58 s, 0.375)",
+   "source": "results/t5b_dwell_verify.csv；results/t5b_dwell_sweep.csv；results/t5b_detector_pareto.csv:is_pareto_lat_tap"
+  },
+  {
+   "n": 7,
+   "claim": "保底行为有可落地方案：低置信期冻结基线锚定（LOWCONF_FRAC=0.5）",
+   "value": "拍击永久锚点损伤中位 2713→116 ADC（22.4%→0.96% 电平）；抖动锚点误差 8503→5153 ADC、显示超额 p90 0.853→0.800；代价：低置信期内真实阶跃显示超额 0.149→0.437 电平、66.7% 强抖动 run 置起『需重标定』；干净数据副作用 0.0000；免责直通/退回 v5 输出对锚点损伤零改善（2713 不变），冻结输出最差（自身偏差 1.183 电平）",
+   "source": "results/t5b_fallback_policies.csv"
+  }
+ ],
+ "verdicts": [
+  {
+   "question": "T5B-Q1",
+   "answer": "在 1w 量级（实录 12048 ADC 平台）叠加 ±1000 ADC：白噪 10/10 失败（100%，CI [0.72,1.00]）、共模 10/10、带限0.3–5Hz 8/8；±200 ADC 起就已 10/10。失效定义写死为 M1漏/M2锚点偏离>20%/M3错误重捕获/M4显示越界，任一成立即失败；四分量率与逐事件明细全部落盘。全库无『1w 电平 + 实测 ±1000 扰动』录制，故 ±A 结论全部来自注入（需补采规格见 gaps）。",
+   "three_state": "支持"
+  },
+  {
+   "question": "T5B-Q2",
+   "answer": "机制链有两条，均带帧号与数值：① 真实数据（SW4@99.45~99.78 s）：d 连续 34 帧超门限、峰值 2355.7 ADC > 5% 门槛 1442.8，但被空闲态额外门限 0.10·max_tot=3147.7 ADC 挡住 ⇒ 零 epoch，8.2% 电平真实 restep 被漏；② 抖动（C4）：帧35 命中→帧260『建事件当帧即被 _to_idle 清零 A/g/loaded』→帧5014 重建→帧5456 交接把 ΣA 锚到 16530（正确 5153，Δ=94% 电平）。此外拍击的确会建 epoch 并（在慢而长时）走完交接把 A 锚错（C3 帧608 建、帧1101 交接 ΣA=11756）。",
+   "three_state": "支持"
+  },
+  {
+   "question": "T5B-Q3",
+   "answer": "四类扰动扫描完成（白噪/带限(0.3–40Hz 扫 f_hi)/同相共模/拍击(幅值10~100%电平×时长20~500ms)），实测复合 A50：1.2w 平台 75.7 ADC [50.8,100.2]、1.8w 214.9 [200.1,352.6]、1.5w 304.2 [248.8,355.8]，共模 89.0/232.8/279.8；每档样本量 n 写在表内，A50 带 bootstrap 95% CI 与 extrapolated 标记。带限 f_hi 从 40Hz 降到 1Hz 使 M1 的 A50 从 3563 降到 819 ADC ⇒ 慢变比高频危险 3~4 倍。拍击危险性与幅值非单调（200 ms 档反而最安全）。",
+   "three_state": "支持"
+  },
+  {
+   "question": "T5B-Q4",
+   "answer": "现有判据被拍击骗的根因不是门限太低，而是『门限这一维没有区分力』（ratio 的 AUC=0.402<0.5，大拍击的 ratio 系统性高于真实中小变载）。缺的那一维确实是『平台/保持』：因果版（超门限持续时长）AUC=0.841，非因果版（+0.5 s 保持检查）AUC=0.950；另有空间集中度 coup AUC=0.859（但 FPR≤1% 时 TPR 仅 0.087）。组合判据（dwell+hold+无反向，非因果）达 TPR 0.600/FPR 0.000/精确率 1.000。",
+   "three_state": "有条件支持"
+  },
+  {
+   "question": "T5B-Q5",
+   "answer": "三维系统扫描（DET_PERSIST × DET_K × CAPF）完成：Pareto 上非支配点只有现状 (0.10 s, 0.500 存活伪事件) 与 0.58 s 档 (0.58 s, 0.375)，0.07~0.40 s 全部被现状支配 ⇒ 对 1~2 s 目标最优工作点是『现状不改』；若愿用显示偏差换漏检可单独把 DET_K 5→8（延迟零代价，抖动漏 0.5→0.0，但抖动显示超额 p90 0.434→0.690）。CAPF=1.0 再次被证伪（抖动误触发 0→14 次/run）。第一轮『+0.15~0.25 s 驻留最划算』被本分支推翻。",
+   "three_state": "反驳"
+  },
+  {
+   "question": "T5B-Q6",
+   "answer": "给了 4 类保底策略并量化副作用：只有『低置信期冻结基线锚定』治本（拍击永久锚点损伤 22.4%→0.96% 电平，LOWCONF_FRAC=0.5 才触发），代价是低置信期内真实阶跃显示超额 0.149→0.437 电平、66.7% 强抖动 run 置『需重标定』；『免责直通』与『退回 v5.1 输出』只换输出不拦状态 ⇒ 锚点损伤零改善；『冻结输出』最差（自身偏差 1.183 电平）。全部策略在干净数据上副作用 0.0000。上线可行性：因果、只需 1 个布尔状态、无需额外标定（但阈值需现场标定）。",
+   "three_state": "支持"
+  }
+ ],
+ "corrections": [
+  {
+   "against": "13-v6-assessment/scripts/a8_tap_after.py + a_快速扰动下基线识别分析.md §1.1",
+   "was": "C++ 与原型检测器常量 13/13 相同",
+   "now": "独立用正则从 drift_v6_compensator.h 重抽并 diff：13/13 相同；另扩查 32 条常量也全同（45/45）；并复现 C++ Push() 多 1 帧（≈10 ms）滞后",
+   "verdict": "相同"
+  },
+  {
+   "against": "a_快速扰动下基线识别分析.md §2.4",
+   "was": "σ_d 线性膨胀，5σ_d ≈ 1.9·A",
+   "now": "实测 5σ_d/A = 1.79/1.69/1.65/1.61/1.59（200~4000 ADC，W1）⇒ 系数 1.6~1.8；W1@1000 ADC 的 σ_d = 330.7（第一轮 346.6，差 4.6%）",
+   "verdict": "修正"
+  },
+  {
+   "against": "a_快速扰动下基线识别分析.md §0 摘要 1",
+   "was": "抖动下主导失效是漏触发而非误触发",
+   "now": "一致：±1000 ADC 时 M1 0.50~1.00、M3 0.00~0.20；±8000 ADC 时 big 分层 M1 0.509 vs M3 0.30",
+   "verdict": "相同"
+  },
+  {
+   "against": "a_快速扰动下基线识别分析.md §3.2",
+   "was": "拍击基本被 0.40 s 撤销窗挡住：60 次里 58 次 ΔΣA=0",
+   "now": "只对『短+小』拍击成立：50% 电平/100 ms 在 +0.14 s 撤销（复现）；但 10% 电平/500 ms 与 50% 电平/20 ms 档都 14/14 留下存活伪事件，100% 电平/500 ms 逃出撤销窗并走完交接。幅度不是单调危险指标",
+   "verdict": "修正"
+  },
+  {
+   "against": "a_快速扰动下基线识别分析.md §0 摘要 4",
+   "was": "『5σ_d 用 5% 电平封顶(CAPF)』被实测证伪",
+   "now": "复现并强化：CAPF=1.0 使抖动误触发 0.0→14.0 次/run、显示超额 p90 0.434→0.995；白噪 2000 下 W1 的 epoch 4→33、max|ΔY|=2.2e4",
+   "verdict": "相同"
+  },
+  {
+   "against": "a_快速扰动下基线识别分析.md §0 摘要 3 与 §4 建议 1",
+   "was": "驻留确认 0.15~0.25 s 最划算：拍击误触发 2→0/1、抖动显示偏差 17760→11019、代价建事件晚 120 ms",
+   "now": "推翻：28 次配对拍击×4 档实测，0.15 s 档存活伪事件 0.500→1.000、永久锚点损伤 >20% 的拍击 21.4%→42.9%、抖动漏 0.833→1.000，延迟 +130 ms（0.10→0.23 s）；显示偏差确有改善但只有 −6% 相对（0.853→0.800 电平）。Pareto 上 0.07~0.40 s 各档均被现状支配",
+   "verdict": "推翻"
+  },
+  {
+   "against": "a_快速扰动下基线识别分析.md §3.2",
+   "was": "拍击走完交接会留下永久基线偏置，实测 170~190 ADC",
+   "now": "方向复现但量级被低估：C3 把 A 锚到 11756 ADC（97% 平台电平）；配对实测 dwell≥0.15 s 时损伤中位 3304 ADC（27.3% 电平）",
+   "verdict": "修正"
+  },
+  {
+   "against": "13-v6-assessment（第一轮缺项）",
+   "was": "没有失效边界的 50% 点、样本量与置信区间",
+   "now": "本分支给出实测 A50 + bootstrap 95% CI，并补测到 20 ADC（低幅补测 n=6×24 档）",
+   "verdict": "相同"
+  },
+  {
+   "against": "13-v6-assessment（第一轮缺项）",
+   "was": "没有判据的 ROC/PR（只有一条定性的『0.6 s 内反向事件=瞬态签名』）",
+   "now": "给出 6 个单维 + 4 个组合判据的 ROC/PR 与 AUC（0.039~0.950），并给出因果性标注",
+   "verdict": "相同"
+  },
+  {
+   "against": "T5 需求文档 §3「空间信息要用起来」",
+   "was": "未开发；假设『拍击局部、加载相对全局』",
+   "now": "量化后发现：现有注入器按通道电平分摊扰动，构造性抹平空间差异 ⇒ 用注入拍击评估空间判据只能得 AUC≈0.42~0.50（无效）；实录瞬态仅 3 例、AUC 0.87~0.93（弱支持，FPR≤5% 时 TPR 仅 0.71~0.76）；只有假设『≤8 通道局部受击』时 AUC=1.000。该假设在本数据上不可验证",
+   "verdict": "修正"
+  },
+  {
+   "against": "00_共享/接口冲突登记.md C-1",
+   "was": "T_stable 口径不唯一，T5 必须先按 T1-A 冻结口径复算",
+   "now": "本分支不报 T_stable，只报与口径无关的『建事件延迟』（+5% 阶跃 0.25 s、+20% 阶跃 0.10 s、交接 5.01~5.03 s）与锚点/显示偏差，按 C-1 处置执行；数据在 results/t5b_step_latency.csv，供 T1-A 口径合并",
+   "verdict": "相同"
+  },
+  {
+   "against": "00_共享/接口冲突登记.md C-4",
+   "was": "κ 参数收益两种相反结论，由 T5-A 裁决",
+   "now": "本分支不触碰 κ（属 T5-A），未做任何 κ 相关实验",
+   "verdict": "相同"
+  },
+  {
+   "against": "本分支自检（S1，自查发现）",
+   "was": "仪表化子类漏记正向分支 revoke（只记减重分支），使『拍击是否被撤销』被误读为『全部未撤销』",
+   "now": "在 t5b_core.TraceV6.process 用 n_revoke 前后比较补齐，并重跑全部受影响实验；修正后复现『50% 电平/100 ms 拍击在 +0.14 s 被撤销』，§4 第 4 行的『修正』判定基于修正后数据",
+   "verdict": "修正"
+  },
+  {
+   "against": "本分支自检（S2，MainAgent 复核发现）",
+   "was": "t5b_patch_ab_zero.csv 初版只做输出级零差，其中『CAPF=1.0 干净窗 diff=0』既不能证明接线也不能证明参数生效（零差与没接线不可区分）",
+   "now": "自检重写为双级判据（输出 + 内部 gate/sig_d/raw_hit/epoch）并补 3 个阳性对照（DET_PERSIST=1 → 54.3/381.5；DET_REL=0.01 → 317.7/337.7；CAPF on 白噪2000 → 1.87e4，epoch 4→31）；CAPF 被证明已接线且改变行为；既有扫描结论不受影响、无需重跑（细节见报告 §2.6）",
+   "verdict": "修正"
+  }
+ ],
+ "gaps": [
+  "无『1w ADC ± 1000 ADC』实测录制：全库平台为 12048/12097/15416/18012/28205/29400/32157 ADC，最接近 1w 的是 12048 ADC；所有 ±A 结论均来自注入。需补采：① 目标 10000±500 ADC 稳定加载；② 同录制叠加已知幅度的扰动源并同步记录扰动参考通道；③ 每档 ≥10 次重复；④ 每档 ≥60 s（覆盖 M2 的 +20 s 检查点）；⑤ 标注人手拍位置/接触面积（供空间判据定标）",
+  "无人手拍击实录：全库仅 3 例瞬态候选（峰值 211/432/1896 ADC），最大的一例（SW4@99.56 s，6.5% 电平）v6 根本没有建事件 ⇒ 无法在实测上评估『拍击是否被误捕获』。需补采 ≥20 次轻/重/连拍实录，且必须记录逐通道原始值",
+  "空间判据依赖未验证假设『实拍击是局部的』：注入拍击按电平分摊，构造性抹平差异；实录瞬态 n=3。AUC=1.000 只在 ≤8 通道受击假设下成立，不得当结论引用",
+  "DET_K 5→8 的收益只有小样本证据（抖动 run n=2~4），仅作定性参考，需 ≥10 种子×≥2 录制复核",
+  "W2 的 A50 不可用（200 ADC 处已 0.917，拟合值 29.1 ADC 落在实测区间外，extrapolated=1）；W2 需补测 20~150 ADC",
+  "M2 把『事件结构差异』也算作锚点错误（本报告用分量率+分层表缓解，但没有与事件结构无关的单一显示层指标）",
+  "未做 C++ 与原型 1 帧（≈10 ms）滞后的补偿；所有数字基于原型",
+  "未验证 T5-A（过充/κ）与本分支的交集（如过充硬限幅是否会改变 M4）；若 T5-A 给出 κ 工作点，本报告 M2/M4 需在其上复算",
+  "失败率对窗口选择敏感：W1 的 100% 由 t_on=71.67 s『干净运行就判反号』的临界事件贡献；换成『干净判型正确的大台阶』子集后 200 ADC 处 M1=0 但 M2=1.0（仍是 100% 复合失败，归因只剩锚点漂移）",
+  "候选判据的 AUC 是样本内上界（一个真实沿附近可能有多个候选被重复计入）",
+  "t5b_patch_ab_zero.csv 的 A3 行（CAPF=1.0 干净窗）语义特殊：输出恒为 0 但内部可能已变（W1 未变、W2 变了 709 帧），下游引用时必须同时读 control / internal_changed / n_frames_rawhit_diff 列，不得只取 max_abs_Y_diff"
+ ],
+ "blockers": [],
+ "meta": {
+  "windows": {
+   "W1_1w": "切换负载-快相无责 [26,92] s，电平 12101 ADC（≈1.2w，最接近用户场景）",
+   "W2_3w": "中途切换-最终测试目标 [80,115] s，电平 28205 ADC",
+   "W3_1p5w": "零负载-切换负载-零负载-再切换负载 [5,45] s，电平 15416 ADC",
+   "W4_1p9w": "零负载-中途切换负载-零负载-切换负载 [5,45] s，电平 18012 ADC"
+  },
+  "failure_definition": "M1 增量漏触发 / M2 锚点偏离>max(20%·事件平台电平,300ADC) / M3 增量错误重捕获(存活≥0.5s) / M4 算法可归因显示超额>20%·电平；任一成立即失败",
+  "truth_source": "plan/v1.0/T4_两种快相形态与分支判据/results/t4a_morphology.csv 的 SW1~SW4（39 事件，只读引用）",
+  "injector": "T1_*/scripts/t1_common.py（T1-B 已冻结）→ scripts/t5b_t1inject.py，仅改 import",
+  "grid": "timestamp 列 → np.interp 100 Hz；禁止 τ=2 s 平滑；CSV 自动定位 ##Data",
+  "ab_zero_proof": "results/t5b_patch_ab_zero.csv（双级判据：输出 max|ΔY| + 内部 trace 级 gate/sig_d/raw_hit/epoch 差异 + 与原型对拍级 max|ΔΣA|/max|Δt0|）。A1 plain vs TraceV6(CAPF=None)：输出 0.000e+00、内部 0 帧差、max|ΔΣA|=0.000000（W1/W2）；A2 显式 DET_PERSIST=3/DET_K=5.0：同为零差；B3b 白噪2000 plain vs TraceV6：同为零差；A3 CAPF=1.0 干净窗：输出恒 0 但**内部随窗而异**（W1 差 0 帧=封顶从未改门限；W2 差 709 帧 gate/188 帧 raw_hit/epoch 3→4）⇒ A3 **既非接线证据也非零差证据**（internal_ok=False）；B1 DET_PERSIST=1 故意放宽：输出 54.3/381.5、gate 差 5/31 帧、max|ΔΣA|=42.57/280.86；B2 DET_REL=0.01：输出 317.7/337.7、gate 差 5932/1504 帧、raw_hit 差 87/20 帧、max|ΔΣA|=946.45/38.60；B3 白噪2000 CAPF=None vs 1.0：输出 1.87e4/1.05e3、epoch 4→31（gate 差 6525/3430 帧、raw_hit 差 779/851 帧）。端到端独立佐证：t5b_config_sweep.csv 中 CAPF=1.0 使抖动存活伪事件 0.0→14.0 次/run、显示超额 p90 0.434→0.995",
+  "methodology_lessons": [
+   "输出级零差是比内部状态级等价弱得多的判据：CAPF=1.0 在 W2 干净窗上改变了 709 帧门限/188 帧 raw_hit/多建 1 个 epoch，但输出仍位级零差（多出的 epoch 落在近零电平段，在自身 t_det 帧即被 _to_idle 结束，A_hat/c_applied 全程 nan）",
+   "凡『补丁/参数不改变默认行为』的声明，必须同时给输出级与内部级零差，并至少含一个『故意改坏 → 必须非零』的阳性对照，否则零差与『没接线』不可区分"
+  ],
+  "total_trials": 1062,
+  "scope_compliance": "未改 src/、未改 CMake、未构建、未跑测试、未启动 exe、未改 progress/ 与其它 T*_*/ 下任何文件；C-1 按处置执行、不碰 C-4"
+ }
+}
+====================================================================================================
+FILE: T6_v6可重复性下降归因/results/conclusions.json
+{
+ "task": "T6",
+ "seat": "T6-A",
+ "date": "2026-09-19",
+ "headline": [
+  {
+   "n": 1,
+   "claim": "v6 相对 v5.1 的『可重复性下降』主要落在 L3 路径层，不在 L1 输入层、也不完全在 L2 输出层",
+   "value": "同一份实录输入、仅 ±1 包(±40.0 ms) 时序抖动：输出轨线 RMS 差 v6 7.90%·电平（1473.9 ADC）vs v5.1 0.26%（48.2 ADC）= 30.6×（n=30 种子/条件）",
+   "source": "results/t6_jitter_summary_a.csv:rms_pct_lvl_med(cond=timing_J100P)"
+  },
+  {
+   "n": 2,
+   "claim": "L1 输入层本身就散：同一传感器同一负载重复加载，原始台阶幅度组内 CV ≈7%、快相形状 CV ≈2%（故 L2 的绝对电平散布不能全算在算法头上）",
+   "value": "a_step CV=7.25%, inc5 CV=6.96%, CV_shape 中位=1.85%（n=9，3 组×3 次）",
+   "source": "results/t6_repeat_dispersion.csv:L1_input"
+  },
+  {
+   "n": 3,
+   "claim": "L2 输出层的『谁更差』依赖真值口径：相对 5 s 实测电平 v6 比现役差 66%，相对机械台阶只差 4%；换网格步长（0.3%）还会翻转排名",
+   "value": "std(R5): v5.1 3.07 vs v6 5.09 pp；std(Rstep): v5.1 3.39 vs v6 3.52 pp（n=9）",
+   "source": "results/t6_repeat_dispersion.csv:L2_output"
+  },
+  {
+   "n": 4,
+   "claim": "L3 的分歧是『状态机路径分歧』而非指标噪声：±1 包抖动下 v6 的 revoke/handoff 几乎必变",
+   "value": "v6 序列相同率=0.27（v5.1=1.00）、revoke 变=0.73、handoff 变=0.70、epoch 变=0.50（n=30）",
+   "source": "results/t6_event_sequence_a.csv"
+  },
+  {
+   "n": 5,
+   "claim": "归因（按 Δstd(R5) 排序）：④「τ_ho=5 s 交接」影响最大，其次 ①「取消 2.5 s 硬确认」与 ⑤「起扣提前」；② 形状反演尺度主要决定偏置而非离散；③ 滑行器速率限制的贡献**精确为 0**（先验假设被反驳）",
+   "value": "D4_ho10s Δstd(R5)=-2.53pp、D5_delay5s -1.56pp、D1_confirm50 -1.69pp、D2_noshape -0.05pp（但 bias -7.49pp）、D3_norate +0.0000pp",
+   "source": "results/t6_attribution.csv"
+  },
+  {
+   "n": 6,
+   "claim": "改进空间：有条件有 —— 检测到两条**互不重叠**的可修轴：离散撤销通道（只伤 L3）与连续 Â 尺度通道（只伤 L2）；两者可叠加",
+   "value": "I7（撤销迟滞）: L3_a 0.72%（-91%）而 L2/T_stable 完全不变；I4_ho10s: std(R5) 2.57 pp（-49.6%）且 T_stable Δ-2.14 s；组合臂 I7_h3_I4ho10: L2 -49.6%、L3_a -86.1%、T_stable Δ-2.14 s",
+   "source": "results/t6_improve_ab.csv"
+  },
+  {
+   "n": 7,
+   "claim": "天花板：两条轴各有各的上限 —— L3 的离散通道可被迟滞/推迟起扣几乎归零（仍为 v5.1 的 ~2.8 倍）；L2 的连续通道只能压到现役水平，代价是把锚点拉回更早的实测电平（偏置变负）",
+   "value": "L3_a: 基线 7.71% → I7 0.72% / I5 0.67%（v5.1 场景 a 为 0.26%）；L2 std(R5): v6 5.09 → v5.1 3.07 / I1f 3.24 / v6.1 3.37 pp，但 bias 从 2.22 掉到 -3.83 pp",
+   "source": "results/t6_improve_ab.csv;results/t6_repeat_dispersion.csv"
+  }
+ ],
+ "verdicts": [
+  {
+   "question": "T6-Q1",
+   "answer": "v6 的下降主要落在 **L3 路径层**：同输入 ±1 包抖动下 v6 输出 RMS 差 7.90%·电平 = 30.6× v5.1（v5.1 0.26%）；L2 层 v6 在 R5 口径下 std 比 v5.1 差 66%，在 Rstep 口径下只差 4%；L1 层（CV 7.3%）与算法无关。",
+   "three_state": "支持"
+  },
+  {
+   "question": "T6-Q2",
+   "answer": "抖动-输出差异曲线见 figures/T6_02_jitter_path.png。场景 a（实录）：v6 存在阈值效应 —— J≤25% 包周期时 RMS≈0.40%（p90 已 8.06%，即 13% 种子已整段分歧），J=±1 包时跳到 7.90%；v5.1 全程 ≤0.26%。加性噪声（总量 RMS 1/5 ADC）与单帧丢包对 v6 的扰动为 0.689/0.656/≈0 %，**远小于时序抖动**。场景 b（力域）的噪声行单位不同（1/5 N = 6.5%/33%·电平），只能做同输入配对比较（v6/v5.1 = 1.11×）。",
+   "three_state": "支持"
+  },
+  {
+   "question": "T6-Q3",
+   "answer": "±1 包抖动下 v6 的事件序列改动率：epoch 0.50、revoke 0.73、handoff 0.70，序列完全相同率仅 0.27；v5.1 为 1.00（0% 改动）。最典型的失败是 onset 建事件的**同一帧**被 revoke ⇒ 该次加载整段不补偿（逐帧证据：t_first_div 中位 10.77 s ≈ 首次加载沿，事件前 RMS 差 0.00 ADC，事件后 1614.7 ADC）。→ 指标层差异是结果，状态机路径分歧是原因。",
+   "three_state": "支持"
+  },
+  {
+   "question": "T6-Q4",
+   "answer": "5 处改动逐条消融见 results/t6_attribution.csv（每条只改一处；22 条补丁在默认值下与原型**bit-identical**，见 t6_patch_ab_zero.csv）。排序（Δstd(R5)）：④ 交接 −2.53 pp > ① 0.5 s 硬确认 −1.69 pp > ⑤ 起扣 −1.56 pp > ② κ 占位 −1.24 pp > ② 取消形状外推 −0.05 pp > ③ 滑行器速率 0.0000 pp（**零贡献**）。κ 项按 C-4 只作占位，最终取值须由 T5-A 裁决（T5-A 未交付）。n=9（3 组×3 次），组内 std 只有 3 个样本，排序只用于挑方向，不作显著性结论。",
+   "three_state": "有条件支持"
+  },
+  {
+   "question": "T6-Q5",
+   "answer": "有：11 条候选臂已做数值可行性估计（其中 8 条单旋钮、2 条组合、1 条为既有实现 v6.1 的对照；均为 9 份恒载 × 80 s + 2 场景 L3 代理）。按 L2 最优 = I4_ho10s（std(R5) 2.57 pp，-49.6%）；按 L3 最优 = I5_delay3s / I7_revoke_hyst3（场景 a 从 7.71% 降到 0.67% / 0.72%）；**组合臂 I7_h3_I4ho10 三条一起变好**。另有 3 条零效果（I6 估计量替换、I2 撤销冷却、I3 尾巴门限）—— 负结果同样报出。",
+   "three_state": "有条件支持"
+  },
+  {
+   "question": "T6-Q6",
+   "answer": "权衡表见 results/t6_tradeoff.csv。I4_ho10s 是唯一「既压 L2 又缩短 T_stable」的臂：T_stable 中位 0.56 s（Δ-2.14 s）；I7_revoke_hyst3 的 T_stable 不变（2.70 s）却把 L3_a 压 -91% ⇒ **L3 的修复是零代价的**；反过来 I5_delay3s 的 L3 收益最大但 T_stable 退回 +0.59 s。",
+   "three_state": "有条件支持"
+  },
+  {
+   "question": "T6-Q7",
+   "answer": "有条件有。天花板分两条轴、互不重叠：① **L3 离散通道**（时序抖动 → `inc_s` 瞬时读 0 → 同帧建-撤 → 整段不补偿）可被撤销迟滞或推迟起扣消除 ~85–91%，且这两条都**不损害 L2 与 T_stable**；残余 ~0.4–0.7%·电平仍是 v5.1（0.26%）的 1.6–2.7 倍 ⇒ 天花板不在「零」，而在「与现役同级」。② **L2 连续通道**（形状先验尺度）只能压到现役水平（std 5.09→3.07–3.37 pp），代价是平台锚点回到更早的实测电平（bias 由 +2.22 pp 变 −2.8…−3.8 pp），即**不可能同时保住 v6 的「绝对准」与其离散的消除**。③ 未测边界：τ_ho≥10 s 在「加载后 10 s 内再次变载」的工况下未验证；力域噪声需按相对幅度重扫。",
+   "three_state": "有条件支持"
+  }
+ ],
+ "corrections": [
+  {
+   "against": "13-v6-assessment/b_repeat_disp.csv",
+   "was": "v6 平台误差组内 std（相对 5 s 电平）= 4.83 pp，v5.1 = 3.07 pp",
+   "now": "同口径（legacy 网格 dtm=span/(n-1)）复算 = 4.83 pp，与第一轮完全一致；但换到项目规定的精确 100 Hz 网格（dt=0.01）后 = 5.09 pp（v5.1 3.07）",
+   "verdict": "修正"
+  },
+  {
+   "against": "13-v6-assessment/b_卸载时漂与可重复性分析.md §3.3",
+   "was": "相对机械台阶口径下 v6 的 std = 2.69 pp（最好，优于 v5.1 3.38）",
+   "now": "legacy 网格下复算 = 2.69 pp（一致）；精确 100 Hz 网格下 = 3.52 pp，此时 v5.1 = 3.39 pp ⇒ **排名反转**",
+   "verdict": "修正"
+  },
+  {
+   "against": "13-v6-assessment/b_卸载时漂与可重复性分析.md §4.4",
+   "was": "P4（A=交接时刻实测电平）对平台误差 std 无改善（4.83→4.84）",
+   "now": "本轮不重复该臂；但 L3 实验显示真正的敏感点是**输入到达时刻**而非锚定模式，与『Â 参与滑行目标』的机制解释一致（支持其推断）",
+   "verdict": "相同"
+  },
+  {
+   "against": "11-paper-v6/results/epochs_all.csv",
+   "was": "v6 epoch 数（恒载 9 组）= 2/4/5、3/2/2、4/2/2，组内 std 中位 1.15；v5.1 组内 std 0",
+   "now": "复算 v6 epoch 组内 std = 1.155，v5.1 = 0.000 —— 一致",
+   "verdict": "相同"
+  }
+ ],
+ "gaps": [
+  "同一载荷的重复加载实录只有 3 传感器组 × 3 次（n=9），且都是恒载族；**变载工况没有重复样本**，L1/L2 只能给恒载族的结论。需要补采『同一装载序列重复 5 次以上』的变载实录。",
+  "T1-A 冻结口径未交付（`T1_*/results/t1a_settle_metrics.csv` 不存在）⇒ 本任务 T_stable 用 legacy 口径，**不可与 T1 绝对横比**；所有 T_stable 结论均为同一次运行内的配对差。",
+  "T5-A 的 κ 统一扫描未交付 ⇒ `t6_attribution.csv` 的 κ 行只是占位（κ 1.10 对照），不得作为最终裁决。",
+  "抖动注入的时序模型是『整包平移 + cummax 保序』；J=±1 包时约 13% 的包被保序抬升（reorder_frac 列），真实接收端是否会出现该比例的到达压缩，需要抓包数据核对。",
+  "L3 只在 2 个场景（1 份实录 + 1 份恒载）上做；跨传感器组的 L3 差异未测。",
+  "没有『同一录制反复上电/重放』的实测真值，L3 的抖动只能证明算法敏感，不能直接换算成用户看到的偏差幅度。"
+ ],
+ "blockers": [],
+ "meta": {
+  "n_repeat": 9,
+  "n_jitter_seed_a": 30,
+  "n_jitter_seed_b": 30,
+  "grid": "100 Hz exact (dt=0.01), legacy-grid cross-check in t6_gridsens.csv",
+  "t_stable_caliber": "legacy 5%*step / hold 30 s (T1-A not delivered)",
+  "truth_calibers": [
+   "R5=pre+inc5",
+   "Rstep=pre+a_step"
+  ],
+  "patch_ab_zero_ok": true
+ }
+}
+====================================================================================================
+FILE: T7_卸载与部分卸载时漂规律/results/conclusions_T7A.json
+{
+ "task": "T7",
+ "seat": "T7-A",
+ "date": "2026-09-19",
+ "scope": "卸载（全卸载）的时漂规律 + 零基线漂移；对应 T7-Q1/Q2/Q3/Q4/Q5/Q9。部分卸载与对称性专项（Q6/Q7/Q8）属 T7-B，本席位仅按 C-5 要求给对称性回应。",
+ "headline": [
+  {
+   "n": 1,
+   "claim": "卸载后读数回得去，但分两种失败形态：先过冲到绝对零附近，或留下 1~3% 的正残余",
+   "value": "n=14 处真实全卸载：11/14 单调回零、2/14 过冲（跌破加载前空载电平 1.30~2.84%·原幅度，均右拇指）、1/14 留下 +2.12% 稳态残余（右拇指/数据3，54.7 s 不衰减）；残余量级：力域 4~6 s 中位 +0.19%·|J|（p10~p90 0.00~2.50%，max 2.81%）、窗末中位 +0.06%（max 2.12%）、ADC 域全部 ≤0.08%；以 2%·|J| 为界仅 1/14 超限",
+   "source": "results/t7_unload_events.csv:type,resid_pct,resid_late_pct; results/t7_frozen_summary.csv:resid4_pct,resid_late_pct,recovery_pct"
+  },
+  {
+   "n": 2,
+   "claim": "卸载沿本身没有可分辨的快相/慢相：1~2 个包内一步落底；时漂只出现在落底之后",
+   "value": "t50 中位 0.02 s、t90 中位 0.04 s、t95 中位 0.045 s（t90−t10 中位 0.03 s、最大 0.27 s）、0.2 s 完成度 1.0022（n=14）；设备速率最大单包降幅占 |J| 中位 0.455（包间隔 恒载 17.6 ms / 实录 40.2 ms）；±1 包位移下 t50 变化 ≤0.020 s、t90 ≤0.030 s；谷值时间中位 0.13 s，14/14 事件在该窗内有一段落至 max(3σ,0.2%·|J|) 以下（占窗 7%~99%）",
+   "source": "results/t7_unload_events.csv:t50,t80,t90,t95,u_at_02,step_pkt_frac,trough_s,min_raw; results/_t7a_2_events.log(±1 包敏感性节)"
+  },
+  {
+   "n": 3,
+   "claim": "对算法该怎么改：①卸载/减重判据前移进事件态 ②不要重新引入空载自动归零 ③零漂交采集/标定侧 ④量测统一用因果短窗+真沿",
+   "value": "注入实验（injected）：额外下冲占本次幅度 α=1.0 时 3.4%、α=0.6 时 43%、α=0.3 时 87~96%，稳态偏差 −5.0 N（=满幅 19.5 N 的 26%）；v5 的空载自动归零把零点改到 −552~+552 ADC（右拇指 0.810 N→0.0099 N）；现役两臂空载段对读数零改动（max|臂−raw| = 0.0000 / 0.143 ADC）",
+   "source": "results/t7_inject_amp.csv:*_dip_extra_pct,*_resid_late; results/t7_zero_drift.csv:z_v5_minus_raw,z_e3s_minus_raw,z_v6_minus_raw"
+  },
+  {
+   "n": 4,
+   "claim": "零基线漂移 P3 是传感器/采集侧现象，不是补偿残留",
+   "value": "31 个空载平台（13 份录制）上「补偿后零点 − 原始零点」= v5.1 恒为 0.0000（max|·| 0.0000）、v6 max|·| 0.143 ADC；v5（含空载自动归零）max|·| 552.19",
+   "source": "results/t7_zero_drift.csv:z_e3s_minus_raw,z_v6_minus_raw,z_v5_minus_raw; results/t7_zero_lines.csv"
+  },
+  {
+   "n": 5,
+   "claim": "零点随轮次漂移：相对零点自身 14~43%，相对载荷幅度仅 0.02~2.10%",
+   "value": "实录一轮卸载后 −14.6~−26.0 ADC（占零点自身 −21%~−41%），第 2 轮 −3.6~−8.6（或回弹 +8.0）；恒载右拇指 +0.086~+0.430 N（+30%~+43%）、四指 +0.010~+0.024 N（+15%~+36%）、左拇指 0（显示层 ≥0 钳位掩盖）；折算载荷幅度：实录 max 0.169%、力域 max 2.097%",
+   "source": "results/t7_zero_rounds.csv:dz_raw,dz_raw_rel,plat_drop; results/t7_zero_drift.csv:dz_raw,z_raw"
+  },
+  {
+   "n": 6,
+   "claim": "零漂与累计加载时长/累计载荷的相关性：本批数据不显著，方向性观察是饱和型而非累加型",
+   "value": "实录 n=9 轮/4 份：Δ零点 vs 累计加载时长 ρ=+0.505 (p=0.166)、vs 累计载荷积分 ρ=+0.505 (p=0.166)、vs 轮次 ρ=+0.621 (p=0.074)（ρ>0 表示降幅在变小）；首轮降幅最大、后续变小甚至回弹；恒载族每份仅 1 轮、累计量恒为 0，无法检验",
+   "source": "results/t7_zero_corr.csv:target=dz_raw; results/t7_zero_rounds.csv"
+  },
+  {
+   "n": 7,
+   "claim": "可用判据：传感器零漂与卸载幅度无关，算法伪零点与载荷幅度强相关",
+   "value": "Δ零点(raw) vs 本轮幅度：实录 ρ=+0.167 (p=0.668, n=9)；Δ零点(v5, 算法) vs 本轮幅度：实录 ρ=−0.733 (p=0.025, n=9)、合并 n=18 ρ=−0.684 (p=0.002)",
+   "source": "results/t7_zero_corr.csv:target=dz_raw|dz_v5,feature=plat_drop"
+  }
+ ],
+ "verdicts": [
+  {
+   "question": "T7-Q1",
+   "answer": "卸载事件时间特征已产出并与加载表列名对齐（results/t7_unload_events.csv，14 行 × 51 列；τ 轮廓在 t7_unload_shape.csv）。t10/t50/t80/t90/t95 中位 0.01/0.02/0.035/0.04/0.045 s；0.2 s 完成度 1.0022（n=14）；froze=无自己的快相/慢相，卸载沿在 1~2 个包内完成（恒载 17.6 ms、实录 40.2 ms 包间隔），±1 包敏感性：t50 变化 ≤0.020 s、t90 ≤0.030 s。方向约定：J<0，z_at_*/u_at_* 为卸载完成度（加载表的镜像），报告 §1.2 已声明。t0 = 真实卸载沿（最后一个仍在旧电平 10% 带内的帧）。",
+   "three_state": "支持"
+  },
+  {
+   "question": "T7-Q2",
+   "answer": "卸载后基本回到零，不回来的只有 1/14。残余（相对加载前空载电平 z0_ref）：力域 4~6 s 中位 +0.19%·|J|（p10~p90 0.00~2.50%，max 2.81%）、观测窗末（≥47 s）中位 +0.06%（max 2.12%）；ADC 域全部 ≤0.08%。逐事件最大残余：右拇指/数据3 +2.12%（不衰减）、右拇指/数据1 1.88%→1.17%、四指/数据3 2.39%→0.14%。空载期内回复比例中位 38%（力域 39%）。τ 在本批 ≤60 s 窗内不可辨识（与第一轮一致），故只报 4~6 s / 窗末 / 回复比例三个数。",
+   "three_state": "有条件支持"
+  },
+  {
+   "question": "T7-Q3",
+   "answer": "加载期累积的慢相补偿量在卸载后被正确、彻底撤销：v5.1 与 v6 在 14/14 事件上稳态扣除 ded_late_pct = 0.0000（精确 0），撤销到一半的时间 t_ded_half 中位 0.025 s（最大 0.26 s / 0.78 s）；没有冻结、也没有被当成新蠕变（v6 卸载后进 idle，g=0、loaded=0）。反例是 v5（含空载自动归零 b_）：t_ded_half 中位 0.745 s、ded_late_pct 中位 +0.51%/最大 +4.13%，且额外贴零 +5.58 s、额外下冲最大 25.9%。内部量 A/g/γ 与 ded_eff 的轨迹见 results/t7_frozen_offset.csv（ded_* 列）与 t7_arm_unload.csv。",
+   "three_state": "支持"
+  },
+  {
+   "question": "T7-Q4",
+   "answer": "三分类型（先判不回来、再判过冲）：A 单调回零 11/14（79%）、B 过冲回零（跌破加载前空载电平）2/14（14%，右拇指/数据1 2.84%、数据2 1.30%）、C 不回来（正残余）1/14（7%，右拇指/数据3 2.12%）、负残余 0/14。阈值敏感性：dip>0.2%/resid>0.5% → A=5/B=8/C=1；dip>0.5%/resid>1% → A=11/B=2/C=1；dip>1%/resid>2% → A=11/B=2/C=1 ⇒ 过冲是连续过渡量，不应讲成三个离散类。边界：本批逐通道原始值 min=0、无负值，故“回到零以下”只能相对加载前空载电平定义，深度上界就是 z0_ref 本身，无法分辨传感器过冲 vs 落到底。",
+   "three_state": "有条件支持"
+  },
+  {
+   "question": "T7-Q5",
+   "answer": "轮次偏差表已产出（results/t7_round_bias.csv，6 对连续轮次 / 4 份实录；恒载每份仅 1 轮无法配对）。本批没有任何“同一标称载荷重复加载”的样本（相邻两轮 |J| 相对差全部 >10%）⇒ 指标字典的 Δ_rep 无法计算。可给的结论：① 第 k 轮卸载后的残余在空载期内只回复一部分（能测的 3 对：13.5%/50%/277%），其余部分直接成为第 k+1 轮的起点基线（读数不在加载瞬间归零），影响形式是“基线整体平移”；② 轮次间表观幅度差 dJ_rel 中位 +23.3%（p10~p90 −3.2%~+85.8%），其中既有操作载荷差也有零点平移，无标称载荷无法分离；③ 零点累计平移相对零点自身 −41.3%~+3.8%，相对载荷幅度全部 ≤0.17%（实录），故对轮次偏差的贡献可忽略。",
+   "three_state": "有条件支持"
+  },
+  {
+   "question": "T7-Q9",
+   "answer": "零基线漂移 P3 的规律：① 现役算法（v5.1/v6）在空载段完全不改读数（31 个平台 max|臂−raw| = 0.0000 / 0.143 ADC）⇒ 零漂 100% 来自传感器/采集侧；② 零点读数随轮次漂移（相对零点自身）实录 −14%~−41%/轮、恒载右拇指与四指 +15%~+43%、左拇指因显示层 ≥0 钳位恒为 0，折算到载荷幅度只有 0.02~2.10%（实录 max 0.169%、力域 max 2.097%）；③ 与累计加载时长/累计载荷的相关性不显著（实录 n=9：ρ=+0.505, p=0.166；轮次 ρ=+0.621, p=0.074 且符号表示“降幅在变小”），方向性观察为饱和型而非累加型；④ 判据：传感器零漂 vs 卸载幅度 ρ=+0.167 (p=0.668) 不显著，算法伪零点 vs 卸载幅度 ρ=−0.733 (p=0.025) 显著 ⇒ 两条线可判别来源；⑤ 反事实：v5 的空载自动归零会把零点改到 −552~+552 ADC（−0.80 N），量级是传感器零漂的 6~30 倍。",
+   "three_state": "支持"
+  }
+ ],
+ "corrections": [
+  {
+   "against": "13-v6-assessment",
+   "was": "卸载沿 90%→10% 下降时间 0.08–0.70 s（恒载中位 0.30）、0.09–0.85 s（实录）",
+   "now": "卸载沿 t90−t10 中位 0.03 s（p10~p90 0.02~0.10、最大 0.27 s），0.2 s 完成度 1.0022（n=14）",
+   "verdict": "推翻"
+  },
+  {
+   "against": "13-v6-assessment",
+   "was": "力域卸载后不存在下冲：dip_pre = −0.275…0（最小读数仍高于加载前空载电平）",
+   "now": "4 处力域事件在卸载后读数跌破加载前空载电平，最深 0.554 N（2.84%·|J|，右拇指/数据1）、0.284 N（1.30%，数据2）；14/14 事件在卸载后 1.5 s 内读数落至 max(3σ,0.2%·|J|) 以下（占窗 7%~99%），10 处 min_raw 精确为 0.000",
+   "verdict": "推翻"
+  },
+  {
+   "against": "13-v6-assessment",
+   "was": "卸载后残余正偏移 0–0.555（力域，0–2.85%·原幅度），∝ 慢相蠕变量（ρ=0.712, p=0.031）",
+   "now": "残余 0–0.449 N（窗末）/0–0.615 N（4~6 s 窗）= 0–2.12%/0–2.81%；有残余的 4 份确为蠕变最大的 4 份（41.1/33.6/28.8/14.7%），但四指/数据1、数据2（蠕变 22.6%/16.2%）无残余 ⇒ 蠕变是必要非充分条件",
+   "verdict": "相同"
+  },
+  {
+   "against": "13-v6-assessment",
+   "was": "左拇指 3 份残余 = 0（作为“无残余”的证据）",
+   "now": "左拇指空载基线本来就是 0.0000 N（显示层 ≥0 钳位、逐通道量化噪声 0），其“残余 0”只能读作“没有正向残余”，不能证明无漂移（负向漂移在本域不可观测）",
+   "verdict": "修正"
+  },
+  {
+   "against": "13-v6-assessment",
+   "was": "卸载事件表列名 rec/kind/arm/t_dn/pre/plat/post/drop…（其中 pre = 加载前空载电平、plat = 卸载前电平），分类用 ev_class = full/partial（判据是“是否回到加载前空载电平”）",
+   "now": "按需求文档与加载表 t4a_morphology.csv 对齐：pre = 卸载前电平、post = 卸载后电平、jump = post−pre；另加 z0_ref 表“加载前空载电平”消除歧义。第一轮的 partial 语义（未回到空载电平）与指标字典 §2.1 的 partial_unload（减少量 20%~80%）不是同一个量，跨表引用必须改写",
+   "verdict": "修正"
+  },
+  {
+   "against": "13-v6-assessment",
+   "was": "第一轮 21 处卸载沿 t_dn 视为卸载沿时刻，fall_t 以此为 90%→10% 计时起点",
+   "now": "t_dn 是“短滞后电平差”检测器的命中帧，与真实卸载沿的 |Δt0| 中位 0.30 s、最大 0.84 s（符号不定）⇒ 凡依赖 t_dn 的时间量（fall_t、t_to5、t_rec_*）都偏；指标字典 §2.1 明确要求用真实沿",
+   "verdict": "修正"
+  },
+  {
+   "against": "13-v6-assessment",
+   "was": "v6/v5.1 在卸载沿“额外下冲最大 +4.02%·原幅度”“贴零 +0.756 s”",
+   "now": "100 Hz + 真沿口径：额外下冲 max 3.38%（v5.1）/3.43%（v6）；额外贴零 max 0.85 s（v5.1）/0.31 s（v6）",
+   "verdict": "相同"
+  },
+  {
+   "against": "13-v6-assessment",
+   "was": "（未回答）卸载后绝对零点是否回得去",
+   "now": "新增 31 个空载平台 × 四臂的零点表与“原始 vs 补偿后”两条线之差：现役两臂 max 0.0000 / 0.143 ADC，零漂 100% 来自传感器侧；v5 的 b_ 链路 max 552 ADC",
+   "verdict": "修正"
+  },
+  {
+   "against": "T4-A",
+   "was": "60 事件冻结表中 partial_unload 5 个（作为“部分卸载”样本）",
+   "now": "5 个里 4 个降幅只有 3.4%/12.8%/15.0%/14.7%（<20%，属 restep/小减重），第 5 个（切换负载@212.40，降幅 74.0%）幅度合格但 post 窗被 6 s 内的变载污染（stab_post=0.127 > 0.05）；按冻结定义本批“部分卸载”样本为 0",
+   "verdict": "修正"
+  },
+  {
+   "against": "T4-A",
+   "was": "14 个 unload 事件",
+   "now": "与冻结定义（含前后各 2 s 稳定）完全一致：同为 14 个，时刻差 |Δt0| 中位 0.01 s、最大 0.14 s；z_at_02（T4-A）1.003 vs 本任务 u_at_02 1.0022（n 从 13 变 14）",
+   "verdict": "相同"
+  },
+  {
+   "against": "T4-A",
+   "was": "E2：用“卸载 0.2 s 完成 100.3%”作“差别在输入不在传感器”的机制证据，依赖正负方向响应对称",
+   "now": "同录制配对 n=13：t90(零基线加载 onset)/t90(卸载) 中位 18.25 倍（p10~p90 8.0~47.6）⇒ 正负时间常数明显不对称。E2 只能证明“卸载这个输入”极快，不能作为“传感器在带载状态反应速度”的独立证据；证据强度应从“独立机制证据”下调为“与机制一致的方向性事实”（结论方向不变，E1/E3/E4 不受影响）",
+   "verdict": "修正"
+  }
+ ],
+ "gaps": [
+  "G1 卸载段样本量小：严格冻结集 n=14（恒载 9 + 实录 5），其中长观测窗（≥20 s）只有 6 处；按录制分的结论（尤其过冲/不回来）受 n 限制",
+  "G2 没有任何“同一标称载荷重复加载”样本：相邻两轮 |J| 相对差全部 >10% ⇒ Δ_rep 无法计算，轮次偏差无法与操作载荷差异分离。补采：同一载荷（如 10 N）×3 次加压-卸载-再加压，每轮卸载后 ≥60 s 纯空载",
+  "G3 无标称载荷/力矩标注：所有载荷幅度都是从读数反推的相对量，dJ_rel 不得当“重复性”用。补采带力值标定的数据",
+  "G4 零漂物理来源不可分离：无标准力源、无温度记录、无“卸载后拆下复位”对照 ⇒ 无法区分黏弹回复正/负分量、接触状态变化、温度漂移。补采：(a) 长纯空载 ≥10 min 看零漂时间常数；(b) 不同环境温度对照；(c) 卸载后拆装复位对照",
+  "G5 “读数跌破 0”不可观测：13 份录制逐通道 min(X)=0、无负值（X≤0 占 39%~59%）⇒ 无法分辨卸载谷值是传感器过冲还是读数落到底。补采：能记录负 ADC 的原始通道数据，或在采集侧关掉 ≥0 阈值",
+  "G6 零漂与累计量的关系未定：族内 n=9（实录 9 轮/4 份；恒载每份 1 轮、累计量恒 0）⇒ 相关性不显著。补采：同一份录制内 ≥5 轮（每轮保压 ≥60 s、卸载后 ≥30 s 空载）",
+  "G7 注入实验只覆盖 3 份录制 × 3 个 α × 2 个沿时长（18 行）且为合成：α<1 时把残留载荷按原受载占比加性抬高，与真实“退掉部分负载”的通道分布可能不同（真实部分卸载还伴随接触面积变化）",
+  "G8 时间分辨率：实录 40.2 ms/包（有效 ≈25 Hz）⇒ τ<0.2 s 的数只能读作“1 包内完成”，不能给更细的时间常数",
+  "G9 图件未做人工目视核对（本次执行的模型不支持读图）；4 张图仅经底层 CSV 数值校验，建议 MainAgent/用户目视确认一次",
+  "G10 实测零漂的“方向不一致”（ADC 域一轮卸载后下降、力域上升）说明不是单一机制，但本批数据无法分离"
+ ],
+ "blockers": [
+  "无阻塞。全部结论来自 13 份既有录制的离线复算，脚本自包含、可复跑；限制只体现在样本量与缺口（见 gaps），不影响已交付结论的成立范围"
+ ],
+ "artifacts": {
+  "report": "T7_卸载与部分卸载时漂规律/分析报告_T7A.md",
+  "events": [
+   "results/t7_unload_events.csv",
+   "results/t7_unload_shape.csv",
+   "results/t7_unload_recon.csv"
+  ],
+  "offset": [
+   "results/t7_frozen_offset.csv",
+   "results/t7_frozen_summary.csv",
+   "results/t7_arm_unload.csv"
+  ],
+  "zero": [
+   "results/t7_zero_drift.csv",
+   "results/t7_zero_rounds.csv",
+   "results/t7_zero_corr.csv",
+   "results/t7_zero_lines.csv"
+  ],
+  "round": [
+   "results/t7_round_bias.csv"
+  ],
+  "inject": [
+   "results/t7_inject_amp.csv"
+  ],
+  "figures": [
+   "figures/T7A_01_unload_profile.png",
+   "figures/T7A_02_residual_offset.png",
+   "figures/T7A_03_zero_drift.png",
+   "figures/T7A_04_event_traces.png"
+  ],
+  "logs": [
+   "results/_t7a_0_recon.log",
+   "results/_t7a_1_arms.log",
+   "results/_t7a_2_events.log",
+   "results/_t7a_3_offset.log",
+   "results/_t7a_4_zero.log",
+   "results/_t7a_5_round.log",
+   "results/_t7a_6_inject.log",
+   "results/_t7a_7_figs.log"
+  ]
+ },
+ "c5_response": {
+  "register": "00_共享/接口冲突登记.md C-5",
+  "finding": "加载/卸载时间常数明显不对称：同一录制内配对 n=13，t90(零基线加载 onset)/t90(卸载) 中位 18.25（p10~p90 8.0~47.6），t50 比值中位 0.50",
+  "on_T4A_E2": "E2（卸载 0.2 s 完成 100.3% ⇒ 差别在输入不在传感器）依赖正负对称；本任务发现明显不对称 ⇒ E2 只能证明“卸载这个输入”极快，不能反推“传感器在带载状态与零基线状态响应同样快”。建议 T8 将其评级从“独立机制证据”下调为“与机制一致的方向性事实”；T4-A 的结论方向不受影响（E1/E3/E4 不依赖对称性）",
+  "caveat": "不对称主要由输入造成（加载侧含人手施压，卸载侧是松手），与 E2 主张同向，不构成推翻；完整对称性专项（同 |J| 配平、含部分卸载）属 T7-B"
+ }
+}
+====================================================================================================
+FILE: T7_卸载与部分卸载时漂规律/results/conclusions_T7B.json
+{
+ "task": "T7",
+ "seat": "T7-B",
+ "date": "2026-09-19",
+ "scope": "T7-Q6 部分卸载时间特征与幅度-回复关系 / T7-Q7 部分卸载后基线正确性与反向事件误判 / T7-Q8 加载-卸载对称性检验（C-5 点名的裁决）/ T7-Q10 对算法的建议（含 7561 ADC 单帧跳变复核）",
+ "direction_convention": "全部时间指标建立在归一化进度 f(tau) = (Z(t0+tau) - pre)/D 上，D = post - pre 带符号（加载 D>0、卸载 D<0）；t_alpha = f 首次 >= alpha/100。加载与卸载同式，报告不使用 |J| 之外的符号约定。pre = median Z[t0-2,t0)，post = median Z[t0+4,t0+6]（对齐 00_共享/指标字典 §2.1；被后续事件污染时改用自适应窗 [t0+1, t_next-1]，见 t7b_partial_amp_response.csv:post_win）。",
+ "headline": [
+  {
+   "n": 1,
+   "claim": "真实减重事件只有 3 例（2 例约 15%、1 例 74.4%）；T4-A 冻结表里的 5 例 partial_unload 中有 2 例实测为全卸载，原因是 post 窗 [t0+4,t0+6] 被紧随其后的加载沿压到",
+   "value": "kind_eff: unload 16 / partial_unload 1 / decrement_small 2（n=19 减重事件）；SW1@129.37 实测减重 99.8% 电平、SW1@182.03 实测 99.8%（T4-A 原标 3.4% / 12.8%）",
+   "source": "results/t7b_partial_amp_response.csv:kind_eff,drop_frac_eff"
+  },
+  {
+   "n": 2,
+   "claim": "卸载幅度不决定回复速度：两个幅度几乎相同的减重事件（15.0% 与 14.7% 电平）t90 相差 17 倍，差异与输入释放速度代理同向",
+   "value": "SW1@202.65 t90=0.01 s（step_frame_frac 1.73）对 SW4@45.28 t90=0.17 s（step_frame_frac 0.48）；Spearman(drop_frac_eff, t90_ad) = -0.099（n=19，不显著）",
+   "source": "results/t7b_partial_amp_response.csv:t90_ad,step_frame_frac"
+  },
+  {
+   "n": 3,
+   "claim": "全卸载在 1~3 个包内完成：16 例中 8 例的 t90 不超过 1 个包周期、12 例不超过 3 个包周期，即卸载瞬态处于时间轴量化极限（最慢 6.9 包）",
+   "value": "全卸载 n=16：t90 中位 0.015 s（p10~p90 0.010~0.130），p90 0.130 s，最大 0.20 s；f(0.2 s) 中位 1.002，step_frame_frac 中位 0.728；包周期 实录 0.0401 s / 指尖 0.0188 s",
+   "source": "results/t7b_partial_amp_response.csv:t90_ad,f_02_ad,pkt_dt；results/t7b_recon.csv:pkt_dt"
+  },
+  {
+   "n": 4,
+   "claim": "【对称性裁决：反对】同录制、|J| 相差不超过 15% 的加载/卸载配对显示加载侧慢 24 倍（中位），15 对中 12 对的比值 >= 9.7（最大 68.5）；对对称性最有利的 ±1 包保守边界仍有 13.5 倍；该结论不随 t90 口径（改用 T4-A 列）而变。3 对例外（比值 0.80/1.62/2.00，2 对保守比值 <=1）全部只涉及本批最慢的两次减重（t90 0.20 s / 0.13 s，释放本身跨包）",
+   "value": "配对 n=15：t90_load/t90_unload 中位 24.0（p10~p90 1.8~57.0，排序 0.80/1.62/2.00/9.7/16/16/21/24/34/36/40/40/45/65/68.5）；最严子样本（n_load=24/n_unload=12）27.4，保守边界 13.5；f(0.2 s) 0.795 对 1.004（Mann-Whitney p=1.8e-07）；改用 T4-A 的 t90 列后比值 60.3",
+   "source": "results/t7b_asymmetry.csv:A3_matched,A8_tight,A8_tight_conservative,A5_packet_robust,A7_t4a_t90；results/t7b_asymmetry_pairs.csv:t90_ratio,t90_ratio_lo"
+  },
+  {
+   "n": 5,
+   "claim": "按等效输入斜坡 T_ramp 分层后，加载侧 t90 几乎不随 T_ramp 变化（三层 0.685/0.725/0.670 s），而 f(0.2 s) 强烈随 T_ramp 下降（0.829/0.608/0.431）——输入斜坡解释的是起步段，不是 t90；因此 24 倍的 t90 反差不是输入差异造成的假象",
+   "value": "n=22/8/10（T_ramp<=0.05 / 0.05~0.30 / >0.30 s）；卸载侧无 T_ramp（T4-A 未做反卷积），本报告用被动性上界 T_ramp_unload <= t90_out 代替",
+   "source": "results/t7b_asymmetry.csv:A2_byTramp"
+  },
+  {
+   "n": 6,
+   "claim": "反向事件误判率为 0：v6 对 19/19 个真实减重事件都在 ±1 s 内建立了 decrease 方向事件，没有把它们当作加压方向事件处理",
+   "value": "反向误判 0/19（±1 s 与 ±2 s 两个窗口均为 0%）；减重沿邻近的内部事件合计 decrease 19 次、restep 1 次",
+   "source": "results/t7b_reverse_misjudge.csv:reverse_rate_pct_pm1,reverse_rate_pct_pm2"
+  },
+  {
+   "n": 7,
+   "claim": "7561 ADC 单帧跳变案例在本批数据上可精确复现，且同一机制在现役原型的卸载沿仍然存在（v6 的最大值恰好出现在一次全卸载）",
+   "value": "CompV2 在 SW3 t=23.83 s：算法引入 +7561.2 ADC（同帧显示 +7563 / 原始 +2）；CompV1 SW1 +7842.7；现役 100 Hz：v5.1 1217~1824 ADC、v6 2682~5324 ADC；v6 的 5324 ADC 出现在 SW3@30.69 s 全卸载沿",
+   "source": "results/t7b_jump7561_check.csv:induced_at_max,jump_disp_at_max,jump_raw_at_max"
+  }
+ ],
+ "verdicts": [
+  {
+   "question": "T7-Q6",
+   "answer": "部分卸载（20%~80% 减重）在真实数据里只有 1 例（SW1@212.40，74.4% 电平）：t90 = 0.20 s（±1 包 0.16~0.24 s）、f(0.2 s) = 0.908、相对稳态回弹 -9.2%（即 0.2 s 时仍在往下走）。全卸载（n=16）t90 中位 0.015 s、f(0.2 s) = 1.002，一包内基本走完 —— 部分卸载确实比全卸载慢，但 n=1，只能作定性参考。另 2 例小减重（15.0% / 14.7%）行为相反：t90 = 0.01 s 且 f(0.2 s) = 1.308（先过冲下探再回抬 +30.8%·|J|）对 t90 = 0.17 s、无回弹。幅度-回复关系不成立：Spearman = -0.099（n=19，不显著），且同幅度差 17 倍；观测到的散布与输入释放速度代理（step_frame_frac 1.73 对 0.48）同向。",
+   "three_state": "有条件支持",
+   "n": "真实减重 19 例（16 全卸载 / 1 部分 20-80% / 2 小减重 <20%）；20-80% 档 n=1 标注仅作定性参考"
+  },
+  {
+   "question": "T7-Q7",
+   "answer": "基线正确性（部分卸载后算法认定的新电平与真实新电平之差）：稳态偏差按 |J| 归一，全卸载 0.000%（n=16，两臂中位）；20-80% 档 -2.25%（v5.1）/ -2.30%（v6）（n=1，-371/-378 ADC）；小减重档 -26.9%（v5.1，-999 ADC）/ -38.4%（v6，-1418 ADC）（n=2，仅作定性参考）—— 即减重幅度越小，算法越容易把剩下的真实负载继续当成蠕变扣掉（冻结偏差）。瞬态上两臂都会多扣：全卸载期间显示相对原始低 12.2%（v5.1）/12.3%（v6）·|J|（显示域中位），最大 29.1%（v6 显示域）；ADC 域中位 5.9%/10.0%、最大 10.2%/20.7%。反向事件误判：0/19 = 0%（±1 s 与 ±2 s）；v6 对每个真实减重都建 decrease 事件，不存在把卸载当加压方向处理的误判。",
+   "three_state": "支持（反向误判不存在）／有条件支持（冻结偏差，n 小）",
+   "n": "19 减重事件 × v5.1/v6 两臂；小减重档 n=2、20-80% 档 n=1"
+  },
+  {
+   "question": "T7-Q8",
+   "answer": "加载与卸载在同一 |J| 下不对称，对称性假设（线性粘弹性镜像）不成立。同录制同 |J|（<=15%）配对 n=15：t90_load/t90_unload 中位 24.0（p10~p90 1.8~57.0），其中 12 对比值 >= 9.7（最大 68.5）；严格配对（n=8）22.5，最严子样本 27.4；对对称性最有利的保守边界（加载 t90-1 包 对 卸载 t90+1 包）仍有 13.5 倍。包量化无关的完成度指标同样显著：f(0.2 s) 加载 0.795 对卸载 1.004（p=1.8e-07）。分层控制后结论不变：加载侧 t90 在 T_ramp 三层上为 0.685/0.725/0.670 s（几乎不变），说明 t90 反差不是输入不同造成的假象。例外（必须如实报出）：3 对比值 0.80 / 1.62 / 2.00，其中 2 对保守比值 <=1（SW1@185.97 对 SW1@129.37 = 0.50；SW4@88.00 对 SW4@113.80 = 1.00），三对全部只涉及本批最慢的两次减重（SW1@129.37 t90=0.20 s、SW4@113.80 t90=0.13 s，其释放本身跨包，step_frame_frac 0.51/0.68 对其余全卸载 0.73~1.02）。",
+   "three_state": "反驳（对称性假设不成立；3/15 配对属未分辨）",
+   "n": "配对 n=15（严格 8；15 对中 12 对支持不对称、3 对未分辨）；加载侧 n=40（严格 27/24）、卸载侧 n=16/12"
+  },
+  {
+   "question": "T7-Q10",
+   "answer": "4 条建议，全部带预期收益与风险；其中建议 1/2 直接针对卸载瞬间的冻结偏差与单帧跳变（7561 ADC 案例已在本批复现：CompV2@SW3 t=23.83 s = +7561.2 ADC；现役 v6 在卸载沿最大 +5324 ADC）。逐条见报告 §B.4 建议表。",
+   "three_state": "不适用",
+   "n": "n/a"
+  }
+ ],
+ "corrections": [
+  {
+   "against": "T4-A",
+   "was": "t4a_morphology.csv 把 SW1@129.37 与 SW1@182.03 标为 partial_unload（减重 3.4% / 12.8% 电平，jump -900 / -3593 ADC）",
+   "now": "两例实测为全卸载：用自适应 post 窗（避开紧随其后的加载沿）测得减重 99.8% 电平（26273 / 27956 ADC），post 落在 55~58 ADC 的本底上；与第一轮 b_unload_events.csv 的 full/drop_ev=26221、27932 一致",
+   "verdict": "修正"
+  },
+  {
+   "against": "T4-A",
+   "was": "以「同录制同带载状态下卸载 0.2 s 完成 100.3%」作为 E2 机制证据，论证依赖「正负方向响应对称（线性粘弹性）」",
+   "now": "对称性假设被反驳（配对比值中位 24、保守边界 13.5、f(0.2 s) 差异 p=1.8e-07）：卸载快 24 倍不能推出传感器的加载响应不慢。E2 作为机制证据不成立，应下调评级；T4-A 的结论方向不受影响（E1/E3/E4 不依赖对称性），本席位另给出支持输入侧解释的独立证据（T_ramp 分层下 f(0.2 s) 从 0.829 降到 0.431）",
+   "verdict": "推翻"
+  },
+  {
+   "against": "13-v6-assessment",
+   "was": "b_卸载时漂与可重复性分析.md：部分卸载（减重）只有 4 处、实录 12 处卸载沿（8 完整 + 4 部分）",
+   "now": "实测减重事件共 19 处（16 全卸载 + 1 部分卸载 + 2 小减重）；第一轮的 4 处里 2 处实为全卸载，真正低于 80% 的减重只有 3 处，其中仅 1 处在 20~80% 档。方向一致（都指出部分卸载样本极少），数字按实测修正",
+   "verdict": "修正"
+  },
+  {
+   "against": "13-v6-assessment",
+   "was": "b_unload_arm_summary.csv：实录 12 处卸载沿，v5.1 额外下冲中位 +27.8 ADC / 最大 +101.2（0.83% 原幅度）、v6 最大 +35.8（0.14%）",
+   "now": "方向一致但口径不同、不可直接比：第一轮量的是相对 raw 的下冲深度增量，本席位量的是算法引入的单帧跳变（induced = Δdisplay - Δraw），全卸载沿 v5.1 中位 6.0%·|J|、最大 17.4%·|J|（1824 ADC），v6 中位 7.4%、最大 20.5%（5324 ADC）。两者都指向补偿器在卸载沿多扣，量级按各自定义不可互换",
+   "verdict": "相同（口径不同）"
+  },
+  {
+   "against": "Document/ChangingLog 2026-10-26",
+   "was": "变化负载 v2 方案复算：数据B（中途切换负载）t=20.7 s 真实加重被当蠕变扣除，23.84 s 一帧清零，显示单帧跳 +7561 ADC（原始同帧 +19，约为负载电平 29%）",
+   "now": "在本批数据上精确复现：archive 原型 CompV2 于 SW3（即数据B）t=23.83 s 给出 induced=+7561.2 ADC（显示 +7563、原始 +2）；CompV1 于同录制 t=20.84 s 为 +2766.8；CompV1@SW1 +7842.7 @129.65 s、CompV2@SW4 +6862.0 @21.72 s。该案例本身是加压切换而非卸载，但机制（补偿场整体清零）在卸载沿同样成立：现役 v6 在 SW3 全卸载沿的单帧跳变 +5324 ADC",
+   "verdict": "相同（复现）"
+  },
+  {
+   "against": "00_共享/数据与脚本复用清单.md",
+   "was": "帧率约 100.5 Hz，时间戳按包重复（指尖约 16.7 ms/包、变载实录约 40 ms/包）",
+   "now": "实测包结构：实录 4.03 帧/包、包周期 0.0401 s（与 40 ms 一致）；指尖 1.89 帧/包、包周期 0.0188 s（16.7 ms 是包内相邻帧间距，不是包周期）。本报告 ±1 包敏感性按 0.0401 s（实录）/ 0.0188 s（指尖）取",
+   "verdict": "修正（细节）"
+  },
+  {
+   "against": "T7-A（并行席位）",
+   "was": "t7_frozen_summary.csv：卸载类型 A_monotone_zero / B_overshoot_zero / C_no_return_pos，残余 0~2.8%·原幅度（右拇指组 +0.43~+0.63）",
+   "now": "本席位独立复算一致：全卸载稳态偏差 0（n=16）、残余正偏移出现在显示域右拇指组。本报告不重复 P2/P3（回零/零点漂移）结论，只做部分卸载与对称性的增量",
+   "verdict": "相同"
+  }
+ ],
+ "gaps": [
+  "20%~80% 减重档真实样本 n=1（SW1@212.40），<20% 档 n=2，无法定出幅度到回复速度的关系；需补采同一负载上 3~4 级递减台阶 × 至少 3 次重复的受控录制",
+  "卸载瞬态 τ 落在 1 个包周期以内（12/16 全卸载 t90 <= 1 包）：需 200 Hz 以上或保留包内逐帧时间戳的录制，才能分辨卸载是否在单包内完成",
+  "卸载侧没有等效输入斜坡 T_ramp（T4-A 只对 onset/restep 做了反卷积）；本报告用被动性上界（输出 t90 是输入 t90 的上界）代替，属于有前提的替代口径",
+  "无标准力源与卸载后拆装对照，无法区分传感器黏弹残余与手指/夹具接触状态变化",
+  "显示域左拇指 3 例卸载后 post 恰为 0.000（疑似显示层 >=0 钳位），该 3 例的卸载形状可能被钳位改变；ADC 域无此问题（post 55~87 ADC）",
+  "算法侧只跑了 Python 原型（v5.1 / v6 / archive v2 的 CompV1 与 CompV2），未与 C++ 现行版逐帧对拍；v6 的 5324 ADC 跳变在 C++ 侧是否同样出现未验证",
+  "注入部分卸载采用线性叠加（把真实全卸载的 |J| 按比例加回），只能用于算法耦合（§B），不能用于物理规律（§A）"
+ ],
+ "blockers": []
+}

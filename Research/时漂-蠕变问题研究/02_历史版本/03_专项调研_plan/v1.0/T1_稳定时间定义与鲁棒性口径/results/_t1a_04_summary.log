@@ -1,0 +1,173 @@
+==== T1-A 04_summary ==== 2026-09-19 01:02:24
+cmd : C:\Python314\python.exe scripts/t1a_04_summary.py
+ROOT: D:\workshop\Processing\multi-device-cascade-host-cpp
+脚本目录: D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T1_稳定时间定义与鲁棒性口径\scripts
+指标表 240 行；臂 raw, v5.1, v6, v6.1
+
+== 冻结主口径（ch5）分族中位（可测事件）==
+arm                      raw   v5.1     v6   v6.1
+group_type group                                 
+分工况        clean 加载事件   7.67   3.82   4.00   3.81
+           onset        9.42   3.36   3.35   3.22
+           onset·恒载9组   9.42   2.89   1.80   1.16
+           restep      75.18  75.18  75.18  75.18
+           unload       0.03   0.12   0.09   0.12
+分族         右拇指         13.24   3.82   5.41   3.81
+           四指           5.92   2.43   0.48   0.43
+           实录            NaN   3.95  10.96  11.93
+           左拇指          0.95   0.33   0.31   0.28
+
+== 冻结主口径（ch5）删失数（n=60 中「没停下」的）==
+ arm  n_meas  n_censored  med   p90  worst
+ raw      20          40 2.86 26.35 136.72
+v5.1      23          37 1.65 12.66 136.72
+  v6      23          37 1.15 13.54 136.72
+v6.1      23          37 1.15 13.54 136.72
+
+== 「≤2 s」达标裁决（冻结主口径 ch5；分母=可测事件数）==
+ arm         group  n_events  n_measurable  n_censored  n_pass_2s  n_fail_2s  rate_2s  worst_s
+ raw          全部事件        60            20          40          9         11    0.450   136.72
+ raw         onset        22             9          13          1          8    0.111   107.39
+ raw    onset·恒载9组         9             9           0          1          8    0.111   107.39
+ raw        restep        19             2          17          0          2    0.000   136.72
+ raw unload（含部分卸载）        19             9          10          8          1    0.889     2.43
+ raw    实录族（ADC 域）        39             0          39          0          0      NaN      NaN
+ raw      恒载族（显示域）        21            20           1          9         11    0.450   136.72
+v5.1          全部事件        60            23          37         12         11    0.522   136.72
+v5.1         onset        22            12          10          4          8    0.333    13.16
+v5.1    onset·恒载9组         9             9           0          4          5    0.444    13.16
+v5.1        restep        19             2          17          0          2    0.000   136.72
+v5.1 unload（含部分卸载）        19             9          10          8          1    0.889     2.43
+v5.1    实录族（ADC 域）        39             3          36          0          3    0.000    10.67
+v5.1      恒载族（显示域）        21            20           1         12          8    0.600   136.72
+  v6          全部事件        60            23          37         14          9    0.609   136.72
+  v6         onset        22            12          10          5          7    0.417    27.62
+  v6    onset·恒载9组         9             9           0          5          4    0.556    13.16
+  v6        restep        19             2          17          0          2    0.000   136.72
+  v6 unload（含部分卸载）        19             9          10          9          0    1.000     1.15
+  v6    实录族（ADC 域）        39             3          36          0          3    0.000    27.62
+  v6      恒载族（显示域）        21            20           1         14          6    0.700   136.72
+v6.1          全部事件        60            23          37         13         10    0.565   136.72
+v6.1         onset        22            12          10          5          7    0.417    27.62
+v6.1    onset·恒载9组         9             9           0          5          4    0.556    13.16
+v6.1        restep        19             2          17          0          2    0.000   136.72
+v6.1 unload（含部分卸载）        19             9          10          8          1    0.889     2.43
+v6.1    实录族（ADC 域）        39             3          36          0          3    0.000    27.62
+v6.1      恒载族（显示域）        21            20           1         13          7    0.650   136.72
+
+== 冻结口径超标清单（T_stable_ch5 > 2.0 s 且可测）：41 行 ==
+arm   family  kind3 
+raw   右拇指     onset     3
+              restep    1
+      四指      onset     3
+              restep    1
+              unload    1
+      左拇指     onset     2
+v5.1  右拇指     onset     3
+              restep    1
+      四指      onset     2
+              restep    1
+              unload    1
+      实录      onset     3
+v6    右拇指     onset     3
+              restep    1
+      四指      onset     1
+              restep    1
+      实录      onset     3
+v6.1  右拇指     onset     3
+              restep    1
+      四指      onset     1
+              restep    1
+              unload    1
+      实录      onset     3
+       ds ev_id   kind  arm   t_on  T_stable_ch5  excess_s
+ 四指指尖/数据1  E016 restep  raw  12.19        136.72    134.72
+ 四指指尖/数据1  E016 restep v6.1  12.19        136.72    134.72
+ 四指指尖/数据1  E016 restep   v6  12.19        136.72    134.72
+ 四指指尖/数据1  E016 restep v5.1  12.19        136.72    134.72
+右拇指指尖/数据1  E001  onset  raw   8.27        107.39    105.39
+切换负载-快相无责  E022  onset   v6  10.84         27.62     25.62
+切换负载-快相无责  E022  onset v6.1  10.84         27.62     25.62
+右拇指指尖/数据3  E007  onset  raw  10.59         17.35     15.35
+ 四指指尖/数据1  E015  onset  raw  10.94         16.44     14.44
+右拇指指尖/数据2  E005 restep v6.1 147.11         13.64     11.64
+右拇指指尖/数据2  E005 restep v5.1 147.11         13.64     11.64
+右拇指指尖/数据2  E005 restep   v6 147.11         13.64     11.64
+右拇指指尖/数据2  E005 restep  raw 147.11         13.64     11.64
+右拇指指尖/数据2  E004  onset  raw  12.32         13.24     11.24
+右拇指指尖/数据2  E004  onset v5.1  12.32         13.16     11.16
+右拇指指尖/数据2  E004  onset   v6  12.32         13.16     11.16
+右拇指指尖/数据2  E004  onset v6.1  12.32         13.16     11.16
+切换负载-快相无责  E028  onset v6.1 133.83         11.93      9.93
+切换负载-快相无责  E028  onset   v6 133.83         10.96      8.96
+切换负载-快相无责  E028  onset v5.1 133.83         10.67      8.67
+ 四指指尖/数据2  E018  onset  raw  11.03          9.42      7.42
+右拇指指尖/数据3  E007  onset   v6  10.59          6.66      4.66
+ 四指指尖/数据3  E020  onset  raw  11.00          5.92      3.92
+右拇指指尖/数据1  E001  onset v6.1   8.27          5.47      3.47
+右拇指指尖/数据1  E001  onset v5.1   8.27          5.45      3.45
+右拇指指尖/数据1  E001  onset   v6   8.27          5.41      3.41
+切换负载-快相无责  E023  onset   v6  28.63          4.00      2.00
+切换负载-快相无责  E023  onset v6.1  28.63          3.98      1.98
+切换负载-快相无责  E023  onset v5.1  28.63          3.95      1.95
+ 四指指尖/数据2  E018  onset v5.1  11.03          3.92      1.92
+右拇指指尖/数据3  E007  onset v5.1  10.59          3.82      1.82
+右拇指指尖/数据3  E007  onset v6.1  10.59          3.81      1.81
+左拇指指尖/数据3  E013  onset  raw  10.87          3.48      1.48
+左拇指指尖/数据1  E009  onset  raw  11.69          3.28      1.28
+ 四指指尖/数据3  E020  onset v5.1  11.00          2.89      0.89
+ 四指指尖/数据1  E015  onset   v6  10.94          2.69      0.69
+ 四指指尖/数据1  E015  onset v6.1  10.94          2.62      0.62
+ 四指指尖/数据3  E021 unload v6.1 140.40          2.43      0.43
+ 四指指尖/数据3  E021 unload v5.1 140.40          2.43      0.43
+ 四指指尖/数据3  E021 unload  raw 140.40          2.43      0.43
+
+== 口径对照：可测样本上的中位/最差（各臂） ==
+  raw   可测(ch5) 20 | T_stable_ch5:2.86 T_stable_tot5:7.23 T_stable_chcreep:2.84 T_settle_ch2:1.25 T_settle_ch5:1.21 T_band_ch5:0.28
+  v5.1  可测(ch5) 23 | T_stable_ch5:1.65 T_stable_tot5:2.58 T_stable_chcreep:1.33 T_settle_ch2:1.25 T_settle_ch5:1.05 T_band_ch5:0.90
+  v6    可测(ch5) 23 | T_stable_ch5:1.15 T_stable_tot5:0.54 T_stable_chcreep:0.49 T_settle_ch2:1.25 T_settle_ch5:1.21 T_band_ch5:0.76
+  v6.1  可测(ch5) 23 | T_stable_ch5:1.15 T_stable_tot5:0.49 T_stable_chcreep:0.46 T_settle_ch2:2.12 T_settle_ch5:1.21 T_band_ch5:0.41
+
+== 第一轮公开值对账（裁决用） ==
+                          value_name  published_s  recomputed_round1caliber_s  delta_vs_round1  recomputed_frozen_s  delta_frozen_vs_pub
+        T_stable v6 主通道+5s（恒载 9 组中位）         1.72                        1.72             0.00                 1.80                 0.08
+        T_stable v6 总通道+5s（恒载 9 组中位）         0.46                        0.46             0.00                 0.55                 0.09
+         T_stable v6 含蠕变口径（恒载 9 组中位）         0.41                        0.40            -0.01                 0.50                 0.09
+   T_stable v6 主通道+5s（早期旧值，切片下标 bug）         2.72                        2.72            -0.00                  NaN                  NaN
+T_stable raw / v5.1 主通道+5s（恒载 9 组中位）         9.33                        9.34             0.01                 9.42                 0.09
+       T_stable raw 总通道+5s（恒载 9 组中位）        17.98                       16.21            -1.77                16.29                -1.69
+      T_stable v6 总通道+回溯真沿（恒载 9 组中位）         0.55                        0.55             0.00                 0.55                -0.00
+
+== D1 vs D2(2%/5%) vs D3(带口径) 配对比较（两口径都可测的同一批事件） ==
+ arm                             pair  n_paired  med_D1  med_other  med_delta  max_delta  spearman  n_D1_gt_other  n_cens_D1  n_cens_other
+ raw  T_stable_ch5 vs T_settle(2%) ch        11   0.120      0.290      0.000     107.74     0.890              0         40            47
+ raw  T_stable_ch5 vs T_settle(5%) ch        13   0.190      1.210      1.190     107.67     0.917              1         40            45
+ raw T_stable_ch5 vs T_settle(5%) tot        11   0.120      0.030      0.010      58.32     0.800              3         40            44
+ raw    T_stable_ch5 vs T_band(5%) ch        12   0.155      0.330      0.000       9.55     0.628              4         40            47
+v5.1  T_stable_ch5 vs T_settle(2%) ch        11   0.530      0.900      0.000     115.64     0.936              0         37            47
+v5.1  T_stable_ch5 vs T_settle(5%) ch        15   0.900      0.900      0.000     121.27     0.961              3         37            42
+v5.1 T_stable_ch5 vs T_settle(5%) tot        14   0.910      0.110      0.000      61.27     0.705              5         37            43
+v5.1    T_stable_ch5 vs T_band(5%) ch        18   1.035      1.055      0.000       9.55     0.928              6         37            41
+  v6  T_stable_ch5 vs T_settle(2%) ch        11   0.120      0.340      0.000     117.76     0.798              0         37            47
+  v6  T_stable_ch5 vs T_settle(5%) ch        14   0.330      1.110      0.000     120.96     0.779              2         37            43
+  v6 T_stable_ch5 vs T_settle(5%) tot        13   0.320      0.100      0.000      61.31     0.827              5         37            44
+  v6    T_stable_ch5 vs T_band(5%) ch        16   0.410      0.925      0.000      68.71     0.681              4         37            43
+v6.1  T_stable_ch5 vs T_settle(2%) ch        11   0.320      0.900      0.100     119.13     0.833              0         37            46
+v6.1  T_stable_ch5 vs T_settle(5%) ch        14   0.430      0.890      0.030     121.28     0.867              2         37            43
+v6.1 T_stable_ch5 vs T_settle(5%) tot        12   0.375      0.110      0.005      61.37     0.705              4         37            45
+v6.1    T_stable_ch5 vs T_band(5%) ch        14   0.430      0.540      0.000       9.55     0.806              4         37            45
+
+== 用不同口径判『≤2 s』的达标率差异（分母=该口径可测事件数，全部 60 事件） ==
+  raw    D1 ch5 9/20@45%  D2 2% 7/13@54%  D2 5% 8/15@53%  D3 band5 11/13@85%
+  v5.1   D1 ch5 12/23@52%  D2 2% 7/13@54%  D2 5% 10/18@56%  D3 band5 12/19@63%
+  v6     D1 ch5 14/23@61%  D2 2% 7/13@54%  D2 5% 10/17@59%  D3 band5 12/17@71%
+  v6.1   D1 ch5 13/23@57%  D2 2% 7/14@50%  D2 5% 10/17@59%  D3 band5 11/15@73%
+
+可用对照：13-v6-assessment/settle_arms.csv 存在=True
+-> D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T1_稳定时间定义与鲁棒性口径\results\t1a_settle_summary.csv
+-> D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T1_稳定时间定义与鲁棒性口径\results\t1a_target_verdict.csv
+-> D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T1_稳定时间定义与鲁棒性口径\results\t1a_target_exceed.csv
+-> D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T1_稳定时间定义与鲁棒性口径\results\t1a_definition_compare.csv
+-> D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T1_稳定时间定义与鲁棒性口径\results\t1a_round1_audit.csv
+-> D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T1_稳定时间定义与鲁棒性口径\results\t1a_d1_vs_d2.csv
+done

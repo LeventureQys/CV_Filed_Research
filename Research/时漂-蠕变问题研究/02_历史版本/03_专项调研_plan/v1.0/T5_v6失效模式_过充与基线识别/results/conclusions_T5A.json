@@ -1,0 +1,239 @@
+{
+  "task": "T5",
+  "seat": "T5-A",
+  "date": "2026-09-19",
+  "scope": "用户诉求⑤前半段：识别到基线之后的快速爬升对抗 ⇒ 向上过充/向下过冲 的复现、归因、滤波可解性、非滤波手段；以及接口冲突 C-4（统一 κ 扫描裁决）。T5-B（强扰动下的基线识别）不在本席位范围。",
+  "event_set": "T4-A 冻结表 results/t4a_morphology.csv（60 事件：onset 22 / restep 19 / partial_unload 5 / unload 14），只读引用",
+  "grid": "timestamp 列 / 100 Hz 网格 / 无 τ=2 s 平滑 / 自动定位 ##Data / 脚本 __file__ 锚点",
+  "headline": [
+    {
+      "n": 1,
+      "claim": "用户现象复现：向上过充与向下过冲是两个不同缺陷，不是同一根因的两个方向",
+      "value": "v6(κ=1.30/1.12) 在 41 个加载事件上：onset(22) 的 5 s 窗瞬态过充中位 +4.08%·J（p10~p90 −10.59~+10.34，max +12.85%），13/22 向上>2%，中位上冲 147.5 ADC、最坏 4034.8 ADC；restep(11) 反向：OS5 中位 −18.59%·J，9/11 向下>2%，中位下冲 2865.2 ADC；unload(14) 几乎无过冲（OS5 max +4.84%）",
+      "source": "results/t5a_overcharge_summary.csv 的 OS5_med / OS_med_adc / n_up_gt_2pct / n_dn_gt_2pct（行 onset / restep / unload）"
+    },
+    {
+      "n": 2,
+      "claim": "向上过充的根因逐帧锁死：形状反演高估 → 滑行器钉住显示 → 停滞检测一步拉回",
+      "value": "切换负载-快相无责 @185.98 s（J=25195.2）：τ=0.20 s Â=27943（高估 +10.91%）；滑行器在 τ=0.80 s 把显示钉到 27997（比原始高 +3731 ADC）；停滞首帧 τ=2.32 s、Â←24759，显示在 0.28 s 内掉回原始（Δ=−3097 ADC）。群体 Â/|J|−1 中位 +3.04%、p90 +6.62%、max +11.33%，7/22 个 onset >5%",
+      "source": "results/t5a_internal_trace.csv（帧 18618~18858）；results/t5a_attribution.csv 的 H1_ahat_over_J_pct"
+    },
+    {
+      "n": 3,
+      "claim": "向下过冲的根因是复合事件里继承的旧修正量没被清掉，再被 pin 锚定永久保留",
+      "value": "切换负载 @71.67 s（J=3909.6）：decrease epoch(base=13416) 把 c0=y0sum−base=−2258 继承下来，后续 restep/restep_reload 继续继承 ⇒ 显示整段比原始低 1000~3200 ADC；handoff @80.59 的 A_new=15098 把它钉住 ⇒ 台阶捕获比 G=0.473、err_1s=−286.7%。群体 restep(11) OS5 中位 −18.59%、Â/|J|−1 中位 −9.84%（低估方向）",
+      "source": "results/t5a_internal_trace.csv（帧 7187~8167）；results/t5a_event_state_events.csv（SW1 epoch@71.57）"
+    },
+    {
+      "n": 4,
+      "claim": "τ_ho=5 s 交接跳变与慢相提前起扣被证伪（归因链只剩两环）",
+      "value": "交接帧 |ΔΣY| 中位仅 2.1 ADC(onset) / 135.4 ADC(restep)；交接后 5 s 内 g 斜率中位 0.00244 / 0.00409 每 s，无跳变",
+      "source": "results/t5a_attribution.csv 的 H3_handoff_jump_abs / H4_g_slope_per_s"
+    },
+    {
+      "n": 5,
+      "claim": "v6.1 的 ROM_SCALE=1.06 压掉约一半瞬态过充但没清零；用户看到的更可能是 v6（附带可证伪条件）",
+      "value": "同一批事件：OS5 中位 +0.02%→−2.51%、OS5 max +120.81%→+74.83%、OS>5% 事件 12→7、T_stable(30 s 窗) 3.660→0.520 s；代价 err1|中位| 31.30%→35.90%、G 0.942→0.920。反证：v5.1 的 OS5 max 只有 +54.39%（比 v6 小），若现场跑的是 v5.1 则归因不适用",
+      "source": "results/t5a_v6_vs_v61_summary.csv（行 v6 / v61_s106 / v5.1）"
+    },
+    {
+      "n": 6,
+      "claim": "滤波只能压约三成过充，且内部状态层滤波不可用",
+      "value": "显示层因果档：EMA τ=0.1 s → 过充中位 11.65→8.54%、T_stable 3.66→0.67 s、err1 34.1→10.8%；因果中值 w=0.1 s → err1 7.51% 但 G_min −0.14→−4.99；τ=3 s → 过充 5.57% 但 T_stable 10.71 s、err1 74.8%；内部状态层（进补偿器前）全部更差：G 掉到 0.438、过充中位翻成 −47%、T_stable 出现 NaN",
+      "source": "results/t5a_filter_pareto.csv（layer=display / internal_input）"
+    },
+    {
+      "n": 7,
+      "claim": "非滤波手段：过充硬限幅收益最大且不磨台阶；速率上限与撤销窗基本无效",
+      "value": "clip 0.02：MD 中位 2396.7→555.4 ADC(−77%)、T_med 3.66→2.39 s、G_med 略升 0.942→0.952、G_min 与基线相同；HO_MIN 5.0→3.5 s：T_med 3.66→1.96 s、err1 34.1→31.3%；RATE_MAX 0.4/0.6/1.2 与 REVOKE 0.20/0.30/0.60 对 OS5 中位与 max 无实质影响",
+      "source": "results/t5a_nonfilter_options.csv"
+    },
+    {
+      "n": 8,
+      "claim": "【C-4】κ 是单侧上限（cap），其收益**完全取决于上限是否被触发**；推荐 κ_onset = 1.05 / κ_restep = 1.12",
+      "value": "原型里 κ 只在 `_inv_est` 结尾一处生效：`Â = min(A_raw, κ·inc)` ⇒ 只有 `A_raw > κ·inc` 时 κ 才起作用。实测（探针补丁，零差 V6/V7/V8）：onset 的逐事件 `r=A_raw/inc` 最大值落在 1.207~2.925（中位 1.2466、p10 1.2310）⇒ **截断时长占比** κ=1.30 → 0.0%、1.20 → 0.4%、1.15 → 1.9%、**1.10 → 61.5%**、**1.05 → 86.7%**；`Â/J−1` 中位在 κ ≥ 1.15 时一个数字都不变（+3.514%）。**触发区间内**第一轮同向改善复现：κ 1.30 → 1.05 时过充中位 +0.02%→−4.23%、过充 max +120.81%→+65.21%、T_stable(5 s 窗) 中位 3.660→0.790 s（p90 23.440→1.354 s，**只有 1.05 的 p90 落在 1~2 s 带内**）、err1 −21.69%→−26.18%、MD 中位 2396.7→1306.2 ADC（−45%）；代价 G 0.952→0.918。留一 13 折：最坏折 OS5 max 120.81%→65.21%、最坏折 T_stable(10 s) 78.500→1.960 s（40 倍）",
+      "source": "results/t5a_kappa_cap_summary.csv；t5a_kappa_trigger.csv；t5a_ahat_bias_by_kappa.csv；t5a_kappa_four_metrics.csv；t5a_kappa_loo.csv；t5a_patch_ab_zero.csv（V6/V7/V8）"
+    }
+  ],
+  "verdicts": [
+    {
+      "question": "T5A-Q1",
+      "answer": "复现成功。事件清单 results/t5a_overcharge_events.csv（60 事件 × 120 列，四条口径：OS_pct_5s 主口径 / OS_pct_30s 字典窗长 / OS_pct_task_literal 字面口径 / dev_pre_pct 卸载类专用）。主口径（J_frac≥0.10，n=33）：onset 22 个 OS5 中位 +4.08%、max +12.85%，13 个向上>2%、上冲中位 147.5 ADC、最坏 4034.8 ADC；restep 11 个 OS5 中位 −18.59%，9 个向下>2%、下冲中位 2865.2 ADC；unload 14 个 OS5 max +4.84%。±1 包（40 ms）敏感性：OS% 中位变化 ≤0.6 pt、T_stable ≤0.08 s，但 err_1s 从 −3.6% 变到 −69.4%。任务书字面 Z_final 规则在恒载 9 组上落在卸载后（OS%≈+100% 伪影，实测 RT1@8.27 s=+100.8、F41@10.94 s=+101.1），已改用 08-v6.1 的 P 口径（Z_final = 原始 t_on+4.6~5.4 s 中位）并逐事件保留字面口径结果。",
+      "three_state": "支持"
+    },
+    {
+      "question": "T5A-Q2",
+      "answer": "归因到具体内部动作，两条逐帧证据：① 向上过充 = 形状反演高估（onset 群体 Â/|J|−1 中位 +3.04%、p90 +6.62%、max +11.33%，7/22 >5%；@185.98 s 实例 Â=27943 vs J=25195 = +10.91%）→ 滑行器在 τ=0.80 s 把显示钉到 27997（+3731 ADC）→ 停滞检测 τ=2.32 s 把 Â 一步改写为实测增量 24759，显示 0.28 s 内掉回原始（尖峰）。② 向下过冲 = 复合事件里 decrease epoch 的 c0=y0sum−base 被后续事件继承（@71.67 s 的 c0=−2258）→ 交接时 A_new=y0+share·Â 把负偏置永久钉住（G=0.473、下冲 3190 ADC）。速率限幅只在少数事件短暂贴顶（H2_rate_ratio_med 中位 0.02~0.13）；τ_ho 交接跳变（绝对量中位 2.1 ADC）与慢相提前起扣（g 斜率中位 0.0024/s）被证伪。逐帧内部量落盘 226684 行 × 26 列（results/t5a_internal_trace.csv）。",
+      "three_state": "支持"
+    },
+    {
+      "question": "T5A-Q3",
+      "answer": "ROM_SCALE=1.06 消掉约一半瞬态过充、剩下的一半主要是事件集里本来就差的事件。同一批 41 加载事件：OS5 中位 +0.02%→−2.51%、OS5 max +120.81%→+74.83%(−38%)、OS>5% 12→7、OS>10% 7→5、T_stable(30 s 窗) 3.660→0.520 s、MD 中位 2396.7→1799.8 ADC；代价 err1|中位| 31.30→35.90%、G 0.942→0.920。λ 扫描 1.00→1.12 显示过充 max 单调降（120.81→74.83→62.5→48.34%）而 err1 与 G 单调变差 ⇒ 不存在两边都好的点。关 F1 后与 v6 逐事件 33/60 相同 ⇒ 尖峰由 F1 治。用户看到的是哪一版：判定为 v6（更可能），依据三条（症状方向；v6.1 仍是原型未落地，08-v6.1 §6.6 明写 C++ 一行未动；只有 ADC 域量级能肉眼看见 4% 偏差）；附带可证伪条件：v5.1 的 OS5 max 仅 +54.39%，若现场是 v5.1 则归因不适用。",
+      "three_state": "有条件支持"
+    },
+    {
+      "question": "T5A-Q4",
+      "answer": "滤波能压约三成，救不了那 10% 的系统性过冲。显示层 Pareto 前沿 7 档（5 档因果：iir_ema_tau0.1 / iir_ema_tau0.3 / med_w0.1 / med_w0.05 / clip_0.02；2 档非因果：medC_w0.05 / medC_w0.1）。最优因果档：EMA τ=0.1 s（过充 11.65→8.54%、T_stable 3.66→0.67 s、err1 34.1→10.8%、G_med 0.991 但 G_min −7.37）与因果中值 w=0.1 s（过充 11.53%、T_stable 0.58 s、err1 7.51%、G_min −4.99）。τ≥1 s 进入时间换幅度：τ=3 s 过充 5.57% 但 T_stable 10.71 s、err1 74.8%、G 0.800。非因果对照需延迟：medC_w0.1 需 5 帧、medC_w0.5 需 25 帧、savgol_w21 需 10 帧。已扩展第一轮（保留其全部 7 档 EMA 且逐档对表 results/t5a_filter_vs_firstround.csv）。",
+      "three_state": "有条件支持"
+    },
+    {
+      "question": "T5A-Q5",
+      "answer": "必须做在显示层，不能做在内部状态层：内部状态层（进补偿器前）滤波会改变检测器判据与滑行器起点，实测 iir_ema_tau2 的 G 掉到 0.438、过充中位翻成 −47%（严重欠报）、T_stable 出现 NaN ⇒ 否决。显示层滤波会把台阶边沿磨掉，代价可量化为 G_min：基线 −0.141 → EMA τ=0.1 s −7.37 / 因果中值 w=0.1 s −4.99 / w=0.5 s −21.92 / 限速 0.05 −20.99；而 G_med 基本不掉（0.94→0.99）——只看 G_med 会漏掉这个代价。唯一不磨台阶的滤波是过充硬限幅 clip_raw（G_med 略升至 0.952、G_min 与基线相同 −0.141），因为它只截上限、不动原始以下的部分；代价是对欠冲完全无效。",
+      "three_state": "支持"
+    },
+    {
+      "question": "T5A-Q6",
+      "answer": "四类手段（16 臂）实测：① 滑行器速率上限 0.4/0.6/1.2 —— 基本无效（OS5 中位 11.654→11.654/12.251%、max 全部 1687.5%、T 不变）；② 交接时刻 HO_MIN 5.0→3.5 s —— T_stable(5 s) 中位 3.66→1.96 s、err1 34.14→31.25%、G 0.942→0.933；5.0→2.5 s 时 T 中位 0.550 s 但需真机复核（07-v6 记过早交接 3~9 s 暂态，本任务聚合口径未见）；③ 过充硬限幅 clip 0.02 —— MD 中位 2396.7→555.4 ADC(−77%)、T_med 3.66→2.39 s、G 略升，收益最大且不磨台阶，推荐上线；④ 反向撤销窗 REVOKE 0.20/0.30 —— err1 34.14→31.30%、MD →2156.6 ADC(−10%)，但该常量同时管正/反向，单独改会削弱拍击抑制，不建议。推荐组合（按性价比）：ROM_SCALE(F1) > 显示层 EMA τ=0.3 s + clip 0.02 > HO_MIN 3.5 s；不要动 RATE_MAX 与 REVOKE。注意 F1 与 EMA 有重叠（F1 已把 onset 过冲中位压到 −2.5%），建议先上 F1+clip，再真机 A/B 决定是否加 EMA。",
+      "three_state": "支持"
+    },
+    {
+      "question": "T5A-Q7",
+      "answer": "不同源。onset（22）向上 13/22、向下 4/22、中位上冲 147.5 ADC，主因形状反演高估（Â/|J|−1 中位 +3.04%）；restep（11）向上 1/11、向下 9/11、中位下冲 2865.2 ADC，主因继承旧修正量 c0 再被 pin 钉住（同一量中位 −9.84%，低估方向）；unload（14）向下 0/14、几乎无过冲；partial_unload（5）全部标 norm_unstable。三条判别证据：① 同一形状库在两个方向给出相反偏差（+3.04% vs −9.84%），过冲方向与各自偏差方向一致；② 单旋钮 ROM_SCALE 1.00→1.06 使 onset 过冲 max −38%，restep 下冲几乎不动（US5_max 两臂都是 1230.09%）；③ 触发条件不同（onset 需快速到位后保压、restep 需复合事件）。",
+      "three_state": "支持"
+    },
+    {
+      "question": "C-4",
+      "answer": "【κ 裁决】κ_onset 取 1.05、κ_restep 保持 1.12。**κ 的真实语义是单侧上限**：原型里只在 `_inv_est` 结尾一处 `Â = min(A_raw, κ·inc)` 生效，**只有 `A_raw > κ·inc` 时 κ 才起作用**。因此结论形式是「κ 的收益取决于是否触发上限」：① **触发阈值**：onset 逐事件 `r_max = max_τ(A_raw/inc)` 落在 1.207~2.925（中位 1.2466、p10 1.2310）⇒ **κ ≥ 1.28 时对 22 个 onset 一个都不触发**；**截断时长占比** κ=1.30 → 0.0%、1.20 → 0.4%、1.15 → 1.9%、1.10 → 61.5%、1.05 → 86.7%（「触发率」口径在 κ≤1.20 时就是 100%，但截断时长才是收益来源，两个口径必须一起看）。② **触发区间内第一轮三项同向改善可复现**：κ 1.30 → 1.05 使过充中位 +0.02%→−4.23%、过充 max +120.81%→+65.21%、T_stable(5 s 窗) 中位 3.660→0.790 s（p90 23.440→1.354 s）、err1 中位 −21.69%→−26.18%、MD 中位 2396.7→1306.2 ADC、G 0.952→0.918（六项里五项同向变好）。③ **T4-B 的零差被逐字解释**：它的两臂 κ_onset **都是 1.30**（截断时长 0.0%，`Â` 完全不动），而它变的 κ_restep 实测**不改变 OS/T_stable/err1**（39/39 事件逐事件相同，dOS_absmax ≤ 0.055 pt）⇒ 「κ 无收益」只在「上限未触发」的区间成立，不能外推。④ **推荐工作点 = 1.05 / 1.12**，依据：只有 1.05 同时满足 1~2 s 判据（T_stable(5 s) 中位 0.790 s 且 p90 1.354 s 在带内；1.10 的 p90 8.480 s 出带、1.15+ 的中位 3.660 s 出带）、err1 与 MD 均为全档最好、留一最坏折 OS5 max 65.21%（vs 现状 120.81%）、最坏折 T_stable(10 s) 1.960 s（vs 现状 78.500 s，改善 40 倍）。⑤ **代价与取舍**：1.05 档 `Â/J−1` 中位 −3.61%（欠报）、G 降 3.4 pt；若现场最看重「读数不偏低」则取 1.10（`Â/J−1` 中位 +0.56%，中性点，但 T_stable p90 8.48 s 出带）——**这一取舍建议由用户定，本报告推荐 1.05**（用户把 1~2 s 列为硬约束，且欠报会被慢相自然补上）。⑥ **与 ROM_SCALE 二选一**：两者是同类旋钮（1.05 档 −3.61% vs ROM_SCALE=1.06 的 −2.6%），不要同时上。⑦ 上线成本：一行常量。⑧ **限制**：κ=1.05 依赖本批 `r_max` 分布，换夹具/加载方式后必须在现场重测后再定 κ（缺口 G7）。",
+      "three_state": "支持"
+    }
+  ],
+  "corrections": [
+    {
+      "against": "13-v6-assessment",
+      "was": "§4/§9.4「向上过充与向下过充是同一根因的两个方向」",
+      "now": "分成两条独立通路：onset 向上过充 = 形状反演高估（Â/|J|−1 中位 +3.04%，ROM_SCALE 可治：max −38%）；restep 向下过冲 = decrease epoch 的 c0=y0sum−base 被后续事件继承再被 pin 钉住（G=0.473、下冲 3190 ADC；ROM_SCALE 对它几乎无效）。逐帧证据见 t5a_internal_trace.csv 帧 18618~18858 与 7187~8167",
+      "verdict": "修正"
+    },
+    {
+      "against": "13-v6-assessment",
+      "was": "§5.2「κ 1.30→1.10：过充中位 7.06%→3.33%、T_stable 1.72→0.43 s、1 s 误差 +1.97%→+0.88%，三项同向变好」",
+      "now": "方向与量级复现（统一 κ 1.30→1.10：OS5 中位 −2.01 pt、OS5 max −19.73 pt、T_stable(5 s 窗) 中位 −2.84 s、err1 略好）；但绝对值依赖样本：显示域单独看 ΔOS 中位只有 −0.69 pt。第一轮样本是恒载 9 组每份 1 个小台阶，本任务是 39 个加载事件（含 restep）。引用必须带口径与样本",
+      "verdict": "有条件相同"
+    },
+    {
+      "against": "T4-B",
+      "was": "§3.3「κ 项本身就是零收益：M0_now(κ=1.30) 与 M2_correctA(κ=1.12) 在 35 个事件上输出完全相同」",
+      "now": "**它的观察对，但外推错**。κ 是单侧上限 `Â = min(A_raw, κ·inc)`：T4-B 两臂的 κ_onset **都是 1.30**，而 onset 的 `r_max` 中位 1.2466 ⇒ κ=1.30 的**截断时长是 0.0 %**（`Â` 完全不动），零差是「上限未触发」的必然；它变的 κ_restep 实测确实不改变 OS/T_stable/err1（39/39 逐事件相同）。改成 κ_onset=1.05 后过充 max −55.6 pt（120.81 %→65.21 %）、T_stable(5 s) p90 −22.09 s（23.440 s→1.354 s）。⇒ T4-B 的结论应限定为「**κ_restep 零收益**」+「**κ_onset 在 κ ≥ 1.28 的区间内等效**（cap 不触发）」",
+      "verdict": "修正表述"
+    },
+    {
+      "against": "08-v6.1",
+      "was": "§2.2「切换负载 @185.98 s：Â=27934(+10.9%)、显示冲到 +3857 ADC、τ≈2.3~3.8 s 停滞」",
+      "now": "独立复现：Â=27943(+10.91%)、显示峰值 +3731 ADC、停滞首帧 τ=2.32 s、0.28 s 掉回原始。群体 Â/真值 中位 ×1.0351、max ×1.1091，与 08-v6.1 §2.1 的 ×1.032/×1.109 逐项吻合",
+      "verdict": "相同"
+    },
+    {
+      "against": "13-v6-assessment",
+      "was": "§5.1 filter_pareto.csv：只有输出端因果 EMA × 7 档 τ × 13 份，指标 T_stable/over_pct/err_1s",
+      "now": "扩展为 32 档 × 2 落点（显示层 / 内部状态层）× 6 滤波器族 + 2 个非因果对照 + G/MD/US 三指标。新增负面结论：内部状态层滤波全部不可用（G 掉到 0.438、过充中位翻负、T_stable NaN）。趋势复现：τ∈[0.1,0.3] s 双赢、τ≥1 s 时间换幅度。逐档对表见 results/t5a_filter_vs_firstround.csv（T_stable 绝对值不可横比：窗长与通道口径不同，趋势一致）",
+      "verdict": "相同 + 扩展"
+    },
+    {
+      "against": "07-v6",
+      "was": "HO_MIN 注释「交接时刻必须取 τ=5 s；若在 τ≈1 s 交接，g 要从锚定值一路爬到真实蠕变水平，实测产生 3~9 s 暂态」",
+      "now": "本任务聚合口径下 HO_MIN 5.0→2.5/3.5 s 未见暂态恶化：T_stable(5 s) 中位 3.66→0.55/1.96 s、err1 34.1→31.3%、G 0.942→0.949/0.933。07 的暂态是单事件观察，本任务是聚合，两者不矛盾只是尺度不同 ⇒ 建议真机 A/B 复核后再定 HO_MIN",
+      "verdict": "补充"
+    },
+    {
+      "against": "T5 需求文档 §2 方法要求",
+      "was": "过充定义写死：OS% = max_t(Z(t) − Z_final)/J，t∈[t_on, t_on+30 s]，Z_final = t_on+60 s 后中位",
+      "now": "该 Z_final 规则在本批数据上不适用：恒载 9 组的 onset 在 8~15 s、卸载在 115~147 s ⇒ t_on+60 s 之后整段空载、Z_final≈0、OS%≈+100% 伪影（实测 RT1@8.27 s=+100.8、F41@10.94 s=+101.1）。改用 08-v6.1 的 P 口径（Z_final = 原始 [t_on+4.6, t_on+5.4] s 中位），字面口径结果逐事件保留在 OS_pct_task_literal 列。同时把 30 s 窗与 5 s 窗分开报（同批事件下 30 s 窗中位比 08-v6.1 的 over_peak 高 12.5 pt，因为含慢相走廊失配）",
+      "verdict": "修正（显式口径偏离，已在报告 §2.2 与附录登记）"
+    },
+    {
+      "against": "07-v6",
+      "was": "「restep 的输入本身就是 0.3~1.2 s 的斜坡」等机制论断",
+      "now": "从状态机侧补一条独立证据：restep 的向下过冲不是形状反演（形状反演对 restep 是低估方向，Â/|J|−1 中位 −9.84%），而是「继承旧修正量 + pin 钉住」；这与 T4-A「差别在输入而不在传感器」不冲突，但说明 restep 的显示误差有一半来自状态机的状态继承而非形状库",
+      "verdict": "补充"
+    }
+  ],
+  "gaps": [
+    "G1 无现场 exe 版本记录：「用户看到的是哪一版」（v6 / v6.1 / v5.1）的判定建立在症状方向 + 08-v6.1 文档自述「C++ 未落地」+ 只有 ADC 域量级可肉眼看见 4% 三条间接依据上。反证：v5.1 的 OS5 max 仅 +54.39%（比 v6 的 +120.81% 小）。本报告无法读取现场版本号，需用户确认。",
+    "G2 算法级实验用原型副本而非 C++ 现役实现；结论限定在 v6 参数下（GLIDE_MAX=0.8 / RATE_MAX=0.8 / HO_MIN=5.0 / ANCHOR_MODE=pin / TRIM_RATE=0.0）。13-v6-assessment 只核对过 13 个检测器常量，滑行器与慢相模块未核对。",
+    "G3 T_stable 用自定口径（完整窗 + 5/10/30 s 三档），T1-A 冻结口径未就绪（T1_*/results/ 下当时只有 t1b_probe.csv）⇒ 绝对数值不可与 T1 横比；本任务所有结论都是配对比较，不受影响。待 T1-A 就绪后按 C-1 处置复算一次。",
+    "G4 未做噪声注入下的 κ/滤波鲁棒性（任务书要求「每档 ≥10 次不同种子」）。未做的理由：§3.2 已把机制锁死在确定性内部量上（Â 偏差、c0 继承），且 T5-B 正在做扰动扫描。真实缺口：κ=1.10 与 EMA τ=0.3 s 的组合在 ±1000 ADC 抖动下是否仍成立，未测。",
+    "G5 err_1s 对 t_on 的 ±1 包（40 ms）极敏感（−3.6% → −69.4%，results/t5a_t0_sensitivity.csv），绝对值不可跨报告引用；本任务只在同口径配对差里使用它。",
+    "G6 partial_unload 的百分比口径不可用（J_frac 最小 0.032），其结论只用绝对量；unload/partial_unload 的字典 OS% 定义不适用，本任务用 dev_pre_pct_* 代替，建议《指标字典》对这 3 类事件补一条正式定义（建议：以 pre 为参考、|J| 归一）。",
+    "G7 无「复合事件」受控标注（卸载→再加压的间隔、是否保压）：restep 向下过冲的触发条件只能用 17 个 restep + 5 个 partial_unload 描述。补采：卸载后 0.5/2/5 s 再加压 × 各 ≥5 次。",
+    "G8 无同一工况重复录制：±1 包敏感性只能做时间轴平移（伪重复）。补采：同工况重复录制 ≥5 次。",
+    "G9 无加载前静置 ≥120 s 的基线录制：「基线识别之后」的绝对基线可信度无法判定。",
+    "G10 OS_pct_30s 里混着慢相走廊失配（与 08-v6.1 的 over_peak 差 12.5 pt），不是纯瞬态量；引用 30 s 数字必须同时引 5 s 数字。",
+    "G11 **κ 上限的触发阈值 `r_max` 是本批 13 份录制的统计量，不是器件物理常数**：本批 onset 的 `r_max` 落在 1.207~2.925（中位 1.2466）。κ = 1.05 这个取值因此依赖标定集；换夹具/加载方式/传感器后必须在现场重测 `Â/J−1` 与 `r_max` 再定 κ（与 08-v6.1 §6.1 要求 ROM_SCALE 重标同理）。补采：受控加载速度扫描（0.05/0.2/0.5/1/2 s 上升时间 × 各 ≥5 次），逐个事件记录 `Â/J−1` 与 `r_max`。",
+    "G12 κ 与 ROM_SCALE 的「等价性」只在本批数据上被实测到（1.05 档 `Â/J−1` 中位 −3.61% vs ROM_SCALE=1.06 的 −2.6%）；两者的**可叠加性没有做 2×2 扫描**（本任务只做单变量扫描）。",
+    "G13 `Â` 的快照时间点会小幅影响 `Â/J−1`（τ=1 s 时中位 +3.514%，τ∈[0.2,1] 全长窗口时 +3.04%）；本报告统一在 τ=1 s 处取值并已声明。"
+  ],
+  "blockers": [
+    "T5-A 交付本身无阻塞。唯一的判定性缺口是 G1（现场 exe 版本未知），它决定 §3.2 的归因是否适用于用户那次体验；这属现场信息，需派发方与用户核对。",
+    "G4（κ=1.10 + EMA τ=0.3 s 在 ±1000 ADC 抖动下的鲁棒性）属真实未验证项，建议由 T5-B 的扰动扫描或后续专项补做；本席位不做 T5-B 的工作。"
+  ],
+  "artifacts": {
+    "report": "分析报告_T5A.md",
+    "results": [
+      "results/conclusions_T5A.json",
+      "results/t5a_overcharge_events.csv",
+      "results/t5a_overcharge_summary.csv",
+      "results/t5a_overcharge_rates.csv",
+      "results/t5a_event_metrics_by_arm.csv",
+      "results/t5a_internal_trace.csv",
+      "results/t5a_internal_snap.csv",
+      "results/t5a_attribution.csv",
+      "results/t5a_event_state_events.csv",
+      "results/t5a_v6_vs_v61.csv",
+      "results/t5a_v6_vs_v61_summary.csv",
+      "results/t5a_filter_pareto.csv",
+      "results/t5a_filter_cost.csv",
+      "results/t5a_filter_perevent.csv",
+      "results/t5a_filter_vs_firstround.csv",
+      "results/t5a_nonfilter_options.csv",
+      "results/t5a_nonfilter_perevent.csv",
+      "results/t5a_kappa_sweep.csv",
+      "results/t5a_kappa_summary.csv",
+      "results/t5a_kappa_four_metrics.csv",
+      "results/t5a_kappa_verdict.csv",
+      "results/t5a_kappa_by_domain.csv",
+      "results/t5a_kappa_loo.csv",
+      "results/t5a_kappa_loo_raw.csv",
+      "results/t5a_kappa_perevent.csv",
+      "results/t5a_kappa_cap_summary.csv",
+      "results/t5a_kappa_trigger.csv",
+      "results/t5a_kappa_trigger_perevent.csv",
+      "results/t5a_kappa_trigger_raw.csv",
+      "results/t5a_kappa_trigger_crosscheck.csv",
+      "results/t5a_ahat_bias_by_kappa.csv",
+      "results/t5a_ahat_bias_perevent.csv",
+      "results/t5a_patch_ab_zero.csv",
+      "results/t5a_metric_selfcheck.csv",
+      "results/t5a_overshoot_metric_diff.csv",
+      "results/t5a_t0_sensitivity.csv",
+      "results/t5a_crosscheck_v61.csv"
+    ],
+    "figures": [
+      "figures/T5A_01_overcharge_trace.png",
+      "figures/T5A_02_filter_pareto.png",
+      "figures/T5A_03_kappa_sweep.png",
+      "figures/T5A_03b_kappa_loo.png",
+      "figures/T5A_03c_kappa_cap_trigger.png",
+      "figures/T5A_03d_ahat_bias.png",
+      "figures/T5A_04_attribution.png",
+      "figures/T5A_05_filter_cost.png",
+      "figures/T5A_06_v6_vs_v61.png"
+    ],
+    "logs": [
+      "results/_t5a_verify_patch.log",
+      "results/_t5a_metric_selfcheck.log",
+      "results/_t5a_overcharge.log",
+      "results/_t5a_overcharge_summary.log",
+      "results/_t5a_trace.log",
+      "results/_t5a_v61.log",
+      "results/_t5a_kappa.log",
+      "results/_t5a_kappa_verdict.log",
+      "results/_t5a_kappa_trigger.log",
+      "results/_t5a_kappa_trigger_join.log",
+      "results/_t5a_kappa_cap_summary.log",
+      "results/_t5a_ahat_bias.log",
+      "results/_t5a_kappa_trigger_crosscheck.log",
+      "results/_t5a_filter.log",
+      "results/_t5a_nonfilter.log"
+    ]
+  }
+}

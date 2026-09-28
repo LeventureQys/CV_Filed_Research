@@ -1,0 +1,93 @@
+==== T3-B 02_roi ==== 2026-09-19 01:45:04
+cmd : C:\Python314\python.exe D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T3_快相爬升可重复性与处理必要性\scripts\t3b_02_roi.py
+cwd : D:\workshop\Processing\multi-device-cascade-host-cpp
+[cache] 命中 npz 网格 + t3b_events.csv（40 事件）
+Q8 反事实：只做部分处理会怎样（处理强度 vs T_stable vs 代价）
+每臂相对 v6 默认只改一个参数；κ 为**单侧上限** min(A, κ·inc)，故必须同时报「触发率」
+（= Â 被上限截断的事件占比，C-4 的关键量）。
+
+[skip] rs104 已在 t3b_arm_metrics.csv
+[skip] rs108 已在 t3b_arm_metrics.csv
+[skip] rs112 已在 t3b_arm_metrics.csv
+[skip] kap125 已在 t3b_arm_metrics.csv
+[skip] kap115 已在 t3b_arm_metrics.csv
+[skip] kap100 已在 t3b_arm_metrics.csv
+[skip] kap095 已在 t3b_arm_metrics.csv
+[skip] gl030 已在 t3b_arm_metrics.csv
+[skip] gl050 已在 t3b_arm_metrics.csv
+[skip] gl160 已在 t3b_arm_metrics.csv
+[skip] gl300 已在 t3b_arm_metrics.csv
+[skip] onset_only 已在 t3b_arm_metrics.csv
+-> results/t3b_route_roi.csv（23 臂）
+-> results/t3b_route_q6q7.csv（69 行）
+-> results/t3b_arm_kind.csv（92 行）
+
+-- 维度：① 形状库快慢缩放（rom_scale，>1 = 更早到位 = 更保守）（强度 = g(0.2 s)/g_v6(0.2 s)）--
+      arm  strength  rom_scale  kappa_onset  trigger_rate  glide_rate  onset_only  Tstab_tot_ev_med  Tstab_ch_ev_med  OS_ch_med  OS_ch_p90  err1_ch_med  MD_tot_med  MD_tot_max  epoch_per100s  G_med
+       v6      1.00       1.00          1.3         0.041         0.8           0              0.54            1.120      8.999    175.790       -3.703    1440.286    5445.821          1.708  1.033
+    rs104      1.04       1.04          1.3         0.006         0.8           0              0.51            0.460      4.911    134.822       -6.291    1314.190    5535.580          1.708  0.993
+v61_rs106      1.06       1.06          1.3         0.005         0.8           0              0.52            0.420      3.016    134.917       -9.154    1215.476    5638.125          1.708  0.982
+    rs108      1.08       1.08          1.3         0.004         0.8           0              0.63            0.400      1.553    138.702       -9.762    1101.739    5740.529          1.708  0.965
+    rs112      1.12       1.12          1.3         0.003         0.8           0              0.65            0.365     -0.136    123.347      -10.969    1073.979    5904.757          1.708  0.950
+   拐点：T_stable(强度)=1.060   MD(强度)=1.080   OS(强度)=1.060
+
+-- 维度：② κ 单侧上限（强度 = 1.30 − κ_onset；越大 = 封顶越紧）（强度 = 1.30 − κ）--
+   arm  strength  rom_scale  kappa_onset  trigger_rate  glide_rate  onset_only  Tstab_tot_ev_med  Tstab_ch_ev_med  OS_ch_med  OS_ch_p90  err1_ch_med  MD_tot_med  MD_tot_max  epoch_per100s  G_med
+    v6      0.00        1.0         1.30         0.041         0.8           0             0.540            1.120      8.999    175.790       -3.703    1440.286    5445.821          1.708  1.033
+kap125      0.05        1.0         1.25         0.072         0.8           0             0.540            1.120      8.999    175.790       -3.703    1440.286    5504.215          1.708  1.033
+kap115      0.15        1.0         1.15         0.410         0.8           0             0.560            0.770      8.868    175.473       -3.748    1440.286    5956.141          1.708  1.033
+kap100      0.30        1.0         1.00         0.758         0.8           0             0.780            0.570     -0.305    124.945      -10.969    1101.307    5904.757          1.708  0.946
+kap095      0.35        1.0         0.95         1.000         0.8           0             0.775            0.925     -3.194    105.425      -15.422    1876.609    6889.688          1.708  0.887
+   拐点：T_stable(强度)=0.150   MD(强度)=0.300   OS(强度)=0.150
+
+-- 维度：③ 滑行器速率上限（强度 = −RATE_MAX；越大 = 摊得越平、到位越慢）（强度 = −RATE_MAX [/s]）--
+  arm  strength  rom_scale  kappa_onset  trigger_rate  glide_rate  onset_only  Tstab_tot_ev_med  Tstab_ch_ev_med  OS_ch_med  OS_ch_p90  err1_ch_med  MD_tot_med  MD_tot_max  epoch_per100s  G_med
+gl300      -3.0        1.0          1.3         0.041         3.0           0              0.54             1.05      8.999    175.711       -2.541    1440.286    5449.297          1.708  1.033
+gl160      -1.6        1.0          1.3         0.041         1.6           0              0.54             1.07      8.999    175.758       -2.541    1440.286    5445.874          1.708  1.033
+   v6      -0.8        1.0          1.3         0.041         0.8           0              0.54             1.12      8.999    175.790       -3.703    1440.286    5445.821          1.708  1.033
+gl050      -0.5        1.0          1.3         0.041         0.5           0              0.54             1.18      8.999    175.800       -3.658    1440.286    5447.001          1.708  1.033
+gl030      -0.3        1.0          1.3         0.041         0.3           0              0.68             0.77      8.758    175.800       -3.648    1336.668    5447.886          1.708  1.033
+   拐点：T_stable(强度)=-0.500   MD(强度)=-0.500   OS(强度)=-0.500
+
+-- 维度：④ 只对 onset 生效（0 = 全部事件反演，1 = 仅 onset）（强度 = onset_only）--
+       arm  strength  rom_scale  kappa_onset  trigger_rate  glide_rate  onset_only  Tstab_tot_ev_med  Tstab_ch_ev_med  OS_ch_med  OS_ch_p90  err1_ch_med  MD_tot_med  MD_tot_max  epoch_per100s  G_med
+        v6       0.0        1.0          1.3         0.041         0.8           0              0.54             1.12      8.999    175.790       -3.703    1440.286    5445.821          1.708  1.033
+onset_only       1.0        1.0          1.3         0.000         0.8           1              0.54             1.12      8.948    175.791       -3.703    1440.286    5904.757          1.708  1.033
+   拐点：T_stable(强度)=nan   MD(强度)=nan   OS(强度)=nan
+
+-- 触发率明细（κ 维；触发率 = 被 κ·inc 截断的 Â 次数 / 成功反演次数）--
+   arm  kappa_onset  kappa_restep  inv_calls   n_cap  trigger_rate
+    v6         1.30        1.1200    14965.0   617.0        0.0412
+kap125         1.25        1.0769    14965.0  1078.0        0.0720
+kap115         1.15        0.9908    14965.0  6134.0        0.4099
+kap100         1.00        1.0000    14965.0 11338.0        0.7576
+kap095         0.95        0.9500    14965.0 14965.0        1.0000
+
+-- 全维一览（含 Q7 路线臂）--
+         arm  group             dim  dim_value  Tstab_tot_ev_med  Tstab_ch_ev_med  OS_ch_med  OS_ch_p90  err1_ch_med  MD_tot_med  MD_tot_max  epoch_per100s  trigger_rate
+         raw routes           route        NaN            13.310            8.920     11.489    205.553       -6.870       0.000       0.000          0.000           NaN
+      v51_f1 routes        exempt_s       1.00             2.965            2.555      0.387    145.594      -10.500     682.046    4752.162          1.051           NaN
+      v51_f3 routes        exempt_s       3.00             3.645            3.275      2.809    154.967      -10.500     382.989    2683.797          1.051           NaN
+      v51_f5 routes        exempt_s       5.00             3.870            3.320      4.419    157.745       -9.786     197.905    2065.349          1.051           NaN
+          v6 routes           route        NaN             0.540            1.120      8.999    175.790       -3.703    1440.286    5445.821          1.708         0.041
+   v61_rs106 routes       rom_scale       1.06             0.520            0.420      3.016    134.917       -9.154    1215.476    5638.125          1.708         0.005
+       rs104    roi       rom_scale       1.04             0.510            0.460      4.911    134.822       -6.291    1314.190    5535.580          1.708         0.006
+       rs108    roi       rom_scale       1.08             0.630            0.400      1.553    138.702       -9.762    1101.739    5740.529          1.708         0.004
+       rs112    roi       rom_scale       1.12             0.650            0.365     -0.136    123.347      -10.969    1073.979    5904.757          1.708         0.003
+      kap125    roi     kappa_onset       1.25             0.540            1.120      8.999    175.790       -3.703    1440.286    5504.215          1.708         0.072
+      kap115    roi     kappa_onset       1.15             0.560            0.770      8.868    175.473       -3.748    1440.286    5956.141          1.708         0.410
+      kap100    roi     kappa_onset       1.00             0.780            0.570     -0.305    124.945      -10.969    1101.307    5904.757          1.708         0.758
+      kap095    roi     kappa_onset       0.95             0.775            0.925     -3.194    105.425      -15.422    1876.609    6889.688          1.708         1.000
+       gl030    roi      glide_rate       0.30             0.680            0.770      8.758    175.800       -3.648    1336.668    5447.886          1.708         0.041
+       gl050    roi      glide_rate       0.50             0.540            1.180      8.999    175.800       -3.658    1440.286    5447.001          1.708         0.041
+       gl160    roi      glide_rate       1.60             0.540            1.070      8.999    175.758       -2.541    1440.286    5445.874          1.708         0.041
+       gl300    roi      glide_rate       3.00             0.540            1.050      8.999    175.711       -2.541    1440.286    5449.297          1.708         0.041
+  onset_only    roi      onset_only       1.00             0.540            1.120      8.948    175.791       -3.703    1440.286    5904.757          1.708         0.000
+rt_filter030  third   route3_filter       0.30             1.160            1.160      7.332    149.794       -7.213    4211.267   26825.555          1.708         0.041
+rt_filter010  third   route3_filter       0.10             0.640            0.615      8.851    172.368       -2.498    3629.284   24196.898          1.708         0.041
+ rt_measured  third route3_decouple       1.00             0.535            0.890      8.999    175.809       -3.703    1416.929    5683.943          1.708         0.041
+rt_meas_trim  third route3_decouple       2.00             0.525            0.830      8.999    167.423       -3.703    1120.615    4933.523          1.708         0.041
+ rt_onesided  third route3_onesided       1.00             0.700            0.570     -0.305    120.634      -10.969    1181.274    5904.757          1.708         0.636
+
+总耗时 2.5 s
+-> results/t3b_route_roi.csv / t3b_roi_knee.csv / t3b_route_q6q7.csv / t3b_arm_kind.csv

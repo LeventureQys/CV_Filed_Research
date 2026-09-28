@@ -1,0 +1,5 @@
+live|
+lock03|r_fast=0.0,slope_gate_frac=1e-06,r_slow_max=0.0,hold_eps=0.0,hold_lock_tau_s=0.3,hold_lock_freeze_s=2.0,edge_slope_thres=60.0
+lock05|r_fast=0.0,slope_gate_frac=1e-06,r_slow_max=0.0,hold_eps=0.0,hold_lock_tau_s=0.5,hold_lock_freeze_s=2.0,edge_slope_thres=60.0
+lock08|r_fast=0.0,slope_gate_frac=1e-06,r_slow_max=0.0,hold_eps=0.0,hold_lock_tau_s=0.8,hold_lock_freeze_s=2.0,edge_slope_thres=60.0
+lock03+track|r_fast=0.0,slope_gate_frac=5.0,r_slow_max=30.0,hold_eps=0.0,hold_lock_tau_s=0.3,hold_lock_freeze_s=2.0,edge_slope_thres=60.0,track_base_frac=1.0,slope_cap_frac=0.3,slow_confirm_s=0.0,soft_unfreeze_s=0.25,tau_slope_s=1.0,tau_r_slow_s=600.0

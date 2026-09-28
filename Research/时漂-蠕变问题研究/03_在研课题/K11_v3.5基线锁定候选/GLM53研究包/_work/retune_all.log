@@ -1,0 +1,54 @@
+
+########## 右拇指指腹 ##########
+  现役默认：score=138.7 过减=84 ADC 扣除=11%
+  起点0: score=91.0 过减=84 ADC
+    pass1: score=70.94
+    pass2: score=19.80
+    pass3: score=19.80
+  起点1: score=3.5 过减=84 ADC
+    pass1: score=3.52
+  ★ 最优 score=3.52 过减=84 ADC 扣除=100% 残漂=0%
+    {"r_fast": 0.02, "tau_c_fast_s": 4.0, "r_slow_max": 30.0, "slope_cap_frac": 0.3, "slope_gate_frac": 1.0, "slow_confirm_s": 0.0, "soft_unfreeze_s": 0.5, "edge_slope_thres": 10.0, "tau_slope_s": 3.0, "tau_r_slow_idle_s": 0.5, "tau_r_fast_s": 1.0, "hold_eps": 2.0, "idle_frac": 0.02, "ramp_slope_min": 0.5}
+
+########## 左拇指指腹 ##########
+  现役默认：score=88.1 过减=89 ADC 扣除=18%
+  起点0: score=68.3 过减=89 ADC
+    pass1: score=51.35
+    pass2: score=29.14
+    pass3: score=28.30
+    pass4: score=27.82
+  起点1: score=16.8 过减=89 ADC
+    pass1: score=11.90
+    pass2: score=11.90
+  ★ 最优 score=11.90 过减=132 ADC 扣除=93% 残漂=7%
+    {"r_fast": 0.04, "slope_gate_frac": 2.0, "slope_cap_frac": 0.3, "tau_slope_s": 2.0, "slow_confirm_s": 0.5, "soft_unfreeze_s": 0.5, "tau_c_fast_s": 20.0, "tau_r_slow_idle_s": 30.0, "tau_r_fast_s": 2.0, "hold_eps": 0.5, "idle_frac": 0.05, "r_slow_max": 30.0, "ramp_slope_min": 0.5, "edge_boost_s": 5.0}
+
+########## 右手掌 ##########
+  现役默认：score=91.8 过减=43 ADC 扣除=14%
+  起点0: score=67.1 过减=43 ADC
+    pass1: score=21.99
+    pass2: score=21.87
+    pass3: score=21.21
+    pass4: score=21.21
+  起点1: score=10.7 过减=60 ADC
+    pass1: score=8.74
+    pass2: score=8.72
+    pass3: score=8.72
+  ★ 最优 score=8.72 过减=83 ADC 扣除=93% 残漂=7%
+    {"r_fast": 0.1, "tau_c_fast_s": 12.0, "r_slow_max": 30.0, "slope_cap_frac": 0.08, "slope_gate_frac": 1.0, "slow_confirm_s": 0.0, "soft_unfreeze_s": 0.5, "edge_slope_thres": 60.0, "tau_slope_s": 2.0, "tau_r_slow_idle_s": 30.0, "tau_r_fast_s": 0.5, "hold_eps": 0.0, "idle_frac": 0.1, "ramp_slope_min": 0.0, "tau_c_fast_boost_s": 1.0}
+
+########## 左手掌 ##########
+  现役默认：score=94.0 过减=20 ADC 扣除=11%
+  起点0: score=66.7 过减=20 ADC
+    pass1: score=36.98
+    pass2: score=15.97
+    pass3: score=15.66
+    pass4: score=15.66
+  起点1: score=11.1 过减=50 ADC
+    pass1: score=10.17
+    pass2: score=10.05
+    pass3: score=10.05
+  ★ 最优 score=10.05 过减=59 ADC 扣除=93% 残漂=7%
+    {"r_fast": 0.1, "tau_c_fast_s": 2.0, "r_slow_max": 30.0, "slope_cap_frac": 0.08, "slope_gate_frac": 1.0, "slow_confirm_s": 0.0, "soft_unfreeze_s": 1.0, "edge_slope_thres": 60.0, "tau_slope_s": 3.0, "tau_r_slow_idle_s": 2.0, "tau_r_fast_s": 2.0, "hold_eps": 8.0, "idle_frac": 0.05, "ramp_slope_min": 0.0, "tau_c_fast_boost_s": 0.5}
+
+batches=356  写出 D:\workshop\文档\v2.7 - 抗蠕变补偿算法\GLM53\_work\retune_all.json

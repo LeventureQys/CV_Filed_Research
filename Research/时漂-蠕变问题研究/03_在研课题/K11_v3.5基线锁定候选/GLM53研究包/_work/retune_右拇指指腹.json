@@ -1,0 +1,236 @@
+{
+  "live": {
+    "resid_pct": 89.00065101778705,
+    "tail_pct": 49.67458974439912,
+    "over_adc": 84.0,
+    "ded_pct": 10.999348982212949,
+    "score": 138.67524076218618
+  },
+  "best": {
+    "resid_pct": 0.20113010984264035,
+    "tail_pct": -2.136415621051474,
+    "over_adc": 84.0,
+    "ded_pct": 99.79886989015735,
+    "score": 3.515735889762391,
+    "params": {
+      "r_fast": 0.02,
+      "tau_c_fast_s": 4.0,
+      "r_slow_max": 30.0,
+      "slope_cap_frac": 0.3,
+      "slope_gate_frac": 1.0,
+      "slow_confirm_s": 0.0,
+      "soft_unfreeze_s": 0.5,
+      "edge_slope_thres": 10.0,
+      "tau_slope_s": 3.0,
+      "tau_r_slow_idle_s": 0.5,
+      "tau_r_fast_s": 1.0,
+      "hold_eps": 2.0,
+      "idle_frac": 0.02,
+      "ramp_slope_min": 0.5
+    }
+  },
+  "runs": [
+    {
+      "start_score": 3.515735889762391,
+      "score": 3.515735889762391,
+      "params": {
+        "r_fast": 0.02,
+        "tau_c_fast_s": 4.0,
+        "r_slow_max": 30.0,
+        "slope_cap_frac": 0.3,
+        "slope_gate_frac": 1.0,
+        "slow_confirm_s": 0.0,
+        "soft_unfreeze_s": 0.5,
+        "edge_slope_thres": 10.0,
+        "tau_slope_s": 3.0,
+        "tau_r_slow_idle_s": 0.5,
+        "tau_r_fast_s": 1.0,
+        "hold_eps": 2.0,
+        "idle_frac": 0.02,
+        "ramp_slope_min": 0.5
+      },
+      "trace": [
+        {
+          "params": {
+            "r_fast": 0.02,
+            "tau_c_fast_s": 4.0,
+            "r_slow_max": 30.0,
+            "slope_cap_frac": 0.3,
+            "slope_gate_frac": 1.0,
+            "slow_confirm_s": 0.0,
+            "soft_unfreeze_s": 0.5,
+            "edge_slope_thres": 10.0,
+            "tau_slope_s": 3.0,
+            "tau_r_slow_idle_s": 0.5,
+            "tau_r_fast_s": 1.0,
+            "hold_eps": 2.0,
+            "idle_frac": 0.02,
+            "ramp_slope_min": 0.5
+          },
+          "score": 3.515735889762391
+        }
+      ]
+    },
+    {
+      "start_score": 90.96081704955441,
+      "score": 19.800527011177667,
+      "params": {
+        "r_fast": 0.1,
+        "tau_c_fast_s": 2.0,
+        "r_slow_max": 10.0,
+        "slope_cap_frac": 0.15,
+        "slope_gate_frac": 5.0,
+        "slow_confirm_s": 0.0,
+        "soft_unfreeze_s": 4.0,
+        "edge_slope_thres": 150.0,
+        "tau_slope_s": 3.0,
+        "tau_r_slow_idle_s": 30.0,
+        "tau_r_fast_s": 0.2,
+        "hold_eps": 8.0,
+        "idle_frac": 0.1,
+        "ramp_slope_min": 0.0
+      },
+      "trace": [
+        {
+          "params": {
+            "r_fast": 0.1,
+            "tau_c_fast_s": 4.0,
+            "r_slow_max": 0.6,
+            "slope_cap_frac": 0.04,
+            "slope_gate_frac": 0.2,
+            "slow_confirm_s": 0.0,
+            "soft_unfreeze_s": 4.0,
+            "edge_slope_thres": 150.0,
+            "tau_slope_s": 3.0,
+            "tau_r_slow_idle_s": 30.0,
+            "tau_r_fast_s": 2.0,
+            "hold_eps": 8.0,
+            "idle_frac": 0.1,
+            "ramp_slope_min": 2.0
+          },
+          "score": 90.96081704955441
+        },
+        {
+          "params": {
+            "r_fast": 0.1,
+            "tau_c_fast_s": 4.0,
+            "r_slow_max": 10.0,
+            "slope_cap_frac": 0.04,
+            "slope_gate_frac": 0.2,
+            "slow_confirm_s": 0.0,
+            "soft_unfreeze_s": 4.0,
+            "edge_slope_thres": 150.0,
+            "tau_slope_s": 3.0,
+            "tau_r_slow_idle_s": 30.0,
+            "tau_r_fast_s": 2.0,
+            "hold_eps": 8.0,
+            "idle_frac": 0.1,
+            "ramp_slope_min": 2.0
+          },
+          "score": 70.98516385858257,
+          "changed": "r_slow_max"
+        },
+        {
+          "params": {
+            "r_fast": 0.1,
+            "tau_c_fast_s": 4.0,
+            "r_slow_max": 10.0,
+            "slope_cap_frac": 0.04,
+            "slope_gate_frac": 0.2,
+            "slow_confirm_s": 0.0,
+            "soft_unfreeze_s": 4.0,
+            "edge_slope_thres": 150.0,
+            "tau_slope_s": 3.0,
+            "tau_r_slow_idle_s": 30.0,
+            "tau_r_fast_s": 2.0,
+            "hold_eps": 8.0,
+            "idle_frac": 0.1,
+            "ramp_slope_min": 0.0
+          },
+          "score": 70.94005729656041,
+          "changed": "ramp_slope_min"
+        },
+        {
+          "params": {
+            "r_fast": 0.1,
+            "tau_c_fast_s": 2.0,
+            "r_slow_max": 10.0,
+            "slope_cap_frac": 0.04,
+            "slope_gate_frac": 0.2,
+            "slow_confirm_s": 0.0,
+            "soft_unfreeze_s": 4.0,
+            "edge_slope_thres": 150.0,
+            "tau_slope_s": 3.0,
+            "tau_r_slow_idle_s": 30.0,
+            "tau_r_fast_s": 2.0,
+            "hold_eps": 8.0,
+            "idle_frac": 0.1,
+            "ramp_slope_min": 0.0
+          },
+          "score": 70.59578166090971,
+          "changed": "tau_c_fast_s"
+        },
+        {
+          "params": {
+            "r_fast": 0.1,
+            "tau_c_fast_s": 2.0,
+            "r_slow_max": 10.0,
+            "slope_cap_frac": 0.15,
+            "slope_gate_frac": 0.2,
+            "slow_confirm_s": 0.0,
+            "soft_unfreeze_s": 4.0,
+            "edge_slope_thres": 150.0,
+            "tau_slope_s": 3.0,
+            "tau_r_slow_idle_s": 30.0,
+            "tau_r_fast_s": 2.0,
+            "hold_eps": 8.0,
+            "idle_frac": 0.1,
+            "ramp_slope_min": 0.0
+          },
+          "score": 26.43214821796653,
+          "changed": "slope_cap_frac"
+        },
+        {
+          "params": {
+            "r_fast": 0.1,
+            "tau_c_fast_s": 2.0,
+            "r_slow_max": 10.0,
+            "slope_cap_frac": 0.15,
+            "slope_gate_frac": 5.0,
+            "slow_confirm_s": 0.0,
+            "soft_unfreeze_s": 4.0,
+            "edge_slope_thres": 150.0,
+            "tau_slope_s": 3.0,
+            "tau_r_slow_idle_s": 30.0,
+            "tau_r_fast_s": 2.0,
+            "hold_eps": 8.0,
+            "idle_frac": 0.1,
+            "ramp_slope_min": 0.0
+          },
+          "score": 21.70340863399076,
+          "changed": "slope_gate_frac"
+        },
+        {
+          "params": {
+            "r_fast": 0.1,
+            "tau_c_fast_s": 2.0,
+            "r_slow_max": 10.0,
+            "slope_cap_frac": 0.15,
+            "slope_gate_frac": 5.0,
+            "slow_confirm_s": 0.0,
+            "soft_unfreeze_s": 4.0,
+            "edge_slope_thres": 150.0,
+            "tau_slope_s": 3.0,
+            "tau_r_slow_idle_s": 30.0,
+            "tau_r_fast_s": 0.2,
+            "hold_eps": 8.0,
+            "idle_frac": 0.1,
+            "ramp_slope_min": 0.0
+          },
+          "score": 19.800527011177667,
+          "changed": "tau_r_fast_s"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,131 @@
+==== T3-B 00_recon ==== 2026-09-19 01:01:53
+cmd : C:\Python314\python.exe D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T3_快相爬升可重复性与处理必要性\scripts\t3b_00_recon.py
+cwd : D:\workshop\Processing\multi-device-cascade-host-cpp
+== A. 数据冒烟：读 13 份录制（首次会建 npz 缓存，约 1~2 min）==
+[cache] 命中 npz 网格 + t3b_events.csv（40 事件）
+
+== A1. 原始帧数直读（对 `数据与脚本复用清单.md` §1 的帧数表）==
+   注：清单的值比 CSV 实际数据行数 **多 1**（把 `##Data` 后的列名行或末行算了进去），
+   实测 13 份全部满足 `raw_frames = 清单值 − 1`；通道数也与清单一致。
+rec                       ch     raw      清单       差    span_s     中位包周期
+右拇指指尖/数据1                 31   16355   16356      -1    162.69    0.0155
+右拇指指尖/数据2                 31   23536   23537      -1    234.14    0.0154
+右拇指指尖/数据3                 31   19137   19138      -1    190.38    0.0154
+左拇指指尖/数据1                 31   19739   19740      -1    196.20    0.0153
+左拇指指尖/数据2                 31   19974   19975      -1    198.51    0.0152
+左拇指指尖/数据3                 31   19401   19402      -1    192.82    0.0152
+四指指尖/数据1                  21   19139   19140      -1    190.79    0.0151
+四指指尖/数据2                  21   19113   19114      -1    190.55    0.0151
+四指指尖/数据3                  21   20032   20033      -1    199.68    0.0151
+切换负载-快相无责                 21   25692   25693      -1    255.70    0.0000
+再切换负载                     21    7128    7129      -1     70.89    0.0000
+中途切换-1d9493               21    6420    6421      -1     63.85    0.0000
+中途切换-13ffca               21   12120   12121      -1    120.57    0.0000
+
+帧数自检总体：13/13 全部通过
+
+== A2. 100 Hz 网格长度（np.interp 重采样）==
+rec                    n_grid    span_s      peak
+右拇指指尖/数据1              16270    162.69      20.4
+右拇指指尖/数据2              23414    234.13      22.4
+右拇指指尖/数据3              19039    190.38      21.7
+左拇指指尖/数据1              19621    196.20      18.2
+左拇指指尖/数据2              19851    198.50      18.7
+左拇指指尖/数据3              19282    192.81      19.8
+四指指尖/数据1               19079    190.78      16.6
+四指指尖/数据2               19055    190.54      17.3
+四指指尖/数据3               19969    199.68      17.6
+切换负载-快相无责              25571    255.70   29530.6
+再切换负载                   7089     70.88   25926.2
+中途切换-1d9493             6386     63.85   27912.5
+中途切换-13ffca            12058    120.57   32707.0
+
+事件表：40 行；kind 分布 {'onset': np.int64(23), 'restep': np.int64(12), 'decrement': np.int64(3), 'partial_unload': np.int64(2)}
+  clean_t4a=True：onset 19 / restep 6
+
+== B. 补丁零差证明（同一录制、同一网格、逐帧比对）==
+录制：再切换负载（7089 帧）
+  B1 v6 原类 vs ArmComp(默认)              逐帧最大绝对差 = 0.000e+00  -> PASS
+  B2 v5.1 原类 vs V51Traced                逐帧最大绝对差 = 0.000e+00  -> PASS
+  B3 反向证明：N_GATE=1 最大差 458.5、EMA_TAU=0.3 最大差 3006.9（都必须 > 0）
+      逐录制：再切换负载(0.0/2535.5)  切换负载-快相无责(458.5/3006.9)  中途切换-13ffca(339.6/2667.4)
+
+== C. 冻结核等价性（t3b_settle 向量化 vs T1-A 原实现）==
+  t_on=  11.80 kind=onset          tot  D1 nan/nan  D1ev nan/nan  D2 nan/nan  一致
+  t_on=  11.80 kind=onset          ch  D1 nan/nan  D1ev nan/nan  D2 nan/nan  一致
+  t_on=  13.71 kind=restep         tot  D1 nan/nan  D1ev nan/nan  D2 nan/nan  一致
+  t_on=  13.71 kind=restep         ch  D1 nan/nan  D1ev nan/nan  D2 nan/nan  一致
+  t_on=  35.97 kind=onset          tot  D1 nan/nan  D1ev 14.980/14.980  D2 14.980/14.980  一致
+  t_on=  35.97 kind=onset          ch  D1 nan/nan  D1ev 14.660/14.660  D2 14.660/14.660  一致
+  t_on=  57.31 kind=onset          tot  D1 nan/nan  D1ev 0.500/0.500  D2 0.490/0.490  一致
+  t_on=  57.31 kind=onset          ch  D1 nan/nan  D1ev 0.450/0.450  D2 0.360/0.360  一致
+  共比对 8 组（每组 3 个核 × 2 序列）
+  删失分支：raw 序列 D1 nan/nan -> 一致
+
+  C2 有限 T 的等价性（合成阶跃 + 真实 v6 输出）：
+    合成 k0= 100  D1 4.000/4.000   D1ev 4.000/4.000  一致
+    合成 k0= 480  D1 0.200/0.200   D1ev 0.200/0.200  一致
+    合成 k0= 500  D1 0.000/0.000   D1ev 0.000/0.000  一致
+    合成 k0= 520  D1 0.000/0.000   D1ev 0.000/0.000  一致
+    合成 k0=3000  D1 0.000/0.000   D1ev 0.000/0.000  一致
+    真实 四指指尖/数据1       onset t_on= 10.95  D1 0.510/0.510   D1ev 0.510/0.510  一致
+    真实 左拇指指尖/数据2      onset t_on= 14.93  D1 1.100/1.100   D1ev 1.100/1.100  一致
+
+== D. 已知答案检验（KAT）：v6 在恒载 onset 上的 D1-ev 必须落在 0.3~5 s ==
+  四指指尖/数据1       T_stable_ev(tot)=0.510 s (J=13.172, n=19079) -> PASS
+  左拇指指尖/数据2      T_stable_ev(tot)=1.100 s (J=16.086, n=19851) -> PASS
+
+== 汇总 ==
+                  check     dataset     n              metric      value_a  value_b    abs_diff verdict                               note
+            A_rawframes   右拇指指尖/数据1 16355          raw_frames 16355.000000 16355.00    0.000000    PASS          清单值−1，与复用清单一致（n_ch=31 OK）
+            A_rawframes   右拇指指尖/数据2 23536          raw_frames 23536.000000 23536.00    0.000000    PASS          清单值−1，与复用清单一致（n_ch=31 OK）
+            A_rawframes   右拇指指尖/数据3 19137          raw_frames 19137.000000 19137.00    0.000000    PASS          清单值−1，与复用清单一致（n_ch=31 OK）
+            A_rawframes   左拇指指尖/数据1 19739          raw_frames 19739.000000 19739.00    0.000000    PASS          清单值−1，与复用清单一致（n_ch=31 OK）
+            A_rawframes   左拇指指尖/数据2 19974          raw_frames 19974.000000 19974.00    0.000000    PASS          清单值−1，与复用清单一致（n_ch=31 OK）
+            A_rawframes   左拇指指尖/数据3 19401          raw_frames 19401.000000 19401.00    0.000000    PASS          清单值−1，与复用清单一致（n_ch=31 OK）
+            A_rawframes    四指指尖/数据1 19139          raw_frames 19139.000000 19139.00    0.000000    PASS          清单值−1，与复用清单一致（n_ch=21 OK）
+            A_rawframes    四指指尖/数据2 19113          raw_frames 19113.000000 19113.00    0.000000    PASS          清单值−1，与复用清单一致（n_ch=21 OK）
+            A_rawframes    四指指尖/数据3 20032          raw_frames 20032.000000 20032.00    0.000000    PASS          清单值−1，与复用清单一致（n_ch=21 OK）
+            A_rawframes   切换负载-快相无责 25692          raw_frames 25692.000000 25692.00    0.000000    PASS          清单值−1，与复用清单一致（n_ch=21 OK）
+            A_rawframes       再切换负载  7128          raw_frames  7128.000000  7128.00    0.000000    PASS          清单值−1，与复用清单一致（n_ch=21 OK）
+            A_rawframes 中途切换-1d9493  6420          raw_frames  6420.000000  6420.00    0.000000    PASS          清单值−1，与复用清单一致（n_ch=21 OK）
+            A_rawframes 中途切换-13ffca 12120          raw_frames 12120.000000 12120.00    0.000000    PASS          清单值−1，与复用清单一致（n_ch=21 OK）
+                 A_grid   右拇指指尖/数据1 16270            grid_len 16270.000000 16270.00    0.000000    PASS 100 Hz 网格 = int(span/0.01)（算法链路口径）
+                 A_grid   右拇指指尖/数据2 23414            grid_len 23414.000000 23414.00    0.000000    PASS 100 Hz 网格 = int(span/0.01)（算法链路口径）
+                 A_grid   右拇指指尖/数据3 19039            grid_len 19039.000000 19039.00    0.000000    PASS 100 Hz 网格 = int(span/0.01)（算法链路口径）
+                 A_grid   左拇指指尖/数据1 19621            grid_len 19621.000000 19621.00    0.000000    PASS 100 Hz 网格 = int(span/0.01)（算法链路口径）
+                 A_grid   左拇指指尖/数据2 19851            grid_len 19851.000000 19851.00    0.000000    PASS 100 Hz 网格 = int(span/0.01)（算法链路口径）
+                 A_grid   左拇指指尖/数据3 19282            grid_len 19282.000000 19282.00    0.000000    PASS 100 Hz 网格 = int(span/0.01)（算法链路口径）
+                 A_grid    四指指尖/数据1 19079            grid_len 19079.000000 19079.00    0.000000    PASS 100 Hz 网格 = int(span/0.01)（算法链路口径）
+                 A_grid    四指指尖/数据2 19055            grid_len 19055.000000 19055.00    0.000000    PASS 100 Hz 网格 = int(span/0.01)（算法链路口径）
+                 A_grid    四指指尖/数据3 19969            grid_len 19969.000000 19969.00    0.000000    PASS 100 Hz 网格 = int(span/0.01)（算法链路口径）
+                 A_grid   切换负载-快相无责 25571            grid_len 25571.000000 25571.00    0.000000    PASS 100 Hz 网格 = int(span/0.01)（算法链路口径）
+                 A_grid       再切换负载  7089            grid_len  7089.000000  7089.00    0.000000    PASS 100 Hz 网格 = int(span/0.01)（算法链路口径）
+                 A_grid 中途切换-1d9493  6386            grid_len  6386.000000  6386.00    0.000000    PASS 100 Hz 网格 = int(span/0.01)（算法链路口径）
+                 A_grid 中途切换-13ffca 12058            grid_len 12058.000000 12058.00    0.000000    PASS 100 Hz 网格 = int(span/0.01)（算法链路口径）
+       B1_v6_vs_ArmComp       再切换负载  7089  max_abs_frame_diff     0.000000     0.00    0.000000    PASS                          补丁不改变默认行为
+    B2_v51_vs_V51Traced       再切换负载  7089  max_abs_frame_diff     0.000000     0.00    0.000000    PASS                    epoch 记录钩子不改变行为
+  B3_knob_effect_N_GATE    3 份录制取最大 44718  max_abs_frame_diff   458.503745     0.00  458.503745    PASS                             开关确实生效
+     B3_knob_effect_EMA    3 份录制取最大 44718  max_abs_frame_diff  3006.858868     0.00 3006.858868    PASS                             开关确实生效
+     C_kernel_equiv_tot 再切换负载@11.80  7089    D1/D1ev/D2 tuple     0.000000     0.00    0.000000    PASS               与 t1a_common 原实现逐项一致
+      C_kernel_equiv_ch 再切换负载@11.80  7089    D1/D1ev/D2 tuple     0.000000     0.00    0.000000    PASS               与 t1a_common 原实现逐项一致
+     C_kernel_equiv_tot 再切换负载@13.71  7089    D1/D1ev/D2 tuple     0.000000     0.00    0.000000    PASS               与 t1a_common 原实现逐项一致
+      C_kernel_equiv_ch 再切换负载@13.71  7089    D1/D1ev/D2 tuple     0.000000     0.00    0.000000    PASS               与 t1a_common 原实现逐项一致
+     C_kernel_equiv_tot 再切换负载@35.97  7089    D1/D1ev/D2 tuple     0.000000     0.00    0.000000    PASS               与 t1a_common 原实现逐项一致
+      C_kernel_equiv_ch 再切换负载@35.97  7089    D1/D1ev/D2 tuple     0.000000     0.00    0.000000    PASS               与 t1a_common 原实现逐项一致
+     C_kernel_equiv_tot 再切换负载@57.31  7089    D1/D1ev/D2 tuple     0.000000     0.00    0.000000    PASS               与 t1a_common 原实现逐项一致
+      C_kernel_equiv_ch 再切换负载@57.31  7089    D1/D1ev/D2 tuple     0.000000     0.00    0.000000    PASS               与 t1a_common 原实现逐项一致
+C_kernel_equiv_censored       再切换负载  7089 D1 raw-never-stable     0.000000     0.00    0.000000    PASS                             删失分支一致
+ C2_kernel_equiv_finite   synth@100  6000       D1/D1ev tuple     0.000000     0.00    0.000000    PASS                          有限 T 逐项一致
+ C2_kernel_equiv_finite   synth@480  6000       D1/D1ev tuple     0.000000     0.00    0.000000    PASS                          有限 T 逐项一致
+ C2_kernel_equiv_finite   synth@500  6000       D1/D1ev tuple     0.000000     0.00    0.000000    PASS                          有限 T 逐项一致
+ C2_kernel_equiv_finite   synth@520  6000       D1/D1ev tuple     0.000000     0.00    0.000000    PASS                          有限 T 逐项一致
+ C2_kernel_equiv_finite  synth@3000  6000       D1/D1ev tuple     0.000000     0.00    0.000000    PASS                          有限 T 逐项一致
+ C2_kernel_equiv_finite    四指指尖/数据1 19079       D1/D1ev tuple     0.000000     0.00    0.000000    PASS                          有限 T 逐项一致
+ C2_kernel_equiv_finite   左拇指指尖/数据2 19851       D1/D1ev tuple     0.000000     0.00    0.000000    PASS                          有限 T 逐项一致
+         D_kat_v6_onset    四指指尖/数据1 19079    T_stable_ev_tot5     0.510000     0.51    0.000000    PASS     落在 0.3~5 s（第一轮同口径为 0.4~5 s 量级）
+         D_kat_v6_onset   左拇指指尖/数据2 19851    T_stable_ev_tot5     1.100000     1.10    0.000000    PASS     落在 0.3~5 s（第一轮同口径为 0.4~5 s 量级）
+
+FAIL 计数 = 0  -> 全部通过
+总耗时 99.2 s
+-> D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T3_快相爬升可重复性与处理必要性\results\t3b_patch_ab_zero.csv

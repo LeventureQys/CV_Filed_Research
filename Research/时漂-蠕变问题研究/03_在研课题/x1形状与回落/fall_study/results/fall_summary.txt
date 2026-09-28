@@ -1,0 +1,25 @@
+fall_study：阶跃后峰后回落逐事件统计（正值=显示回落；excess=fall-din 同窗口）
+
+base       n=73  t_peak中位= 3.44s  落位t_set中位=10.46s  fall中位=  483.4  excess中位= 262.1  excess_p90=  833.0  excess_max= 1187.7
+A_tsl1     n=73  t_peak中位= 2.50s  落位t_set中位=10.61s  fall中位=  262.2  excess中位= 172.2  excess_p90=  624.9  excess_max=  826.9
+B_soft10   n=73  t_peak中位= 4.18s  落位t_set中位=10.86s  fall中位=  253.3  excess中位= 101.9  excess_p90=  662.4  excess_max=  881.5
+C_gate05   n=73  t_peak中位= 1.93s  落位t_set中位=10.17s  fall中位=  616.6  excess中位= 350.1  excess_p90= 1114.0  excess_max= 1752.8
+D_M2+B     n=73  t_peak中位= 6.43s  落位t_set中位=12.20s  fall中位=  211.1  excess中位=  48.0  excess_p90=  431.7  excess_max=  509.3
+E_combo    n=73  t_peak中位= 7.29s  落位t_set中位=14.82s  fall中位=  135.7  excess中位=   3.8  excess_p90=  286.4  excess_max=  406.7
+F_E_tc16   n=73  t_peak中位= 7.29s  落位t_set中位=14.93s  fall中位=  136.1  excess中位=  -7.7  excess_p90=  305.8  excess_max=  468.4
+G_E_w6     n=73  t_peak中位= 5.21s  落位t_set中位=12.99s  fall中位=  140.4  excess中位= -14.7  excess_p90=  329.0  excess_max=  558.0
+H1_F_w6    n=73  t_peak中位= 5.21s  落位t_set中位=13.16s  fall中位=  140.3  excess中位= -20.0  excess_p90=  337.8  excess_max=  608.1
+H2_F_w4    n=73  t_peak中位= 3.50s  落位t_set中位=10.85s  fall中位=  175.6  excess中位=  53.0  excess_p90=  400.2  excess_max=  757.5
+H3_F12_w4  n=73  t_peak中位= 3.50s  落位t_set中位=10.84s  fall中位=  173.8  excess中位=  49.2  excess_p90=  396.0  excess_max=  752.0
+H4_F_w4_b3 n=73  t_peak中位= 2.90s  落位t_set中位=10.84s  fall中位=  191.3  excess中位=  59.7  excess_p90=  410.1  excess_max=  803.7
+I1_boost03 n=73  t_peak中位= 4.03s  落位t_set中位=10.81s  fall中位=  156.8  excess中位=  23.3  excess_p90=  348.2  excess_max=  751.3
+I2_snap06  n=73  t_peak中位= 4.03s  落位t_set中位=10.81s  fall中位=  145.6  excess中位=  17.8  excess_p90=  348.9  excess_max=  745.3
+I3_snap10  n=73  t_peak中位= 4.03s  落位t_set中位=10.85s  fall中位=  164.9  excess中位=  28.8  excess_p90=  346.7  excess_max=  743.6
+J1_cap5x   n=73  t_peak中位= 2.81s  落位t_set中位=10.79s  fall中位=  156.3  excess中位=  30.8  excess_p90=  458.8  excess_max=  970.4
+J2_cap3x   n=73  t_peak中位= 2.89s  落位t_set中位=10.79s  fall中位=  165.2  excess中位=  33.6  excess_p90=  459.3  excess_max=  954.6
+J3_cap5x_w2 n=73  t_peak中位= 1.73s  落位t_set中位=10.36s  fall中位=  511.9  excess中位= 218.4  excess_p90=  841.2  excess_max= 1225.4
+K1_hold_e2 n=73  t_peak中位= 3.50s  落位t_set中位=10.84s  fall中位=  173.8  excess中位=  49.2  excess_p90=  396.0  excess_max=  752.0
+K2_hold_e10 n=73  t_peak中位= 3.50s  落位t_set中位=10.84s  fall中位=  173.8  excess中位=  49.2  excess_p90=  396.0  excess_max=  752.0
+K3_base+hold2 n=73  t_peak中位= 3.44s  落位t_set中位=10.46s  fall中位=  483.4  excess中位= 262.1  excess_p90=  833.0  excess_max= 1187.7
+K4_base+hold10 n=73  t_peak中位= 3.44s  落位t_set中位=10.46s  fall中位=  483.4  excess中位= 262.1  excess_p90=  833.0  excess_max= 1187.7
+INPUT      n=73  t_peak中位= 7.42s  落位t_set中位=  nans  fall中位=  127.0  excess中位=   nan  excess_p90=    nan  excess_max=    nan

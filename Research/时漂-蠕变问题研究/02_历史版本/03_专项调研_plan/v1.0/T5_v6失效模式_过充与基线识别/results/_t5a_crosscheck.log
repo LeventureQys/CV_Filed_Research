@@ -1,0 +1,15 @@
+python scripts/t5a_crosscheck_v61.py
+
+与 08-v6.1 台账对表：可匹配 34 / 48 条
+  |Δt_on| 中位 0.026 s，最大 0.297 s
+  08-v6.1 over_peak 中位 -1.316%  max 10.871%
+  本任务 OS_pct 中位 12.620%  max 669.478%
+  两者差（本任务 − 08-v6.1）中位 16.668 pt
+  差异最大的 6 条（差异主要来自 30 s 窗纳入慢相段）：
+    再切换负载          @  31.20s decrease 08v61=   1.109%  本任务=  669.478%  J=   1416.6  J_frac=0.055
+    切换负载-快相无责      @ 217.51s restep_reload 08v61=   0.002%  本任务=  205.519%  J=   6096.2  J_frac=0.218
+    切换负载-快相无责      @ 217.73s restep_reload 08v61=   0.015%  本任务=  205.519%  J=   6096.2  J_frac=0.218
+    切换负载-快相无责      @  10.81s onset  08v61=   0.707%  本任务=  194.206%  J=   4165.8  J_frac=0.149
+    切换负载-快相无责      @ 110.42s restep 08v61= -71.783%  本任务=   44.251%  J=   6467.2  J_frac=0.231
+    切换负载-快相无责      @ 110.42s restep_reload 08v61= -71.783%  本任务=   44.251%  J=   6467.2  J_frac=0.231
+产出 D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T5_v6失效模式_过充与基线识别\results\t5a_crosscheck_v61.csv

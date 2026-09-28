@@ -1,0 +1,45 @@
+scene=a tag=中途切换-1d9493 n=6386 ch=21 span=63.85s packet_dt=39.99ms frames/pkt=4.01 n_pkt=1601 lvl_med=18645.6 a_step=nan rank=adc
+  baseline  v5.1: events=4 {'n_epoch': 4, 'n_revoke': 0, 'n_handoff': 0, 'n_unload': 0}
+  baseline    v6: events=11 {'n_epoch': 6, 'n_revoke': 0, 'n_handoff': 3, 'n_unload': 2}
+  baseline  v6.1: events=11 {'n_epoch': 6, 'n_revoke': 0, 'n_handoff': 3, 'n_unload': 2}
+  cond=     timing_J0P reorder=0.000 v5.1: rms=0.0ADC lev=0.0 | v6: rms=0.0ADC lev=0.0 | v6.1: rms=0.0ADC lev=0.0
+  cond=    timing_J10P reorder=0.000 v5.1: rms=9.4ADC lev=0.0 | v6: rms=58.2ADC lev=0.0 | v6.1: rms=57.6ADC lev=0.0
+  cond=    timing_J25P reorder=0.000 v5.1: rms=11.2ADC lev=0.0 | v6: rms=73.7ADC lev=0.0 | v6.1: rms=73.5ADC lev=0.0
+  cond=    timing_J50P reorder=0.006 v5.1: rms=29.9ADC lev=0.0 | v6: rms=876.3ADC lev=1.5 | v6.1: rms=810.1ADC lev=1.5
+  cond=   timing_J100P reorder=0.130 v5.1: rms=48.2ADC lev=0.0 | v6: rms=1473.9ADC lev=3.0 | v6.1: rms=1473.6ADC lev=3.0
+  cond=     noise_1ADC reorder=nan v5.1: rms=1.0ADC lev=0.0 | v6: rms=128.4ADC lev=0.0 | v6.1: rms=230.7ADC lev=0.0
+D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T6_v6可重复性下降归因\scripts\t6b_jitter.py:230: RuntimeWarning: Mean of empty slice
+  p(f"  cond={cname:>15} reorder={np.nanmean([r['reorder_frac'] for r in sub]):.3f} "
+  cond=     noise_5ADC reorder=nan v5.1: rms=7.6ADC lev=0.0 | v6: rms=122.4ADC lev=0.0 | v6.1: rms=232.4ADC lev=0.0
+  cond= dropout_1frame reorder=nan v5.1: rms=0.0ADC lev=0.0 | v6: rms=0.0ADC lev=0.0 | v6.1: rms=0.0ADC lev=0.0
+
+======================================================================================================================
+表 L3（scene=a）  微扰 → 输出轨线差异 / 事件序列改动（各条件 n=30）
+======================================================================================================================
+impl           cond  n  rms_adc_med  rms_adc_p90  rms_pct_lvl_med  max_abs_pct_lvl_med  seq_lev_med  seq_same_rate  n_epoch_changed_rate  n_revoke_changed_rate  n_handoff_changed_rate  n_unload_changed_rate
+v5.1 dropout_1frame 30       0.0138       0.6402           0.0001               0.0059          0.0         1.0000                0.0000                 0.0000                  0.0000                 0.0000
+v5.1     noise_1ADC 30       1.0167       2.3586           0.0055               0.0231          0.0         1.0000                0.0000                 0.0000                  0.0000                 0.0000
+v5.1     noise_5ADC 30       7.6063       8.7036           0.0408               1.3960          0.0         1.0000                0.0000                 0.0000                  0.0000                 0.0000
+v5.1     timing_J0P 30       0.0000       0.0000           0.0000               0.0000          0.0         1.0000                0.0000                 0.0000                  0.0000                 0.0000
+v5.1   timing_J100P 30      48.1751      71.5562           0.2584               1.6300          0.0         1.0000                0.0000                 0.0000                  0.0000                 0.0000
+v5.1    timing_J10P 30       9.3807      10.8679           0.0503               1.4410          0.0         1.0000                0.0000                 0.0000                  0.0000                 0.0000
+v5.1    timing_J25P 30      11.2385      16.7620           0.0603               1.4470          0.0         1.0000                0.0000                 0.0000                  0.0000                 0.0000
+v5.1    timing_J50P 30      29.9308      38.6139           0.1605               1.5998          0.0         1.0000                0.0000                 0.0000                  0.0000                 0.0000
+  v6 dropout_1frame 30       0.0000       0.1621           0.0000               0.0000          0.0         1.0000                0.0000                 0.0000                  0.0000                 0.0000
+  v6     noise_1ADC 30     128.4297     129.3434           0.6888               1.6014          0.0         1.0000                0.0000                 0.0000                  0.0000                 0.0000
+  v6     noise_5ADC 30     122.3900     133.5864           0.6564               1.5967          0.0         0.9667                0.0333                 0.0000                  0.0000                 0.0333
+  v6     timing_J0P 30       0.0000       0.0000           0.0000               0.0000          0.0         1.0000                0.0000                 0.0000                  0.0000                 0.0000
+  v6   timing_J100P 30    1473.9303    1530.4208           7.9050              18.1534          3.0         0.2667                0.5000                 0.7333                  0.7000                 0.0000
+  v6    timing_J10P 30      58.1935      80.6818           0.3121               2.6253          0.0         1.0000                0.0000                 0.0000                  0.0000                 0.0000
+  v6    timing_J25P 30      73.7483    1503.7648           0.3955              16.4170          0.0         0.8667                0.1333                 0.1333                  0.1333                 0.0000
+  v6    timing_J50P 30     876.3058    1524.4428           4.6998              17.5599          1.5         0.5000                0.4667                 0.5000                  0.5000                 0.0000
+v6.1 dropout_1frame 30       0.0029       0.1621           0.0000               0.0012          0.0         1.0000                0.0000                 0.0000                  0.0000                 0.0000
+v6.1     noise_1ADC 30     230.6846     231.3582           1.2372               4.1559          0.0         1.0000                0.0000                 0.0000                  0.0000                 0.0000
+v6.1     noise_5ADC 30     232.3837     239.1105           1.2463               4.2172          0.0         0.9667                0.0333                 0.0000                  0.0000                 0.0333
+v6.1     timing_J0P 30       0.0000       0.0000           0.0000               0.0000          0.0         1.0000                0.0000                 0.0000                  0.0000                 0.0000
+v6.1   timing_J100P 30    1473.6127    1525.4834           7.9033              18.1883          3.0         0.2667                0.5000                 0.7333                  0.7000                 0.0000
+v6.1    timing_J10P 30      57.5663      81.4232           0.3087               1.9794          0.0         1.0000                0.0000                 0.0000                  0.0000                 0.0000
+v6.1    timing_J25P 30      73.5173    1504.0873           0.3943              16.4170          0.0         0.8667                0.1333                 0.1333                  0.1333                 0.0000
+v6.1    timing_J50P 30     810.0932    1522.9972           4.3447              17.5599          1.5         0.5000                0.4667                 0.5000                  0.5000                 0.0000
+
+-> results/t6_jitter_paths_a.csv / t6_jitter_summary_a.csv / t6_event_sequence_a.csv

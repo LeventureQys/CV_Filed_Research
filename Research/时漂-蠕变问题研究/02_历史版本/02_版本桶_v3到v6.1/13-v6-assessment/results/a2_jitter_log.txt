@@ -1,0 +1,62 @@
+== [�л�����-��������] ���ص�ƽ��25811 max_tot=29531 ���ض�������10%max=2953 ��������5%lvref��1291 ���� epoch=24 ��A=15
+   ���� epoch: 10.81(onset); 13.71(restep_reload); 13.87(restep_reload); 28.44(restep); 71.57(decrease); 75.04(restep); 75.59(restep_reload); 110.42(restep); 110.42(restep_reload); 129.38(decrease); 133.84(onset); 181.95(decrease); 185.98(onset); 202.62(decrease); 212.40(decrease); 213.13(restep); 217.51(restep_reload); 217.73(restep_reload); 217.95(restep); 230.06(decrease); 232.97(decrease); 233.28(restep); 240.73(restep); 249.61(decrease)
+  ��������        A=  200 s=0 epoch= 21(��-3) maxdev=   7173 slow_dev=   -1584 dA=      22 ho=9 rev=0 [9.0s]
+     epoch: 10.35(onset); 27.92(restep); 71.17(decrease); 75.04(restep); 75.33(restep_reload); 110.14(restep); 110.27(restep_reload); 128.96(decrease); 133.84(onset); 181.96(decrease); 185.98(onset); 202.33(decrease); 212.13(decrease); 213.11(restep); 217.33(restep_reload); 217.75(restep_reload); 230.07(decrease); 232.45(decrease); 233.63(restep); 240.34(restep); 249.61(decrease)
+     handoff: 15.35/onset/3648; 32.92/onset/5590; 80.33/restep_reload/8379; 115.27/restep_reload/5618; 138.84/onset/28524; 190.98/onset/25300; 222.75/restep_reload/4887; 238.63/restep/4638; 245.34/restep/4259
+  ��������        A=  200 s=1 epoch= 23(��-1) maxdev=   4975 slow_dev=   -1443 dA=      10 ho=9 rev=0 [8.9s]
+  ��������        A=  500 s=0 epoch= 19(��-5) maxdev=   8362 slow_dev=   -1574 dA=      78 ho=9 rev=0 [9.0s]
+  ��������        A=  500 s=1 epoch= 20(��-4) maxdev=   6245 slow_dev=   -3157 dA=      48 ho=9 rev=0 [9.4s]
+  ��������        A= 1000 s=0 epoch= 16(��-8) maxdev=   9423 slow_dev=   -2766 dA=     170 ho=9 rev=0 [9.7s]
+  ��������        A= 1000 s=1 epoch= 18(��-6) maxdev=   9217 slow_dev=   -3680 dA=     116 ho=9 rev=0 [9.7s]
+  ��������        A= 2000 s=0 epoch= 15(��-9) maxdev=  12398 slow_dev=   -2624 dA=     437 ho=8 rev=0 [9.5s]
+  ��������        A= 2000 s=1 epoch= 15(��-9) maxdev=  15239 slow_dev=   -4366 dA=     408 ho=8 rev=0 [9.5s]
+  ����0.3-5Hz   A=  200 s=0 epoch= 20(��-4) maxdev=   3470 slow_dev=    -915 dA=      76 ho=9 rev=0 [9.7s]
+     epoch: 0.35(onset); 10.42(restep); 28.16(restep); 71.18(decrease); 75.59(restep); 110.14(restep); 110.36(restep_reload); 129.00(decrease); 133.84(onset); 181.95(decrease); 185.98(onset); 202.24(decrease); 212.09(decrease); 217.53(restep); 217.87(restep_reload); 230.40(decrease); 232.56(decrease); 232.78(restep_reload); 240.40(restep); 249.61(decrease)
+     handoff: 15.42/onset/3475; 33.16/onset/5989; 80.59/onset/10974; 115.36/restep_reload/5963; 138.84/onset/28478; 190.98/onset/25461; 222.87/restep_reload/5022; 237.78/restep_reload/13392; 245.40/restep/4868
+  ����0.3-5Hz   A=  200 s=1 epoch= 19(��-5) maxdev=   4043 slow_dev=    -747 dA=      49 ho=9 rev=0 [9.9s]
+  ����0.3-5Hz   A=  500 s=0 epoch= 18(��-6) maxdev=   5375 slow_dev=    -803 dA=     199 ho=9 rev=0 [9.9s]
+  ����0.3-5Hz   A=  500 s=1 epoch= 17(��-7) maxdev=   5517 slow_dev=   -1804 dA=     210 ho=9 rev=0 [9.5s]
+  ����0.3-5Hz   A= 1000 s=0 epoch= 14(��-10) maxdev=  12039 slow_dev=   -1623 dA=     369 ho=6 rev=0 [9.3s]
+  ����0.3-5Hz   A= 1000 s=1 epoch= 13(��-11) maxdev=   8974 slow_dev=      -3 dA=     304 ho=6 rev=0 [9.1s]
+  ����0.3-5Hz   A= 2000 s=0 epoch= 10(��-14) maxdev=  14455 slow_dev=   -1565 dA=    1446 ho=4 rev=0 [8.4s]
+  ����0.3-5Hz   A= 2000 s=1 epoch=  6(��-18) maxdev=  14394 slow_dev=   -4616 dA=    1032 ho=3 rev=0 [7.4s]
+== [�㸺��-�л�����-�㸺��-���л�����] ���ص�ƽ��21628 max_tot=25926 ���ض�������10%max=2593 ��������5%lvref��1081 ���� epoch=6 ��A=26869
+   ���� epoch: 3.34(onset); 11.76(onset); 31.20(decrease); 35.93(onset); 50.58(decrease); 57.28(onset)
+  ��������        A=  200 s=0 epoch=  5(��-1) maxdev=   2606 slow_dev=    -392 dA=    -380 ho=3 rev=0 [2.2s]
+     epoch: 11.76(restep); 31.20(decrease); 35.81(onset); 50.58(decrease); 57.31(onset)
+     handoff: 16.76/onset/15192; 40.81/onset/20945; 62.31/onset/26484
+  ��������        A=  200 s=1 epoch=  5(��-1) maxdev=   3622 slow_dev=    -317 dA=      81 ho=3 rev=0 [2.2s]
+  ��������        A=  500 s=0 epoch=  5(��-1) maxdev=   5248 slow_dev=   -2493 dA=    -148 ho=3 rev=0 [2.3s]
+  ��������        A=  500 s=1 epoch=  5(��-1) maxdev=   6545 slow_dev=   -3944 dA=   -3975 ho=3 rev=0 [2.3s]
+  ��������        A= 1000 s=0 epoch=  5(��-1) maxdev=   8265 slow_dev=   -4357 dA=   -3862 ho=3 rev=0 [2.3s]
+  ��������        A= 1000 s=1 epoch=  5(��-1) maxdev=   9218 slow_dev=   -3958 dA=   -3143 ho=3 rev=0 [2.3s]
+  ��������        A= 2000 s=0 epoch=  5(��-1) maxdev=  10323 slow_dev=   -1409 dA=   -3801 ho=3 rev=0 [2.2s]
+  ��������        A= 2000 s=1 epoch=  5(��-1) maxdev=  10590 slow_dev=   -2109 dA=   -2654 ho=3 rev=0 [2.3s]
+  ����0.3-5Hz   A=  200 s=0 epoch=  6(��+0) maxdev=   3069 slow_dev=   -1215 dA=    -157 ho=3 rev=0 [2.2s]
+     epoch: 0.62(onset); 11.76(restep); 31.20(decrease); 35.68(onset); 50.58(decrease); 57.31(onset)
+     handoff: 16.76/onset/14449; 40.68/onset/20536; 62.31/onset/26687
+  ����0.3-5Hz   A=  200 s=1 epoch=  5(��-1) maxdev=   3700 slow_dev=    -378 dA=     -66 ho=3 rev=0 [2.2s]
+  ����0.3-5Hz   A=  500 s=0 epoch=  6(��+0) maxdev=   5341 slow_dev=   -3281 dA=     364 ho=3 rev=0 [2.2s]
+  ����0.3-5Hz   A=  500 s=1 epoch=  5(��-1) maxdev=   5565 slow_dev=   -3212 dA=   -2168 ho=3 rev=0 [2.3s]
+  ����0.3-5Hz   A= 1000 s=0 epoch=  6(��+0) maxdev=   7138 slow_dev=   -3598 dA=   -2932 ho=3 rev=0 [2.3s]
+  ����0.3-5Hz   A= 1000 s=1 epoch=  5(��-1) maxdev=   6482 slow_dev=   -2834 dA=    -707 ho=3 rev=0 [2.3s]
+  ����0.3-5Hz   A= 2000 s=0 epoch=  6(��+0) maxdev=  10532 slow_dev=   -2722 dA=   -3034 ho=3 rev=0 [2.3s]
+  ����0.3-5Hz   A= 2000 s=1 epoch=  5(��-1) maxdev=  11550 slow_dev=    -291 dA=    2276 ho=3 rev=0 [2.3s]
+                                   n_epoch_delta    maxdev  slow_dev    dAmax
+rec                kind      amp                                             
+�л�����-��������          ����0.3-5Hz 200            -4.5   3756.40   -831.10    62.25
+                             500            -6.5   5446.15  -1303.40   204.55
+                             1000          -10.5  10506.20   -812.70   336.20
+                             2000          -16.0  14424.35  -3090.45  1238.65
+                   ��������      200            -2.0   6074.00  -1513.55    15.90
+                             500            -4.5   7303.45  -2365.30    62.55
+                             1000           -7.0   9319.60  -3223.20   143.05
+                             2000           -9.0  13818.75  -3494.85   422.50
+�㸺��-�л�����-�㸺��-���л����� ����0.3-5Hz 200            -0.5   3384.40   -797.00  -111.65
+                             500            -0.5   5453.05  -3246.60  -902.40
+                             1000           -0.5   6810.10  -3216.05 -1819.15
+                             2000           -0.5  11040.80  -1506.45  -378.85
+                   ��������      200            -1.0   3113.70   -354.20  -149.50
+                             500            -1.0   5896.70  -3218.40 -2061.40
+                             1000           -1.0   8741.50  -4157.40 -3502.65
+                             2000           -1.0  10456.60  -1758.90 -3227.65

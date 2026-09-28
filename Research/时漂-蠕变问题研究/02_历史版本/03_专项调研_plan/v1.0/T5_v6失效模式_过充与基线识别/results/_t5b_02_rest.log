@@ -1,0 +1,57 @@
+[计划] mode=rest 单元格 48；trial 432
+
+### W2_3w 中途切换-最终测试目标 窗 [80.0,115.0]s 帧=3500 电平中位=28205 干净 epoch=3 真值事件=4
+  [W2_3w] white amp=200 dur=- n=10 失败=7 耗时=23.2s
+  [W2_3w] white amp=500 dur=- n=10 失败=8 耗时=23.1s
+  [W2_3w] white amp=1000 dur=- n=10 失败=10 耗时=23.4s
+  [W2_3w] white amp=2000 dur=- n=10 失败=10 耗时=23.2s
+  [W2_3w] white amp=4000 dur=- n=10 失败=10 耗时=23.8s
+  [W2_3w] white amp=8000 dur=- n=10 失败=10 耗时=24.8s
+  [W2_3w] common amp=200 dur=- n=10 失败=3 耗时=24.7s
+  [W2_3w] common amp=500 dur=- n=10 失败=6 耗时=23.3s
+  [W2_3w] common amp=1000 dur=- n=10 失败=10 耗时=24.2s
+  [W2_3w] common amp=2000 dur=- n=10 失败=10 耗时=23.4s
+  [W2_3w] common amp=4000 dur=- n=10 失败=10 耗时=23.4s
+  [W2_3w] common amp=8000 dur=- n=10 失败=10 耗时=23.8s
+  [W2_3w] band5 amp=500 dur=- n=6 失败=6 耗时=16.1s
+  [W2_3w] band5 amp=1000 dur=- n=6 失败=6 耗时=18.0s
+  [W2_3w] band5 amp=2000 dur=- n=6 失败=6 耗时=16.9s
+  [W2_3w] band5 amp=4000 dur=- n=6 失败=6 耗时=15.8s
+
+### W3_1p5w 零负载-切换负载-零负载-再切换负载 窗 [5.0,45.0]s 帧=3997 电平中位=15416 干净 epoch=3 真值事件=5
+  [W3_1p5w] white amp=200 dur=- n=10 失败=0 耗时=28.1s
+  [W3_1p5w] white amp=500 dur=- n=10 失败=10 耗时=30.0s
+  [W3_1p5w] white amp=1000 dur=- n=10 失败=10 耗时=28.3s
+  [W3_1p5w] white amp=2000 dur=- n=10 失败=10 耗时=27.0s
+  [W3_1p5w] white amp=4000 dur=- n=10 失败=10 耗时=27.8s
+  [W3_1p5w] white amp=8000 dur=- n=10 失败=10 耗时=23.3s
+  [W3_1p5w] common amp=200 dur=- n=10 失败=3 耗时=27.2s
+  [W3_1p5w] common amp=500 dur=- n=10 失败=8 耗时=26.6s
+  [W3_1p5w] common amp=1000 dur=- n=10 失败=10 耗时=25.7s
+  [W3_1p5w] common amp=2000 dur=- n=10 失败=10 耗时=26.7s
+  [W3_1p5w] common amp=4000 dur=- n=10 失败=10 耗时=27.5s
+  [W3_1p5w] common amp=8000 dur=- n=10 失败=10 耗时=23.5s
+  [W3_1p5w] band5 amp=500 dur=- n=6 失败=2 耗时=15.8s
+  [W3_1p5w] band5 amp=1000 dur=- n=6 失败=5 耗时=15.5s
+  [W3_1p5w] band5 amp=2000 dur=- n=6 失败=6 耗时=15.5s
+  [W3_1p5w] band5 amp=4000 dur=- n=6 失败=6 耗时=10.7s
+
+### W4_1p9w 零负载-中途切换负载-零负载-切换负载 窗 [5.0,45.0]s 帧=3998 电平中位=18012 干净 epoch=5 真值事件=4
+  [W4_1p9w] white amp=200 dur=- n=10 失败=2 耗时=22.1s
+  [W4_1p9w] white amp=500 dur=- n=10 失败=10 耗时=22.1s
+  [W4_1p9w] white amp=1000 dur=- n=10 失败=10 耗时=23.0s
+  [W4_1p9w] white amp=2000 dur=- n=10 失败=10 耗时=21.5s
+  [W4_1p9w] white amp=4000 dur=- n=10 失败=10 耗时=21.6s
+  [W4_1p9w] white amp=8000 dur=- n=10 失败=10 耗时=19.3s
+  [W4_1p9w] common amp=200 dur=- n=10 失败=2 耗时=22.8s
+  [W4_1p9w] common amp=500 dur=- n=10 失败=10 耗时=22.4s
+  [W4_1p9w] common amp=1000 dur=- n=10 失败=10 耗时=22.3s
+  [W4_1p9w] common amp=2000 dur=- n=10 失败=10 耗时=22.3s
+  [W4_1p9w] common amp=4000 dur=- n=10 失败=10 耗时=22.9s
+  [W4_1p9w] common amp=8000 dur=- n=10 失败=10 耗时=21.5s
+  [W4_1p9w] band5 amp=500 dur=- n=6 失败=6 耗时=13.8s
+  [W4_1p9w] band5 amp=1000 dur=- n=6 失败=6 耗时=13.7s
+  [W4_1p9w] band5 amp=2000 dur=- n=6 失败=6 耗时=12.9s
+  [W4_1p9w] band5 amp=4000 dur=- n=6 失败=6 耗时=8.8s
+
+分片完成 rest：trial=432 候选=2340 耗时 1051.6s

@@ -1,0 +1,42 @@
+[    0.0s] T4-A 冻结事件表：60 事件（onset 22 / restep 19 / partial_unload 5 / unload 14）
+[    1.2s] 读入 13 份录制（100 Hz 网格，timestamp 轴）
+[   77.5s] arm v6_now 完成
+[  116.1s] arm v5.1 完成
+[  190.4s] arm v6.1 完成
+[  194.4s] arm raw 完成
+[  194.4s] 产出 results/t5a_event_metrics_by_arm.csv
+[  194.5s] 产出 D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T5_v6失效模式_过充与基线识别\results\t5a_overcharge_events.csv（60 行 × 120 列）
+[  194.5s] 
+===== T5A-Q1 汇总（v6_now，Z_final = t_on+4.6~5.4 s 原始中位）=====
+onset           n=22  OS% 中位     9.64  p10~p90    -0.67~   57.16  max   194.21  |  US% 中位   98.24  max   134.65  |  norm_unstable n=0
+restep          n=19  OS% 中位    38.11  p10~p90   -37.55~  582.77  max  1687.50  |  US% 中位  399.72  max  3209.61  |  norm_unstable n=2
+unload          n=14  OS% 中位     0.27  p10~p90     0.00~    4.05  max     4.84  |  US% 中位   77.71  max   122.18  |  norm_unstable n=0
+partial_unload  n= 5  OS% 中位   578.62  p10~p90   217.14~ 1878.83  max  2679.70  |  US% 中位  104.98  max   361.53  |  norm_unstable n=1
+
+加载类（onset+restep，J_frac≥0.05）n=39：
+  OS% 中位 11.65  p10~p90 -12.22~163.47  max 669.48；>5% 有 28/39，>10% 有 22/39
+  US% 中位 100.39  max 1877.61；>5% 有 39/39
+  字面口径 OS%（task_literal）中位 14.50 ← 与主口径对比可见伪影
+
+加载类 OS% 绝对值最大的 10 个事件：
+  SW2   @  14.86s restep  OS%= 1687.50  US%=3209.61  J=    479.9  J_frac=0.019  MD=  2396.7  G20= 0.990  T_stable=nan
+  SW2   @  31.22s restep  OS%=  669.48  US%=1230.09  J=   1416.6  J_frac=0.055  MD=  3721.7  G20= 0.921  T_stable=nan
+  SW2   @  13.70s restep  OS%=  561.09  US%=1036.28  J=   1433.2  J_frac=0.055  MD=  2396.7  G20= 1.040  T_stable=nan
+  RT2   @ 147.11s restep  OS%= -422.21  US%=1877.61  J=      1.2  J_frac=0.053  MD=     6.2  G20= 0.762  T_stable=nan
+  SW1   @ 217.74s restep  OS%=  205.52  US%= 184.88  J=   6096.2  J_frac=0.218  MD=  2865.2  G20= 0.871  T_stable=nan
+  SW1   @  10.84s onset   OS%=  194.21  US%=  74.57  J=   4165.8  J_frac=0.149  MD=   889.3  G20= 0.952  T_stable=nan
+  SW4   @  61.37s restep  OS%=  155.79  US%= 708.76  J=   3446.8  J_frac=0.106  MD=  3760.7  G20= 0.901  T_stable=nan
+  SW4   @  99.36s restep  OS%=  145.94  US%=1252.71  J=   2453.5  J_frac=0.076  MD=  3542.3  G20= 1.044  T_stable=nan
+  SW4   @ 104.24s restep  OS%=   81.77  US%=1184.31  J=   2710.4  J_frac=0.084  MD=  2578.0  G20= 1.086  T_stable=nan
+  SW3   @  10.92s onset   OS%=   59.19  US%= 100.39  J=  17632.3  J_frac=0.637  MD=  5351.2  G20= 1.009  T_stable=nan
+[  254.0s] ±t_on 敏感性 shift= -40 ms：OS% 中位 12.14 / max 553.19 / T_med 3.6999999999999993
+[  306.3s] ±t_on 敏感性 shift= -20 ms：OS% 中位 11.55 / max 554.18 / T_med 3.6799999999999997
+[  357.5s] ±t_on 敏感性 shift=  +0 ms：OS% 中位 11.65 / max 669.48 / T_med 3.66
+[  411.3s] ±t_on 敏感性 shift= +20 ms：OS% 中位 11.63 / max 623.31 / T_med 3.6400000000000006
+[  443.7s] ±t_on 敏感性 shift= +40 ms：OS% 中位 11.63 / max 566.00 / T_med 3.620000000000001
+[  443.7s] 
+与 08-v6.1 台账对表：匹配 34/48；|Δt_on| 中位 0.026 s
+[  443.7s]   08-v6.1 over_peak 中位 -1.316% max 10.871%
+[  443.7s]   本任务 OS5 中位 -0.751% max 12.846%  ⇒ 差中位 0.559 pt
+[  443.7s]   本任务 OS30 中位 12.620%  ⇒ 差中位 16.668 pt（30 s 窗纳入慢相段，系统性偏大）
+[  443.7s]   产出 results/t5a_crosscheck_v61.csv

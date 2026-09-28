@@ -1,0 +1,11 @@
+# cmd   : python scripts/t2e_figures.py
+# when  : 2026-09-19T00:50:19
+# env   : python 3.14.4 | numpy 2.4.6 | pandas 3.0.3
+# 口径  : timestamp 列 / 100 Hz 网格 / Z=Σch / 形状用原始读数 / 禁用 τ=2 s 平滑
+
+== T2-E 图件 ==
+  -> D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T2_三阶段时间特征实测\figures\T2_01_phases_overview.png
+  -> D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T2_三阶段时间特征实测\figures\T2_02_shape_profile.png
+  -> D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T2_三阶段时间特征实测\figures\T2_03_slowphase_fit.png
+  -> D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T2_三阶段时间特征实测\figures\T2_04_timeaxis.png
+完成。

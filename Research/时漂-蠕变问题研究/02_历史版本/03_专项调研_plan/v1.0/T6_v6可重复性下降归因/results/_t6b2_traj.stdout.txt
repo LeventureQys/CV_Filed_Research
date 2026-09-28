@@ -1,0 +1,4 @@
+  traj v5.1 done
+  traj v6 done
+  traj v6.1 done
+-> results/t6_jitter_traj_a.csv

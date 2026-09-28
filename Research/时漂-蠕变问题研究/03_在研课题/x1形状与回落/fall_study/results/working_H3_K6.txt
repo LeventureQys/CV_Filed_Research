@@ -1,0 +1,22 @@
+working 全会话：H3 vs K6(H3+预留池)
+excess=同窗口显示回落-输入自身回落
+
+[零基线-剧烈变化负载情况\20260919_192655_single_device_d675cf] 事件数 2
+  K6_H3+holdA2     fall中位= 3682.2  excess中位= 183.4  max=  472.3  t_set中位=10.51s
+  H3_F12_w4        fall中位= 3670.5  excess中位= 170.7  max=  440.1  t_set中位=10.51s
+
+[零基线-反复增减同一负载\20260919_191748_single_device_795e5e\20260919_192141_single_device_73032d] 事件数 8
+  K6_H3+holdA2     fall中位=   93.5  excess中位= 182.8  max=  689.3  t_set中位= 6.62s
+  H3_F12_w4        fall中位=  331.7  excess中位= 197.7  max=  694.7  t_set中位= 9.18s
+
+[零基线-反复增减同一负载\20260919_193935_single_device_9c3ca5] 事件数 3
+  K6_H3+holdA2     fall中位=  145.8  excess中位= 368.8  max=  418.1  t_set中位= 2.88s
+  H3_F12_w4        fall中位=  145.9  excess中位= 368.9  max=  407.6  t_set中位= 2.67s
+
+[零基线-同一荷载测试\20260919_193320_single_device_3f32c5] 事件数 1
+  K6_H3+holdA2     fall中位= -274.1  excess中位= 332.9  max=  332.9  t_set中位= 7.95s
+  H3_F12_w4        fall中位= -284.1  excess中位= 322.9  max=  322.9  t_set中位= 7.95s
+
+[零基线-同一荷载测试\回撤测试\20260920_164949_single_device_686171] 事件数 0
+
+图: D:\workshop\Processing\multi-device-cascade-host-cpp\Document\Update\Dev-Version\v2.7 - 抗蠕变补偿算法\v4.1flash\plan\v4\fall_study\scripts\..\figure\working对比_H3_K6.png (291 KB)

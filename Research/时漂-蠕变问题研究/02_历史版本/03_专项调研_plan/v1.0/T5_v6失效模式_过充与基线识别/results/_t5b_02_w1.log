@@ -1,0 +1,64 @@
+[计划] mode=w1 单元格 59；trial 650
+
+### W1_1w 切换负载-快相无责 窗 [26.0,92.0]s 帧=6599 电平中位=12101 干净 epoch=3 真值事件=3
+  [W1_1w] white amp=200 dur=- n=10 失败=10 耗时=27.0s
+  [W1_1w] white amp=500 dur=- n=10 失败=10 耗时=28.1s
+  [W1_1w] white amp=1000 dur=- n=10 失败=10 耗时=32.3s
+  [W1_1w] white amp=2000 dur=- n=10 失败=10 耗时=45.9s
+  [W1_1w] white amp=4000 dur=- n=10 失败=10 耗时=38.5s
+  [W1_1w] white amp=8000 dur=- n=10 失败=10 耗时=27.5s
+  [W1_1w] common amp=200 dur=- n=10 失败=10 耗时=30.3s
+  [W1_1w] common amp=500 dur=- n=10 失败=10 耗时=30.5s
+  [W1_1w] common amp=1000 dur=- n=10 失败=10 耗时=40.2s
+  [W1_1w] common amp=2000 dur=- n=10 失败=10 耗时=55.1s
+  [W1_1w] common amp=4000 dur=- n=10 失败=10 耗时=45.2s
+  [W1_1w] common amp=8000 dur=- n=10 失败=10 耗时=37.3s
+  [W1_1w] band1 amp=500 dur=- n=8 失败=8 耗时=37.3s
+  [W1_1w] band1 amp=1000 dur=- n=8 失败=8 耗时=29.5s
+  [W1_1w] band1 amp=2000 dur=- n=8 失败=8 耗时=25.9s
+  [W1_1w] band1 amp=4000 dur=- n=8 失败=8 耗时=31.5s
+  [W1_1w] band2 amp=500 dur=- n=8 失败=8 耗时=41.1s
+  [W1_1w] band2 amp=1000 dur=- n=8 失败=8 耗时=26.5s
+  [W1_1w] band2 amp=2000 dur=- n=8 失败=8 耗时=22.7s
+  [W1_1w] band2 amp=4000 dur=- n=8 失败=8 耗时=28.5s
+  [W1_1w] band5 amp=500 dur=- n=8 失败=8 耗时=36.4s
+  [W1_1w] band5 amp=1000 dur=- n=8 失败=8 耗时=37.0s
+  [W1_1w] band5 amp=2000 dur=- n=8 失败=8 耗时=27.8s
+  [W1_1w] band5 amp=4000 dur=- n=8 失败=8 耗时=23.9s
+  [W1_1w] band15 amp=500 dur=- n=8 失败=8 耗时=25.9s
+  [W1_1w] band15 amp=1000 dur=- n=8 失败=8 耗时=31.1s
+  [W1_1w] band15 amp=2000 dur=- n=8 失败=8 耗时=31.5s
+  [W1_1w] band15 amp=4000 dur=- n=8 失败=8 耗时=22.8s
+  [W1_1w] band40 amp=500 dur=- n=8 失败=8 耗时=21.9s
+  [W1_1w] band40 amp=1000 dur=- n=8 失败=8 耗时=24.9s
+  [W1_1w] band40 amp=2000 dur=- n=8 失败=8 耗时=36.5s
+  [W1_1w] band40 amp=4000 dur=- n=8 失败=8 耗时=28.2s
+  [W1_1w] tap amp=10 dur=20 n=14 失败=0 耗时=49.4s
+  [W1_1w] tap amp=10 dur=50 n=14 失败=0 耗时=41.0s
+  [W1_1w] tap amp=10 dur=100 n=14 失败=0 耗时=48.1s
+  [W1_1w] tap amp=10 dur=200 n=14 失败=4 耗时=50.9s
+  [W1_1w] tap amp=10 dur=500 n=14 失败=14 耗时=51.6s
+  [W1_1w] tap amp=20 dur=20 n=14 失败=0 耗时=56.6s
+  [W1_1w] tap amp=20 dur=50 n=14 失败=0 耗时=53.9s
+  [W1_1w] tap amp=20 dur=100 n=14 失败=6 耗时=50.6s
+  [W1_1w] tap amp=20 dur=200 n=14 失败=2 耗时=53.8s
+  [W1_1w] tap amp=20 dur=500 n=14 失败=14 耗时=55.7s
+  [W1_1w] tap amp=30 dur=20 n=14 失败=0 耗时=57.6s
+  [W1_1w] tap amp=30 dur=50 n=14 失败=0 耗时=54.8s
+  [W1_1w] tap amp=30 dur=100 n=14 失败=12 耗时=51.9s
+  [W1_1w] tap amp=30 dur=200 n=14 失败=2 耗时=45.9s
+  [W1_1w] tap amp=30 dur=500 n=14 失败=14 耗时=42.4s
+  [W1_1w] tap amp=50 dur=20 n=14 失败=14 耗时=41.8s
+  [W1_1w] tap amp=50 dur=50 n=14 失败=14 耗时=39.1s
+  [W1_1w] tap amp=50 dur=100 n=14 失败=14 耗时=40.4s
+  [W1_1w] tap amp=50 dur=200 n=14 失败=2 耗时=38.3s
+  [W1_1w] tap amp=50 dur=500 n=14 失败=14 耗时=37.9s
+  [W1_1w] tap amp=100 dur=20 n=14 失败=14 耗时=44.6s
+  [W1_1w] tap amp=100 dur=50 n=14 失败=14 耗时=41.4s
+  [W1_1w] tap amp=100 dur=100 n=14 失败=14 耗时=41.6s
+  [W1_1w] tap amp=100 dur=200 n=14 失败=14 耗时=47.7s
+  [W1_1w] tap amp=100 dur=500 n=14 失败=14 耗时=44.3s
+  [W1_1w] step amp=5 dur=50 n=0 失败=0 耗时=32.9s
+  [W1_1w] step amp=20 dur=50 n=0 失败=0 耗时=33.5s
+
+分片完成 w1：trial=630 候选=2977 耗时 2280.6s

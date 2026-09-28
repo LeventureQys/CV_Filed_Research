@@ -1,0 +1,75 @@
+==== T1-A 09_conclusions ==== 2026-09-19 01:02:45
+cmd : C:\Python314\python.exe scripts/t1a_09_conclusions.py
+ROOT: D:\workshop\Processing\multi-device-cascade-host-cpp
+脚本目录: D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T1_稳定时间定义与鲁棒性口径\scripts
+== 容差/噪声比（D1 的 5%·|J| ÷ 1.4826·MAD(pre 窗)）==
+  onset   n=22 ratio_ch 中位   20.47 (p10~p90   7.37~  75.82)  ratio_tot 中位   433.15  ratio_ch<1 的  0/22
+  restep  n=19 ratio_ch 中位    1.20 (p10~p90   0.13~  18.60)  ratio_tot 中位     2.31  ratio_ch<1 的  9/19
+  unload  n=14 ratio_ch 中位   30.75 (p10~p90  15.88~  58.70)  ratio_tot 中位    31.53  ratio_ch<1 的  0/14
+  → ratio<1 表示容差本身小于噪声：该事件上 T_stable 由噪声决定，不可测/无意义
+
+== 关键数字（供 JSON/报告）==
+  raw   恒载9组 onset: med(ch5)=9.42 pass=1/9 | ev_ch5 med=5.92 pass=1/7 | tot5=16.29 | creep=8.11
+  v5.1  恒载9组 onset: med(ch5)=2.89 pass=4/9 | ev_ch5 med=2.89 pass=3/7 | tot5=3.83 | creep=2.78
+  v6    恒载9组 onset: med(ch5)=1.80 pass=5/9 | ev_ch5 med=1.15 pass=5/7 | tot5=0.55 | creep=0.50
+  v6.1  恒载9组 onset: med(ch5)=1.16 pass=5/9 | ev_ch5 med=0.46 pass=5/7 | tot5=0.53 | creep=0.43
+  t90 中位: onset 0.67 / restep 1.98 / unload 0.03 s
+  z_at_10 中位: onset 0.921 / restep 0.738
+  T_ramp 中位: onset 0.010 / restep 0.220 s（clean: 0.010 / 0.550）；restep T_ramp>1 s: 1/18
+  跟随器下界 T_in5（原始主通道）中位 4.70 s（n=8 可测）
+  重捕获/内部延迟下界 = TAU_REF 0.20 + STALL_HOLD_S 0.45 = 0.65 s
+
+== conclusions_T1A.json ==
+[
+ {
+  "n": 1,
+  "claim": "冻结口径（主通道 + 5 s 参考）下 v6 的恒载 9 组 onset 中位稳定时间",
+  "value": "1.80 s（v6.1 1.16 s；v5.1 2.89 s；raw 9.42 s）",
+  "source": "results/t1a_settle_summary.csv:caliber=ch5,group=onset·恒载9组,col=med"
+ },
+ {
+  "n": 2,
+  "claim": "「≤2 s」达标率（冻结口径，分母 = 可测事件数）——中位达标但最差严重超标",
+  "value": "v6 5/9=55.6%（worst 13.16 s）；v6.1 5/9=55.6%；v5.1 4/9=44.4%；raw 1/9=11.1%",
+  "source": "results/t1a_target_verdict.csv（caliber=ch5,group=onset·恒载9组）"
+ },
+ {
+  "n": 3,
+  "claim": "分工况达标（冻结口径）：卸载类最好、restep 结构性不可测、实录类靠修订口径才可测",
+  "value": "unload v6 9/9 达标（中位 0.09 s）；restep 19 个里仅 2 个可测且都 >2 s；实录族 v6 修订口径 6/8 达标",
+  "source": "results/t1a_target_verdict.csv + results/t1a_settle_summary.csv"
+ },
+ {
+  "n": 4,
+  "claim": "三个自由度的口径差（同一份 v6、同一批恒载 9 组；冻结口径）",
+  "value": "主通道 1.80 / 总通道 0.55 / 含蠕变 0.50 s（最大差 3.6 倍）；第一轮口径下同一组为 1.72 / 0.46 / 0.40 s",
+  "source": "results/t1a_settle_summary.csv（v6,onset·恒载9组）+ results/t1a_settle_edge_sensitivity.csv"
+ },
+ {
+  "n": 5,
+  "claim": "第一轮 5 个公开值全部复现/裁决完成",
+  "value": "1.72 / 0.46 / 0.41 s 精确复现（用第一轮自己的 t_on 与网格，9/9 份逐份差 ≤0.01 s）；2.72 s = 1.72+1.00 s 的切片下标 bug（非口径）；0.55 s 用『总通道+回溯真沿』独立复现 0.55 s",
+  "source": "results/t1a_round1_audit.csv、results/t1a_settle_edge_sensitivity.csv、results/t1a_grid_sensitivity.csv"
+ },
+ {
+  "n": 6,
+  "claim": "本任务冻结口径相对第一轮系统性 +0.08~0.10 s（只因 t_on 定义更早 0.09 s）",
+  "value": "v6 主通道：1.72（第一轮口径 1.72）→ 1.80 s（冻结口径）；总通道 0.46→0.55；含蠕变 0.40→0.50",
+  "source": "results/t1a_settle_edge_sensitivity.csv"
+ },
+ {
+  "n": 7,
+  "claim": "T_stable 与 T_settle(ε) 的口径差：中位接近、删失更多、极端差可达 120 s",
+  "value": "配对中位差 0.00~1.11 s（v6），但 T_settle 删失 43/60 > T_stable 删失 37/60，单事件最大差 120.96 s",
+  "source": "results/t1a_d1_vs_d2.csv、results/t1a_definition_compare.csv"
+ },
+ {
+  "n": 8,
+  "claim": "理论下界：输入侧不构成瓶颈，瓶颈是传感器粘弹 + 判据延迟",
+  "value": "等效输入斜坡 T_ramp 中位 onset 0.010 s / restep 0.220 s（clean 0.550 s），restep 仅 1/18 事件 >1 s；v6 内部延迟下界 0.65 s；跟随器下界 T_in5 中位 4.70 s（n=8）",
+  "source": "results/t1a_lowerbound.csv、T4-A/results/t4a_input_recover.csv、scripts/t1a_glm53_v6.py 常数"
+ }
+]
+-> D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T1_稳定时间定义与鲁棒性口径\results\t1a_tol_noise.csv
+-> D:\workshop\Processing\multi-device-cascade-host-cpp\temp\v4.1flash\plan\v1.0\T1_稳定时间定义与鲁棒性口径\results\conclusions_T1A.json
+done

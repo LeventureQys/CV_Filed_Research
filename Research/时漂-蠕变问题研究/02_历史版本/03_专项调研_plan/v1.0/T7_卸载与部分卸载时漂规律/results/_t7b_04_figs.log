@@ -1,0 +1,4 @@
+CMD: python scripts/t7b_04_figs.py
+  wrote T7B_01_partial_shape.png
+  wrote T7B_02_asymmetry.png
+  wrote T7B_03_baseline_bias.png

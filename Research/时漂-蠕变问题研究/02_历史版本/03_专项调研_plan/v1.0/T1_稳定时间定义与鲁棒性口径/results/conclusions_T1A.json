@@ -1,0 +1,135 @@
+{
+  "task": "T1",
+  "seat": "T1-A",
+  "date": "2026-09-19",
+  "scope": "T1-Q1~Q5（稳定时间的定义与实测）；T1-Q6~Q10（鲁棒性扰动扫描）属 T1-B，本件不含",
+  "frozen_caliber": {
+    "name": "T_stable_ch5（主口径 D1）",
+    "definition": "从真沿 t_on 起算，首次存在 τ 使 [t_on+τ, t_on+τ+30 s] 内显示读数相对该时刻自身的漂移 ≤ 5%·|J_ref|；要求完整 30 s 窗，不因后续事件截断",
+    "signal": "事件主通道（该录制加载段最大台阶通道；恒载 9 组 = 第一轮指定通道 17/18/11）",
+    "ref_amplitude": "J_ref = 中位([t_on+4, t_on+6]) − 中位([t_on−2, t_on))（指标字典 §2.1）",
+    "grid": "timestamp 重采样 100 Hz（dt=0.01 s）",
+    "t_on": "T4-A 真沿（检出沿 ±0.20 s 内最大单帧跳变帧）",
+    "worst_case_caliber": "即本口径本身（三候选中数值最大：恒载 9 组 v6 1.80 s ≥ 总通道 0.55 s ≥ 含蠕变 0.50 s）",
+    "multi_event_variant": "T_stable_ev_ch5：窗在下一真实事件处截断、要求可用窗 ≥5 s（实录类必须用它，且须同报删失状态）"
+  },
+  "headline": [
+    {
+      "n": 1,
+      "claim": "冻结口径（主通道 + 5 s 参考）下 v6 的恒载 9 组 onset 中位稳定时间",
+      "value": "1.80 s（v6.1 1.16 s；v5.1 2.89 s；raw 9.42 s）",
+      "source": "results/t1a_settle_summary.csv:caliber=ch5,group=onset·恒载9组,col=med"
+    },
+    {
+      "n": 2,
+      "claim": "「≤2 s」达标率（冻结口径，分母 = 可测事件数）——中位达标但最差严重超标",
+      "value": "v6 5/9=55.6%（worst 13.16 s）；v6.1 5/9=55.6%；v5.1 4/9=44.4%；raw 1/9=11.1%",
+      "source": "results/t1a_target_verdict.csv（caliber=ch5,group=onset·恒载9组）"
+    },
+    {
+      "n": 3,
+      "claim": "分工况达标（冻结口径）：卸载类最好、restep 结构性不可测、实录类靠修订口径才可测",
+      "value": "unload v6 9/9 达标（中位 0.09 s）；restep 19 个里仅 2 个可测且都 >2 s；实录族 v6 修订口径 6/8 达标",
+      "source": "results/t1a_target_verdict.csv + results/t1a_settle_summary.csv"
+    },
+    {
+      "n": 4,
+      "claim": "三个自由度的口径差（同一份 v6、同一批恒载 9 组；冻结口径）",
+      "value": "主通道 1.80 / 总通道 0.55 / 含蠕变 0.50 s（最大差 3.6 倍）；第一轮口径下同一组为 1.72 / 0.46 / 0.40 s",
+      "source": "results/t1a_settle_summary.csv（v6,onset·恒载9组）+ results/t1a_settle_edge_sensitivity.csv"
+    },
+    {
+      "n": 5,
+      "claim": "第一轮 5 个公开值全部复现/裁决完成",
+      "value": "1.72 / 0.46 / 0.41 s 精确复现（用第一轮自己的 t_on 与网格，9/9 份逐份差 ≤0.01 s）；2.72 s = 1.72+1.00 s 的切片下标 bug（非口径）；0.55 s 用『总通道+回溯真沿』独立复现 0.55 s",
+      "source": "results/t1a_round1_audit.csv、results/t1a_settle_edge_sensitivity.csv、results/t1a_grid_sensitivity.csv"
+    },
+    {
+      "n": 6,
+      "claim": "本任务冻结口径相对第一轮系统性 +0.08~0.10 s（只因 t_on 定义更早 0.09 s）",
+      "value": "v6 主通道：1.72（第一轮口径 1.72）→ 1.80 s（冻结口径）；总通道 0.46→0.55；含蠕变 0.40→0.50",
+      "source": "results/t1a_settle_edge_sensitivity.csv"
+    },
+    {
+      "n": 7,
+      "claim": "T_stable 与 T_settle(ε) 的口径差：中位接近、删失更多、极端差可达 120 s",
+      "value": "配对中位差 0.00~1.11 s（v6），但 T_settle 删失 43/60 > T_stable 删失 37/60，单事件最大差 120.96 s",
+      "source": "results/t1a_d1_vs_d2.csv、results/t1a_definition_compare.csv"
+    },
+    {
+      "n": 8,
+      "claim": "理论下界：输入侧不构成瓶颈，瓶颈是传感器粘弹 + 判据延迟",
+      "value": "等效输入斜坡 T_ramp 中位 onset 0.010 s / restep 0.220 s（clean 0.550 s），restep 仅 1/18 事件 >1 s；v6 内部延迟下界 0.65 s；跟随器下界 T_in5 中位 4.70 s（n=8）",
+      "source": "results/t1a_lowerbound.csv、T4-A/results/t4a_input_recover.csv、scripts/t1a_glm53_v6.py 常数"
+    }
+  ],
+  "verdicts": [
+    {
+      "question": "T1-Q1",
+      "answer": "给 3 个候选（D1 T_stable 自身漂移型 / D2 T_settle(ε) 相对终值型 / D3 T_band 真值带型），推荐并冻结 D1 的主通道+5 s 参考版（T_stable_ch5）：它是三者中最严（数值最大）、不奖励通道平均、不奖励移动参考幅度、且与第一轮/07-v6 同源可追溯。D2/D3 因『Z_final/真值』本身依赖算法正确性（把『准』混进『稳』）且删失更多，仅作为辅助口径。",
+      "three_state": "支持"
+    },
+    {
+      "question": "T1-Q2",
+      "answer": "三实现 × 三口径 × 分族/分工况的分布见 results/t1a_settle_metrics.csv（240 行）与 t1a_settle_summary.csv；恒载 9 组 onset 中位：v6 1.80 / 0.55 / 0.50 s（主通道/总通道/含蠕变），v6.1 1.16 / 0.53 / 0.43 s，v5.1 2.89 / 3.83 / 2.78 s，raw 9.42 / 16.29 / 8.11 s。",
+      "three_state": "支持"
+    },
+    {
+      "question": "T1-Q3",
+      "answer": "分工况裁决：onset·恒载9组 v6 5/9 达标（最差 13.16 s）⇒部分达标；onset·实录 修订口径 v6 7/11=64%；unload v6 9/9=100% ⇒达标；restep 19 个中仅 2 个可测且均 >2 s（75 s 量级）⇒不达标且指标结构性失效。逐个超标事件与超出量见 t1a_target_exceed.csv（41 行）。",
+      "three_state": "有条件支持"
+    },
+    {
+      "question": "T1-Q4",
+      "answer": "T_stable 与 T_settle(ε) 在配对样本上中位差 0.00~1.11 s、Spearman 0.68~0.96，但 D2 删失更多（43~47/60 vs 37/60）且单事件最大差 120 s；验收应用 D1（T_stable_ch5），D2 只作辅助。对第一轮的裁决：1.72/0.46/0.41 s 全部复现（口径本身就是这三档）；2.72 s 是代码 bug 不是口径（=修正值+1.00 s）；0.55 s 是『总通道+回溯真沿』口径（独立复现）。",
+      "three_state": "支持"
+    },
+    {
+      "question": "T1-Q5",
+      "answer": "下界由三件事决定：(a) 输入等效斜坡 T_ramp（onset 0.010 s、restep 0.220 s，仅 1/18 个 restep >1 s）⇒『输入没走完』不是 ≤2 s 的主要障碍；(b) 判据/估计延迟（v6: TAU_REF 0.20 + STALL_HOLD_S 0.45 = 0.65 s）；(c) 传感器粘弹（restep t90 中位 1.98 s、1 s 完成度仅 0.738 vs onset 0.921）。纯跟随器的下界 T_in5 中位 4.70 s（n=8 可测）——v6 在 8/8 同批事件上快于该下界，靠预测+冻结，代价是过冲。",
+      "three_state": "有条件支持"
+    }
+  ],
+  "corrections": [
+    {
+      "against": "13-v6-assessment/results/settle_arms.csv",
+      "was": "v6 T_stable 中位 1.72 / 0.46 / 0.41 s（主通道/总通道/含蠕变）",
+      "now": "同口径逐份复现（9/9 份差 ≤0.01 s，中位完全相同）；本任务冻结口径（换用 T4-A 真沿）给出 1.80 / 0.55 / 0.50 s",
+      "verdict": "相同"
+    },
+    {
+      "against": "plan/v1.0/第一轮现状与口径更正.md（2.72 s 为『早期主通道』）",
+      "was": "2.72 s 与 1.72 s 是口径差异",
+      "now": "2.72 = 1.72 + 1.00 s，是 r4 stable_time 把切片相对下标当绝对下标的恒定偏移（该文件自述的 bug），不是另一个口径；用第一轮网格+第一轮 t_on 复算 9/9 份 = 5.35/13.06/3.79/0.41/1.05/0.40/2.63/1.72/0.39（公布值逐份同）",
+      "verdict": "推翻"
+    },
+    {
+      "against": "07-v6/MANIFEST.md（T_stable 中位 0.55 s）",
+      "was": "v6 把稳定时间压到 0.55 s（可与 1.72 s 混讲）",
+      "now": "0.55 s 是『总通道 + 回溯真沿』口径；本任务独立复现 = 0.55 s。主通道+5 s 口径下同一份 v6 是 1.80 s ⇒ 两数不可横比",
+      "verdict": "修正"
+    },
+    {
+      "against": "07-v6/docs/07-v6算法说明.md §2.2（restep 慢 6 倍且慢在输入）",
+      "was": "restep t90 2.87 s、慢在输入不在传感器",
+      "now": "T4-A 反卷积：restep 等效输入斜坡中位 0.220 s（clean 0.550 s），仅 1/18 事件 >1 s ⇒ 输入本身在 1 s 内走完；restep 的慢来自传感器粘弹响应（t90 中位 1.98 s、1 s 完成度 0.738）与判据，而不是输入未完成",
+      "verdict": "修正"
+    },
+    {
+      "against": "第一轮（主通道/总通道/含蠕变三口径并列，未冻结）",
+      "was": "『1~2 s 达没达标取决于选哪个口径』",
+      "now": "冻结唯一验收口径 T_stable_ch5；并把『总通道更松』这一直觉限定为『只对补偿臂成立』——raw 臂上总通道反而更严（16.29 s vs 9.42 s）",
+      "verdict": "修正"
+    }
+  ],
+  "gaps": [
+    "跨载荷量级（5N/10N/20N）缺失：无法判定稳定时间是否随载荷量级变化（沿用 T4-A G1）",
+    "无受控加载速率实验：T_ramp 只能反演、不能标定，Q5 的『输入侧下界』只能用观测到的斜坡时长",
+    "restep 工况只有 2/19 个事件可测稳定时间 ⇒ restep 的结论基于 n=2（仅定性参考），需要『短静默窗 + 事件后偏差』类指标的新定义与补采",
+    "实录类 ADC 域的 5%·J 容差在部分小台阶事件上低于单通道噪声（ratio_ch<1，见 t1a_tol_noise.csv）⇒ 这些事件的 T_stable 是噪声驱动量，需要先定『容差下限（如 ≥3σ）』",
+    "v6 的 T_stable 对分析网格敏感：1/9 份录制在 100 Hz vs 100.5 Hz（span/(n−1)）网格下从 3.79 s 变 6.66 s（路径抖动，见 t1a_grid_sensitivity.csv）；未做系统抖动扫描（属 T1-B Q8）",
+    "本次未做时序抖动/丢包/拍击注入下的 T_stable 退化（属 T1-B），因此『鲁棒性达标率』本件不回答",
+    "raw 臂的总通道 T_stable 中位复算 16.21 s vs 首轮 17.98 s（1 份录制的平台判定差异）；raw 非候选臂，未逐份深究"
+  ],
+  "blockers": []
+}

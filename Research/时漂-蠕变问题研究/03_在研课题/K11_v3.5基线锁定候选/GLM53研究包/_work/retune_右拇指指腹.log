@@ -1,0 +1,15 @@
+
+########## 右拇指指腹 ##########
+  现役默认：score=221.2 过减=315 ADC 扣除=11%
+  起点0: score=400.1 过减=768 ADC
+    pass1: score=191.70
+    pass2: score=189.89
+    pass3: score=189.89
+  起点1: score=773.3 过减=1690 ADC
+    pass1: score=191.60
+    pass2: score=189.40
+    pass3: score=189.40
+  ★ 最优 score=189.40 过减=237 ADC 扣除=6% 残漂=94%
+    {"r_fast": 0.0, "tau_c_fast_s": 2.0, "r_slow_max": 2.0, "slope_cap_frac": 0.005, "slope_gate_frac": 0.5, "slow_confirm_s": 10.0, "soft_unfreeze_s": 8.0, "edge_slope_thres": 10.0, "tau_slope_s": 2.0, "tau_r_slow_idle_s": 30.0, "tau_r_fast_s": 0.2, "hold_eps": 0.5, "idle_frac": 0.02, "ramp_slope_min": 0.5, "edge_boost_s": 5.0}
+
+batches=87  写出 D:\workshop\文档\v2.7 - 抗蠕变补偿算法\GLM53\_work\retune_all.json

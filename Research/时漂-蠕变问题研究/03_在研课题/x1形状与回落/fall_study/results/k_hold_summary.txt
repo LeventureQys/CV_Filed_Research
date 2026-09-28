@@ -1,0 +1,6 @@
+K 系预留池聚焦对比（base / H3 / K5=base+hold / K6=H3+hold，限额 τ=0.5s+2ADC/s）
+
+base             n=73  fall中位=  483.4  excess中位= 262.1  p90= 833.0  max= 1187.7  t_set中位=10.46s
+H3_F12_w4        n=73  fall中位=  173.8  excess中位=  49.2  p90= 396.0  max=  752.0  t_set中位=10.84s
+K5_base+holdA2   n=73  fall中位=  322.0  excess中位= 205.0  p90= 696.6  max=  984.6  t_set中位=11.05s
+K6_H3+holdA2     n=73  fall中位=  150.8  excess中位=  26.9  p90= 413.0  max=  768.9  t_set中位=10.85s
